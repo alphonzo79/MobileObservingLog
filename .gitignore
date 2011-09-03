@@ -1,0 +1,68 @@
+# FileSystem ignores are located in System\FileSystems\.gitignore
+
+# lets deny all git add
+
+*.pdb
+*.doc
+*.EAP
+*.suo
+*.obj
+*.OBJ
+*/Debug/*
+*/Release/*
+*/obj/*
+*/bin/*
+*/lib/*
+*/publish/*
+
+
+# MS VS performance output file
+*.psess
+
+# merge droppings
+*.orig
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+
+*.include
+
+*.wixobj
+
+Results/*
+Docs/*
+
+*.exp
+
+
+*.xsl.gen.*
+*.Generated.*
+Build/Tools/JediBuildLogger*
+*.tmp
+*.bin
+*.Completed
