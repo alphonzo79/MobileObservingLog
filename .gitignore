@@ -3,7 +3,6 @@
 # lets deny all git add
 
 *.pdb
-*.doc
 *.EAP
 *.suo
 *.obj
@@ -14,6 +13,7 @@
 */bin/*
 */lib/*
 */publish/*
+*gen/*
 
 
 # MS VS performance output file
