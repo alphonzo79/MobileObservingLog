@@ -14,6 +14,8 @@
 */lib/*
 */publish/*
 *gen/*
+*.indd
+*.idlk
 
 
 # MS VS performance output file
