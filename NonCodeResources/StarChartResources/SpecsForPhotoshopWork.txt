@@ -1,0 +1,70 @@
+Specs for Star Chart
+
+SkyChart:
+	Mag 5.5 on stars
+	90 degree field of view
+	Center on object
+	Show Stars
+	Show constellation lines
+	show objects below the horizon
+	show labels
+	Print to PDF
+		Black and white line mode
+	No Telrad
+	no grid lines
+	
+Photoshop:
+	Set units to pixels
+	Set Input folder
+	Set output folder
+	Open PDF
+		1650 x 1275 px
+		150 dpi
+		RGB Color
+		8 Bit
+	Crop
+		Left edge 324 px
+		Top edge 298 px
+		Width 1000 px
+		Height 710 px
+	Draw Finder Target
+		Black
+		2 px 
+		Position = Inside
+		Fill = transparent
+		Edge specs are based on the new 0,0 coordinates after cropping
+		4 degree circle
+			Left Edge 469
+			Top Edge 321
+			Width 67
+			Height 67
+		2 degree circle
+			Left Edge 485
+			Top Edge 337
+			Width 35
+			Height 35
+		1/2 degree circle
+			Left Edge 498
+			Top Edge 350
+			Width 9
+			Height 9
+	Flatten Image
+	Save for Web
+		Gif
+		8 colors
+		In specified folder
+	Invert
+	New Layer
+		Paint bucket Fill in red
+			255, 0, 0
+		Set Blend mode to Multiply
+	Flatten Image
+	Save For Web
+		Gif
+		8 colors 
+		In specified Folder
+		Append .NightMode
+	Close
+		Do Not Save
+		
+			
