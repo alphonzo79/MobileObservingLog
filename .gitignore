@@ -16,6 +16,7 @@
 *gen/*
 *.indd
 *.idlk
+*/Catalogs/*
 
 
 # MS VS performance output file

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, ObservingLogActivity!</string>
-    <string name="app_name">ObservingLog</string>
+    <string name="app_name">Mobile Astronomical Observing Log</string>
+    <string name="initial_text">Please select the operation mode for this session</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="normal_mode">Normal Mode</string>
 </resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    >
+    
+	<TextView  
+	    android:id="@+id/initialHeader"
+    	android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/app_name"
+	    android:textColor="#000000"
+	    android:gravity="center_horizontal"
+	    android:background="#ff0000"
+	    android:padding="2dp"
+	    android:textStyle="bold"
+	    />
+		
+	<TextView  
+	    android:id="@+id/initialFooter"
+    	android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="Home Screen -- Yay!"
+	    android:textColor="#ff0000"
+	    android:layout_weight="10"
+		android:layout_marginBottom="10dp"
+	    android:gravity="center"
+	    />
+	    
+</LinearLayout>

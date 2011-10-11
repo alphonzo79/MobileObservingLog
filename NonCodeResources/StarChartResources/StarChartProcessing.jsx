@@ -1,4 +1,4 @@
-//*************************************************************
+﻿//*************************************************************
 //Photoshop script to process star chart images that have been
 //printed from Skycharts/Cartes de Ciel. Charts should be printed
 //from a 90 degree FOV, black/white lines, centered on the target
@@ -42,6 +42,15 @@ var destinationFolder = Folder.selectDialog("Please select the destination folde
 //var outfolder = new Folder(decodeURI(inputFolder) + "/cropped");
 //if (outfolder.exists == false) outfolder.create();
 
+//Import the finder targets
+	var telradFileRef = new File("C://Documents and Settings//Joe//My Documents//AndroidProjects//ObservingLog//NonCodeResources//StarChartResources//TelradTarget.psd");
+    var telradDocRef = app.open(telradFileRef);
+    
+    var telradLayer = telradDocRef.artLayers.getByName("Telrad");
+    var copiedLayer = telradLayer.copy();
+    
+    telradDocRef.close(SaveOptions.DONOTSAVECHANGES);
+
 // open files
 for (var a in fileList){
 
@@ -63,6 +72,8 @@ for (var a in fileList){
 	app.activeDocument.crop(bounds);
 	bounds = null;
 	
+	/*Moved to outside the loop
+		
 	//Import the finder targets
 	var newLayer = app.activeDocument.artLayers.add();
     newLayer.name = "TelradLayer";
@@ -75,6 +86,12 @@ for (var a in fileList){
     var copiedLayer = telradLayer.copy();
     
     telradDocRef.close(SaveOptions.DONOTSAVECHANGES);
+
+*/
+	var newLayer = app.activeDocument.artLayers.add();
+    newLayer.name = "TelradLayer";
+    app.activeDocument.activeLayer = newLayer;
+    
     
     app.activeDocument.paste();
     
