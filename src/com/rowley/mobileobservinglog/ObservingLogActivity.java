@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import com.rowley.mobileobservinglog.R;
 
-public class ObservingLogActivity extends ActivityBase implements View.OnClickListener{
+public class ObservingLogActivity extends ActivityBase{
 	
 	Button btnNight;
 	Button btnNormal;
@@ -14,9 +14,7 @@ public class ObservingLogActivity extends ActivityBase implements View.OnClickLi
 	//Create listeners
     private final Button.OnClickListener btnNightOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-        	setSessionMode(SessionMode.night);
-        	btnNight.setText("Night Mode Set. mode = " + getSessionMode().toString());
-        	btnNormal.setText("Normal Mode");
+        	setNightMode();
         	Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
@@ -24,10 +22,8 @@ public class ObservingLogActivity extends ActivityBase implements View.OnClickLi
     
     private final Button.OnClickListener btnNormalOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		setSessionMode(SessionMode.normal);
-        	btnNormal.setText("Normal Mode Set. mode = " + getSessionMode().toString());
-        	btnNight.setText("Night Mode");
-        	Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
+    		setNormalMode();
+    		Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
     };
@@ -38,7 +34,7 @@ public class ObservingLogActivity extends ActivityBase implements View.OnClickLi
         super.onCreate(savedInstanceState);
         
         //Set the session mode to night until it get changed
-        setSessionMode(SessionMode.night);
+        setNightMode();
         
         setContentView(R.layout.initial);
         btnNight=(Button)findViewById(R.id.initialNightButton);
@@ -46,8 +42,21 @@ public class ObservingLogActivity extends ActivityBase implements View.OnClickLi
         btnNight.setOnClickListener(btnNightOnClick);
         btnNormal.setOnClickListener(btnNormalOnClick);
     }
-    
-    
+	
+	@Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }    
     
     //The compiler was not recognizing the onClick implementation inside of the onClickListeners created at the top of the file. 
     //This empty method satisfies the compiler so it won't yell about not implementing a method from the interface

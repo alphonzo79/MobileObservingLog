@@ -39,8 +39,10 @@ var fileList = inputFolder.getFiles("*.pdf");
 
 //Destination Folder
 var destinationFolder = Folder.selectDialog("Please select the destination folder");
-//var outfolder = new Folder(decodeURI(inputFolder) + "/cropped");
-//if (outfolder.exists == false) outfolder.create();
+var outfolderNormal = destinationFolder + "/normal");
+if (outfolderNormal.exists == false) outfolder.create();
+var outfolderNight = destinationFolder + "/night");
+if (outfolderNight.exists == false) outfolder.create();
 
 //Import the finder targets
 	var telradFileRef = new File("C://Documents and Settings//Joe//My Documents//AndroidProjects//ObservingLog//NonCodeResources//StarChartResources//TelradTarget.psd");
@@ -101,7 +103,7 @@ for (var a in fileList){
     // Save the images in the new folder
 	app.displayDialogs = DialogModes.NO;
 	var Name = app.activeDocument.name;
-	var saveFile = new File(decodeURI(destinationFolder) + "/" + Name + ".gif");
+	var saveFile = new File(decodeURI(outfolderNormal) + "/" + Name + ".gif");
 	
 	var exportOptions = new ExportOptionsSaveForWeb();
 	exportOptions.colors = 8;
@@ -132,7 +134,7 @@ for (var a in fileList){
     // Save the images in the new folder
 	app.displayDialogs = DialogModes.NO;
 	var Name = app.activeDocument.name;
-	var saveFile = new File(decodeURI(destinationFolder) + "/" + Name + ".NightMode.gif");
+	var saveFile = new File(decodeURI(outfolderNight) + "/" + Name + ".gif");
 	
 	var exportOptions = new ExportOptionsSaveForWeb();
 	exportOptions.colors = 8;

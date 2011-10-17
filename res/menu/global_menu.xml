@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	
+    <item android:id="@+id/toggleMode"
+          android:title="@string/menuToggleMode"
+          android:icon="@drawable/eye_clipart"
+          android:onClick="toggleMode"/>
+</menu>

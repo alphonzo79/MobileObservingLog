@@ -5,4 +5,7 @@
     <string name="initial_text">Please select the operation mode for this session</string>
     <string name="night_mode">Night Mode</string>
     <string name="normal_mode">Normal Mode</string>
+    <string name="menuToggleMode">Toggle Mode</string>
+    <string name="toggleNightMode">Toggle Night Mode</string>
+    <string name="toggleNormalMode">Toggle Normal Mode</string>
 </resources>
