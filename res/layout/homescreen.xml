@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainBody"
+    android:id="@+id/home_root"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -19,16 +19,182 @@
 	    android:padding="2dp"
 	    android:textStyle="bold"
 	    />
+	    
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/home_main_container"
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:background="@color/black"
+	    >
+    
+	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:id="@+id/home_body"
+		    android:orientation="vertical"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:layout_gravity="center"
+		    android:background="@color/black"
+		    >
 		
-	<TextView  
-	    android:id="@+id/initialFooter"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    android:text="Home Screen -- Yay!"
-	    android:textColor="@color/red"
-	    android:layout_weight="10"
-		android:layout_marginBottom="10dp"
-	    android:gravity="center"
-	    />
+			<TextView  
+			    android:id="@+id/initialFooter"
+		    	android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content" 
+			    android:text="Home Screen -- Yay!"
+			    android:textColor="@color/red"
+			    android:layout_weight="10"
+				android:layout_marginBottom="10dp"
+			    android:gravity="center"
+			    />
+			
+		</LinearLayout>
+	
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    	android:id="@+id/menu"
+	    	android:orientation="horizontal"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="bottom|center_horizontal"
+		   	android:layout_weight="24"
+	    	android:background="@color/black40"
+	    	android:paddingTop="5dp"
+	    	>
+		    
+		    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    	android:id="@+id/menuHome"
+		    	android:orientation="vertical"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_gravity="bottom"
+			   	android:layout_weight="24"
+		    	>
+		    
+			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+					android:id="@+id/menuHomeButton"
+			    	android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/home_button"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="5dp"
+					android:layout_marginTop="5dp"
+					android:layout_marginBottom="5dp"
+					android:layout_gravity="top|center_horizontal"
+					/>
+					
+				<TextView  
+				    android:id="@+id/menuHomeText"
+			    	android:layout_width="fill_parent" 
+				    android:layout_height="wrap_content" 
+				    android:text="@string/menu_return_home"
+				    android:textColor="@color/white40"
+					android:layout_marginBottom="5dp"
+				    android:gravity="bottom|center_horizontal"
+				    />
+				
+			</LinearLayout>
+		    
+		    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    	android:id="@+id/menuMode"
+		    	android:orientation="vertical"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_gravity="bottom"
+			   	android:layout_weight="24"
+		    	>
+		    
+			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+					android:id="@+id/menuModeButton"
+			    	android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/mode_button_night"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="5dp"
+					android:layout_marginTop="5dp"
+					android:layout_marginBottom="5dp"
+					android:layout_gravity="top|center_horizontal"
+					/>
+					
+				<TextView  
+				    android:id="@+id/menuModeText"
+			    	android:layout_width="fill_parent" 
+				    android:layout_height="wrap_content" 
+				    android:text="@string/menu_toggle_mode"
+				    android:textColor="@color/red60"
+					android:layout_marginBottom="5dp"
+				    android:gravity="bottom|center_horizontal"
+				    />
+				
+			</LinearLayout>
+		    
+		    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    	android:id="@+id/menuSettings"
+		    	android:orientation="vertical"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_gravity="bottom"
+			   	android:layout_weight="24"
+		    	>
+		    
+			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+					android:id="@+id/menuSettingsButton"
+			    	android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/settings_button"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="5dp"
+					android:layout_marginTop="5dp"
+					android:layout_marginBottom="5dp"
+					android:layout_gravity="top|center_horizontal"
+					/>
+					
+				<TextView  
+				    android:id="@+id/menuSettingsText"
+			    	android:layout_width="fill_parent" 
+				    android:layout_height="wrap_content" 
+				    android:text="@string/menu_settings"
+				    android:textColor="@color/white40"
+					android:layout_marginBottom="5dp"
+				    android:gravity="bottom|center_horizontal"
+				    />
+				
+			</LinearLayout>
+		    
+		    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    	android:id="@+id/menuInfo"
+		    	android:orientation="vertical"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_gravity="bottom"
+			   	android:layout_weight="24"
+		    	>
+		    
+			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+					android:id="@+id/menuInfoButton"
+			    	android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/info_button"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="5dp"
+					android:layout_marginTop="5dp"
+					android:layout_marginBottom="5dp"
+					android:layout_gravity="top|center_horizontal"
+					/>
+					
+				<TextView  
+				    android:id="@+id/menuInfoText"
+			    	android:layout_width="fill_parent" 
+				    android:layout_height="wrap_content" 
+				    android:text="@string/menu_info"
+				    android:textColor="@color/white40"
+					android:layout_marginBottom="5dp"
+				    android:gravity="bottom|center_horizontal"
+				    />
+		
+			</LinearLayout>
+		
+		</LinearLayout>
+		
+	</FrameLayout>
 	    
 </LinearLayout>
