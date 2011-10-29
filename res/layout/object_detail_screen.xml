@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/settings_root"
+    android:id="@+id/object_detail_root"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -12,7 +12,7 @@
 	    android:id="@+id/add_catalogs_header"
     	android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="@string/app_name"
+	    android:text="Object Name"
 	    android:textColor="@color/black"
 	    android:gravity="center_horizontal"
 	    android:background="@color/white"
@@ -24,7 +24,7 @@
 	    android:id="@+id/temp_text"
     	android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Settings Screen"
+	    android:text="Object Detail Screen"
 	    android:textColor="@color/black"
 	    android:gravity="center|center_vertical"
 	    android:padding="2dp"

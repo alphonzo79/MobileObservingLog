@@ -1,26 +1,10 @@
 package com.rowley.mobileobservinglog;
 
-import com.rowley.mobileobservinglog.R.menu;
-import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings.System;
-import android.view.InflateException;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.LayoutInflater.Factory;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.content.Context;
-import android.graphics.Color;
-import android.text.Html.TagHandler;
-import android.util.AttributeSet;
-import android.util.Log;
 
 public class HomeScreen extends ActivityBase{
 
@@ -31,6 +15,47 @@ public class HomeScreen extends ActivityBase{
 	Button addCatalogsButton;
 	Button backupRestoreButton;
 	Button settingsButton;
+    
+	//Create listeners
+    private final Button.OnClickListener catalogsButtonOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+        	setNightMode();
+        	Intent intent = new Intent(HomeScreen.this.getApplication(), CatalogsScreen.class);
+            startActivity(intent);
+        }
+    };
+    
+    private final Button.OnClickListener targetsButtonOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		setNormalMode();
+    		Intent intent = new Intent(HomeScreen.this.getApplication(), TargetListsScreen.class);
+            startActivity(intent);
+        }
+    };
+    
+    private final Button.OnClickListener addCatalogsButtonOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		setNormalMode();
+    		Intent intent = new Intent(HomeScreen.this.getApplication(), AddCatalogsScreen.class);
+            startActivity(intent);
+        }
+    };
+    
+    private final Button.OnClickListener backupRestoreButtonOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		setNormalMode();
+    		Intent intent = new Intent(HomeScreen.this.getApplication(), BackupRestoreScreen.class);
+            startActivity(intent);
+        }
+    };
+    
+    private final Button.OnClickListener settingsButtonOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		setNormalMode();
+    		Intent intent = new Intent(HomeScreen.this.getApplication(), SettingsScreen.class);
+            startActivity(intent);
+        }
+    };
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -43,7 +68,14 @@ public class HomeScreen extends ActivityBase{
         addCatalogsButton = (Button)findViewById(R.id.navToAddCatalogsButton);
         backupRestoreButton = (Button)findViewById(R.id.navToBackupButton);
         settingsButton = (Button)findViewById(R.id.navToSettingsButton);
-        body = (LinearLayout)findViewById(R.id.home_body); 
+        body = (LinearLayout)findViewById(R.id.home_root); 
+        
+        //set listeners
+        catalogsButton.setOnClickListener(catalogsButtonOnClick);
+        targetsButton.setOnClickListener(targetsButtonOnClick);
+        addCatalogsButton.setOnClickListener(addCatalogsButtonOnClick);
+        backupRestoreButton.setOnClickListener(backupRestoreButtonOnClick);
+        settingsButton.setOnClickListener(settingsButtonOnClick);
 	}
 	
 	@Override
@@ -71,17 +103,7 @@ public class HomeScreen extends ActivityBase{
 	//Toggle Mode menu item method
 	@Override
 	public void toggleMode(){
-		switch (getSessionMode()){
-			case night:
-				setNormalMode();
-				break;
-			case normal:
-				setNightMode();
-				break;
-			default:
-				setNightMode();
-				break;
-		}
+		super.toggleMode();
 		setContentView(getHomeLayout());
 		body.postInvalidate();
 	}
