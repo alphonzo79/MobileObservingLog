@@ -13,8 +13,8 @@ public class BackupRestoreScreen extends ActivityBase{
         super.onCreate(icicle);
         
         //setup the layout
-        setContentView(getBackupRestoreLayout());
-        body = (LinearLayout)findViewById(R.id.home_root); 
+        setContentView(SettingsContainer.getBackupRestoreLayout());
+        body = (LinearLayout)findViewById(R.id.backup_restore_root); 
 	}
 	
 	@Override
@@ -27,16 +27,17 @@ public class BackupRestoreScreen extends ActivityBase{
         super.onDestroy();
     }
 
+    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
         super.onResume();
+        setLayout();
     }
 	
-	//Toggle Mode menu item method
+  //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
-	public void toggleMode(){
-		super.toggleMode();
-		setContentView(getBackupRestoreLayout());
+	public void setLayout(){
+		setContentView(SettingsContainer.getBackupRestoreLayout());
 		body.postInvalidate();
 	}
 }

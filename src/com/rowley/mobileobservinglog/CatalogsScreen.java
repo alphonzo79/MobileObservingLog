@@ -13,8 +13,8 @@ public class CatalogsScreen extends ActivityBase{
         super.onCreate(icicle);
         
         //setup the layout
-        setContentView(getCatalogsLayout());
-        body = (LinearLayout)findViewById(R.id.catalogs_root); 
+        setContentView(SettingsContainer.getCatalogsLayout());
+        body = (LinearLayout)findViewById(R.id.catalogs_root);
 	}
 	
 	@Override
@@ -27,16 +27,17 @@ public class CatalogsScreen extends ActivityBase{
         super.onDestroy();
     }
 
+    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
         super.onResume();
+        setLayout();
     }
 	
-	//Toggle Mode menu item method
+    //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
-	public void toggleMode(){
-		super.toggleMode();
-		setContentView(getCatalogsLayout());
+	public void setLayout(){
+		setContentView(SettingsContainer.getCatalogsLayout());
 		body.postInvalidate();
 	}
 }

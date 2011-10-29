@@ -13,7 +13,7 @@ public class TargetListsScreen extends ActivityBase{
         super.onCreate(icicle);
         
         //setup the layout
-        setContentView(getTargetListsLayout());
+        setContentView(SettingsContainer.getTargetListsLayout());
         body = (LinearLayout)findViewById(R.id.targets_root); 
 	}
 	
@@ -27,16 +27,17 @@ public class TargetListsScreen extends ActivityBase{
         super.onDestroy();
     }
 
+    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
         super.onResume();
+        setLayout();
     }
 	
-	//Toggle Mode menu item method
+    //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
-	public void toggleMode(){
-		super.toggleMode();
-		setContentView(getTargetListsLayout());
+	public void setLayout(){
+		setContentView(SettingsContainer.getTargetListsLayout());
 		body.postInvalidate();
 	}
 }

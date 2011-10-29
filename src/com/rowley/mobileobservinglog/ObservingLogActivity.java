@@ -2,6 +2,7 @@ package com.rowley.mobileobservinglog;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,8 @@ public class ObservingLogActivity extends ActivityBase{
 	//Create listeners
     private final Button.OnClickListener btnNightOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-        	setNightMode();
+    		Log.d("Joe:Debug", "Initial Screen Night Mode Button Clicked");
+        	SettingsContainer.setNightMode();
         	Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
@@ -23,7 +25,8 @@ public class ObservingLogActivity extends ActivityBase{
     
     private final Button.OnClickListener btnNormalOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		setNormalMode();
+    		Log.d("Joe:Debug", "Initial Screen Normal Mode Button Clicked");
+    		SettingsContainer.setNormalMode();
     		Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
@@ -33,9 +36,10 @@ public class ObservingLogActivity extends ActivityBase{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		Log.d("Joe:Debug", "Initial Screen onCreate");
         
         //Set the session mode to night until it get changed
-        setNightMode();
+        SettingsContainer.setNightMode();
         
         setContentView(R.layout.initial);
         btnNight=(Button)findViewById(R.id.initialNightButton);
@@ -70,6 +74,7 @@ public class ObservingLogActivity extends ActivityBase{
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
 	    switch (keyCode) {
 	        case KeyEvent.KEYCODE_MENU:
+	    		Log.d("Joe:Debug", "Initial Screen menu button eaten");
 	         /* This is a sample for handling the Enter button */
 	      return true;
 	    }
