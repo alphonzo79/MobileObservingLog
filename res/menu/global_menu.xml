@@ -1,7 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	
+    <item android:id="@+id/returnHome"
+          android:title="@string/menu_return_home"
+          android:icon="@drawable/home_button_night"
+          android:onClick="returnHome"/>
+          
     <item android:id="@+id/toggleMode"
           android:title="@string/menu_toggle_mode"
-          android:icon="@drawable/eye_clipart"
+          android:icon="@drawable/mode_button_night"
           android:onClick="toggleMode"/>
+          
+    <item android:id="@+id/settings"
+          android:title="@string/menu_settings"
+          android:icon="@drawable/settings_button_night"
+          android:onClick="navToSettings"/>
+          
+    <item android:id="@+id/info"
+          android:title="@string/menu_info"
+          android:icon="@drawable/info_button_night"
+          android:onClick="showInfo"/>
 </menu>

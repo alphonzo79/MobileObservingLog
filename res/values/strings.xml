@@ -6,9 +6,14 @@
     <string name="night_mode">Night Mode</string>
     <string name="normal_mode">Normal Mode</string>
     <string name="menu_toggle_mode">Toggle Mode</string>
-    <string name="menu_toggle_night_Mode">Toggle Night Mode</string>
+    <string name="menu_toggle_night_mode">Toggle Night Mode</string>
     <string name="menu_toggle_normal_mode">Toggle Normal Mode</string>
     <string name="menu_return_home">Home</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_info">Info/About</string>
+    <string name="home_catalogs">Catalogs</string>
+    <string name="home_target_lists">Target Lists</string>
+    <string name="home_add_catalogs">Manage Catalogs</string>
+    <string name="home_backup">Backup, Restore and Export Log Data</string>
+    <string name="home_settings">Settings</string>
 </resources>
