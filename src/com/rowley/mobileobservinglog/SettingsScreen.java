@@ -8,12 +8,15 @@ public class SettingsScreen extends ActivityBase{
 	//gather resources
 	LinearLayout body;
 	
+	//Get access to the settings container singleton
+	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
+	
 	@Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         
         //setup the layout
-        setContentView(SettingsContainer.getSettingsLayout());
+        setContentView(settingsRef.getSettingsLayout());
         body = (LinearLayout)findViewById(R.id.settings_root); 
 	}
 	
@@ -37,7 +40,7 @@ public class SettingsScreen extends ActivityBase{
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
-		setContentView(SettingsContainer.getSettingsLayout());
+		setContentView(settingsRef.getSettingsLayout());
 		body.postInvalidate();
 	}
 }

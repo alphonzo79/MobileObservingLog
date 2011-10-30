@@ -24,7 +24,7 @@
 	    android:id="@+id/temp_text"
     	android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Taret List Screen"
+	    android:text="Target List Screen"
 	    android:textColor="@color/black"
 	    android:gravity="center|center_vertical"
 	    android:padding="2dp"

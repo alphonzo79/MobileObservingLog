@@ -15,11 +15,14 @@ public class HomeScreen extends ActivityBase{
 	Button addCatalogsButton;
 	Button backupRestoreButton;
 	Button settingsButton;
+	
+	//Get access to the settings container singleton
+	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
     
 	//Create listeners for each of the main buttons
     private final Button.OnClickListener catalogsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		SettingsContainer.setNightMode();
+    		settingsRef.setNightMode();
         	Intent intent = new Intent(HomeScreen.this.getApplication(), CatalogsScreen.class);
             startActivity(intent);
         }
@@ -27,7 +30,7 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener targetsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		SettingsContainer.setNormalMode();
+    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), TargetListsScreen.class);
             startActivity(intent);
         }
@@ -35,7 +38,7 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener addCatalogsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		SettingsContainer.setNormalMode();
+    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), AddCatalogsScreen.class);
             startActivity(intent);
         }
@@ -43,7 +46,7 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener backupRestoreButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		SettingsContainer.setNormalMode();
+    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), BackupRestoreScreen.class);
             startActivity(intent);
         }
@@ -51,7 +54,7 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener settingsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		SettingsContainer.setNormalMode();
+    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), SettingsScreen.class);
             startActivity(intent);
         }
@@ -62,7 +65,7 @@ public class HomeScreen extends ActivityBase{
         super.onCreate(icicle);
         
         //setup the layout
-        setContentView(SettingsContainer.getHomeLayout());
+        setContentView(settingsRef.getHomeLayout());
         findButtons();
         setListeners();
 	}
@@ -113,7 +116,7 @@ public class HomeScreen extends ActivityBase{
 	//Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
-		setContentView(SettingsContainer.getHomeLayout());
+		setContentView(settingsRef.getHomeLayout());
 		findButtons();
 		setListeners();
 		body.postInvalidate();

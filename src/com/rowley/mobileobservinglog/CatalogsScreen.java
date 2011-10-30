@@ -8,12 +8,15 @@ public class CatalogsScreen extends ActivityBase{
 	//gather resources
 	LinearLayout body;
 	
+	//Get access to the settings container singleton
+	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
+	
 	@Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         
         //setup the layout
-        setContentView(SettingsContainer.getCatalogsLayout());
+        setContentView(settingsRef.getCatalogsLayout());
         body = (LinearLayout)findViewById(R.id.catalogs_root);
 	}
 	
@@ -37,7 +40,7 @@ public class CatalogsScreen extends ActivityBase{
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
-		setContentView(SettingsContainer.getCatalogsLayout());
+		setContentView(settingsRef.getCatalogsLayout());
 		body.postInvalidate();
 	}
 }

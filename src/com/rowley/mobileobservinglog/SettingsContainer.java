@@ -8,6 +8,15 @@ public final class SettingsContainer {
 	private SettingsContainer(){
 		setNightMode();
 	}
+	
+	//Singleton reference variable and accessor
+	private static SettingsContainer ref;
+	public static synchronized SettingsContainer getSettingsContainer(){
+		if (ref == null){
+			ref = new SettingsContainer();
+		}
+		return ref;
+	}
 
 	//Member Variables
 	
@@ -17,92 +26,92 @@ public final class SettingsContainer {
 		normal
 	} 
 	
-	private static SessionMode mSessionMode;
-	public static SessionMode getSessionMode(){
+	private SessionMode mSessionMode;
+	public SessionMode getSessionMode(){
 		return mSessionMode;
 	}
-	private static void setSessionMode(SessionMode mode){
+	private void setSessionMode(SessionMode mode){
 		mSessionMode = mode;
 	}
 	
 	//Layouts. We need to maintain the layout references dependant on the session mode
-	private static int mHomeLayout;
-	public static int getHomeLayout(){
+	private int mHomeLayout;
+	public int getHomeLayout(){
 		return mHomeLayout;
 	}
-	private static void setHomeLayout(int layout){
+	private void setHomeLayout(int layout){
 		mHomeLayout = layout;
 	}
 	
-	private static int mAddCatalogsLayout;
-	public static int getAddCatalogsLayout(){
+	private int mAddCatalogsLayout;
+	public int getAddCatalogsLayout(){
 		return mAddCatalogsLayout;
 	}
-	private static void setAddCatalogsLayout(int layout){
+	private void setAddCatalogsLayout(int layout){
 		mAddCatalogsLayout = layout;
 	}
 	
-	private static int mCatalogsLayout;
-	public static int getCatalogsLayout(){
+	private int mCatalogsLayout;
+	public int getCatalogsLayout(){
 		return mCatalogsLayout;
 	}
-	private static void setCatalogsLayout(int layout){
+	private void setCatalogsLayout(int layout){
 		mCatalogsLayout = layout;
 	}
 	
-	private static int mInfoLayout;
-	public static int getInfoLayout(){
+	private int mInfoLayout;
+	public int getInfoLayout(){
 		return mInfoLayout;
 	}
-	private static void setInfoLayout(int layout){
+	private void setInfoLayout(int layout){
 		mInfoLayout = layout;
 	}
 	
-	private static int mObjectDetailLayout;
-	public static int getObjectDetailLayout(){
+	private int mObjectDetailLayout;
+	public int getObjectDetailLayout(){
 		return mObjectDetailLayout;
 	}
-	private static void setObjectDetailLayout(int layout){
+	private void setObjectDetailLayout(int layout){
 		mObjectDetailLayout = layout;
 	}
 	
-	private static int mSettingsLayout;
-	public static int getSettingsLayout(){
+	private int mSettingsLayout;
+	public int getSettingsLayout(){
 		return mSettingsLayout;
 	}
-	private static void setSettingsLayout(int layout){
+	private void setSettingsLayout(int layout){
 		mSettingsLayout = layout;
 	}
 	
-	private static int mTargetListsLayout;
-	public static int getTargetListsLayout(){
+	private int mTargetListsLayout;
+	public int getTargetListsLayout(){
 		return mTargetListsLayout;
 	}
-	private static void setTargetListsLayout(int layout){
+	private void setTargetListsLayout(int layout){
 		mTargetListsLayout = layout;
 	}
 	
-	private static int mBackupRestoreLayout;
-	public static int getBackupRestoreLayout(){
+	private int mBackupRestoreLayout;
+	public int getBackupRestoreLayout(){
 		return mBackupRestoreLayout;
 	}
-	private static void setBackupRestoreLayout(int layout){
+	private void setBackupRestoreLayout(int layout){
 		mBackupRestoreLayout = layout;
 	}
 	
 	//Options Menu toggle mode button text changes according to the mode.
-	private static int mModeText;
-	public static int getModeButtonText(){
+	private int mModeText;
+	public int getModeButtonText(){
 		return mModeText;
 	}
-	private static void setModeButtonText(int text){
+	private void setModeButtonText(int text){
 		mModeText = text;
 	}
 	
 	//Helper Methods
 	//Called to change from normal mode to night mode. This method will set all of the style attributes that are used in setting layouts
-	public static void setNightMode(){
-		Log.d("Joe:Debug", "SettingsContainer.setNightMode. Current session mode is " + getSessionMode());
+	public void setNightMode(){
+		Log.d("JoeDebug", "SettingsContainer.setNightMode. Current session mode is " + getSessionMode());
 		setSessionMode(SessionMode.night);
 		setModeButtonText(R.string.menu_toggle_normal_mode);
 		setHomeLayout(R.layout.homescreen_night);
@@ -115,8 +124,8 @@ public final class SettingsContainer {
 		setBackupRestoreLayout(R.layout.backup_restore_screen_night);
 	}
 	
-	public static void setNormalMode(){
-		Log.d("Joe:Debug", "SettingsContainer.setNormalMode. Current session mode is " + getSessionMode());
+	public void setNormalMode(){
+		Log.d("JoeDebug", "SettingsContainer.setNormalMode. Current session mode is " + getSessionMode());
 		setSessionMode(SessionMode.normal);
 		setModeButtonText(R.string.menu_toggle_night_mode);
 		setHomeLayout(R.layout.homescreen);

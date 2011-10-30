@@ -12,12 +12,15 @@ public class ObservingLogActivity extends ActivityBase{
 	
 	Button btnNight;
 	Button btnNormal;
+	
+	//Get access to the settings container singleton
+	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
     
 	//Create listeners
     private final Button.OnClickListener btnNightOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		Log.d("Joe:Debug", "Initial Screen Night Mode Button Clicked");
-        	SettingsContainer.setNightMode();
+    		Log.d("JoeDebug", "Initial Screen Night Mode Button Clicked");
+    		settingsRef.setNightMode();
         	Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
@@ -25,8 +28,8 @@ public class ObservingLogActivity extends ActivityBase{
     
     private final Button.OnClickListener btnNormalOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		Log.d("Joe:Debug", "Initial Screen Normal Mode Button Clicked");
-    		SettingsContainer.setNormalMode();
+    		Log.d("JoeDebug", "Initial Screen Normal Mode Button Clicked");
+    		settingsRef.setNormalMode();
     		Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
@@ -36,10 +39,10 @@ public class ObservingLogActivity extends ActivityBase{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		Log.d("Joe:Debug", "Initial Screen onCreate");
+		Log.d("JoeDebug", "Initial Screen onCreate");
         
         //Set the session mode to night until it get changed
-        SettingsContainer.setNightMode();
+		settingsRef.setNightMode();
         
         setContentView(R.layout.initial);
         btnNight=(Button)findViewById(R.id.initialNightButton);
@@ -74,7 +77,7 @@ public class ObservingLogActivity extends ActivityBase{
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
 	    switch (keyCode) {
 	        case KeyEvent.KEYCODE_MENU:
-	    		Log.d("Joe:Debug", "Initial Screen menu button eaten");
+	    		Log.d("JoeDebug", "Initial Screen menu button eaten");
 	         /* This is a sample for handling the Enter button */
 	      return true;
 	    }
