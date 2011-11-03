@@ -2,6 +2,7 @@ package com.rowley.mobileobservinglog;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,7 +23,6 @@ public class HomeScreen extends ActivityBase{
 	//Create listeners for each of the main buttons
     private final Button.OnClickListener catalogsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		settingsRef.setNightMode();
         	Intent intent = new Intent(HomeScreen.this.getApplication(), CatalogsScreen.class);
             startActivity(intent);
         }
@@ -30,7 +30,6 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener targetsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), TargetListsScreen.class);
             startActivity(intent);
         }
@@ -38,7 +37,6 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener addCatalogsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), AddCatalogsScreen.class);
             startActivity(intent);
         }
@@ -46,7 +44,6 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener backupRestoreButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), BackupRestoreScreen.class);
             startActivity(intent);
         }
@@ -54,7 +51,6 @@ public class HomeScreen extends ActivityBase{
     
     private final Button.OnClickListener settingsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		settingsRef.setNormalMode();
     		Intent intent = new Intent(HomeScreen.this.getApplication(), SettingsScreen.class);
             startActivity(intent);
         }
@@ -62,6 +58,7 @@ public class HomeScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
+		Log.d("JoeDebug", "HomeScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
         
         //setup the layout
@@ -83,6 +80,7 @@ public class HomeScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
+		Log.d("JoeDebug", "HomeScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -116,6 +114,7 @@ public class HomeScreen extends ActivityBase{
 	//Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
+		Log.d("JoeDebug", "HomeScreen setLayout. Current session mode is " + settingsRef.getSessionMode());
 		setContentView(settingsRef.getHomeLayout());
 		findButtons();
 		setListeners();

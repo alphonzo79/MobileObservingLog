@@ -1,6 +1,7 @@
 package com.rowley.mobileobservinglog;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 public class CatalogsScreen extends ActivityBase{
@@ -13,6 +14,7 @@ public class CatalogsScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
+		Log.d("JoeDebug", "CatalogsScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
         
         //setup the layout
@@ -33,6 +35,7 @@ public class CatalogsScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
+		Log.d("JoeDebug", "CatalogsScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }

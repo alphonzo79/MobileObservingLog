@@ -1,6 +1,7 @@
 package com.rowley.mobileobservinglog;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 public class TargetListsScreen extends ActivityBase{
@@ -13,6 +14,7 @@ public class TargetListsScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
+		Log.d("JoeDebug", "TargetLists onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
         
         //setup the layout
@@ -33,6 +35,7 @@ public class TargetListsScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
+		Log.d("JoeDebug", "TargetLists onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -40,6 +43,7 @@ public class TargetListsScreen extends ActivityBase{
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
+		Log.d("JoeDebug", "TargetLists onCreate. Layout is " + settingsRef.getTargetListsLayout());
 		setContentView(settingsRef.getTargetListsLayout());
 		body.postInvalidate();
 	}

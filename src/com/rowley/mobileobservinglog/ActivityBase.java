@@ -2,6 +2,7 @@ package com.rowley.mobileobservinglog;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -101,13 +102,19 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.returnHome:
+	    	//Check whether we are already on home screen
+	    	//If not on home screen then navigate or tear down the activity stack
 	        return true;
 	    case R.id.toggleMode:
 	        toggleMode();
 	        return true;
 	    case R.id.settings:
+    		Intent settingsIntent = new Intent(this.getApplication(), SettingsScreen.class);
+            startActivity(settingsIntent);
 	        return true;
 	    case R.id.info:
+    		Intent infoIntent = new Intent(this.getApplication(), InfoScreen.class);
+            startActivity(infoIntent);
 	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);
