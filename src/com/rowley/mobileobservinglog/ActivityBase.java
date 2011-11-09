@@ -40,10 +40,11 @@ public class ActivityBase extends Activity implements View.OnClickListener{
     @Override
     public boolean onPrepareOptionsMenu(Menu menu){
 		Log.d("JoeDebug", "ActivityBase preparing the menu");
-    	homeMenu = menu.findItem(R.id.returnHome);
+		//setMenuBackground();
+    	//homeMenu = menu.findItem(R.id.returnHome);
 	    toggleMenu = menu.findItem(R.id.toggleMode);
-	    settingsMenu = menu.findItem(R.id.settings);
-	    infoMenu = menu.findItem(R.id.info);
+	    //settingsMenu = menu.findItem(R.id.settings);
+	    //infoMenu = menu.findItem(R.id.info);
 	    //homeMenu.setIcon(getHomeButton());
 	    //toggleMenu.setIcon(getModeButton());
 	    toggleMenu.setTitle(settingsRef.getModeButtonText());
@@ -144,5 +145,10 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	//Meant to be overridden by the calling classes to set their individual layouts. 
 	public void setLayout(){
 		
+	}
+	
+	//Hook to allow testing of toggle mode private method
+	public void hookToggleMode(){
+		toggleMode();
 	}
 }
