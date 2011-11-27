@@ -2,15 +2,20 @@ package com.rowley.mobileobservinglog.tests;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-//import android.test.ActivityInstrumentationTestCase2;
-import android.test.ActivityUnitTestCase;
-import android.test.SingleLaunchActivityTestCase;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
+
 import com.rowley.mobileobservinglog.ActivityBase;
 import com.rowley.mobileobservinglog.R;
 import com.rowley.mobileobservinglog.SettingsContainer;
 
-public class ActivityBaseTests extends SingleLaunchActivityTestCase<ActivityBase>{
+public class ActivityBaseTests extends ActivityInstrumentationTestCase2<ActivityBase>{
 
 	Activity mAut = null;
 	Instrumentation mInstrumentation = null;
@@ -26,9 +31,16 @@ public class ActivityBaseTests extends SingleLaunchActivityTestCase<ActivityBase
 	protected void setUp() throws Exception{
 		super.setUp();
 		//setActivityInitialTouchMode(false);
-		mAut = getActivity();
+		mAut = new ActivityBase();
+		setActivity(mAut);
+        //mAut = getActivity();
 		mInstrumentation = getInstrumentation();
 		mSettings = SettingsContainer.getSettingsContainer();
+		
+		//Create the menu to be used in the test
+		//mMenu = new myMenu();
+		MenuInflater inflater = mAut.getMenuInflater();
+	    inflater.inflate(R.menu.global_menu, mMenu);
 	}
 	
 	@Override
