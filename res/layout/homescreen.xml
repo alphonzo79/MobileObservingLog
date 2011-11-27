@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/layoutRootNormal"
     android:id="@+id/home_root"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/parchment"
     >
     
 	<TextView  
+	    style="@style/headerBarNormal" 
 	    android:id="@+id/homescreenHeader"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
 	    android:text="@string/app_name"
-	    android:textColor="@color/black"
-	    android:gravity="center_horizontal"
-	    android:background="@color/white"
-	    android:padding="2dp"
-	    android:textStyle="bold"
 	    />
     
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,19 +29,10 @@
 		    >
 	
 			<Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonLargeNormal"
 				android:id="@+id/navToCatalogsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/add_catalogs_icon"
 				android:text="@string/home_catalogs"
-				android:gravity="center"
-				android:padding="10dp"
-				android:textColor="@color/black"
-				android:background="@drawable/home_large_button_state"
-				android:layout_marginLeft="30dp"
-				android:layout_marginRight="30dp"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
 				/>
 		    
 		</LinearLayout>
@@ -65,37 +47,17 @@
 		    >
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNormal"
 				android:id="@+id/navToTargetsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/home_target_button_icon"
 				android:text="@string/home_target_lists"
-				android:textColor="@color/black"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/home_square_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
 				/>
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNormal"
 				android:id="@+id/navToAddCatalogsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/add_catalogs_icon"
-				android:text="@string/home_catalogs"
-				android:textColor="@color/black"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/home_square_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
+				android:text="@string/home_add_catalogs"
 				/>
 		    
 		</LinearLayout>
@@ -110,37 +72,17 @@
 		    >
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNormal"
 				android:id="@+id/navToBackupButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/home_backup_button_icon"
 				android:text="@string/home_backup"
-				android:textColor="@color/black"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/home_square_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
 				/>
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNormal"
 				android:id="@+id/navToSettingsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/home_settings_button_icon"
 				android:text="@string/home_settings"
-				android:textColor="@color/black"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/home_square_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
 				/>
 		    
 		</LinearLayout>

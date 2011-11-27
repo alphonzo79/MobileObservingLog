@@ -14,6 +14,6 @@
     <string name="home_catalogs">Catalogs</string>
     <string name="home_target_lists">Target Lists</string>
     <string name="home_add_catalogs">Manage Catalogs</string>
-    <string name="home_backup">Backup, Restore and Export Log Data</string>
+    <string name="home_backup">Backup Log Data</string>
     <string name="home_settings">Settings</string>
 </resources>

@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/black"
+	style="@style/layoutRootNight"
     >
     
 	<TextView  
-	    android:id="@+id/initialHeader"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
+	    style="@style/headerBarNight" 
+	    android:id="@+id/initialHeader" 
 	    android:text="@string/app_name"
-	    android:textColor="@color/black"
-	    android:gravity="center_horizontal"
-	    android:background="@color/red"
-	    android:padding="2dp"
-	    android:textStyle="bold"
 	    />
 	    
 	<Button xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,8 +15,10 @@
     	android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/night_mode"
-		android:background="@drawable/black_button_state"
+		android:textSize="22dp"
+		android:textStyle="bold"
 		android:textColor="@color/red"
+		android:background="@drawable/black_button_state"
 		android:layout_marginLeft="25dp"
 		android:layout_marginRight="25dp"
 		android:layout_marginTop="45dp"
@@ -38,8 +31,10 @@
     	android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/normal_mode"
-		android:background="@drawable/red_button_state"
+		android:textSize="22dp"
+		android:textStyle="bold"
 		android:textColor="@color/black"
+		android:background="@drawable/red_button_state"
 		android:layout_marginLeft="25dp"
 		android:layout_marginRight="25dp"
 		android:layout_marginTop="45dp"
@@ -53,6 +48,7 @@
 	    android:layout_height="wrap_content" 
 	    android:text="@string/initial_text"
 	    android:textColor="@color/red"
+		android:textSize="18dp"
 	    android:layout_weight="10"
 		android:layout_marginBottom="10dp"
 	    android:gravity="bottom|center_horizontal"

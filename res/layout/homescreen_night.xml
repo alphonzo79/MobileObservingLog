@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/layoutRootNight"
     android:id="@+id/home_root"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/black"
     >
     
 	<TextView  
-	    android:id="@+id/homescreenHeader"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
+	    style="@style/headerBarNight" 
+	    android:id="@+id/homescreenHeader" 
 	    android:text="@string/app_name"
-	    android:textColor="@color/black"
-	    android:gravity="center_horizontal"
-	    android:background="@color/red"
-	    android:padding="2dp"
-	    android:textStyle="bold"
 	    />
     
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,19 +29,10 @@
 		    >
 	
 			<Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonLargeNight"
 				android:id="@+id/navToCatalogsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/add_catalogs_icon_night"
 				android:text="@string/home_catalogs"
-				android:gravity="center"
-				android:padding="10dp"
-				android:textColor="@color/red"
-				android:background="@drawable/black_button_state"
-				android:layout_marginLeft="30dp"
-				android:layout_marginRight="30dp"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
 				/>
 		    
 		</LinearLayout>
@@ -65,37 +47,18 @@
 		    >
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNight"
 				android:id="@+id/navToTargetsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/home_target_button_icon_night"
 				android:text="@string/home_target_lists"
-				android:textColor="@color/red"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/black_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
 				android:layout_marginRight="15dp"
 				/>
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNight"
 				android:id="@+id/navToAddCatalogsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/add_catalogs_icon_night"
-				android:text="@string/home_catalogs"
-				android:textColor="@color/red"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/black_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
+				android:text="@string/home_add_catalogs"
 				/>
 		    
 		</LinearLayout>
@@ -110,37 +73,17 @@
 		    >
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNight"
 				android:id="@+id/navToBackupButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/home_backup_button_icon_night"
 				android:text="@string/home_backup"
-				android:textColor="@color/red"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/black_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
 				/>
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+				style="@style/homescreenButtonSquareNight"
 				android:id="@+id/navToSettingsButton"
-		    	android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
 				android:drawableTop="@drawable/home_settings_button_icon_night"
 				android:text="@string/home_settings"
-				android:textColor="@color/red"
-				android:gravity="center"
-				android:padding="10dp"
-				android:background="@drawable/black_button_state"
-			    android:layout_weight="50"
-				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
 				/>
 		    
 		</LinearLayout>

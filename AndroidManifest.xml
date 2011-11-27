@@ -8,6 +8,7 @@
     <application android:icon="@drawable/andromeda_galaxy_embossed" android:label="Mobile Astronomical Observing Log">
         <activity android:name=".ObservingLogActivity"
                   android:label="@string/app_name"
+                  android:debuggable="true"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
