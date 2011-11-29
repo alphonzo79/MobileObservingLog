@@ -3,6 +3,7 @@
       package="com.rowley.mobileobservinglog"
       android:versionCode="1"
       android:versionName="1.0">
+      
     <uses-sdk android:minSdkVersion="8" />
 
     <application android:icon="@drawable/andromeda_galaxy_embossed" android:label="Mobile Astronomical Observing Log">

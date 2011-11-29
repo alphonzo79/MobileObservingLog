@@ -30,7 +30,7 @@
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">fill_parent</item>
     	<item name="android:background">@drawable/home_large_button_state</item>
-    	<item name="android:padding">10dp</item>
+    	<item name="android:padding">30dp</item>
     	<item name="android:textColor">@color/black</item>
     	<item name="android:layout_marginLeft">30dp</item>
     	<item name="android:layout_marginRight">30dp</item>
@@ -47,6 +47,7 @@
     	<item name="android:background">@drawable/home_square_button_state</item>
     	<item name="android:layout_marginLeft">15dp</item>
     	<item name="android:layout_marginRight">15dp</item>
+    	<item name="android:padding">25dp</item>
     	<item name="android:layout_weight">50</item>
     </style>
     

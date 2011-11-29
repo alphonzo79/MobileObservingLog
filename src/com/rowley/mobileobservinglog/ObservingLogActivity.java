@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import com.rowley.mobileobservinglog.R;
@@ -74,13 +76,15 @@ public class ObservingLogActivity extends ActivityBase{
 	}
 	
     //Eat the menu press on the initial screen
-	public boolean onKey(View v, int keyCode, KeyEvent event) {
-	    switch (keyCode) {
-	        case KeyEvent.KEYCODE_MENU:
-	    		Log.d("JoeDebug", "Initial Screen menu button eaten");
-	         /* This is a sample for handling the Enter button */
-	      return true;
-	    }
-	    return false;
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.d("JoeDebug", "Initial Screen menu button eaten (onCreate)");
+	    return true;
 	}
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+    	Log.d("JoeDebug", "Initial Screen menu button eaten (onPrepare)");
+	    return true;
+    }
 }

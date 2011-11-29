@@ -1,28 +1,27 @@
 package com.rowley.mobileobservinglog.tests;
 
+import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Menu;
-import com.rowley.mobileobservinglog.ActivityBase;
+import com.rowley.mobileobservinglog.ObservingLogActivity;
 import com.rowley.mobileobservinglog.SettingsContainer;
 
-public class ActivityBaseTests extends ActivityInstrumentationTestCase2<ActivityBase>{
+public class ObservingLogActivityTests extends ActivityInstrumentationTestCase2<ObservingLogActivity>{
 
-	ActivityBase mAut = null;
+	Activity mAut = null;
 	Instrumentation mInstrumentation = null;
 	Menu mMenu = null;
 	SettingsContainer mSettings = null;
 	
-	public ActivityBaseTests(){
-		super("com.rowley.mobileobservinglog", ActivityBase.class);
-		//super(com.rowley.mobileobservinglog.ActivityBase.class);
+	public ObservingLogActivityTests(){
+		super("com.rowley.mobileobservinglog", ObservingLogActivity.class);
 	}
 	
 	@Override
 	protected void setUp() throws Exception{
 		super.setUp();
-		//setActivityInitialTouchMode(false);
-		mAut = new ActivityBase();
+		mAut = new ObservingLogActivity();
 		setActivity(mAut);
 		mInstrumentation = getInstrumentation();
 		mSettings = SettingsContainer.getSettingsContainer();
@@ -31,17 +30,6 @@ public class ActivityBaseTests extends ActivityInstrumentationTestCase2<Activity
 	@Override
 	protected void tearDown() throws Exception{
 		super.tearDown();
-	}
-	
-	//Test toggle mode method
-	public void testToggleMode(){
-		com.rowley.mobileobservinglog.SettingsContainer.SessionMode currentMode = mSettings.getSessionMode();
-		assertNotNull("Initial session mode is null", currentMode);
-		mAut.hookToggleMode();
-		
-		com.rowley.mobileobservinglog.SettingsContainer.SessionMode newMode = mSettings.getSessionMode();
-		assertNotNull(newMode);
-		assertNotSame("The session mode did not change. Original mode: " + currentMode + ". new mode: " + newMode + ". ", currentMode, newMode);
 	}
 	
 	/*All these are giving me testing trouble. They should be tested in each individual screen to allow for the UI and the OS to provide the events

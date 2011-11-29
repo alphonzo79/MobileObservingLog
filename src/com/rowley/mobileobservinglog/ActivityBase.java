@@ -78,6 +78,7 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	                    * object */
 	                    new Handler().post( new Runnable() {  
 	                        public void run () {  
+	                        	Log.d("JoeDebug", "Setting menu background and text color in run()");
 	                            // sets the background color   
 	                            view.setBackgroundResource(R.color.black);
 	                            // sets the text color              
