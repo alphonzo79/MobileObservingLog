@@ -1,9 +1,15 @@
 package com.rowley.mobileobservinglog.tests;
 
+import java.sql.PreparedStatement;
+
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.inputmethodservice.Keyboard.Key;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
+
 import com.rowley.mobileobservinglog.ObservingLogActivity;
 import com.rowley.mobileobservinglog.SettingsContainer;
 
@@ -32,8 +38,16 @@ public class ObservingLogActivityTests extends ActivityInstrumentationTestCase2<
 		super.tearDown();
 	}
 	
-	/*All these are giving me testing trouble. They should be tested in each individual screen to allow for the UI and the OS to provide the events
-
+	public void testMenu(){
+		mAut.runOnUiThread(new Runnable(){
+			public void run(){
+				getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+				//assertNull((Menu)MenuItem.);
+			}
+		});
+	}
+	
+	/*
 	public void testOnPrepareMenu(){
 		//Get the settings container
 		//mSettings = SettingsContainer.getSettingsContainer();
@@ -50,6 +64,7 @@ public class ObservingLogActivityTests extends ActivityInstrumentationTestCase2<
 		mMenu = (Menu)mAut.findViewById(R.menu.global_menu);
 		assertEquals(R.string.menu_toggle_night_mode, mMenu.findItem(R.id.toggleMode).getTitle());
 	}
+	*/
 	
 	public void testMenuHomePress(){
 		
@@ -69,15 +84,5 @@ public class ObservingLogActivityTests extends ActivityInstrumentationTestCase2<
 	
 	public void testToggleMode(){
 		
-	}
-	
-	*/
-	
-	public void testUiTestExample(){
-		mAut.runOnUiThread(new Runnable(){
-			public void run(){
-				//Put UI interactions here
-			}
-		});
 	}
 }

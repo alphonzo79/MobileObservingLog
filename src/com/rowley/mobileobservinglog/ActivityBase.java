@@ -59,12 +59,12 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 		Log.d("JoeDebug", "ActivityBase creating the menu");
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(com.rowley.mobileobservinglog.R.menu.global_menu, menu);
-	    setMenuBackground();	
+	    setMenuBackground(menu);	
 	    return true;
 	}
 	
 	//Used to customize the menu display
-	protected void setMenuBackground(){                     
+	protected Boolean setMenuBackground(Menu menu){                     
 	    Log.d("JoeDebug", "Enterting setMenuBackGround");
 		getLayoutInflater().setFactory( new Factory() {  
 	        public View onCreateView(String name, Context context, AttributeSet attrs) {
@@ -89,12 +89,28 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	                    } );  
 	                    return view;
 	                }
-	                catch ( InflateException e ) {}
-	                catch ( ClassNotFoundException e ) {}  
+	                catch ( InflateException e ) 
+	                {
+	                	if (e != null)
+	                	{
+		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getMessage());
+		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getStackTrace().toString());
+	                	}
+	                }
+	                catch ( ClassNotFoundException e ) 
+	                {
+	                	if (e != null)
+	                	{
+		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getMessage());
+		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getStackTrace().toString());
+	                	}
+	                }
 	            } 
 	            return null;
 	        }
 	    }); 
+		
+		return super.onCreateOptionsMenu(menu);
 	}
 	
 	//the actions taken by each menu item
@@ -151,5 +167,11 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	//Hook to allow testing of toggle mode private method
 	public void hookToggleMode(){
 		toggleMode();
+	}
+	
+	//Hook to allow testing of the set menu method
+	public View hookSetMenuBackground()
+	{
+		return null;
 	}
 }

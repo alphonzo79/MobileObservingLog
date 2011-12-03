@@ -3,6 +3,8 @@ package com.rowley.mobileobservinglog.tests;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Menu;
+import android.view.LayoutInflater.Factory;
+
 import com.rowley.mobileobservinglog.ActivityBase;
 import com.rowley.mobileobservinglog.SettingsContainer;
 
@@ -21,7 +23,6 @@ public class ActivityBaseTests extends ActivityInstrumentationTestCase2<Activity
 	@Override
 	protected void setUp() throws Exception{
 		super.setUp();
-		//setActivityInitialTouchMode(false);
 		mAut = new ActivityBase();
 		setActivity(mAut);
 		mInstrumentation = getInstrumentation();
@@ -42,6 +43,12 @@ public class ActivityBaseTests extends ActivityInstrumentationTestCase2<Activity
 		com.rowley.mobileobservinglog.SettingsContainer.SessionMode newMode = mSettings.getSessionMode();
 		assertNotNull(newMode);
 		assertNotSame("The session mode did not change. Original mode: " + currentMode + ". new mode: " + newMode + ". ", currentMode, newMode);
+	}
+	
+	//Test the set menu background method
+	public void testSetMenuBackground()
+	{
+		//View testView = mAut.onCreateView(, context, attrs)
 	}
 	
 	/*All these are giving me testing trouble. They should be tested in each individual screen to allow for the UI and the OS to provide the events
