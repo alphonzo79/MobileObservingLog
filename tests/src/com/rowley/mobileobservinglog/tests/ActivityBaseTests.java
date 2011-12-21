@@ -17,7 +17,6 @@ public class ActivityBaseTests extends ActivityInstrumentationTestCase2<Activity
 	
 	public ActivityBaseTests(){
 		super("com.rowley.mobileobservinglog", ActivityBase.class);
-		//super(com.rowley.mobileobservinglog.ActivityBase.class);
 	}
 	
 	@Override
@@ -91,12 +90,4 @@ public class ActivityBaseTests extends ActivityInstrumentationTestCase2<Activity
 	}
 	
 	*/
-	
-	public void testUiTestExample(){
-		mAut.runOnUiThread(new Runnable(){
-			public void run(){
-				//Put UI interactions here
-			}
-		});
-	}
 }

@@ -27,10 +27,7 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	//Member Variables
 	
 	//Menu
-	MenuItem homeMenu;
 	MenuItem toggleMenu;
-	MenuItem settingsMenu;
-	MenuItem infoMenu;
 	
 	//Get access to the settings container singleton
 	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
@@ -47,17 +44,9 @@ public class ActivityBase extends Activity implements View.OnClickListener{
     @Override
     public boolean onPrepareOptionsMenu(Menu menu){
 		Log.d("JoeDebug", "ActivityBase preparing the menu");
-		//setMenuBackground();
-    	//homeMenu = menu.findItem(R.id.returnHome);
-	    toggleMenu = menu.findItem(R.id.toggleMode);
-	    //settingsMenu = menu.findItem(R.id.settings);
-	    //infoMenu = menu.findItem(R.id.info);
-	    //homeMenu.setIcon(getHomeButton());
-	    //toggleMenu.setIcon(getModeButton());
+		toggleMenu = menu.findItem(R.id.menuItem_toggleMode);
 	    toggleMenu.setTitle(settingsRef.getModeButtonText());
-	    //settingsMenu.setIcon(getSettingsButton());
-	    //infoMenu.setIcon(getInfoButton());
-    	return true;
+	    return true;
     }
 	
 	//create the menu
@@ -65,7 +54,7 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		Log.d("JoeDebug", "ActivityBase creating the menu");
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(com.rowley.mobileobservinglog.R.menu.global_menu, menu);
+	    inflater.inflate(com.rowley.mobileobservinglog.R.menu.global_menu_night, menu);
 	    setMenuBackground(menu);	
 	    return true;
 	}
@@ -78,7 +67,7 @@ public class ActivityBase extends Activity implements View.OnClickListener{
     	Log.d("JoeDebug", "Content: " + this.getComponentName().toShortString());
 	    // Handle item selection
 	    switch (item.getItemId()) {
-	    case R.id.returnHome:
+	    case R.id.menuItem_returnHome:
 	    	//Check whether we are already on home screen. If not on home screen then navigate
 	    	if (!this.getComponentName().toShortString().contains("HomeScreen"))
 	    	{
@@ -86,17 +75,17 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	            startActivity(settingsIntent);
 	    	}
 	        return true;
-	    case R.id.toggleMode:
+	    case R.id.menuItem_toggleMode:
 	        toggleMode();
 	        return true;
-	    case R.id.settings:
+	    case R.id.menuItem_settings:
 	    	if (!this.getComponentName().toShortString().contains("SettingsScreen"))
 	    	{
 	    		Intent settingsIntent = new Intent(this.getApplication(), SettingsScreen.class);
 	            startActivity(settingsIntent);
 	    	}
 	        return true;
-	    case R.id.info:
+	    case R.id.menuItem_info:
 	    	if (!this.getComponentName().toShortString().contains("InfoScreen"))
 	    	{
 	    		Intent infoIntent = new Intent(this.getApplication(), InfoScreen.class);
@@ -168,7 +157,7 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	                            // sets the text color              
 	                            ((TextView) view[0]).setTextColor(0xAAFF0000);
 	                            // sets the text size              
-	                            ((TextView) view[0]).setTextSize(14);
+	                            //((TextView) view[0]).setTextSize(14);
 	                        }
 	                    } );  
 	                    return view[0];
