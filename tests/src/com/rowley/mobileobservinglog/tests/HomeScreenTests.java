@@ -1,23 +1,24 @@
 package com.rowley.mobileobservinglog.tests;
 
+import java.util.List;
+
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Instrumentation;
-import android.inputmethodservice.Keyboard.Key;
-import android.test.ActivityInstrumentationTestCase2;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Button;
 
 import com.rowley.mobileobservinglog.HomeScreen;
 import com.rowley.mobileobservinglog.R;
 import com.rowley.mobileobservinglog.SettingsContainer;
 
-public class HomeScreenTests extends ActivityInstrumentationTestCase2<HomeScreen>{
+public class HomeScreenTests extends SingleLaunchActivityTestCase<HomeScreen>{
 
 	HomeScreen mAut = null;
 	Instrumentation mInstrumentation = null;
-	Menu mMenu = null;
 	SettingsContainer mSettings = null;
 	
 	public HomeScreenTests(){
@@ -27,8 +28,7 @@ public class HomeScreenTests extends ActivityInstrumentationTestCase2<HomeScreen
 	@Override
 	protected void setUp() throws Exception{
 		super.setUp();
-		mAut = new HomeScreen();
-		setActivity(mAut);
+		mAut = getActivity();
 		mInstrumentation = getInstrumentation();
 		mSettings = SettingsContainer.getSettingsContainer();
 	}
@@ -36,82 +36,249 @@ public class HomeScreenTests extends ActivityInstrumentationTestCase2<HomeScreen
 	@Override
 	protected void tearDown() throws Exception{
 		super.tearDown();
+		mAut.finish();
 	}
 	
 	/**
-	 * This test will press the menu button and ensure that it is eaten on the inital screen
-	 * @throws Throwable 
+	 * this test will press the View Catalogs button and check to see that the screen displays
+	 * 
+	 * @throws Throwable
 	 */
-	public void testMenu() throws Throwable
+	public void testPressViewCatalogs() throws Throwable
 	{
-		Log.d("JoeTest", "Starting testMenu");
-		MenuItem menuItemRef = null;
+		Log.d("JoeTest", "Find the View Catalog Button");
+		final Button viewCatalogs = (Button)mAut.findViewById(R.id.navToCatalogsButton);
+		
+		//Set up the activity manager
+		final ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
+    	
+    	Log.d("JoeTest", "Starting testPressViewCatalogs");
 		runTestOnUiThread(new Runnable()
 		{
 			public void run()
 			{
-				Log.d("JoeTest", "Pressing menu Button");
-				mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+				Log.d("JoeTest", "Inside run()");
+	        	
+	        	//Press the button
+				Log.d("JoeTest", "Clicking the view catalogs button");
+				viewCatalogs.performClick();
+				
+				//sleep so the activity can launch
+				try
+				{
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException e)
+				{
+					Log.d("JoeTest", "Caught interrupted exception");
+				}
 			}
 		});
 		
-		Thread.sleep(2000);
+		//Check for the screen display
+		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
+		Log.d("JoeTest", "Top task is " + tasks.get(0).topActivity.toString());
+		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.CatalogsScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
+	}
+	
+	/**
+	 * this test will press the Target Lists button and check to see that the screen displays
+	 * 
+	 * @throws Throwable
+	 */
+	public void testPressTargetLists() throws Throwable
+	{
+		Log.d("JoeTest", "Find the Target Lists Button");
+		final Button targetLists = (Button)mAut.findViewById(R.id.navToTargetsButton);
 		
+		//Set up the activity manager
+		final ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
+    	
+    	Log.d("JoeTest", "Starting testPressTargetLists");
+		runTestOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				Log.d("JoeTest", "Inside run()");
+
+				//Press the button
+				Log.d("JoeTest", "Clicking the Target Lists button");
+				targetLists.performClick();
+				
+				//sleep to let the activity launch
+				try
+				{
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException e)
+				{
+					Log.d("JoeTest", "Caught interrupted exception");
+				}
+			}
+		});
+		
+		//Check for the screen display
+		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
+		Log.d("JoeTest", "Top task is " + tasks.get(0).topActivity.toString());
+		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.TargetListsScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
+	}
+	
+	/**
+	 * this test will press the Add Catalogs button and check to see that the screen displays
+	 * 
+	 * @throws Throwable
+	 */
+	public void testPressAddCatalogs() throws Throwable
+	{
+		Log.d("JoeTest", "Find the Add Catalog Button");
+		final Button addCatalogs = (Button)mAut.findViewById(R.id.navToAddCatalogsButton);
+		
+		//Set up the activity manager
+		final ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
+    	
+    	Log.d("JoeTest", "Starting testPressAddCatalogs");
+		runTestOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				Log.d("JoeTest", "Inside run()");
+
+				//Press the normal mode button
+				Log.d("JoeTest", "Clicking the add catalogs button");
+				addCatalogs.performClick();
+				
+				//sleep so the activity can launch
+				try
+				{
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException e)
+				{
+					Log.d("JoeTest", "Caught interrupted exception");
+				}
+			}
+		});
+		
+		//Check for the screen display
+		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
+		Log.d("JoeTest", "Top task is " + tasks.get(0).topActivity.toString());
+		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.AddCatalogsScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
+	}
+	
+	/**
+	 * this test will press the Backup/Restore button and check to see that the screen displays
+	 * 
+	 * @throws Throwable
+	 */
+	public void testPressBackupRestore() throws Throwable
+	{
+		Log.d("JoeTest", "Find the Backup/Restore Button");
+		final Button backupRestore = (Button)mAut.findViewById(R.id.navToBackupButton);
+		
+		//Set up the activity manager
+		final ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
+    	
+    	Log.d("JoeTest", "Starting testPressBackupRestore");
+		runTestOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				Log.d("JoeTest", "Inside run()");
+
+				//Press the Backup/Restore button
+				Log.d("JoeTest", "Clicking the Backup/Restore button");
+				backupRestore.performClick();
+				
+				//sleep so the activity can launch
+				try
+				{
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException e)
+				{
+					Log.d("JoeTest", "Caught interrupted exception");
+				}
+			}
+		});
+		
+		//Check for the screen display
+		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
+		Log.d("JoeTest", "Top task is " + tasks.get(0).topActivity.toString());
+		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.BackupRestoreScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
+	}
+	
+	/**
+	 * this test will press the Settings button and check to see that the screen displays
+	 * 
+	 * @throws Throwable
+	 */
+	public void testPressSettings() throws Throwable
+	{
+		Log.d("JoeTest", "Find the Settings Button");
+		final Button settings = (Button)mAut.findViewById(R.id.navToSettingsButton);
+		
+		//Set up the activity manager
+		final ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
+    	
+    	Log.d("JoeTest", "Starting testPressSettings");
+		runTestOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				Log.d("JoeTest", "Inside run()");
+
+				//Press the Settings button
+				Log.d("JoeTest", "Clicking the Settings button");
+				settings.performClick();
+				
+				//sleep so the activity can launch
+				try
+				{
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException e)
+				{
+					Log.d("JoeTest", "Caught interrupted exception");
+				}
+			}
+		});
+		
+		//Check for the screen display
+		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
+		Log.d("JoeTest", "Top task is " + tasks.get(0).topActivity.toString());
+		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.SettingsScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
+	}
+	
+	/**
+	 * this test will press the Back button and check to see that the Home Screen stays
+	 * 
+	 * @throws Throwable
+	 */
+	public void testPressBack() throws Throwable
+	{
+		//Set up the activity manager
+		final ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
+		
+		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
+		Log.d("JoeTest", "Top task to start is " + tasks.get(0).topActivity.toString());
+		//assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.HomeScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
+		
+		Log.d("JoeTest", "Press the back button");
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		
+		//sleep so the activity can launch
 		try
 		{
-			Log.d("JoeTest", "finding the menu item for toggle mode");
-			menuItemRef = (MenuItem)mAut.findViewById(R.id.menuItem_toggleMode);
-			Log.d("JoeTest", "found: " + menuItemRef.toString() + "Expected: " + R.id.menuItem_toggleMode);
+			Thread.sleep(2000);
 		}
-		catch (NullPointerException e)
+		catch (InterruptedException e)
 		{
-			Log.d("JoeTest", "Caught null pointer exception");
+			Log.d("JoeTest", "Caught interrupted exception");
 		}
-
-		assertNull("The menu was not null", menuItemRef);
-	}
-	
-	/*
-	public void testOnPrepareMenu(){
-		//Get the settings container
-		//mSettings = SettingsContainer.getSettingsContainer();
 		
-		//Set night mode and check the values
-		mSettings.setNightMode();
-		mAut.onPrepareOptionsMenu(mMenu);
-		mMenu = (Menu)mAut.findViewById(R.menu.global_menu);
-		assertEquals(R.string.menu_toggle_normal_mode, mMenu.findItem(R.id.toggleMode).getTitle());
-		
-		//set Normal Mode and check the values
-		mSettings.setNormalMode();
-		mAut.onPrepareOptionsMenu(mMenu);
-		mMenu = (Menu)mAut.findViewById(R.menu.global_menu);
-		assertEquals(R.string.menu_toggle_night_mode, mMenu.findItem(R.id.toggleMode).getTitle());
-	}
-	*/
-	
-	public void testMenuHomePress()
-	{
-		
-	}
-	
-	public void testMenuModePress()
-	{
-		
-	}
-	
-	public void testMenuSettingsPress()
-	{
-		
-	}
-	
-	public void testMenuInfoPress()
-	{
-		
-	}
-	
-	public void testToggleMode()
-	{
-		
+		//Check for the screen display
+		tasks = am.getRunningTasks(3);
+		Log.d("JoeTest", "Top task after back press is " + tasks.get(0).topActivity.toString());
+		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.HomeScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
 	}
 }

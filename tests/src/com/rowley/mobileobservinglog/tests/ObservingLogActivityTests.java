@@ -7,17 +7,8 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Application;
 import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.inputmethodservice.Keyboard.Key;
-import android.os.Bundle;
-import android.test.ActivityInstrumentationTestCase2;
+import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.webkit.ConsoleMessage;
 import android.widget.Button;
 
 import com.rowley.mobileobservinglog.HomeScreen;
@@ -26,12 +17,11 @@ import com.rowley.mobileobservinglog.R;
 import com.rowley.mobileobservinglog.SettingsContainer;
 import com.rowley.mobileobservinglog.SettingsContainer.SessionMode;
 
-public class ObservingLogActivityTests extends ActivityInstrumentationTestCase2<ObservingLogActivity>
+public class ObservingLogActivityTests extends SingleLaunchActivityTestCase<ObservingLogActivity>
 {
 
 	ObservingLogActivity mAut = null;
 	Instrumentation mInstrumentation = null;
-	Menu mMenu = null;
 	SettingsContainer mSettings = null;
 	
 	public ObservingLogActivityTests()
@@ -105,20 +95,20 @@ public class ObservingLogActivityTests extends ActivityInstrumentationTestCase2<
 	 */
 	public void testSelectNightMode() throws Throwable
 	{
-		Log.d("JoeTest", "Starting testSelectNormalMode");
+		Log.d("JoeTest", "Starting testSelectNightMode");
 		runTestOnUiThread(new Runnable()
 		{
 			public void run()
 			{
 				Log.d("JoeTest", "Inside run()");
-				Button normalMode = (Button)mAut.findViewById(R.id.initialNightButton);
+				Button nightMode = (Button)mAut.findViewById(R.id.initialNightButton);
 				
 				//Set up the activity manager
 				ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
 	        	
 	        	//Press the normal mode button
-				Log.d("JoeTest", "Clicking the Normal Mode button");
-				normalMode.performClick();
+				Log.d("JoeTest", "Clicking the Night Mode button");
+				nightMode.performClick();
 				
 				//Check for the screen display, settingsContainer.SessionMode, and current layout
 				try
