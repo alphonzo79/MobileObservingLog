@@ -8,7 +8,6 @@ import android.app.Instrumentation;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.Button;
 
 import com.rowley.mobileobservinglog.HomeScreen;
@@ -247,38 +246,5 @@ public class HomeScreenTests extends SingleLaunchActivityTestCase<HomeScreen>{
 		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
 		Log.d("JoeTest", "Top task is " + tasks.get(0).topActivity.toString());
 		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.SettingsScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
-	}
-	
-	/**
-	 * this test will press the Back button and check to see that the Home Screen stays
-	 * 
-	 * @throws Throwable
-	 */
-	public void testPressBack() throws Throwable
-	{
-		//Set up the activity manager
-		final ActivityManager am = (ActivityManager)mAut.getApplication().getSystemService(Activity.ACTIVITY_SERVICE);
-		
-		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
-		Log.d("JoeTest", "Top task to start is " + tasks.get(0).topActivity.toString());
-		//assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.HomeScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
-		
-		Log.d("JoeTest", "Press the back button");
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-		
-		//sleep so the activity can launch
-		try
-		{
-			Thread.sleep(2000);
-		}
-		catch (InterruptedException e)
-		{
-			Log.d("JoeTest", "Caught interrupted exception");
-		}
-		
-		//Check for the screen display
-		tasks = am.getRunningTasks(3);
-		Log.d("JoeTest", "Top task after back press is " + tasks.get(0).topActivity.toString());
-		assertEquals("Home screen was not at the top of the stack", com.rowley.mobileobservinglog.HomeScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
 	}
 }

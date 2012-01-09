@@ -1,5 +1,10 @@
 package com.rowley.mobileobservinglog;
 
+import java.util.List;
+
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -89,7 +94,22 @@ public class HomeScreen extends ActivityBase{
     //unless the application has been killed. Users can toggle the session mode with a menu item at all other times.
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+    	//Check the activity stack and see if it's more than two deep (initial screen and home screen)
+    	//If it's more than two deep, then let the app proccess the press
+    	ActivityManager am = (ActivityManager)this.getSystemService(Activity.ACTIVITY_SERVICE);
+    	List<RunningTaskInfo> tasks = am.getRunningTasks(3); //3 because we have to give it something. This is an arbitrary number
+    	int activityCount = tasks.get(0).numActivities;
+    	
+    	Log.d("JoeDebug", "Activity Count is " + activityCount);
+    	
+    	if (activityCount < 3)
+    	{
+    		moveTaskToBack(true);
+    	}
+    	else
+    	{
+    		super.onBackPressed();
+    	}
     }
     
     //Find all the buttons for use in the class. Abstracted so it can be used each time the layout is refreshed
