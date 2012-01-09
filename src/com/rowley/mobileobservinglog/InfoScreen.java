@@ -16,6 +16,8 @@ public class InfoScreen extends ActivityBase{
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "InfoScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
+
+		setDimButtons(settingsRef.getButtonBrightness());
         
         //setup the layout
         setContentView(settingsRef.getInfoLayout());
@@ -44,6 +46,7 @@ public class InfoScreen extends ActivityBase{
 	@Override
 	public void setLayout(){
 		setContentView(settingsRef.getInfoLayout());
+		setDimButtons(settingsRef.getButtonBrightness());
 		body.postInvalidate();
 	}
 }

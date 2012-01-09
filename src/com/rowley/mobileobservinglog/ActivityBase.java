@@ -7,7 +7,7 @@ import java.io.Reader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -20,9 +20,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.LayoutInflater.Factory;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
 
-public class ActivityBase extends Activity implements View.OnClickListener{
+public class ActivityBase extends ListActivity implements View.OnClickListener{
 
 	//Member Variables
 	
@@ -31,6 +33,33 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	
 	//Get access to the settings container singleton
 	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
+	
+	//Most of the activity life cycle methods are included here to be inherited by other classes to ensure that
+	//button brightness will be set upon each resume and restored on each destroy and pause. OnCreate is not
+	//included because we need to ensure that we can capture the existing setting to be restored on the Initial
+	//screen launch. Since the super method is called first, including it here would destroy that setting before
+	//we can capture it. That means that setDimButtons needs to be called in each child class
+	
+	@Override
+    public void onPause() {
+		Log.d("JoeDebug", "ActivityBase onPause");
+        super.onPause();
+		setDimButtons(settingsRef.getOriginalButtonBrightness());
+    }
+
+    @Override
+    public void onDestroy() {
+		Log.d("JoeDebug", "ActivityBase onDestroy");
+        super.onDestroy();
+		setDimButtons(settingsRef.getOriginalButtonBrightness());
+    }
+
+    @Override
+    public void onResume() {
+		Log.d("JoeDebug", "ActivityBase onResume");
+        super.onResume();
+		setDimButtons(settingsRef.getButtonBrightness());
+    }    
 	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -121,6 +150,37 @@ public class ActivityBase extends Activity implements View.OnClickListener{
 	public void setLayout(){
 		
 	}
+	
+	/**
+	 * Set the buttons backlight level down to protect night vision.
+	 * @param Float Value. -1.0f for no override, 0.0f to turn lights off 1.0f for full intensity
+	 */
+	public void setDimButtons(float val) {
+		Window window = getWindow();
+	    LayoutParams layoutParams = window.getAttributes();
+	    if (layoutParams.buttonBrightness != val)
+	    {
+	    	try {
+		        Log.d("JoeDebug", "Current button Brightness is " + layoutParams.buttonBrightness);
+		        Log.d("JoeDebug", "Activity Base setDimButtons. Setting to " + val);
+			    //layoutParams.buttonBrightness = val;
+		        new BtnBrightness(layoutParams, val);
+		    } catch (Exception e) {
+		        Log.d("JoeDebug", "Failed to set button brightness");
+		        e.printStackTrace();
+		    }
+		    window.setAttributes(layoutParams);
+	    }
+	}
+
+
+
+	private static class BtnBrightness {
+	    BtnBrightness(LayoutParams lp, float v) {
+	        lp.buttonBrightness = v;
+	    }
+	}
+
 	
 	//Hook to allow testing of toggle mode private method
 	public void hookToggleMode(){

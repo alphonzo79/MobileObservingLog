@@ -2,7 +2,9 @@ package com.rowley.mobileobservinglog;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 public class SettingsScreen extends ActivityBase{
 
@@ -16,10 +18,18 @@ public class SettingsScreen extends ActivityBase{
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "SettingsScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
-        
+
+		setDimButtons(settingsRef.getButtonBrightness());
+		
         //setup the layout
         setContentView(settingsRef.getSettingsLayout());
         body = (LinearLayout)findViewById(R.id.settings_root); 
+        
+        setListAdapter(new ArrayAdapter<String>(this, settingsRef.getSettingsListLayout(), new String[]{"Hello", "Goodbye", "1", "2", "3"}));
+
+        ListView lv = getListView();
+        lv.setTextFilterEnabled(true);
+
 	}
 	
 	@Override
@@ -44,6 +54,7 @@ public class SettingsScreen extends ActivityBase{
 	@Override
 	public void setLayout(){
 		setContentView(settingsRef.getSettingsLayout());
+		setDimButtons(settingsRef.getButtonBrightness());
 		body.postInvalidate();
 	}
 }

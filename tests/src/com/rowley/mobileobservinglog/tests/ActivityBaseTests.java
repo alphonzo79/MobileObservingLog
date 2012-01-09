@@ -1,9 +1,12 @@
 package com.rowley.mobileobservinglog.tests;
 
+import java.lang.reflect.Field;
+
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Menu;
-import android.view.LayoutInflater.Factory;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 
 import com.rowley.mobileobservinglog.ActivityBase;
 import com.rowley.mobileobservinglog.SettingsContainer;
@@ -44,50 +47,19 @@ public class ActivityBaseTests extends ActivityInstrumentationTestCase2<Activity
 		assertNotSame("The session mode did not change. Original mode: " + currentMode + ". new mode: " + newMode + ". ", currentMode, newMode);
 	}
 	
-	//Test the set menu background method
-	public void testSetMenuBackground()
-	{
-		//View testView = mAut.onCreateView(, context, attrs)
-	}
-	
-	/*All these are giving me testing trouble. They should be tested in each individual screen to allow for the UI and the OS to provide the events
-
-	public void testOnPrepareMenu(){
-		//Get the settings container
-		//mSettings = SettingsContainer.getSettingsContainer();
+	//Test setDimButton
+	public void testsetDimButton(){
+		mAut.setDimButtons(0.5f);
 		
-		//Set night mode and check the values
-		mSettings.setNightMode();
-		mAut.onPrepareOptionsMenu(mMenu);
-		mMenu = (Menu)mAut.findViewById(R.menu.global_menu);
-		assertEquals(R.string.menu_toggle_normal_mode, mMenu.findItem(R.id.toggleMode).getTitle());
-		
-		//set Normal Mode and check the values
-		mSettings.setNormalMode();
-		mAut.onPrepareOptionsMenu(mMenu);
-		mMenu = (Menu)mAut.findViewById(R.menu.global_menu);
-		assertEquals(R.string.menu_toggle_night_mode, mMenu.findItem(R.id.toggleMode).getTitle());
+		Window window = mAut.getWindow();
+	    LayoutParams layoutParams = window.getAttributes();
+	    try {
+	        Field buttonBrightness = layoutParams.getClass().getField(
+	                "buttonBrightness");
+	        float brightnessValue = buttonBrightness.getFloat(layoutParams);
+	        assertEquals("Button brightness was not correct", 0.5f, brightnessValue);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
-	
-	public void testMenuHomePress(){
-		
-	}
-	
-	public void testMenuModePress(){
-		
-	}
-	
-	public void testMenuSettingsPress(){
-		
-	}
-	
-	public void testMenuInfoPress(){
-		
-	}
-	
-	public void testToggleMode(){
-		
-	}
-	
-	*/
 }

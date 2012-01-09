@@ -70,6 +70,8 @@ public class HomeScreen extends ActivityBase{
         setContentView(settingsRef.getHomeLayout());
         findButtons();
         setListeners();
+        
+		setDimButtons(settingsRef.getButtonBrightness());
 	}
 	
 	@Override
@@ -138,6 +140,7 @@ public class HomeScreen extends ActivityBase{
 		setContentView(settingsRef.getHomeLayout());
 		findButtons();
 		setListeners();
+		setDimButtons(settingsRef.getButtonBrightness());
 		body.postInvalidate();
 	}
 }

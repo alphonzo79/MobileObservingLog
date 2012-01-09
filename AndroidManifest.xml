@@ -6,9 +6,7 @@
       
     <uses-sdk android:minSdkVersion="8" />
     
-<!--     remove these permissions for release -->
     <uses-permission android:name="android.permission.GET_TASKS"></uses-permission>
-<!--  -->
     
     <application android:icon="@drawable/andromeda_galaxy_embossed" android:label="Mobile Astronomical Observing Log">
     	<activity android:name=".ObservingLogActivity"

@@ -3,10 +3,10 @@ package com.rowley.mobileobservinglog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import com.rowley.mobileobservinglog.R;
 
@@ -45,6 +45,19 @@ public class ObservingLogActivity extends ActivityBase{
         
         //Set the session mode to night until it get changed
 		settingsRef.setNightMode();
+		
+		//capture the current button itensity setting to be saved and restored upon pause/destroy
+		Window window = getWindow();
+	    LayoutParams layoutParams = window.getAttributes();
+	    try {
+	        float brightnessValue = layoutParams.buttonBrightness;
+	        Log.d("JoeDebug", "Original button Brightness is " + brightnessValue);
+	        settingsRef.setOriginalButtonBrightness(brightnessValue);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+		setDimButtons(settingsRef.getButtonBrightness());
         
         setContentView(R.layout.initial);
         btnNight=(Button)findViewById(R.id.initialNightButton);
@@ -55,16 +68,19 @@ public class ObservingLogActivity extends ActivityBase{
 	
 	@Override
     public void onPause() {
+		Log.d("JoeDebug", "Initial Screen onPause");
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
+		Log.d("JoeDebug", "Initial Screen onDestroy");
         super.onDestroy();
     }
 
     @Override
     public void onResume() {
+		Log.d("JoeDebug", "Initial Screen onResume");
         super.onResume();
     }    
     

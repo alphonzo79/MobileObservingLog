@@ -5,13 +5,11 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
-import android.app.Application;
 import android.app.Instrumentation;
 import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
 import android.widget.Button;
 
-import com.rowley.mobileobservinglog.HomeScreen;
 import com.rowley.mobileobservinglog.ObservingLogActivity;
 import com.rowley.mobileobservinglog.R;
 import com.rowley.mobileobservinglog.SettingsContainer;

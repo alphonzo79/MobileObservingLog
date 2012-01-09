@@ -16,7 +16,9 @@ public class ObjectDetailScreen extends ActivityBase{
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "ObjectDetails onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
-        
+
+		setDimButtons(settingsRef.getButtonBrightness());
+		
         //setup the layout
         setContentView(settingsRef.getObjectDetailLayout());
         body = (LinearLayout)findViewById(R.id.object_detail_root); 
@@ -44,6 +46,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	@Override
 	public void setLayout(){
 		setContentView(settingsRef.getObjectDetailLayout());
+		setDimButtons(settingsRef.getButtonBrightness());
 		body.postInvalidate();
 	}
 }

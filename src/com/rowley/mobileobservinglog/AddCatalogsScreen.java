@@ -16,7 +16,9 @@ public class AddCatalogsScreen extends ActivityBase{
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "AddCatalogs onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
-        
+
+		setDimButtons(settingsRef.getButtonBrightness());
+		
         //setup the layout
         setContentView(settingsRef.getAddCatalogsLayout());
         body = (LinearLayout)findViewById(R.id.add_catalogs_root); 
@@ -44,6 +46,7 @@ public class AddCatalogsScreen extends ActivityBase{
 	@Override
 	public void setLayout(){
 		setContentView(settingsRef.getAddCatalogsLayout());
+		setDimButtons(settingsRef.getButtonBrightness());
 		body.postInvalidate();
 	}
 }

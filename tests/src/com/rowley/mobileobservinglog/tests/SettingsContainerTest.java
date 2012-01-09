@@ -189,6 +189,25 @@ public class SettingsContainerTest extends TestCase{
 	}
 
 	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getSettingsListLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	@Test
+	public void testGetSettingsListLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode. CurrentMode: " + currentMode + ". ", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.settings_list_night, mCut.getSettingsListLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.settings_list_normal, mCut.getSettingsListLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.settings_list_night, mCut.getSettingsListLayout());
+	}
+
+	/**
 	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getTargetListsLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
@@ -248,6 +267,27 @@ public class SettingsContainerTest extends TestCase{
 	}
 
 	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getButtonBrightness()}.
+	 * 
+	 * When the session mode changes, the button brightness value should change
+	 * The default session for a new SettingsContiner object is night mode, and we reset to night mode at the end
+	 * of each test. So we will confirm that, then check the text, switch to normal mode, check the text, then 
+	 * return to night mode to clean up. 
+	 */
+	@Test
+	public void testGetButtonBrightness() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The button brightness value was not correct", (float)0.5f, mCut.getButtonBrightness());
+		
+		mCut.setNormalMode();
+		assertEquals("The button brightness value was not correct", (float)1.0f, mCut.getButtonBrightness());
+		
+		mCut.setNightMode();
+		assertEquals("The button brightness value was not correct", (float)0.5f, mCut.getButtonBrightness());
+	}
+
+	/**
 	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#setNightMode()}.
 	 * 
 	 * This method does a lot. It has basically been covered with all the preceeding tests, but this test will
@@ -264,8 +304,10 @@ public class SettingsContainerTest extends TestCase{
 		assertEquals("The delivered layout was not correct", R.layout.info_screen_night, mCut.getInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.object_detail_screen_night, mCut.getObjectDetailLayout());
 		assertEquals("The delivered layout was not correct", R.layout.settings_screen_night, mCut.getSettingsLayout());
+		assertEquals("The delivered layout was not correct", R.layout.settings_list_normal, mCut.getSettingsListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen_night, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen_night, mCut.getBackupRestoreLayout());
+		assertEquals("The button brightness value was not correct", (float)0.5f, mCut.getButtonBrightness());
 	}
 
 	/**
@@ -285,8 +327,10 @@ public class SettingsContainerTest extends TestCase{
 		assertEquals("The delivered layout was not correct", R.layout.info_screen, mCut.getInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.object_detail_screen, mCut.getObjectDetailLayout());
 		assertEquals("The delivered layout was not correct", R.layout.settings_screen, mCut.getSettingsLayout());
+		assertEquals("The delivered layout was not correct", R.layout.settings_list_normal, mCut.getSettingsListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen, mCut.getBackupRestoreLayout());
+		assertEquals("The button brightness value was not correct", (float)-1.0f, mCut.getButtonBrightness());
 	}
 
 }

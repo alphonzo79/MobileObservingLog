@@ -83,6 +83,14 @@ public final class SettingsContainer {
 		mSettingsLayout = layout;
 	}
 	
+	private int mSettingsListLayout;
+	public int getSettingsListLayout(){
+		return mSettingsListLayout;
+	}
+	private void setSettingsListLayout(int layout){
+		mSettingsListLayout = layout;
+	}
+	
 	private int mTargetListsLayout;
 	public int getTargetListsLayout(){
 		return mTargetListsLayout;
@@ -108,11 +116,29 @@ public final class SettingsContainer {
 		mModeText = text;
 	}
 	
+	//Hard button intensity setting. Toned down for night mode.
+	private float mButtonBrightness;
+	public float getButtonBrightness(){
+		return mButtonBrightness;
+	}
+	private void setButtonBrightness(float brightness){
+		mButtonBrightness = brightness;
+	}
+	
+	//Original Hard button intensity setting. Set at task launch to be used in restoring upon pause or destroy.
+	private float mOriginalButtonBrightness;
+	public float getOriginalButtonBrightness(){
+		return mOriginalButtonBrightness;
+	}
+	public void setOriginalButtonBrightness(float brightness){
+		mOriginalButtonBrightness = brightness;
+	}
+	
 	//Helper Methods
 	//Called to change from normal mode to night mode. This method will set all of the style attributes that are used in setting layouts
 	public void setNightMode(){
 		//Log line get commented out temporarily for testing because they cause a noClassDefFoundError when running the basic Junit TestCase
-		//Log.d("JoeDebug", "SettingsContainer.setNightMode. Current session mode is " + getSessionMode());
+		Log.d("JoeDebug", "SettingsContainer.setNightMode. Current session mode is " + getSessionMode());
 		setSessionMode(SessionMode.night);
 		setModeButtonText(R.string.menu_toggle_normal_mode);
 		setHomeLayout(R.layout.homescreen_night);
@@ -121,12 +147,14 @@ public final class SettingsContainer {
 		setInfoLayout(R.layout.info_screen_night);
 		setObjectDetailLayout(R.layout.object_detail_screen_night);
 		setSettingsLayout(R.layout.settings_screen_night);
+		setSettingsListLayout(R.layout.settings_list_night);
 		setTargetListsLayout(R.layout.target_lists_screen_night);
 		setBackupRestoreLayout(R.layout.backup_restore_screen_night);
+		setButtonBrightness(0.0f);
 	}
 	
 	public void setNormalMode(){
-		//Log.d("JoeDebug", "SettingsContainer.setNormalMode. Current session mode is " + getSessionMode());
+		Log.d("JoeDebug", "SettingsContainer.setNormalMode. Current session mode is " + getSessionMode());
 		setSessionMode(SessionMode.normal);
 		setModeButtonText(R.string.menu_toggle_night_mode);
 		setHomeLayout(R.layout.homescreen);
@@ -135,7 +163,9 @@ public final class SettingsContainer {
 		setInfoLayout(R.layout.info_screen);
 		setObjectDetailLayout(R.layout.object_detail_screen);
 		setSettingsLayout(R.layout.settings_screen);
+		setSettingsListLayout(R.layout.settings_list_normal);
 		setTargetListsLayout(R.layout.target_lists_screen);
 		setBackupRestoreLayout(R.layout.backup_restore_screen);
+		setButtonBrightness(getOriginalButtonBrightness());
 	}
 }

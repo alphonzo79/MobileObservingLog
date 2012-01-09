@@ -16,7 +16,9 @@ public class BackupRestoreScreen extends ActivityBase{
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "BackupRestore onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
-        
+
+		setDimButtons(settingsRef.getButtonBrightness());
+		
         //setup the layout
         setContentView(settingsRef.getBackupRestoreLayout());
         body = (LinearLayout)findViewById(R.id.backup_restore_root); 
@@ -44,6 +46,7 @@ public class BackupRestoreScreen extends ActivityBase{
 	@Override
 	public void setLayout(){
 		setContentView(settingsRef.getBackupRestoreLayout());
+		setDimButtons(settingsRef.getButtonBrightness());
 		body.postInvalidate();
 	}
 }
