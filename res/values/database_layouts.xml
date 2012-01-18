@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- This file contains the layout for each database. One resource for each database. The columns are separated by
+line breaks, and the attributes of each column are separated by semicolons. We will use parseResourceByLine() and
+parseResourceByDelimiter() to separate them out into individual values. -->
+    <string name="settings_table">settingName;VARCHAR(20);NOT NULL;Primary\n
+settingValue;VARCHAR(20);DEFAULT NULL\n
+visible;INT(1);NOT NULL</string>
+	 <string name="personal_info_table">fullName;VARCHAR(30);NOT NULL;Primary\n
+address;VARCHAR(50);DEFAULT NULL\n
+phone;VARCHAR(15);DEFAULT NULL\n
+eMail;VARCHAR(50);DEFAULT NULL\n
+localClub;VARCHAR(50);DEFAULT NULL</string>
+	<string name="objects_table">designation;VARCHAR(20);NOT NULL;Primary\n
+commonName;VARCHAR(50);NOT NULL\n
+type;VARCHAR(20);NOT NULL\n
+magnitude;DECIMAL[(4,[2])];NOT NULL\n
+size;VARCHAR(10);NOT NULL\n
+distance;VARCHAR(25);NOT NULL\n
+constellation;VARCHAR(20);NOT NULL\n
+season;VARCHAR(10);NOT NULL\n
+rightAscension;VARCHAR(20);NOT NULL\n
+declination;VARCHAR(20);NOT NULL\n
+catalog;VARCHAR(30);NOT NULL\n
+otherCatalogs;VARCHAR(40);NOT NULL\n
+logged;TINYINT(1);DEFAULT NULL\n
+logDate;DATE;DEFAULT NULL\n
+logTime;TIME;DEFAULT NULL\n
+logLocation;VARCHAR(50);DEFAULT NULL\n
+telescope;VARCHAR(25);DEFAULT NULL\n
+eyepiece;VARCHAR(25);DEFAULT NULL\n
+seeing;TINYINT(1);DEFAULT NULL\n
+transparency;TINYINT(1);DEFAULT NULL\n
+favorite;TINYINT(1);DEFAULT NULL\n
+viewingNotes;TEXT;DEFAULT NULL</string>
+	 <string name="locations_table">locationName;VARCHAR(50);NOT NULL;Primary\n
+coordinates;VARCHAR(50);DEFAULT NULL\n
+descriptionDirections;TEXT;DEFAULT NULL</string>
+	 <string name="telescope_table">type;VARCHAR(30);NOT NULL;Primary\n
+primaryDiameter;INT(5);DEFAULT NULL\n
+focalRatio;DECIMAL[(4,[2])];DEFAULT NULL\n
+focalLength;INT(5);DEFAULT NULL</string>
+	 <string name="eyepiece_table">focalLength;INT(3);NOT NULL;Primary\n
+type;VARCHAR(30);DEFAULT NULL</string>
+	 <string name="target_lists_table">listName;VARCHAR(30);NOT NULL;Primary\n
+listDescription;TEXT;DEFAULT NULL\n
+creationDate;DATE;DEFAULT NULL</string>
+	 <string name="target_list_items_table">index;INT;NOT NULL;Primary;AutoIncrement\n
+list;VARCHAR(30);DEFAULT NULL\n
+isObject;INT(1);DEFAULT NULL\n
+objectDesignation;VARCHAR(20);DEFAULT NULL\n
+itemDescription;VARCHAR(50);DEFAULT NULL</string>
+	 <string name="available_catalogs_table">catalogName;VARCHAR(30);NOT NULL;Primary\n
+installed;INT(1);DEFAULT NULL\n
+numberOfObjects;INT(5);DEFAULT NULL\n
+description;VARCHAR(50);DEFAULT NULL</string>
+</resources>
