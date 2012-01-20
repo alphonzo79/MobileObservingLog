@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- We will parse by row, then split on the semicolon. Then we will use those individual values to put together
+sql statements. Columns are Catalog Name, Installed, Number of Objects, Description -->
+    <string name="available_catalogs_default_values">"Messier Catalog;Yes;110;Deep sky objects cataloged by Charles Messier"</string>
+</resources>

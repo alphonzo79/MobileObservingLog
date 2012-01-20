@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- We will parse by row, then split on the semicolon. Then we will use those individual values to put together
+sql statements. Columns are _id, designation, commonName, type, magnitude, size, distance, constellation, season, rightAscension, declination, catalog, otherCatalogs, imageResource, nightImageResource, logged, logDate, logTime, logLocation, telescope, eyepiece, seeing, transparency, favorite, findingMethod, viewingNotes -->
+    <string name="messier_catalog_default_values">"NULL;M1;Crab Nebula;Supernova Remnant;8.4;420\&quot; × 290\&quot;;6,300 ly;Taurus;Summer;05h 34m 31.97s;+22° 00&apos;&apos; 52.1\&quot;;Messier;NGC 1952, Sharpless 244;Image Resource;Night Image Resource;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL"</string>
+</resources>
