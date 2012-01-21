@@ -20,6 +20,9 @@ public final class SettingsContainer {
 
 	//Member Variables
 	
+	//Persistent Setting Constants
+	public static final String NM_BACKLIGHT = null;
+	
 	//SessionMode
 	public static enum SessionMode{
 		night,
@@ -167,5 +170,10 @@ public final class SettingsContainer {
 		setTargetListsLayout(R.layout.target_lists_screen);
 		setBackupRestoreLayout(R.layout.backup_restore_screen);
 		setButtonBrightness(getOriginalButtonBrightness());
+	}
+	public String getPersistentSetting(String setting)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

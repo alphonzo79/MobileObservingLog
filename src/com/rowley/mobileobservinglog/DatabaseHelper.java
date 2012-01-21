@@ -3,8 +3,10 @@ package com.rowley.mobileobservinglog;
 import java.util.UnknownFormatConversionException;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -97,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private void populateAvailableCatalogs(SQLiteDatabase db) throws Exception
 	{
 		Log.d("JoeDebug", "Starting populateAvailableCatalogs");
-		String sqlStatement;
+		SQLiteStatement sqlStatement;
 		
 		//First, get the values and parse them into individual lines, then parse the values, 
 		//create the sql statement, then execute it
@@ -110,10 +112,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			//There are four columns to fill in this table
 			if (rowData.length == 4)
 			{
-				sqlStatement = String.format("INSERT INTO availableCatalogs (catalogName, installed, numberOfObjects, description) " + 
-						"VALUES ('%s', '%s', '%s', '%s')", rowData[0], rowData[1], rowData[2], rowData[3]);
-				Log.d("JoeDebug", sqlStatement);
-				db.execSQL(sqlStatement);
+				sqlStatement = db.compileStatement("INSERT INTO availableCatalogs (catalogName, installed, numberOfObjects, description) " + 
+						"VALUES (?, ?, ?, ?)");
+				for (int j = 0; j < rowData.length; j++)
+				{
+					sqlStatement.bindString(j + 1, rowData[j]);
+				}
+				sqlStatement.execute();
+				sqlStatement.clearBindings();
 			}
 			else
 			{
@@ -130,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private void populateObjects(SQLiteDatabase db) throws Exception
 	{
 		Log.d("JoeDebug", "Starting populateObjects");
-		String sqlStatement;
+		SQLiteStatement sqlStatement;
 		
 		//I think for mitigation of file size, we should maintain each catalog in an independent resource file. 
 		//So we need to create a string array to hold each of the catalogs that we want to populate and itterate
@@ -151,19 +157,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				{
 					Log.d("JoeDebug", "In Loop. rowData.length passed the test");
 					
-					for (int k = 0; k < rowData.length; k++)
-					{
-						Log.d("JoeDebug", "rowData[" + k + "]: " + String.format("'%s'", rowData[k]));
-					}
-					
-					sqlStatement = String.format("INSERT INTO objects (designation, commonName, type, magnitude, size," +
+					sqlStatement = db.compileStatement("INSERT INTO objects (designation, commonName, type, magnitude, size," +
 							" distance, constellation, season, rightAscension, declination, catalog, otherCatalogs," +
-							" imageResource, nightImageResource) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s'," +
-							" '%s', '%s', '%s', '%s', '%s', '%s', '%s')", rowData[1], rowData[2], rowData[3], rowData[4], 
-							rowData[5], rowData[6], rowData[7], rowData[8], rowData[9], rowData[10], rowData[11], 
-							rowData[12], rowData[13], rowData[14]);
-					Log.d("JoeDebug", sqlStatement);
-					db.execSQL(sqlStatement);
+							" imageResource, nightImageResource) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					
+					//We start this array with 1 to make it simple when using the index value. We start the count on our
+					//bound arguments with 1 (it's 1-based), and we want to start with index 1 on the array because the 
+					//first slot [0] is null for the autoincremented _id. We stop at 14 (<=14) because that is the number
+					//of binding args we have
+					for (int k = 1; k <= 14; k++)
+					{
+						sqlStatement.bindString(k, rowData[k]);
+					}
+					sqlStatement.execute();
+					sqlStatement.clearBindings();
 				}
 				else
 				{
@@ -181,7 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private void populatePersistentSettings(SQLiteDatabase db) throws Exception
 	{
 		Log.d("JoeDebug", "Starting populatePersistentSettings");
-		String sqlStatement;
+		SQLiteStatement sqlStatement;
 		
 		//First, get the values and parse them into individual lines, then parse the values, 
 		//create the sql statement, then execute it
@@ -194,9 +201,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			//There are three columns to fill in this table
 			if (rowData.length == 3)
 			{
-				sqlStatement = String.format("INSERT INTO settings (settingName, settingValue, visible) VALUES ('%s', '%s', '%d')", rowData[0], rowData[1], Integer.parseInt(rowData[2]));
-				Log.d("JoeDebug", sqlStatement);
-				db.execSQL(sqlStatement);
+				sqlStatement = db.compileStatement("INSERT INTO settings (settingName, settingValue, visible) VALUES (?, ?, ?)");
+				for (int j = 0; j < rowData.length; j++)
+				{
+					sqlStatement.bindString(j + 1, rowData[j]);
+				}
+				sqlStatement.execute();
+				sqlStatement.clearBindings();
 			}
 			else
 			{
@@ -238,4 +249,63 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		return retVal;
 	}
 
+	/**
+	 * This method is used to return all persistent settings in a single cursor. It's primary use is for creating
+	 * and populating the listItem in the settings screen. If you want to get a single setting, use the
+	 * getPersistentSettings(String setting) override.
+	 * 
+	 * @return A cursor containing the full contents of the settings table. This is not limited at this time because we don't expect the settings table to be very large
+	 */
+	public Cursor getPersistentSettings()
+	{
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM settings WHERE settingName IS NOT NULL";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
+	
+	/**
+	 * This method is used to return the value of a single persistent setting. It's primary purpose is to be used on the initial screen to 
+	 * set the night-mode backlight intensity, for example.
+	 * 
+	 * @param setting A string representing the setting to look for in the table
+	 * @return A string representing the value of the desired setting 
+	 */
+	public String getPersistentSettings(String setting)
+	{
+		String retVal = null;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT settingValue FROM settings where settingName = ?";
+		
+		Cursor dbCursor = db.rawQuery(sqlStatement, new String[] {setting});
+		dbCursor.moveToFirst();
+		retVal = dbCursor.getString(0);
+		
+		dbCursor.close();
+		db.close();
+		
+		return retVal;
+	}
+	
+	/**
+	 * This method is used to populate the settings database with a new value for a given setting, and to simultaneously
+	 * set that value in the settings container so it can become immediately available to other parts of the application
+	 * 
+	 * @param setting String representing the setting you wish to set.
+	 * @param value String representing the value to insert.
+	 * @return Was the operation successful?
+	 */
+	public boolean setPersistentSetting(String setting, String value)
+	{
+		boolean retVal = false;
+		
+		return retVal;
+	}
 }
