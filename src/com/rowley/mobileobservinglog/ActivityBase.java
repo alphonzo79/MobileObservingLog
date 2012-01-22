@@ -7,9 +7,12 @@ import java.io.Reader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.rowley.mobileobservinglog.SettingsContainer.SessionMode;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -20,11 +23,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.LayoutInflater.Factory;
-import android.view.Window;
+import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
 
-public class ActivityBase extends ListActivity implements View.OnClickListener{
+public abstract class ActivityBase extends ListActivity implements View.OnClickListener{
 
 	//Member Variables
 	
@@ -39,6 +42,14 @@ public class ActivityBase extends ListActivity implements View.OnClickListener{
 	//included because we need to ensure that we can capture the existing setting to be restored on the Initial
 	//screen launch. Since the super method is called first, including it here would destroy that setting before
 	//we can capture it. That means that setDimButtons needs to be called in each child class
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+		
+        setBacklight();
+	}
 	
 	@Override
     public void onPause() {
@@ -58,6 +69,9 @@ public class ActivityBase extends ListActivity implements View.OnClickListener{
     public void onResume() {
 		Log.d("JoeDebug", "ActivityBase onResume");
         super.onResume();
+		
+        setBacklight();
+        
 		setDimButtons(settingsRef.getButtonBrightness());
     }    
 	
@@ -148,7 +162,8 @@ public class ActivityBase extends ListActivity implements View.OnClickListener{
 	
 	//Meant to be overridden by the calling classes to set their individual layouts. 
 	public void setLayout(){
-		
+		setDimButtons(settingsRef.getButtonBrightness());
+		setBacklight();
 	}
 	
 	/**
@@ -156,9 +171,10 @@ public class ActivityBase extends ListActivity implements View.OnClickListener{
 	 * @param Float Value. -1.0f for no override, 0.0f to turn lights off 1.0f for full intensity
 	 */
 	public void setDimButtons(float val) {
-		Window window = getWindow();
-	    LayoutParams layoutParams = window.getAttributes();
-	    if (layoutParams.buttonBrightness != val)
+		Log.d("JoeTest", "getWindow: " + getWindow());
+		WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+
+		if (layoutParams.buttonBrightness != val)
 	    {
 	    	try {
 		        Log.d("JoeDebug", "Current button Brightness is " + layoutParams.buttonBrightness);
@@ -169,7 +185,7 @@ public class ActivityBase extends ListActivity implements View.OnClickListener{
 		        Log.d("JoeDebug", "Failed to set button brightness");
 		        e.printStackTrace();
 		    }
-		    window.setAttributes(layoutParams);
+	    	getWindow().setAttributes(layoutParams);
 	    }
 	}
 
@@ -471,5 +487,51 @@ public class ActivityBase extends ListActivity implements View.OnClickListener{
 	    {
 	        // "exit" ignored
 	    }
+	}
+
+	/**
+	 * This method is used to set the backlight intensity -- either full for normal mode or according to the user's
+	 * preference set in the settings database for night mode. It in turn calls the overriden version of the method
+	 * according to the session mode
+	 */
+	public void setBacklight()
+	{
+		if (settingsRef.getSessionMode() == SessionMode.night)
+        	setBacklight(false);
+        else
+        	setBacklight(true);
+	}
+	
+	/**
+	 * Set the backlight intensity for the current screen. This method will either set it to full for normal mode
+	 * or it will get the perferred night-mode setting from the SettingsContainer, parse it out into a float and 
+	 * dim the screen to the appropriate level
+	 * 
+	 * This method is meant to be used internally only, but it's left public for testing purposes (need to learn about 
+	 * test hooks and such in Java
+	 * 
+	 * @param full True for full intensity (normal mode), false for dim (night mode)
+	 */
+	public void setBacklight(boolean full)
+	{
+		WindowManager.LayoutParams WMLP = getWindow().getAttributes();
+		
+		if (full)
+		{
+			WMLP.screenBrightness = -1.0F;
+			getWindow().setAttributes(WMLP);
+		}
+		else
+		{
+			int backlightPreference = Integer.parseInt(settingsRef.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, this));
+			
+			//Backlight preference setting is saved as an int from 0 - 10. In the platform, backlight intensity is 
+			//set with a float from 0.0F - 1.0F. So if the user has left the default setting of 1, and we divide by 10
+			//then we get a backlight intensity setting of 0.1F to feed to the platform, dimming the backlight 
+			//down very low.
+			float intensity = (float)backlightPreference/10;
+			WMLP.screenBrightness = intensity;
+			getWindow().setAttributes(WMLP);
+		}
 	}
 }

@@ -1,13 +1,10 @@
 package com.rowley.mobileobservinglog;
 
-import java.util.UnknownFormatConversionException;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -110,10 +107,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			String[] rowData = parseResourceByDelimiter(settingsLines[i]);
 			
 			//There are four columns to fill in this table
-			if (rowData.length == 4)
+			if (rowData.length == 5)
 			{
-				sqlStatement = db.compileStatement("INSERT INTO availableCatalogs (catalogName, installed, numberOfObjects, description) " + 
-						"VALUES (?, ?, ?, ?)");
+				sqlStatement = db.compileStatement("INSERT INTO availableCatalogs (catalogName, installed, numberOfObjects, description, size) " + 
+						"VALUES (?, ?, ?, ?, ?)");
 				for (int j = 0; j < rowData.length; j++)
 				{
 					sqlStatement.bindString(j + 1, rowData[j]);
@@ -298,14 +295,38 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 * This method is used to populate the settings database with a new value for a given setting, and to simultaneously
 	 * set that value in the settings container so it can become immediately available to other parts of the application
 	 * 
-	 * @param setting String representing the setting you wish to set.
+	 * @param setting String representing the setting you wish to set. Preferably use the String Constants provided in the SettingsContainer
 	 * @param value String representing the value to insert.
 	 * @return Was the operation successful?
 	 */
 	public boolean setPersistentSetting(String setting, String value)
 	{
-		boolean retVal = false;
+		SQLiteDatabase db = getWritableDatabase();
+		SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
 		
-		return retVal;
+		SQLiteStatement sqlStatement = db.compileStatement("UPDATE settings SET settingValue = ? WHERE settingName = ?");
+		sqlStatement.bindString(1, value);
+		sqlStatement.bindString(2, setting);
+		
+		boolean success = false;
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			settingsRef.setPersistentSetting(setting, value);
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
 	}
 }

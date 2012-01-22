@@ -9,9 +9,6 @@ public class TargetListsScreen extends ActivityBase{
 	//gather resources
 	LinearLayout body;
 	
-	//Get access to the settings container singleton
-	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
-	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "TargetLists onCreate. Current session mode is " + settingsRef.getSessionMode());
@@ -47,7 +44,7 @@ public class TargetListsScreen extends ActivityBase{
 	public void setLayout(){
 		Log.d("JoeDebug", "TargetLists onCreate. Layout is " + settingsRef.getTargetListsLayout());
 		setContentView(settingsRef.getTargetListsLayout());
-		setDimButtons(settingsRef.getButtonBrightness());
+		super.setLayout();
 		body.postInvalidate();
 	}
 }

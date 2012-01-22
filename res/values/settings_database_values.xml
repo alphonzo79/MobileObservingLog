@@ -2,7 +2,7 @@
 <resources>
 <!-- We will parse by row, then split on the semicolon. If there is no value after the semicolon, that is a setting
 item that will navigate to another screen - no single value for this setting -->
-    <string name="settings_default_values">"Night Mode Backlight Intensity;5;1
+    <string name="settings_default_values">"Night Mode Backlight Intensity;1;1
 Use Device GPS;Yes;0
 Search/Filter Type;Simple;1
 Manage Equipment;NULL;1

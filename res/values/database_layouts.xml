@@ -18,5 +18,5 @@
 	<string name="create_target_list_items_table">
 	CREATE TABLE IF NOT EXISTS targetListItems (_id INTEGER PRIMARY KEY AUTOINCREMENT, list TEXT, isObject TEXT, objectDesignation TEXT, itemDescription TEXT);</string>
 	<string name="create_available_catalogs_table">
-	CREATE TABLE IF NOT EXISTS availableCatalogs (catalogName TEXT PRIMARY KEY, installed TEXT, numberOfObjects INTEGER, description TEXT);</string>
+	CREATE TABLE IF NOT EXISTS availableCatalogs (catalogName TEXT PRIMARY KEY, installed TEXT, numberOfObjects INTEGER, description TEXT, size TEXT);</string>
 </resources>

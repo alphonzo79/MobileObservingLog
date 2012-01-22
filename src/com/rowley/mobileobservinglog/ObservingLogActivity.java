@@ -15,9 +15,6 @@ public class ObservingLogActivity extends ActivityBase{
 	Button btnNight;
 	Button btnNormal;
 	
-	//Get access to the settings container singleton
-	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
-    
 	//Create listeners
     private final Button.OnClickListener btnNightOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
@@ -46,7 +43,7 @@ public class ObservingLogActivity extends ActivityBase{
         //Set the session mode to night until it get changed
 		settingsRef.setNightMode();
 		
-		//capture the current button itensity setting to be saved and restored upon pause/destroy
+		//capture the current button intensity setting to be saved and restored upon pause/destroy
 		Window window = getWindow();
 	    LayoutParams layoutParams = window.getAttributes();
 	    try {

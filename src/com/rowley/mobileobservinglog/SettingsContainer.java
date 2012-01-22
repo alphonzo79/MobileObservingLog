@@ -1,5 +1,9 @@
 package com.rowley.mobileobservinglog;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import android.content.Context;
 import android.util.Log;
 
 public final class SettingsContainer {
@@ -14,14 +18,22 @@ public final class SettingsContainer {
 	public static synchronized SettingsContainer getSettingsContainer(){
 		if (ref == null){
 			ref = new SettingsContainer();
+			
+			//Initialize persistent settings map upon creation
+			ref.persistentSettingsMap = new HashMap<String, String>();
 		}
 		return ref;
 	}
 
 	//Member Variables
 	
-	//Persistent Setting Constants
-	public static final String NM_BACKLIGHT = null;
+	//Persistent Setting String Constants
+	public static final String NM_BACKLIGHT = "Night Mode Backlight Intensity";
+	public static final String USE_GPS = "Use Device GPS";
+	public static final String SEARCH_MODE = "Search/Filter Type";
+	
+	//Persistent Settings Map
+	private Map<String, String> persistentSettingsMap = null;
 	
 	//SessionMode
 	public static enum SessionMode{
@@ -153,7 +165,7 @@ public final class SettingsContainer {
 		setSettingsListLayout(R.layout.settings_list_night);
 		setTargetListsLayout(R.layout.target_lists_screen_night);
 		setBackupRestoreLayout(R.layout.backup_restore_screen_night);
-		setButtonBrightness(0.0f);
+		setButtonBrightness(0.0F);
 	}
 	
 	public void setNormalMode(){
@@ -171,9 +183,44 @@ public final class SettingsContainer {
 		setBackupRestoreLayout(R.layout.backup_restore_screen);
 		setButtonBrightness(getOriginalButtonBrightness());
 	}
-	public String getPersistentSetting(String setting)
+	
+	/**
+	 * This method returns the persistent setting value that you want. If the settingsContainer object has not yet
+	 * initialized the persistentSettingsMap, then it will do so with a db query. Otherwise it will just return what
+	 * it has in the map
+	 * 
+	 * @param setting PersistentSetting enum for the setting that you are looking for
+	 * @param context The activity context that you are calling this from, passed on to the db for use there.
+	 * @return The string value of the setting. If it is meant to be used as another type, it will need to be parsed by the consumer
+	 */
+	public String getPersistentSetting(String setting, Context context)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		//First we need to see if we need to populate the settings from the database. I tried to include this in the constructor, but it cause a circular reference
+		//And then I tried to include it in getSettingsContainer, but that caused a null reference exception because of the context dependency -- trying to create too
+		//many inter-dependant things at once. So I moved it down here. Everything but these values should be initialized at this time and overcome all of our
+		//dependency issues
+		if (persistentSettingsMap.keySet().size() < 3) //At this time we have three persistent settings. If we add more this number will need to be updated. We look for the full number because it is possible that we have called setPersistentSetting before we called this method
+		{			
+			DatabaseHelper db = new DatabaseHelper(context);
+			persistentSettingsMap.put(NM_BACKLIGHT, db.getPersistentSettings(NM_BACKLIGHT));
+			persistentSettingsMap.put(SEARCH_MODE, db.getPersistentSettings(SEARCH_MODE));
+			persistentSettingsMap.put(USE_GPS, db.getPersistentSettings(USE_GPS));
+		}
+		
+		return persistentSettingsMap.get(setting);
+	}
+	
+	/**
+	 * Called exclusively by a databaseHelper object. When setting a persistent setting, we call the set method in 
+	 * the database helper, which saves the value to the db, then calls this method to keep the updated value 
+	 * available for the app's immediate use. This is a sort of invalidation. DO NOT CALL THIS METHOD MANUALLY! Otherwise
+	 * there will be a disparity between the db and the currently-loaded settings.
+	 * 
+	 * @param setting The String value (use the constants provided) for the setting that will be set
+	 * @param value The String value that will be associated with the setting
+	 */
+	public void setPersistentSetting(String setting, String value)
+	{
+		persistentSettingsMap.put(setting, value);
 	}
 }

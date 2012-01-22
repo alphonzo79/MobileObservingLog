@@ -22,9 +22,6 @@ public class HomeScreen extends ActivityBase{
 	Button backupRestoreButton;
 	Button settingsButton;
 	
-	//Get access to the settings container singleton
-	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
-    
 	//Create listeners for each of the main buttons
     private final Button.OnClickListener catalogsButtonOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
@@ -140,7 +137,7 @@ public class HomeScreen extends ActivityBase{
 		setContentView(settingsRef.getHomeLayout());
 		findButtons();
 		setListeners();
-		setDimButtons(settingsRef.getButtonBrightness());
+		super.setLayout();
 		body.postInvalidate();
 	}
 }

@@ -9,9 +9,6 @@ public class BackupRestoreScreen extends ActivityBase{
 	//gather resources
 	LinearLayout body;
 	
-	//Get access to the settings container singleton
-	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
-	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "BackupRestore onCreate. Current session mode is " + settingsRef.getSessionMode());
@@ -46,7 +43,7 @@ public class BackupRestoreScreen extends ActivityBase{
 	@Override
 	public void setLayout(){
 		setContentView(settingsRef.getBackupRestoreLayout());
-		setDimButtons(settingsRef.getButtonBrightness());
+		super.setLayout();
 		body.postInvalidate();
 	}
 }

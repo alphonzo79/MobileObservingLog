@@ -132,7 +132,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		//check data in settings
 		dbCursor = db.rawQuery("select settingValue from settings where settingName = 'Night Mode Backlight Intensity'", null);
 		dbCursor.moveToFirst();
-		assertEquals("The data in the settings table did not match", "5", dbCursor.getString(0));
+		assertEquals("The data in the settings table did not match", "1", dbCursor.getString(0));
 		dbCursor.close();
 		
 		//check data in objects
@@ -156,7 +156,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		Log.d("JoeDebug", "testParseResourceByLine");
 		String[] lines = mCut.parseResourceByLine(R.string.settings_default_values);
 		assertEquals("Wrong number of lines", 7, lines.length);
-		assertEquals("Wrong string in the first place", "Night Mode Backlight Intensity;5;1", lines[0]);
+		assertEquals("Wrong string in the first place", "Night Mode Backlight Intensity;1;1", lines[0]);
 		assertEquals("Wrong string in the last place", "Information/About;NULL;1", lines[6]);
 	}
 
@@ -233,14 +233,14 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		//Get access to the settings container singleton
 		SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
 		
-		mCut.setPersistentSetting("Night Mode Backlight Intensity", "8");
+		mCut.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, "8");
 		
-		String value = mCut.getPersistentSettings("Night Mode Backlight Intensity");
+		String value = mCut.getPersistentSettings(SettingsContainer.NM_BACKLIGHT);
 		assertEquals("We got the wrong value", "8", value);
-		String scValue = settingsRef.getPersistentSetting(settingsRef.NM_BACKLIGHT);
+		String scValue = settingsRef.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, mAut);
 		assertEquals("We got the wrong value", "8", scValue);
 		
 		//Return the setting back to what it was
-		mCut.setPersistentSetting("Night Mode Backlight Intensity", "5");
+		mCut.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, "5");
 	}
 }
