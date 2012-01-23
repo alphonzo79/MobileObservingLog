@@ -5,6 +5,7 @@ item that will navigate to another screen - no single value for this setting -->
     <string name="settings_default_values">"Night Mode Backlight Intensity;1;1
 Use Device GPS;Yes;0
 Search/Filter Type;Simple;1
+Manage Catalogs;NULL;1
 Manage Equipment;NULL;1
 Manage Observing Locations;NULL;1
 Personal Information;NULL;1

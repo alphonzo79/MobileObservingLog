@@ -199,7 +199,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Call the method, then check for the correct number of rows and columns
 		Cursor dbCursor = mCut.getPersistentSettings();
-		assertEquals("We got the wrong number of rows", 7, dbCursor.getCount());
+		assertEquals("We got the wrong number of rows", 8, dbCursor.getCount());
 		assertEquals("We got the wrong number of columns", 3, dbCursor.getColumnCount());
 		dbCursor.close();
 	}

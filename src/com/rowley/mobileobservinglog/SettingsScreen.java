@@ -1,8 +1,11 @@
 package com.rowley.mobileobservinglog;
 
+import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -11,6 +14,7 @@ public class SettingsScreen extends ActivityBase{
 
 	//gather resources
 	LinearLayout body;
+	ArrayList<String> settingsList;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -23,13 +27,7 @@ public class SettingsScreen extends ActivityBase{
         setContentView(settingsRef.getSettingsLayout());
         body = (LinearLayout)findViewById(R.id.settings_root); 
         
-        SettingObject[] settingsList = getSettingsList();
-        
-        setListAdapter(new ArrayAdapter<SettingObject>(this, settingsRef.getSettingsListLayout(), settingsList));
-
-        //ListView lv = getListView();
-        //lv.setTextFilterEnabled(true);
-
+        prepareListView();
 	}
 
 	@Override
@@ -55,7 +53,17 @@ public class SettingsScreen extends ActivityBase{
 	public void setLayout(){
 		setContentView(settingsRef.getSettingsLayout());
 		super.setLayout();
+		prepareListView();
 		body.postInvalidate();
+	}
+	
+	/**
+	 * Internal method to handle preparation of the list view upon creation or to be called by setLayout when session mode changes or onResume.
+	 */
+	private void prepareListView()
+	{
+		settingsList = getSettingsList();
+        setListAdapter(new ArrayAdapter<String>(this, settingsRef.getSettingsListLayout(), settingsList));
 	}
 	
 	/**
@@ -63,18 +71,32 @@ public class SettingsScreen extends ActivityBase{
 	 * 
 	 * @return
 	 */
-	private SettingObject[] getSettingsList()
+	private ArrayList<String> getSettingsList()
 	{
         DatabaseHelper db = new DatabaseHelper(this);
         Cursor settingsCursor = db.getPersistentSettings();
         
-        SettingObject[] retVal = new SettingObject[settingsCursor.getCount()];
+        ArrayList<String> retVal = new ArrayList<String>();
         
         settingsCursor.moveToFirst();
         
         for (int i = 0; i < settingsCursor.getCount(); i++)
         {
-        	retVal[i] = new SettingObject(settingsCursor.getString(0), settingsCursor.getString(1), settingsCursor.getString(2));
+        	//Check whether this is a currently-used setting
+        	if (settingsCursor.getString(2).equals("1"))
+        	{
+        		//If there's a value associated with this setting then put together the string to display it
+        		//Settings with a null value are meant to be display only, and will take us to management screens
+        		if (!settingsCursor.getString(1).equalsIgnoreCase("null"))
+        		{
+        			retVal.add(String.format("%s: %s", settingsCursor.getString(0), settingsCursor.getString(1)));
+        		}
+        		else
+        		{
+	        		retVal.add(settingsCursor.getString(0));
+        		}
+        	}
+        	
         	settingsCursor.moveToNext();
         }
         
@@ -82,23 +104,92 @@ public class SettingsScreen extends ActivityBase{
 	}
 	
 	/**
-	 * Internal class used to hold values for persistent settings, to be passed into the array adapter for inflating the list view
-	 * 
-	 * @author Joe
-	 *
+	 * Take action on each of the list items when clicked. The settings with values will bring up a widget to adjust that setting. The items with no value
+	 * associated will launch a new activity where more actions can be taken.
 	 */
-	@SuppressWarnings("unused")
-	private static class SettingObject
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id)
 	{
-		public String settingName;
-		public String settingValue;
-		public String isVisible;
+		String itemText = (String) l.getItemAtPosition(position);
 		
-		public SettingObject(String name, String value, String visible)
+		//Night Mode Backlight Intensity
+		if (itemText.contains("Night Mode Backlight Intensity"))
 		{
-			settingName = name;
-			settingValue = value;
-			isVisible = visible;
+			setBacklightIntensity();
+			return;
 		}
+		
+		//Use GPS
+		if (itemText.contains("Use Device GPS"))
+		{
+			setUseGps();
+			return;
+		}
+		
+		//Search/filter mode
+		if (itemText.contains("Search/Filter Type"))
+		{
+			setFilterType();
+			return;
+		}
+		
+		//Manage Catalogs
+		if (itemText.contains("Manage Catalogs"))
+		{
+			//TODO launch the manage catalogs activity
+		}
+		
+		//Manage Equipment
+		if (itemText.contains("Manage Equipement"))
+		{
+			//TODO launch the manage equipment activity
+		}
+		
+		//Manage Observing Locations
+		if (itemText.contains("Manage Observing Locations"))
+		{
+			//TODO launch the manage Observing Locations activity
+		}
+		
+		//Personal Information
+		if (itemText.contains("Personal Information"))
+		{
+			//TODO launch the personal information activity
+		}
+		
+		//Information/About
+		if (itemText.contains("Information/About"))
+		{
+			//TODO launch the Information/About activity
+		}
+	}
+
+	/**
+	 * Called by the listener method to bring up a widget to select the backlight intensity, save the setting to the database (which saves it to the settings
+	 * container), and updates the display
+	 */
+	private void setBacklightIntensity()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Unused in the current version. In future update will be used to set the preference as to whether to use the device GPS for locations
+	 */
+	private void setUseGps()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Called by the listener method to bring up a widget to select the prefered Search/Filter method, save the setting to the database (which also saves it to
+	 * the settings container), and updates the display
+	 */
+	private void setFilterType()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
