@@ -16,5 +16,8 @@
     <string name="home_add_catalogs">Manage Catalogs</string>
     <string name="home_backup">Backup Log Data</string>
     <string name="home_settings">Settings</string>
-    <string name="settings_screen_header">Mobile Astronomical Observing Log - Settings</string>
+    <string name="settings_screen_header">Mobile Astronomical Observing Log - Settings</string>    
+    <string name="dialog_set_number">Set</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="backlight_dialog_picker_title">Night-Mode Backlight Intensity</string>
 </resources>
