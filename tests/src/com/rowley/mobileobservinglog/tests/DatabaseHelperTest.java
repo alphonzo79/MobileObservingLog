@@ -155,9 +155,9 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	{
 		Log.d("JoeDebug", "testParseResourceByLine");
 		String[] lines = mCut.parseResourceByLine(R.string.settings_default_values);
-		assertEquals("Wrong number of lines", 7, lines.length);
+		assertEquals("Wrong number of lines", 8, lines.length);
 		assertEquals("Wrong string in the first place", "Night Mode Backlight Intensity;1;1", lines[0]);
-		assertEquals("Wrong string in the last place", "Information/About;NULL;1", lines[6]);
+		assertEquals("Wrong string in the last place", "Information/About;NULL;1", lines[7]);
 	}
 
 	/**

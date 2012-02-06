@@ -303,6 +303,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen_night, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen_night, mCut.getBackupRestoreLayout());
 		assertEquals("The button brightness value was not correct", (float)0.0f, mCut.getButtonBrightness());
+		assertEquals("The delivered layout was not correct", R.layout.number_picker_night, mCut.getNumberPickerLayout());
 	}
 
 	/**
@@ -325,6 +326,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen, mCut.getBackupRestoreLayout());
 		assertEquals("The button brightness value was not correct", (float)-1.0f, mCut.getButtonBrightness());
+		assertEquals("The delivered layout was not correct", R.layout.number_picker, mCut.getNumberPickerLayout());
 	}
 
 	/**
@@ -358,5 +360,23 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		
 		mCut.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, originalSetting);
 		assertEquals("Night Mode Backlight Intensity was not reset correctly", originalSetting, mCut.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, mAut));
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getNumberPickerLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetNumberPickerLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode. CurrentMode: " + currentMode + ". ", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.number_picker_night, mCut.getNumberPickerLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.number_picker, mCut.getNumberPickerLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.number_picker_night, mCut.getNumberPickerLayout());
 	}
 }

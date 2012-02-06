@@ -47,8 +47,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {
 
     private static final String TAG = "NumberPicker";
-    private static final int DEFAULT_MAX = 200;
-    private static final int DEFAULT_MIN = 0;
+    private static final int DEFAULT_MAX = 10;
+    private static final int DEFAULT_MIN = 1;
 
     public interface OnChangedListener {
         void onChanged(NumberPicker picker, int oldVal, int newVal);
@@ -118,7 +118,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         super(context, attrs);
         setOrientation(VERTICAL);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.number_picker, this, true);
+        inflater.inflate(SettingsContainer.getSettingsContainer().getNumberPickerLayout(), this, true);
         mHandler = new Handler();
         InputFilter inputFilter = new NumberPickerInputFilter();
         mNumberInputFilter = new NumberRangeKeyListener();

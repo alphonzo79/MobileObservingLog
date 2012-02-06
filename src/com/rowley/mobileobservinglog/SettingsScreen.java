@@ -198,17 +198,17 @@ public class SettingsScreen extends ActivityBase implements NumberPickerDialog.O
 	protected Dialog onCreateDialog(int id) {
 	    switch (id) {
 	    case BACKLIGHT_SELECTOR_DIALOG:
-	    	NumberPickerDialog dialog = new NumberPickerDialog(this, -1, Integer.parseInt(settingsRef.getPersistentSetting(settingsRef.NM_BACKLIGHT, this)));
+	    	NumberPickerDialog dialog = new NumberPickerDialog(this, 0, Integer.parseInt(settingsRef.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, this)));
             dialog.setTitle(getString(R.string.backlight_dialog_picker_title));
             dialog.setOnNumberSetListener(this);
             dialog.show();
-	        return new NumberPickerDialog(this, -1, Integer.parseInt(settingsRef.getPersistentSetting(settingsRef.NM_BACKLIGHT, this)));
-	        
 	    }
 	    return null;
 	}
 	
     public void onNumberSet(int number) {
-        Log.d("NumberPicker", "Number selected: " + number);
+    	DatabaseHelper db = new DatabaseHelper(this);
+    	db.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, Integer.toString(number));
+    	setLayout();
     }
 }
