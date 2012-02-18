@@ -2,7 +2,6 @@ package com.rowley.mobileobservinglog;
 
 import java.util.ArrayList;
 
-import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,12 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-public class SettingsScreen extends ActivityBase implements NumberPickerDialog.OnNumberSetListener{
+public class SettingsScreen extends ActivityBase{
 
 	//gather resources
 	LinearLayout body;
 	ArrayList<String> settingsList;
-	public static final int BACKLIGHT_SELECTOR_DIALOG = 0;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -172,7 +170,8 @@ public class SettingsScreen extends ActivityBase implements NumberPickerDialog.O
 	 */
 	private void setBacklightIntensity()
 	{
-		showDialog(BACKLIGHT_SELECTOR_DIALOG);
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -193,22 +192,4 @@ public class SettingsScreen extends ActivityBase implements NumberPickerDialog.O
 		// TODO Auto-generated method stub
 		
 	}
-	
-	@Override
-	protected Dialog onCreateDialog(int id) {
-	    switch (id) {
-	    case BACKLIGHT_SELECTOR_DIALOG:
-	    	NumberPickerDialog dialog = new NumberPickerDialog(this, 0, Integer.parseInt(settingsRef.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, this)));
-            dialog.setTitle(getString(R.string.backlight_dialog_picker_title));
-            dialog.setOnNumberSetListener(this);
-            dialog.show();
-	    }
-	    return null;
-	}
-	
-    public void onNumberSet(int number) {
-    	DatabaseHelper db = new DatabaseHelper(this);
-    	db.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, Integer.toString(number));
-    	setLayout();
-    }
 }

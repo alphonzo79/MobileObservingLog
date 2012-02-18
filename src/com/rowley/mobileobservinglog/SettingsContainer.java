@@ -149,15 +149,6 @@ public final class SettingsContainer {
 		mOriginalButtonBrightness = brightness;
 	}
 	
-	//Layout to be used in number pickers.
-	private int mNumberPickerLayout;
-	public int getNumberPickerLayout(){
-		return mNumberPickerLayout;
-	}
-	public void setNumberPickerLayout(int layout){
-		mNumberPickerLayout = layout;
-	}
-	
 	//Helper Methods
 	//Called to change from normal mode to night mode. This method will set all of the style attributes that are used in setting layouts
 	public void setNightMode(){
@@ -175,7 +166,6 @@ public final class SettingsContainer {
 		setTargetListsLayout(R.layout.target_lists_screen_night);
 		setBackupRestoreLayout(R.layout.backup_restore_screen_night);
 		setButtonBrightness(0.0F);
-		setNumberPickerLayout(R.layout.number_picker_night);
 	}
 	
 	public void setNormalMode(){
@@ -192,7 +182,6 @@ public final class SettingsContainer {
 		setTargetListsLayout(R.layout.target_lists_screen);
 		setBackupRestoreLayout(R.layout.backup_restore_screen);
 		setButtonBrightness(getOriginalButtonBrightness());
-		setNumberPickerLayout(R.layout.number_picker);
 	}
 	
 	/**
