@@ -1,20 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/layoutRootNormal"
     android:id="@+id/settings_root"
     >
     
-    <TextView  
-	    style="@style/headerBarNormal"
-	    android:id="@+id/settings_header"
-	    android:text="@string/settings_screen_header"
-	    />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/settings_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	>
     
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         />
+	    <TextView  
+		    style="@style/headerBarNormal"
+		    android:id="@+id/settings_header"
+		    android:text="@string/settings_screen_header"
+		    />
 	    
-</LinearLayout>
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:layout_below="@id/settings_header"
+	         />
+         
+     </RelativeLayout>
+    
+     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/settings_fog"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	>
+    
+	    <TextView  
+		    android:background="@color/black40"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+	    />
+         
+     </RelativeLayout>
+    
+     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/settings_backlight_setter"
+    	style="@style/modalContainerNormal"
+    	>
+    
+	    <TextView  
+		    android:id="@+id/backlight_setting_header"
+		    android:text="@string/set_backlight_intensity"
+		    style="@style/modalHeaderDay"
+		    />
+		    
+	    <Button 
+	    	android:id="@+id/backlight_up_button"
+	    	style="@style/modalUpButtonNormal"
+	    	android:text="+"
+	    	android:layout_below="@id/backlight_setting_header"
+	    	/>
+    
+	    <TextView  
+		    android:id="@+id/backlight_setting_input_field"
+	    	style="@style/modalTextFieldNormal"
+		    android:text="5"
+	    	android:layout_below="@id/backlight_up_button"
+		    />
+		    
+	    <Button 
+	    	android:id="@+id/backlight_down_button"
+	    	style="@style/modalDownButtonNormal"
+	    	android:text="-"
+	    	android:layout_below="@id/backlight_setting_input_field"
+	    	/>
+	    	
+    	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		android:id="@+id/save_cancel_container"
+    		android:orientation="horizontal"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content"
+    		android:layout_marginLeft="15dp"
+    		android:layout_marginRight="15dp"
+    		android:layout_below="@id/backlight_down_button"
+    		android:gravity="center_horizontal"
+    		>
+		    
+		    <Button 
+		    	android:id="@+id/backlight_save_button"
+		    	style="@style/modalSaveCancelButtonNormal"
+		    	android:text="Set"
+		    	android:layout_weight="40"
+		    	/>
+			    
+		    <Button 
+		    	android:id="@+id/backlight_cancel_button"
+		    	style="@style/modalSaveCancelButtonNormal"
+		    	android:text="Cancel"
+		    	android:layout_weight="40"
+		    	/>
+    		
+   		</LinearLayout>
+         
+     </RelativeLayout>
+	    
+</FrameLayout>

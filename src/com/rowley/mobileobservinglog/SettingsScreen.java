@@ -3,17 +3,19 @@ package com.rowley.mobileobservinglog;
 import java.util.ArrayList;
 
 import android.database.Cursor;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class SettingsScreen extends ActivityBase{
 
 	//gather resources
-	LinearLayout body;
+	FrameLayout body;
 	ArrayList<String> settingsList;
 	
 	@Override
@@ -25,7 +27,7 @@ public class SettingsScreen extends ActivityBase{
 		
         //setup the layout
         setContentView(settingsRef.getSettingsLayout());
-        body = (LinearLayout)findViewById(R.id.settings_root); 
+        body = (FrameLayout)findViewById(R.id.settings_root); 
         
         prepareListView();
 	}
@@ -115,6 +117,7 @@ public class SettingsScreen extends ActivityBase{
 		//Night Mode Backlight Intensity
 		if (itemText.contains("Night Mode Backlight Intensity"))
 		{
+			prepForModal(l);
 			setBacklightIntensity();
 			return;
 		}
@@ -165,13 +168,27 @@ public class SettingsScreen extends ActivityBase{
 	}
 
 	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	private void prepForModal(ListView list)
+	{
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.settings_main);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(false);
+		listView.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+	}
+
+	/**
 	 * Called by the listener method to bring up a widget to select the backlight intensity, save the setting to the database (which saves it to the settings
 	 * container), and updates the display
 	 */
 	private void setBacklightIntensity()
 	{
-		// TODO Auto-generated method stub
-		
+		RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.settings_backlight_setter);
+		backlightModal.setVisibility(View.VISIBLE);
 	}
 
 	/**
