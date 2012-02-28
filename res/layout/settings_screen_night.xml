@@ -26,39 +26,16 @@
 	         
 	</RelativeLayout>
     
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/settings_fog"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:visibility="invisible"
-    	>
-    
-	    <TextView  
-		    android:background="@color/black40"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-	    />
-         
-    </RelativeLayout>
-    
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/settings_backlight_setter"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_marginLeft="15dp"
-    	android:layout_marginRight="15dp"
-    	android:layout_gravity="center"
-    	android:background="@drawable/empty_rounded_button_night"
-    	android:visibility="invisible"
-    	>
-    
-	    <TextView  
-		    style="@style/headerBarNormal"
-		    android:id="@+id/settings_header"
-		    android:text="Gone"
-		    android:layout_marginTop="80px"
-		    />
-         
-     </RelativeLayout>
+     <include android:id="@+id/settings_fog"
+	        layout="@layout/background_dim_out"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:visibility="invisible"
+	    	/>
+     
+     <include android:id="@+id/number_picker_modal"
+         style="@style/modalContainerNormal"
+         layout="@layout/number_picker_night"
+         />
 	    
 </FrameLayout>

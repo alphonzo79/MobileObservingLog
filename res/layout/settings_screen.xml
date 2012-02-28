@@ -26,80 +26,16 @@
          
      </RelativeLayout>
     
-     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/settings_fog"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:visibility="invisible"
-    	>
-    
-	    <TextView  
-		    android:background="@color/black40"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-	    />
-         
-     </RelativeLayout>
-    
-     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/settings_backlight_setter"
-    	style="@style/modalContainerNormal"
-    	>
-    
-	    <TextView  
-		    android:id="@+id/backlight_setting_header"
-		    android:text="@string/set_backlight_intensity"
-		    style="@style/modalHeaderDay"
-		    />
-		    
-	    <Button 
-	    	android:id="@+id/backlight_up_button"
-	    	style="@style/modalUpButtonNormal"
-	    	android:text="+"
-	    	android:layout_below="@id/backlight_setting_header"
+     <include android:id="@+id/settings_fog"
+	        layout="@layout/background_dim_out"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:visibility="invisible"
 	    	/>
-    
-	    <TextView  
-		    android:id="@+id/backlight_setting_input_field"
-	    	style="@style/modalTextFieldNormal"
-		    android:text="5"
-	    	android:layout_below="@id/backlight_up_button"
-		    />
-		    
-	    <Button 
-	    	android:id="@+id/backlight_down_button"
-	    	style="@style/modalDownButtonNormal"
-	    	android:text="-"
-	    	android:layout_below="@id/backlight_setting_input_field"
-	    	/>
-	    	
-    	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    		android:id="@+id/save_cancel_container"
-    		android:orientation="horizontal"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="wrap_content"
-    		android:layout_marginLeft="15dp"
-    		android:layout_marginRight="15dp"
-    		android:layout_below="@id/backlight_down_button"
-    		android:gravity="center_horizontal"
-    		>
-		    
-		    <Button 
-		    	android:id="@+id/backlight_save_button"
-		    	style="@style/modalSaveCancelButtonNormal"
-		    	android:text="Set"
-		    	android:layout_weight="40"
-		    	/>
-			    
-		    <Button 
-		    	android:id="@+id/backlight_cancel_button"
-		    	style="@style/modalSaveCancelButtonNormal"
-		    	android:text="Cancel"
-		    	android:layout_weight="40"
-		    	/>
-    		
-   		</LinearLayout>
-         
-     </RelativeLayout>
+     
+     <include android:id="@+id/number_picker_modal"
+         style="@style/modalContainerNormal"
+         layout="@layout/number_picker"
+         />
 	    
 </FrameLayout>

@@ -2,21 +2,35 @@ package com.rowley.mobileobservinglog;
 
 import java.util.ArrayList;
 
+import com.rowley.strategies.BacklightNumberPicker;
+import com.rowley.strategies.GpsModePicker;
+import com.rowley.strategies.NumberPickerDriver;
+import com.rowley.strategies.SearchModePicker;
+
+import android.content.Intent;
 import android.database.Cursor;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class SettingsScreen extends ActivityBase{
 
 	//gather resources
 	FrameLayout body;
 	ArrayList<String> settingsList;
+	TextView modalHeader;
+	Button modalUp;
+	TextView modalText;
+	Button modalDown;
+	Button modalSave;
+	Button modalCancel;
+	NumberPickerDriver numPickerStrategy;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -27,9 +41,10 @@ public class SettingsScreen extends ActivityBase{
 		
         //setup the layout
         setContentView(settingsRef.getSettingsLayout());
-        body = (FrameLayout)findViewById(R.id.settings_root); 
-        
-        prepareListView();
+        body = (FrameLayout)findViewById(R.id.settings_root);         
+        prepareListView();        
+        findModalElements();
+        setListeners();
 	}
 
 	@Override
@@ -49,6 +64,15 @@ public class SettingsScreen extends ActivityBase{
         super.onResume();
         setLayout();
     }
+    
+    private void findModalElements(){
+    	modalHeader = (TextView)findViewById(R.id.number_picker_header);
+    	modalUp = (Button)findViewById(R.id.number_picker_up_button);
+    	modalText = (TextView)findViewById(R.id.number_picker_input_field);
+    	modalDown = (Button)findViewById(R.id.number_picker_down_button);
+    	modalSave = (Button)findViewById(R.id.number_picker_save_button);
+    	modalCancel = (Button)findViewById(R.id.number_picker_cancel_button);
+    }
 	
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
@@ -56,6 +80,8 @@ public class SettingsScreen extends ActivityBase{
 		setContentView(settingsRef.getSettingsLayout());
 		super.setLayout();
 		prepareListView();
+		findModalElements();
+        setListeners();
 		body.postInvalidate();
 	}
 	
@@ -117,22 +143,24 @@ public class SettingsScreen extends ActivityBase{
 		//Night Mode Backlight Intensity
 		if (itemText.contains("Night Mode Backlight Intensity"))
 		{
-			prepForModal(l);
-			setBacklightIntensity();
+			prepForModal();
+			setBacklightIntensity(itemText);
 			return;
 		}
 		
 		//Use GPS
 		if (itemText.contains("Use Device GPS"))
 		{
-			setUseGps();
+			prepForModal();
+			setUseGps(itemText);
 			return;
 		}
 		
 		//Search/filter mode
 		if (itemText.contains("Search/Filter Type"))
 		{
-			setFilterType();
+			prepForModal();
+			setFilterType(itemText);
 			return;
 		}
 		
@@ -166,11 +194,57 @@ public class SettingsScreen extends ActivityBase{
 			//TODO launch the Information/About activity
 		}
 	}
+	
+	//set Listeners for each of the modal buttons
+	private final Button.OnClickListener modalUpOnClick = new Button.OnClickListener() {
+		public void onClick(View view){
+			Log.d("OnClick", "upOnClick called");
+	    	numPickerStrategy.upButton();
+        	modalText.setText(numPickerStrategy.getCurrentValue());
+        	modalText.postInvalidate();
+        }
+    };
+	
+	//set Listeners for each of the modal buttons
+	private final Button.OnClickListener modalDownOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		Log.d("JoeTest", "downOnClick called");
+        	numPickerStrategy.downButton();
+        	modalText.setText(numPickerStrategy.getCurrentValue());
+        }
+    };
+	
+	//set Listeners for each of the modal buttons
+	private final Button.OnClickListener modalSaveOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		Log.d("JoeTest", "saveOnClick called");
+        	numPickerStrategy.save();
+        	tearDownModal();
+        	setLayout();
+        	setListeners();
+        }
+    };
+	
+	//set Listeners for each of the modal buttons
+	private final Button.OnClickListener modalCancelOnClick = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		Log.d("JoeTest", "cancelOnClick called");
+        	tearDownModal();
+        	setListeners();
+        }
+    };
+    
+    private void setListeners(){
+    	modalUp.setOnClickListener(modalUpOnClick);
+    	modalDown.setOnClickListener(modalDownOnClick);
+    	modalSave.setOnClickListener(modalSaveOnClick);
+    	modalCancel.setOnClickListener(modalCancelOnClick);
+    }
 
 	/**
 	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
 	 */
-	private void prepForModal(ListView list)
+	private void prepForModal()
 	{
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
 		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.settings_main);
@@ -180,33 +254,80 @@ public class SettingsScreen extends ActivityBase{
 		listView.setEnabled(false);
 		blackOutLayer.setVisibility(View.VISIBLE);
 	}
+	
+	private void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.settings_main);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(true);
+		listView.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.number_picker_modal);
+		backlightModal.setVisibility(View.INVISIBLE);
+	}
 
 	/**
 	 * Called by the listener method to bring up a widget to select the backlight intensity, save the setting to the database (which saves it to the settings
 	 * container), and updates the display
 	 */
-	private void setBacklightIntensity()
+	private void setBacklightIntensity(String itemText)
 	{
-		RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.settings_backlight_setter);
+		String currentValue = stripValue(itemText);
+		ArrayList<String> possibleValues = new ArrayList<String>();
+		for (int i = 1; i <= 10; i++){
+			possibleValues.add(String.valueOf(i));
+		}
+		numPickerStrategy = new BacklightNumberPicker(possibleValues, currentValue, this);
+		modalHeader.setText(R.string.set_backlight_intensity);
+		modalText.setText(currentValue);
+		RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.number_picker_modal);
 		backlightModal.setVisibility(View.VISIBLE);
 	}
 
 	/**
 	 * Unused in the current version. In future update will be used to set the preference as to whether to use the device GPS for locations
 	 */
-	private void setUseGps()
+	private void setUseGps(String itemText)
 	{
-		// TODO Auto-generated method stub
+		String currentValue = stripValue(itemText);
+		ArrayList<String> possibleValues = new ArrayList<String>();
+		possibleValues.add(getString(R.string.use_gps_yes));
+		possibleValues.add(getString(R.string.use_gps_no));
 		
+		numPickerStrategy = new GpsModePicker(possibleValues, currentValue, this);
+		modalHeader.setText(R.string.set_use_gps);
+		modalText.setText(currentValue);
+		RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.number_picker_modal);
+		backlightModal.setVisibility(View.VISIBLE);
 	}
 
 	/**
 	 * Called by the listener method to bring up a widget to select the prefered Search/Filter method, save the setting to the database (which also saves it to
 	 * the settings container), and updates the display
 	 */
-	private void setFilterType()
+	private void setFilterType(String itemText)
 	{
-		// TODO Auto-generated method stub
+		String currentValue = stripValue(itemText);
+		ArrayList<String> possibleValues = new ArrayList<String>();
+		possibleValues.add(getString(R.string.search_mode_simple));
+		possibleValues.add(getString(R.string.search_mode_advanced));
 		
+		numPickerStrategy = new SearchModePicker(possibleValues, currentValue, this);
+		modalHeader.setText(R.string.set_search_mode);
+		modalText.setText(currentValue);
+		RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.number_picker_modal);
+		backlightModal.setVisibility(View.VISIBLE);
+	}
+	
+	//We need to take the current text of the selected list item and pull out the value after the colon to populate the NumberPicker object with the current value.
+	private String stripValue(String itemText){
+		String[] parsedText = itemText.split(": ");
+		if (parsedText.length > 1){
+			return parsedText[1];
+		}
+		else{
+			return null;
+		}
 	}
 }

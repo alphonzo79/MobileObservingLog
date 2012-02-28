@@ -74,6 +74,7 @@
     <style name="modalHeaderDay">
     	<item name="android:textStyle">bold</item>
     	<item name="android:textColor">@color/white</item>
+    	<item name="android:textSize">16dp</item>
     	<item name="android:gravity">center_horizontal</item>
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
@@ -94,7 +95,7 @@
     	<item name="android:layout_marginTop">7dp</item>
     	<item name="android:layout_marginLeft">15dp</item>
     	<item name="android:layout_marginRight">15dp</item>
-    	<item name="android:padding">15dp</item>
+    	<item name="android:padding">10dp</item>
     </style>
     
     <style name="modalUpButtonNight" parent="modalUpButtonNormal">
@@ -107,7 +108,7 @@
     	<item name="android:textColor">@color/black</item>
     	<item name="android:textSize">24dp</item>
     	<item name="android:gravity">center_horizontal</item>
-    	<item name="android:padding">5dp</item>
+    	<item name="android:padding">8dp</item>
     	<item name="android:background">@drawable/text_field_normal</item>
     	<item name="android:layout_marginLeft">15dp</item>
     	<item name="android:layout_marginRight">15dp</item>
@@ -137,7 +138,7 @@
     	<item name="android:layout_marginTop">7dp</item>
     	<item name="android:layout_marginLeft">7dp</item>
     	<item name="android:layout_marginRight">7dp</item>
-    	<item name="android:padding">15dp</item>
+    	<item name="android:padding">12dp</item>
     </style>
     
     <style name="modalSaveCancelButtonNight" parent="modalSaveCancelButtonNormal">
