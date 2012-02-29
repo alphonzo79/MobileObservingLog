@@ -63,7 +63,6 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 		mCut = new NumberPickerDriver(possibleValues, "2", mAut) {			
 			@Override
 			public boolean save() {
-				// TODO Auto-generated method stub
 				return false;
 			}
 		};
@@ -82,7 +81,6 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 		mCut = new NumberPickerDriver(possibleValues, "10", mAut) {			
 			@Override
 			public boolean save() {
-				// TODO Auto-generated method stub
 				return false;
 			}
 		};
@@ -99,7 +97,6 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 		mCut = new NumberPickerDriver(possibleValues, "4", mAut) {			
 			@Override
 			public boolean save() {
-				// TODO Auto-generated method stub
 				return false;
 			}
 		};
@@ -118,7 +115,6 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 		mCut = new NumberPickerDriver(possibleValues, "1", mAut) {			
 			@Override
 			public boolean save() {
-				// TODO Auto-generated method stub
 				return false;
 			}
 		};
@@ -136,7 +132,6 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 		mCut = new NumberPickerDriver(possibleValues, "4", mAut) {			
 			@Override
 			public boolean save() {
-				// TODO Auto-generated method stub
 				return false;
 			}
 		};

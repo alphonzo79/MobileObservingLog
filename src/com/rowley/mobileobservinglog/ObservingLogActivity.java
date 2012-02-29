@@ -79,14 +79,7 @@ public class ObservingLogActivity extends ActivityBase{
     public void onResume() {
 		Log.d("JoeDebug", "Initial Screen onResume");
         super.onResume();
-    }    
-    
-    //The compiler was not recognizing the onClick implementation inside of the onClickListeners created at the top of the file. 
-    //This empty method satisfies the compiler so it won't yell about not implementing a method from the interface
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 	
     //Eat the menu press on the initial screen
 	@Override

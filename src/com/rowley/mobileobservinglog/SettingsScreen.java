@@ -167,31 +167,36 @@ public class SettingsScreen extends ActivityBase{
 		//Manage Catalogs
 		if (itemText.contains("Manage Catalogs"))
 		{
-			//TODO launch the manage catalogs activity
+			Intent intent = new Intent(this.getApplication(), AddCatalogsScreen.class);
+            startActivity(intent);
 		}
 		
 		//Manage Equipment
-		if (itemText.contains("Manage Equipement"))
+		if (itemText.contains("Manage Equipment"))
 		{
-			//TODO launch the manage equipment activity
+			Intent intent = new Intent(this.getApplication(), ManageEquipmentScreen.class);
+            startActivity(intent);
 		}
 		
 		//Manage Observing Locations
 		if (itemText.contains("Manage Observing Locations"))
 		{
-			//TODO launch the manage Observing Locations activity
+			Intent intent = new Intent(this.getApplication(), ManageLocationsScreen.class);
+            startActivity(intent);
 		}
 		
 		//Personal Information
 		if (itemText.contains("Personal Information"))
 		{
-			//TODO launch the personal information activity
+			Intent intent = new Intent(this.getApplication(), PersonalInfoScreen.class);
+            startActivity(intent);
 		}
 		
 		//Information/About
 		if (itemText.contains("Information/About"))
 		{
-			//TODO launch the Information/About activity
+			Intent intent = new Intent(this.getApplication(), InfoScreen.class);
+            startActivity(intent);
 		}
 	}
 	

@@ -122,6 +122,30 @@ public final class SettingsContainer {
 		mBackupRestoreLayout = layout;
 	}
 	
+	private int mManageEquipmentLayout;
+	public int getManageEquipmentLayout(){
+		return mManageEquipmentLayout;
+	}
+	private void setManageEquipmentLayout(int layout){
+		mManageEquipmentLayout = layout;
+	}
+	
+	private int mManageLocationsLayout;
+	public int getManageLocationsLayout(){
+		return mManageLocationsLayout;
+	}
+	private void setManageLocationsLayout(int layout){
+		mManageLocationsLayout = layout;
+	}
+	
+	private int mPersonalInfoLayout;
+	public int getPersonalInfoLayout(){
+		return mPersonalInfoLayout;
+	}
+	private void setPersonalInfoLayout(int layout){
+		mPersonalInfoLayout = layout;
+	}
+	
 	//Options Menu toggle mode button text changes according to the mode.
 	private int mModeText;
 	public int getModeButtonText(){
@@ -165,6 +189,9 @@ public final class SettingsContainer {
 		setSettingsListLayout(R.layout.settings_list_night);
 		setTargetListsLayout(R.layout.target_lists_screen_night);
 		setBackupRestoreLayout(R.layout.backup_restore_screen_night);
+		setManageEquipmentLayout(R.layout.manage_equipment_screen_night);
+		setManageLocationsLayout(R.layout.manage_locations_screen_night);
+		setPersonalInfoLayout(R.layout.personal_info_screen_night);
 		setButtonBrightness(0.0F);
 	}
 	
@@ -181,6 +208,9 @@ public final class SettingsContainer {
 		setSettingsListLayout(R.layout.settings_list_normal);
 		setTargetListsLayout(R.layout.target_lists_screen);
 		setBackupRestoreLayout(R.layout.backup_restore_screen);
+		setManageEquipmentLayout(R.layout.manage_equipment_screen);
+		setManageLocationsLayout(R.layout.manage_locations_screen);
+		setPersonalInfoLayout(R.layout.personal_info_screen);
 		setButtonBrightness(getOriginalButtonBrightness());
 	}
 	

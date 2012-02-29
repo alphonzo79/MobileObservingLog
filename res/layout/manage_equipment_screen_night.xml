@@ -2,12 +2,12 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/layoutRootNight"
-    android:id="@+id/targets_root"
+    android:id="@+id/manage_equipment_root"
     >
     
     <TextView 
 	    style="@style/headerBarNight" 
-	    android:id="@+id/target_lists_header"
+	    android:id="@+id/manage_equipment_header"
 	    android:text="@string/app_name"
 	    />
 	    
@@ -21,7 +21,7 @@
 	    android:id="@+id/temp_text"
     	android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Target List Screen Night"
+	    android:text="Manage Equipment Screen Night"
 	    android:textColor="@color/red"
 	    android:gravity="center|center_vertical"
 	    android:padding="2dp"

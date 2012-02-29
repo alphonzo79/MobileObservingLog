@@ -73,12 +73,14 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
         setBacklight();
         
 		setDimButtons(settingsRef.getButtonBrightness());
-    }    
-	
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-	}
+    }     
     
+    //The compiler was not recognizing the onClick implementation inside of the onClickListeners created at the top of the file. 
+    //This empty method satisfies the compiler so it won't yell about not implementing a method from the interface
+	public void onClick(View v) {
+		// TODO Auto-generated method stub		
+	}
+	
     //prepare the menu. This originally would have changed the mode button text, the icons and the text color according to the 
 	//session mode, but the text color is handled in the inflator, which is only called on onCreateOptionsMenu. It causes problems
 	//with the factory already being created if we do it in this method. That means that I currently do not have a way to change
@@ -293,192 +295,156 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 				//New XmlPullParser require us to implement all abstract methods, so here we go!
 				public void defineEntityReplacementText(String entityName,
 						String replacementText) throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					
 				}
 
 				public int getAttributeCount() {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public String getAttributeName(int index) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getAttributeNamespace(int index) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getAttributePrefix(int index) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getAttributeType(int index) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getAttributeValue(int index) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getAttributeValue(String namespace, String name) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public int getColumnNumber() {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public int getDepth() {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public int getEventType() throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public boolean getFeature(String name) {
-					// TODO Auto-generated method stub
 					return false;
 				}
 
 				public String getInputEncoding() {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public int getLineNumber() {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public String getName() {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getNamespace() {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getNamespace(String prefix) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public int getNamespaceCount(int depth)
 						throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public String getNamespacePrefix(int pos)
 						throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getNamespaceUri(int pos)
 						throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getPositionDescription() {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getPrefix() {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public Object getProperty(String name) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public String getText() {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public char[] getTextCharacters(int[] holderForStartAndLength) {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public boolean isAttributeDefault(int index) {
-					// TODO Auto-generated method stub
 					return false;
 				}
 
 				public boolean isEmptyElementTag()
 						throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					return false;
 				}
 
 				public boolean isWhitespace() throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					return false;
 				}
 
 				public int nextTag() throws XmlPullParserException, IOException {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public String nextText() throws XmlPullParserException,
 						IOException {
-					// TODO Auto-generated method stub
 					return null;
 				}
 
 				public int nextToken() throws XmlPullParserException,
 						IOException {
-					// TODO Auto-generated method stub
 					return 0;
 				}
 
 				public void require(int type, String namespace, String name)
 						throws XmlPullParserException, IOException {
-					// TODO Auto-generated method stub
 					
 				}
 
 				public void setFeature(String name, boolean state)
 						throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					
 				}
 
 				public void setInput(Reader in) throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					
 				}
 
 				public void setInput(InputStream inputStream,
 						String inputEncoding) throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					
 				}
 
 				public void setProperty(String name, Object value)
 						throws XmlPullParserException {
-					// TODO Auto-generated method stub
 					
 				}
 	    	}, null, false);

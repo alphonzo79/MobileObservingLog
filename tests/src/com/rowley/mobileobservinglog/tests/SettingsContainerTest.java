@@ -244,6 +244,60 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 	}
 
 	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getManageEquipmentLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetManageEquipmentLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen_night, mCut.getManageEquipmentLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen, mCut.getManageEquipmentLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen_night, mCut.getManageEquipmentLayout());
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getManageLocationsLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetManageLocationsLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen_night, mCut.getManageLocationsLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen, mCut.getManageLocationsLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen_night, mCut.getManageLocationsLayout());
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getPersonalInfoLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetPersonalInfoLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen_night, mCut.getPersonalInfoLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen, mCut.getPersonalInfoLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen_night, mCut.getPersonalInfoLayout());
+	}
+
+	/**
 	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getModeButtonText()}.
 	 * 
 	 * When the session mode changes, the text displayed on the toggle button in the menu should change.
@@ -302,6 +356,9 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.settings_list_night, mCut.getSettingsListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen_night, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen_night, mCut.getBackupRestoreLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen_night, mCut.getManageEquipmentLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen_night, mCut.getManageLocationsLayout());
+		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen_night, mCut.getPersonalInfoLayout());
 		assertEquals("The button brightness value was not correct", (float)0.0f, mCut.getButtonBrightness());
 	}
 
@@ -324,6 +381,9 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.settings_list_normal, mCut.getSettingsListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen, mCut.getBackupRestoreLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen, mCut.getManageEquipmentLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen, mCut.getManageLocationsLayout());
+		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen, mCut.getPersonalInfoLayout());
 		assertEquals("The button brightness value was not correct", (float)-1.0f, mCut.getButtonBrightness());
 	}
 
