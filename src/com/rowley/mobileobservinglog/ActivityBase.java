@@ -70,8 +70,7 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 		Log.d("JoeDebug", "ActivityBase onResume");
         super.onResume();
 		
-        setBacklight();
-        
+        setBacklight();        
 		setDimButtons(settingsRef.getButtonBrightness());
     }     
     
@@ -143,7 +142,7 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 	}
 	
 	//called by the Toggle Mode options menu item. Changes the layout references.
-	private void toggleMode() {
+	protected void toggleMode() {
 		Log.d("JoeDebug", "ActivityBase toggle mode menu. Current session setting: " + settingsRef.getSessionMode());
 		switch (settingsRef.getSessionMode()){
 		case night:
@@ -190,8 +189,6 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 	    	getWindow().setAttributes(layoutParams);
 	    }
 	}
-
-
 
 	private static class BtnBrightness {
 	    BtnBrightness(LayoutParams lp, float v) {

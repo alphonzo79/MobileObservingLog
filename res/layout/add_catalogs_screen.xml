@@ -10,19 +10,40 @@
 	    android:id="@+id/add_catalogs_header"
 	    android:text="@string/app_name"
 	    />
+    
+    <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+	    <LinearLayout
+	        android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:padding="5dp">
+	        
+	        <TabWidget
+	            android:id="@android:id/tabs"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content" 
+	            android:tabStripEnabled="true"/>
+	        
+	        <FrameLayout
+	            android:id="@android:id/tabcontent"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:padding="5dp" />
+	        
+	    </LinearLayout>
 	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         />
+	</TabHost>
     
     <TextView 
 	    android:id="@+id/temp_text"
     	android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Add Catalogs Screen"
-	    android:textColor="@color/black"
+	    android:text="After the tabHost"
+	    android:textColor="@color/red"
 	    android:gravity="center|center_vertical"
 	    android:padding="2dp"
 	    android:textStyle="bold"

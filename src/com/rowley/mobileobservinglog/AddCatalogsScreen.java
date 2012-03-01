@@ -1,24 +1,49 @@
 package com.rowley.mobileobservinglog;
 
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 
-public class AddCatalogsScreen extends ActivityBase{
+public class AddCatalogsScreen extends TabActivity{
+	
+	//Get access to the settings container singleton
+	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
 
 	//gather resources
 	LinearLayout body;
+	TabHost tabHost;
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "AddCatalogs onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
-
-		setDimButtons(settingsRef.getButtonBrightness());
 		
         //setup the layout
         setContentView(settingsRef.getAddCatalogsLayout());
         body = (LinearLayout)findViewById(R.id.add_catalogs_root); 
+        
+        setupTabs();
+	}
+
+	private void setupTabs() {
+		tabHost = getTabHost();  // The activity TabHost
+        TabHost.TabSpec spec;  // Resusable TabSpec for each tab
+        Intent intent;  // Reusable Intent for each tab
+
+        // Create an Intent to launch an Activity for the tab (to be reused)
+        intent = new Intent().setClass(this, InstalledCatalogsTab.class);
+
+        // Initialize a TabSpec for each tab and add it to the TabHost
+        spec = tabHost.newTabSpec("installedCatalogs").setIndicator("Installed Catalogs").setContent(intent);
+        tabHost.addTab(spec);
+
+        // Do the same for the other tabs
+        intent = new Intent().setClass(this, AvailableCatalogsTab.class);
+        spec = tabHost.newTabSpec("availableCatalogs").setIndicator("Available Catalogs").setContent(intent);
+        tabHost.addTab(spec);
+
+        tabHost.setCurrentTab(0);
 	}
 	
 	@Override
@@ -34,16 +59,6 @@ public class AddCatalogsScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "AddCatalogs onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
-        setLayout();
     }
-	
-  //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
-	@Override
-	public void setLayout(){
-		setContentView(settingsRef.getAddCatalogsLayout());
-		super.setLayout();
-		body.postInvalidate();
-	}
 }

@@ -41,6 +41,9 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="InstalledCatalogsTab"></activity>
+        <activity android:name="AvailableCatalogsTab"></activity>
+        
         <activity android:name=".CatalogsScreen"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
