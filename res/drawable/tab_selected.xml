@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- draw tab background -->
+	<item android:left="@dimen/tab_space" android:right="@dimen/tab_space"> 
+		<shape android:shape="rectangle">
+			<corners android:bottomLeftRadius="0.1dp"
+				android:bottomRightRadius="0.1dp" 
+				android:topLeftRadius="@dimen/corner_radius"
+				android:topRightRadius="@dimen/corner_radius"
+				/>
+			<gradient android:angle="90" android:startColor="#33FFFFFF"
+				android:endColor="#77666666" />
+		</shape>
+	</item>
+</layer-list>

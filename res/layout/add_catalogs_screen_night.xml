@@ -10,22 +10,32 @@
 	    android:id="@+id/add_catalogs_header"
 	    android:text="@string/app_name"
 	    />
-	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         />
     
-    <TextView 
-	    android:id="@+id/temp_text"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    android:text="Add Catalogs Screen Night"
-	    android:textColor="@color/red"
-	    android:gravity="center|center_vertical"
-	    android:padding="2dp"
-	    android:textStyle="bold"
-	    />
+    <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="5dp">
+	        
+	        <TabWidget
+	            android:id="@android:id/tabs"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content" 
+	            android:tabStripEnabled="true"/>
+	        
+	        <FrameLayout
+	            android:id="@android:id/tabcontent"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:padding="5dp"
+	            android:layout_below="@android:id/tabs" />
+	        
+	    </RelativeLayout>
+	    
+	</TabHost>
 	    
 </LinearLayout>

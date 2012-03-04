@@ -28,4 +28,6 @@
     <string name="num_picker_up_button">+</string>
     <string name="num_picker_set_button">Set</string>
     <string name="num_picker_cancel_button">Cancel</string>
+    <string name="installed_catalogs_label">Installed Catalogs</string>
+    <string name="available_catalogs_label">Available Catalogs</string>
 </resources>

@@ -173,6 +173,15 @@ public final class SettingsContainer {
 		mOriginalButtonBrightness = brightness;
 	}
 	
+	//Tab indicator used for customizing the tab widget layout.
+	private int mTabIndicator;
+	public int getTabIndicator(){
+		return mTabIndicator;
+	}
+	private void setTabIndicator(int indicator){
+		mTabIndicator = indicator;
+	}
+	
 	//Helper Methods
 	//Called to change from normal mode to night mode. This method will set all of the style attributes that are used in setting layouts
 	public void setNightMode(){
@@ -192,6 +201,7 @@ public final class SettingsContainer {
 		setManageEquipmentLayout(R.layout.manage_equipment_screen_night);
 		setManageLocationsLayout(R.layout.manage_locations_screen_night);
 		setPersonalInfoLayout(R.layout.personal_info_screen_night);
+		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setButtonBrightness(0.0F);
 	}
 	
@@ -211,6 +221,7 @@ public final class SettingsContainer {
 		setManageEquipmentLayout(R.layout.manage_equipment_screen);
 		setManageLocationsLayout(R.layout.manage_locations_screen);
 		setPersonalInfoLayout(R.layout.personal_info_screen);
+		setTabIndicator(R.layout.tab_indicator_layout);
 		setButtonBrightness(getOriginalButtonBrightness());
 	}
 	

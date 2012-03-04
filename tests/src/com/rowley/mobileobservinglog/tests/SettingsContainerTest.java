@@ -338,6 +338,24 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 	}
 
 	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getTabIndicator()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetTabIndicator() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout_night, mCut.getTabIndicator());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout, mCut.getTabIndicator());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout_night, mCut.getTabIndicator());
+	}
+
+	/**
 	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#setNightMode()}.
 	 * 
 	 * This method does a lot. It has basically been covered with all the preceeding tests, but this test will
@@ -359,6 +377,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen_night, mCut.getManageEquipmentLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen_night, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen_night, mCut.getPersonalInfoLayout());
+		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout_night, mCut.getTabIndicator());
 		assertEquals("The button brightness value was not correct", (float)0.0f, mCut.getButtonBrightness());
 	}
 
@@ -384,6 +403,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen, mCut.getManageEquipmentLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen, mCut.getPersonalInfoLayout());
+		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout, mCut.getTabIndicator());
 		assertEquals("The button brightness value was not correct", (float)-1.0f, mCut.getButtonBrightness());
 	}
 

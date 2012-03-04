@@ -3,8 +3,11 @@ package com.rowley.mobileobservinglog;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 public class AddCatalogsScreen extends TabActivity{
 	
@@ -12,7 +15,6 @@ public class AddCatalogsScreen extends TabActivity{
 	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
 
 	//gather resources
-	LinearLayout body;
 	TabHost tabHost;
 	
 	@Override
@@ -20,30 +22,36 @@ public class AddCatalogsScreen extends TabActivity{
         super.onCreate(icicle);
 		
         //setup the layout
-        setContentView(settingsRef.getAddCatalogsLayout());
-        body = (LinearLayout)findViewById(R.id.add_catalogs_root); 
+        setContentView(settingsRef.getAddCatalogsLayout()); 
         
         setupTabs();
 	}
 
 	private void setupTabs() {
 		tabHost = getTabHost();  // The activity TabHost
-        TabHost.TabSpec spec;  // Resusable TabSpec for each tab
         Intent intent;  // Reusable Intent for each tab
 
         // Create an Intent to launch an Activity for the tab (to be reused)
         intent = new Intent().setClass(this, InstalledCatalogsTab.class);
-
-        // Initialize a TabSpec for each tab and add it to the TabHost
-        spec = tabHost.newTabSpec("installedCatalogs").setIndicator("Installed Catalogs").setContent(intent);
-        tabHost.addTab(spec);
+        setupTabIndicator(intent, R.string.installed_catalogs_label);
 
         // Do the same for the other tabs
         intent = new Intent().setClass(this, AvailableCatalogsTab.class);
-        spec = tabHost.newTabSpec("availableCatalogs").setIndicator("Available Catalogs").setContent(intent);
-        tabHost.addTab(spec);
+        setupTabIndicator(intent, R.string.available_catalogs_label);
 
         tabHost.setCurrentTab(0);
+	}
+	
+	private void setupTabIndicator(Intent intent, int labelId){
+		View tabIndicator = LayoutInflater.from(this).inflate(settingsRef.getTabIndicator(), getTabWidget(), false);
+		TabHost.TabSpec spec = tabHost.newTabSpec("tab" + labelId);	
+		
+		TextView title = (TextView) tabIndicator.findViewById(R.id.title);
+		title.setText(labelId);
+		
+		spec.setIndicator(tabIndicator);
+		spec.setContent(intent);
+		tabHost.addTab(spec);
 	}
 	
 	@Override
