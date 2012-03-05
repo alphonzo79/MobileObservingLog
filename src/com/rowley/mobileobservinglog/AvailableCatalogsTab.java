@@ -1,15 +1,27 @@
 package com.rowley.mobileobservinglog;
 
+import java.util.ArrayList;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 public class AvailableCatalogsTab extends ActivityBase {
+
+	ArrayList<String> availableCatalogList;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.available_catalogs_tab);
+        
+        availableCatalogList = new ArrayList<String>();
+        availableCatalogList.add("Over There");
+        availableCatalogList.add("GoodBye");
+        availableCatalogList.add("Hello");
+
+        setListAdapter(new ArrayAdapter<String>(this, settingsRef.getSettingsListLayout(), availableCatalogList));
     }
 
 	@Override
