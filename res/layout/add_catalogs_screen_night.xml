@@ -11,10 +11,24 @@
 	    android:text="@string/app_name"
 	    />
     
+    <ImageView 
+        android:src="@drawable/checked_night"
+	    android:layout_width="36dp"
+	    android:layout_height="36dp"
+	    android:contentDescription="Checked night"
+	    />
+    
+    <ImageView 
+        android:src="@drawable/unchecked_night"
+	    android:layout_width="36dp"
+	    android:layout_height="36dp"
+	    android:contentDescription="Unchecked night"
+        />
+    
     <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+	    android:id="@android:id/tabhost"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content">
     
 	    <RelativeLayout
 	        android:layout_width="fill_parent"
