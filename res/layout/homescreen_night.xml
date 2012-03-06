@@ -37,7 +37,7 @@
 			<Button xmlns:android="http://schemas.android.com/apk/res/android"
 				style="@style/homescreenButtonLargeNight"
 				android:id="@+id/navToCatalogsButton"
-				android:drawableTop="@drawable/add_catalogs_icon_night"
+				android:drawableTop="@drawable/home_catalogs_button_icon_night"
 				android:text="@string/home_catalogs"
 				/>
 		    

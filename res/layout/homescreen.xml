@@ -37,7 +37,7 @@
 			<Button xmlns:android="http://schemas.android.com/apk/res/android"
 				style="@style/homescreenButtonLargeNormal"
 				android:id="@+id/navToCatalogsButton"
-				android:drawableTop="@drawable/add_catalogs_icon"
+				android:drawableTop="@drawable/home_catalogs_button_icon"
 				android:text="@string/home_catalogs"
 				/>
 		    
