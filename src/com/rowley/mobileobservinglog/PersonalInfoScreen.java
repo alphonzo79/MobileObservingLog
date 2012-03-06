@@ -14,7 +14,7 @@ public class PersonalInfoScreen extends ActivityBase {
 			Log.d("JoeDebug", "PersonalInfo onCreate. Current session mode is " + settingsRef.getSessionMode());
 	        super.onCreate(icicle);
 
-			setDimButtons(settingsRef.getButtonBrightness());
+	        customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 			
 	        //setup the layout
 	        setContentView(settingsRef.getPersonalInfoLayout());

@@ -16,6 +16,7 @@
 	    android:layout_width="36dp"
 	    android:layout_height="36dp"
 	    android:contentDescription="Checked night"
+	    android:layout_margin="5dp"
 	    />
     
     <ImageView 
@@ -23,6 +24,7 @@
 	    android:layout_width="36dp"
 	    android:layout_height="36dp"
 	    android:contentDescription="Unchecked night"
+	    android:layout_margin="5dp"
         />
     
     <TabHost xmlns:android="http://schemas.android.com/apk/res/android"

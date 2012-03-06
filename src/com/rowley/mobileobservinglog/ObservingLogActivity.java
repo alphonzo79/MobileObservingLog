@@ -54,7 +54,7 @@ public class ObservingLogActivity extends ActivityBase{
 	        e.printStackTrace();
 	    }
 	    
-		setDimButtons(settingsRef.getButtonBrightness());
+	    customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
         
         setContentView(R.layout.initial);
         btnNight=(Button)findViewById(R.id.initialNightButton);

@@ -1,11 +1,12 @@
 package com.rowley.mobileobservinglog;
 
+import com.rowley.strategies.CustomizeBrightness;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ public class AddCatalogsScreen extends TabActivity{
 	
 	//Get access to the settings container singleton
 	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
+	CustomizeBrightness customizeBrightness = new CustomizeBrightness(this, this);
 
 	//gather resources
 	TabHost tabHost;
@@ -23,7 +25,8 @@ public class AddCatalogsScreen extends TabActivity{
 		
         //setup the layout
         setContentView(settingsRef.getAddCatalogsLayout()); 
-        
+        customizeBrightness.setBacklight();        
+        customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
         setupTabs();
 	}
 
@@ -57,16 +60,20 @@ public class AddCatalogsScreen extends TabActivity{
 	@Override
     public void onPause() {
         super.onPause();
+        customizeBrightness.setDimButtons(settingsRef.getOriginalButtonBrightness());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        customizeBrightness.setDimButtons(settingsRef.getOriginalButtonBrightness());
     }
 
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
         super.onResume();
+        customizeBrightness.setBacklight();        
+        customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
     }
 }

@@ -37,7 +37,7 @@ public class SettingsScreen extends ActivityBase{
 		Log.d("JoeDebug", "SettingsScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
-		setDimButtons(settingsRef.getButtonBrightness());
+        customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		
         //setup the layout
         setContentView(settingsRef.getSettingsLayout());

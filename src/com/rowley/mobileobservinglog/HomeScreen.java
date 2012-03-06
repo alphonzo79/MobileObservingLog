@@ -68,7 +68,7 @@ public class HomeScreen extends ActivityBase{
         findButtons();
         setListeners();
         
-		setDimButtons(settingsRef.getButtonBrightness());
+		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 	}
 	
 	@Override

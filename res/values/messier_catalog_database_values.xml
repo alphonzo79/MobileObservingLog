@@ -2,5 +2,114 @@
 <resources>
 <!-- We will parse by row, then split on the semicolon. Then we will use those individual values to put together
 sql statements. Columns are _id, designation, commonName, type, magnitude, size, distance, constellation, season, rightAscension, declination, catalog, otherCatalogs, imageResource, nightImageResource, logged, logDate, logTime, logLocation, telescope, eyepiece, seeing, transparency, favorite, findingMethod, viewingNotes -->
-    <string name="messier_catalog_default_values">"NULL;M1;Crab Nebula;Supernova Remnant;8.4;420\" × 290\";6,300 ly;Taurus;Summer;05h 34m 31.97s;+22° 00' 52.1\";Messier;NGC 1952, Sharpless 244;Image Resource;Night Image Resource;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL"</string>
+    <string name="messier_catalog_default_values">"NULL;M1;Crab Nebula;Supernova Remnant;8.4;420\" × 290\";6,300 ly;Taurus;Winter;05h 34m 31.97s;+22° 00' 52.1\";Messier;NGC 1952, Sharpless 244;M1.gif;M1.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M2;NULL;Globular Cluster;7.5;16' × 16';37,500 ly;Aquarius;Fall;21h 33m 27s;-00° 49' 24\";Messier;NGC 7089;M2.gif;M2.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M3;NULL;Globular Cluster;7.0;18' × 18';33,900 ly;Canes Venatici;Spring;13h 42m 11.23s;+28° 22' 31.6\";Messier;NGC 5272;M3.gif;M3.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M4;NULL;Globular Cluster;7.5;36' × 36';7,200 ly;Scorpius;Summer;16h 23m 35.41s;-26° 31' 31.9\";Messier;NGC 6121;M4.gif;M4.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M5;NULL;Globular Cluster;6.65;23' × 23';24,500 ly;Serpens;Summer;15h 18m 33.75s;+02° 04' 57.7\";Messier;NGC 5904;M5.gif;M5.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M6;Butterfly Cluster;Open Cluster;4.2;25' × 25';1,600 ly;Scorpius;Summer;17h 40.1m;-32° 13';Messier;NGC 6405, Collinder 341;M6.gif;M6.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M7;Ptolemy Cluster;Open Cluster;3.3;80' × 80';800 ly;Scorpius;Summer;17h 53.9m;-34° 49';Messier;NGC 6475;M7.gif;M7.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M8;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M9;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M10;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M11;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M12;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M13;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M14;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M15;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M16;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M17;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M18;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M19;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M20;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M21;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M22;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M23;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M24;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M25;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M26;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M27;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M28;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M29;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M20;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M31;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M32;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M33;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M34;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M35;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M36;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M37;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M38;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M39;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M40;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M41;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;4M2;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M43;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M44;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M45;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M46;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M47;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M48;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M49;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M50;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M51;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M52;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M53;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M54;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M55;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M56;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M57;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M58;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M59;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M60;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M61;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M62;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M63;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M64;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M65;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M66;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M67;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M68;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M69;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M70;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M71;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M72;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M73;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M74;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M75;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M76;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M77;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M78;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M79;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M80;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M81;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M82;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M83;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M84;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M85;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M86;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M87;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M88;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M89;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M90;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M91;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M92;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M93;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M94;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M95;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M96;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M97;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M98;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M99;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M100;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M101;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M102;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M103;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M104;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M105;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M106;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M107;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M108;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M109;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;M110;;;;\" × \"; ly;;;h m s;° ' \";Messier;;;;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL"</string>
 </resources>

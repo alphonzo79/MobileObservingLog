@@ -14,7 +14,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		Log.d("JoeDebug", "ObjectDetails onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
-		setDimButtons(settingsRef.getButtonBrightness());
+        customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		
         //setup the layout
         setContentView(settingsRef.getObjectDetailLayout());
