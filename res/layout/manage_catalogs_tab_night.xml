@@ -15,9 +15,13 @@
     
     <Button
         android:id="@+id/submit"
+        android:background="@drawable/red_button_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:padding="3dp"
         />
 	    
 </LinearLayout>

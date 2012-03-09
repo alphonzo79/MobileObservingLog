@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	
 	ArrayList<Catalog> availableCatalogList;
 	ArrayList<Catalog> installedCatalogList;
+	Button submitButton;
 	
 	/**
 	 * Internal method to handle preparation of the list view upon creation or to be called by setLayout when session mode changes or onResume.
@@ -33,6 +35,8 @@ public class ManageCatalogsTabParent extends ActivityBase {
 			availableCatalogList.add(new Catalog("Available Catalog " + (i + 1), "3.5 MB", "100"));
 			installedCatalogList.add(new Catalog("Installed Catalog " + (i + 1), "3.5 MB", "100"));
 		}
+		
+		
 	}
 	
 	//For this screen, the tabs layout was causing problems with our regular toggle mode handling. So instead on this screen we will simply relaunch the activity,
