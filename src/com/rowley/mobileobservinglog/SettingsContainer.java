@@ -66,6 +66,22 @@ public final class SettingsContainer {
 		mAddCatalogsLayout = layout;
 	}
 	
+	private int mAddCatalogsTabLayout;
+	public int getAddCatalogsTabLayout(){
+		return mAddCatalogsTabLayout;
+	}
+	private void setAddCatalogsTabLayout(int layout){
+		mAddCatalogsTabLayout = layout;
+	}
+	
+	private int mAddCatalogsListLayout;
+	public int getAddCatalogsListLayout(){
+		return mAddCatalogsListLayout;
+	}
+	private void setAddCatalogsListLayout(int layout){
+		mAddCatalogsListLayout = layout;
+	}
+	
 	private int mCatalogsLayout;
 	public int getCatalogsLayout(){
 		return mCatalogsLayout;
@@ -182,6 +198,24 @@ public final class SettingsContainer {
 		mTabIndicator = indicator;
 	}
 	
+	//Custom check box image resource
+	private int mCheckbox_Selected;
+	public int getCheckbox_Selected(){
+		return mCheckbox_Selected;
+	}
+	private void setCheckbox_Selected(int imageResource){
+		mCheckbox_Selected = imageResource;
+	}
+	
+	//Custom check box image resource
+	private int mCheckbox_Unselected;
+	public int getCheckbox_Unselected(){
+		return mCheckbox_Unselected;
+	}
+	private void setCheckbox_Unselected(int imageResource){
+		mCheckbox_Unselected = imageResource;
+	}
+	
 	//Helper Methods
 	//Called to change from normal mode to night mode. This method will set all of the style attributes that are used in setting layouts
 	public void setNightMode(){
@@ -191,6 +225,8 @@ public final class SettingsContainer {
 		setModeButtonText(R.string.menu_toggle_normal_mode);
 		setHomeLayout(R.layout.homescreen_night);
 		setAddCatalogsLayout(R.layout.add_catalogs_screen_night);
+		setAddCatalogsListLayout(R.layout.manage_catalogs_list_night);
+		setAddCatalogsTabLayout(R.layout.manage_catalogs_tab_night);
 		setCatalogsLayout(R.layout.catalogs_screen_night);
 		setInfoLayout(R.layout.info_screen_night);
 		setObjectDetailLayout(R.layout.object_detail_screen_night);
@@ -202,6 +238,8 @@ public final class SettingsContainer {
 		setManageLocationsLayout(R.layout.manage_locations_screen_night);
 		setPersonalInfoLayout(R.layout.personal_info_screen_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
+		setCheckbox_Selected(R.drawable.checked_night);
+		setCheckbox_Unselected(R.drawable.unchecked_night);
 		setButtonBrightness(0.0F);
 	}
 	
@@ -211,6 +249,8 @@ public final class SettingsContainer {
 		setModeButtonText(R.string.menu_toggle_night_mode);
 		setHomeLayout(R.layout.homescreen);
 		setAddCatalogsLayout(R.layout.add_catalogs_screen);
+		setAddCatalogsTabLayout(R.layout.manage_catalogs_tab_normal);
+		setAddCatalogsListLayout(R.layout.manage_catalogs_list_normal);
 		setCatalogsLayout(R.layout.catalogs_screen);
 		setInfoLayout(R.layout.info_screen);
 		setObjectDetailLayout(R.layout.object_detail_screen);
@@ -222,6 +262,8 @@ public final class SettingsContainer {
 		setManageLocationsLayout(R.layout.manage_locations_screen);
 		setPersonalInfoLayout(R.layout.personal_info_screen);
 		setTabIndicator(R.layout.tab_indicator_layout);
+		setCheckbox_Selected(R.drawable.checked_normal);
+		setCheckbox_Unselected(R.drawable.unchecked_normal);
 		setButtonBrightness(getOriginalButtonBrightness());
 	}
 	

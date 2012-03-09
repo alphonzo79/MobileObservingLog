@@ -30,4 +30,8 @@
     <string name="num_picker_cancel_button">Cancel</string>
     <string name="installed_catalogs_label">Installed Catalogs</string>
     <string name="available_catalogs_label">Available Catalogs</string>
+    <string name="unchecked_normal_image_alt">Unchecked Normal</string>
+    <string name="checked_normal_image_alt">Checked Normal</string>
+    <string name="unchecked_night_image_alt">Unchecked Night</string>
+    <string name="checked_night_image_alt">Checked Normal</string>
 </resources>

@@ -118,6 +118,44 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 	}
 
 	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getAddCatalogsListLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 * 
+	 */
+	public void testGetAddCatalogsListLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode. CurrentMode: " + currentMode + ". ", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_list_night, mCut.getAddCatalogsListLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_list_normal, mCut.getAddCatalogsListLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_list_night, mCut.getAddCatalogsListLayout());
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getAddCatalogsTabLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 * 
+	 */
+	public void testGetAddCatalogsTabLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode. CurrentMode: " + currentMode + ". ", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_tab_night, mCut.getAddCatalogsTabLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_tab_normal, mCut.getAddCatalogsTabLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_tab_night, mCut.getAddCatalogsTabLayout());
+	}
+
+	/**
 	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getCatalogsLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
@@ -356,6 +394,42 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 	}
 
 	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getCheckbox_Selected()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetCheckbox_Selected() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered resource was not correct", R.drawable.checked_night, mCut.getCheckbox_Selected());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered resource was not correct", R.drawable.checked_normal, mCut.getCheckbox_Selected());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered resource was not correct", R.drawable.checked_night, mCut.getCheckbox_Selected());
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getCheckbox_Unselected()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetCheckbox_Unselected() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered resource was not correct", R.drawable.unchecked_night, mCut.getCheckbox_Unselected());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered resource was not correct", R.drawable.unchecked_normal, mCut.getCheckbox_Unselected());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered resource was not correct", R.drawable.unchecked_night, mCut.getCheckbox_Unselected());
+	}
+
+	/**
 	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#setNightMode()}.
 	 * 
 	 * This method does a lot. It has basically been covered with all the preceeding tests, but this test will
@@ -367,6 +441,8 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered text was not correct", R.string.menu_toggle_normal_mode, mCut.getModeButtonText());
 		assertEquals("The delivered layout was not correct", R.layout.homescreen_night, mCut.getHomeLayout());
 		assertEquals("The delivered layout was not correct", R.layout.add_catalogs_screen_night, mCut.getAddCatalogsLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_tab_night, mCut.getAddCatalogsTabLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_list_night, mCut.getAddCatalogsListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.catalogs_screen_night, mCut.getCatalogsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.info_screen_night, mCut.getInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.object_detail_screen_night, mCut.getObjectDetailLayout());
@@ -378,6 +454,8 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen_night, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen_night, mCut.getPersonalInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout_night, mCut.getTabIndicator());
+		assertEquals("The delivered resource was not correct", R.drawable.unchecked_night, mCut.getCheckbox_Unselected());
+		assertEquals("The delivered resource was not correct", R.drawable.checked_night, mCut.getCheckbox_Selected());
 		assertEquals("The button brightness value was not correct", (float)0.0f, mCut.getButtonBrightness());
 	}
 
@@ -393,6 +471,8 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered text was not correct", R.string.menu_toggle_night_mode, mCut.getModeButtonText());
 		assertEquals("The delivered layout was not correct", R.layout.homescreen, mCut.getHomeLayout());
 		assertEquals("The delivered layout was not correct", R.layout.add_catalogs_screen, mCut.getAddCatalogsLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_tab_normal, mCut.getAddCatalogsTabLayout());
+		assertEquals("The delivered layout was not correct", R.layout.manage_catalogs_list_normal, mCut.getAddCatalogsListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.catalogs_screen, mCut.getCatalogsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.info_screen, mCut.getInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.object_detail_screen, mCut.getObjectDetailLayout());
@@ -404,6 +484,8 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen, mCut.getPersonalInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout, mCut.getTabIndicator());
+		assertEquals("The delivered resource was not correct", R.drawable.unchecked_normal, mCut.getCheckbox_Unselected());
+		assertEquals("The delivered resource was not correct", R.drawable.checked_normal, mCut.getCheckbox_Selected());
 		assertEquals("The button brightness value was not correct", (float)-1.0f, mCut.getButtonBrightness());
 	}
 

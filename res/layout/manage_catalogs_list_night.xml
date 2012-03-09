@@ -10,10 +10,10 @@
     >
     
     <ImageView 
-        android:src="@drawable/unchecked_normal"
+        android:src="@drawable/unchecked_night"
 	    android:layout_width="36dp"
 	    android:layout_height="36dp"
-	    android:contentDescription="@string/unchecked_normal_image_alt"
+	    android:contentDescription="@string/unchecked_night_image_alt"
 	    android:layout_marginTop="5dp"
 	    android:layout_marginBottom="5dp"
 	    android:layout_marginRight="15dp"
@@ -32,7 +32,7 @@
 		    android:id="@+id/catalog_name"
 		    android:layout_gravity="center_horizontal"
 		    android:textSize="16sp" 
-		    android:textColor="@color/black"
+		    android:textColor="@color/red"
 		    android:textStyle="bold"
 		    />
 	
@@ -42,7 +42,7 @@
 		    android:id="@+id/catalog_description"
 		    android:layout_gravity="center_horizontal"
 		    android:textSize="10sp" 
-		    android:textColor="@color/black"
+		    android:textColor="@color/red"
 		    />
         
     </LinearLayout>

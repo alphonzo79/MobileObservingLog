@@ -329,4 +329,23 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		return success;
 	}
+
+	/**
+	 * This method is used to return the list of installed/available catalogs in a single cursor to be parsed by the client
+	 * 
+	 * @return A cursor containing the full contents of the available catalogs table.
+	 */
+	public Cursor getAvailableCatalogs()
+	{
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM availableCatalogs WHERE catalogName IS NOT NULL";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
 }

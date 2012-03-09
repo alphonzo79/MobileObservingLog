@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/available_catalogs_root"
+    android:id="@+id/manage_catalogs_tab_root"
    	android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
+    android:orientation="vertical"
     >
 	    
     <ListView  
@@ -11,5 +12,12 @@
          android:layout_width="fill_parent" 
          android:layout_height="wrap_content" 
          />
+    
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello"
+        />
 	    
 </LinearLayout>
