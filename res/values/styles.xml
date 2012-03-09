@@ -47,7 +47,7 @@
     	<item name="android:background">@drawable/home_square_button_state</item>
     	<item name="android:layout_marginLeft">15dp</item>
     	<item name="android:layout_marginRight">15dp</item>
-    	<item name="android:padding">20dp</item>
+    	<item name="android:padding">17dp</item>
     	<item name="android:layout_weight">50</item>
     </style>
     

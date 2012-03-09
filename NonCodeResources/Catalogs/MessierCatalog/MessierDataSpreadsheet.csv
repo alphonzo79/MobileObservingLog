@@ -1,0 +1,111 @@
+_id,designation,commonName,type,magnitude,size,distance,constellation,season,rightAscension,declination,catalog,otherCatalogs,imageResource,nightImageResource,logged,logDate,logTime,logLocation,telescope,eyepiece,seeing,transparency,favorite,findingMethod,viewingNotes
+NULL,M1,Crab Nebula,Supernova Remnant,8.4,6' × 4',6:300 ly,Taurus,Winter,05h 34m 31.97s,+22° 00' 52.1\",Messier,NGC 1952: Sharpless 244,M1.gif,M1.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M2,NULL,Globular Cluster,7.5,16' × 16',37:500 ly,Aquarius,Fall,21h 33m 27s,-00° 49' 24\",Messier,NGC 7089,M2.gif,M2.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M3,NULL,Globular Cluster,7.0,18' × 18',33:900 ly,Canes Venatici,Spring,13h 42m 11.23s,+28° 22' 31.6\",Messier,NGC 5272,M3.gif,M3.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M4,NULL,Globular Cluster,7.5,36' × 36',7:200 ly,Scorpius,Summer,16h 23m 35.41s,-26° 31' 31.9\",Messier,NGC 6121,M4.gif,M4.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M5,NULL,Globular Cluster,6.7,23' × 23',24:500 ly,Serpens,Summer,15h 18m 33.75s,+02° 04' 57.7\",Messier,NGC 5904,M5.gif,M5.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M6,Butterfly Cluster,Open Cluster,4.2,25' × 25',1:600 ly,Scorpius,Summer,17h 40m 00s,-32° 13' 00\",Messier,NGC 6405: Collinder 341,M6.gif,M6.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M7,Ptolemy Cluster,Open Cluster,3.3,80' × 80',800 ly,Scorpius,Summer,17h 53m 58s,-34° 49' 00\",Messier,NGC 6475,M7.gif,M7.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M8,Lagoon Nebula,Emission Nebula,6.0,90' × 40',4:100 ly,Sagittarius,Summer,18h 03m 37s,-24° 23' 12\",Messier,NGC 6523,M8.gif,M8.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M9,NULL,Globular Cluster,8.4,12' x 12',25:800 ly,Ophiuchus,Summer,17h 19m 11.78s,-18° 30' 58.5\",Messier,NGC 6333,M9.gif,M9.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M10,NULL,Globular Cluster,6.4,20' x 20',14:300 ly,Ophiuchus,Summer,16h 57m 08.99s,-04° 05' 57.6\",Messier,NGC 6254,M10.gif,M10.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M11,Wild Duck Cluster,Open Cluster,6.3,14' x 14',6:200 ly,Scutum,Summer,18h 51m 00s,-06° 16' 00\",Messier,NGC 6705,M11.gif,M11.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M12,NULL,Globular Cluster,7.7,16' x 16',16:000 ly,Ophiuchus,Summer,16h 47m 14.52s,-01° 56' 52.1\",Messier,NGC 6218,M12.gif,M12.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M13,Hercules Cluster,Globular Cluster,5.8,20' x 20',25:100 ly,Hercules,Summer,16h 41m 41.44s,+36° 27' 36.9\",Messier,NGC 6205,M13.gif,M13.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M14,NULL,Globular Cluster,8.3,11' x 11',30:300 ly,Ophiuchus,Summer,17h 37m 36.15s,-03° 14' 45.3\",Messier,NGC 6402,M14.gif,M14.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M15,NULL,Globular Cluster,6.2,18' x 18',33:600 ly,Pegasus,Fall,21h 29m 58.38s,+12° 10' 00.6\",Messier,NGC 7078: GCI 120,M15.gif,M15.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M16,Eagle Nebula,Emission Nebula,6.0,7' x 7',7:000 ly,Serpens,Summer,18h 18m 48s,-13° 49' 00\",Messier,NGC 6611: Sharpless 49,M16.gif,M16.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M17,Omega Nebula: Swan Nebula,Emission Nebula,6.0,11' x 11',5:000 ly,Sagittarius,Summer,18h 20m 26s,-16° 10' 36\",Messier,NGC 6618: Sharpless 45,M17.gif,M17.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M18,NULL,Open Cluster,7.5,9' x 9',4:900 ly,Sagittarius,Summer,18h 19m 54s,-17° 08' 60\",Messier,NGC 6613,M18.gif,M18.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M19,NULL,Globular Cluster,7.5,17' x 17',28:000 ly,Ophiuchus,Summer,17h 02m 37.69s,-26° 16' 04.6\",Messier,NGC 6273,M19.gif,M19.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M20,Trifid Nebula,Emission Nebula,6.3,28' x 28',5:200 ly,Sagittarius,Summer,18h 02m 23s,-23° 01' 48\",Messier,NGC 6514: Sharpless 30,M20.gif,M20.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M21,NULL,Open Cluster,6.5,13' x 13',4:250 ly,Sagittarius,Summer,18h 04m 36s,-22° 30' 00\",Messier,NGC 6531,M21.gif,M21.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M22,Saggitarius Cluster,Globular Cluster,5.1,32' x 32',10:600 ly,Sagittarius,Summer,18h 36m 24.21s,-23° 54' 12.2\",Messier,NGC 6656,M22.gif,M22.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M23,NULL,Open Cluster,6.9,27' x 27',2:150 ly,Sagittarius,Summer,17h 56m 48s,-19° 01' 00\",Messier,NGC 6494,M23.gif,M23.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M24,Saggitarius Star Cloud,Milky Way Patch,4.6,90' x 90',10:000 ly,Sagittarius,Summer,18h 16m 30s,-18° 29' 00\",Messier,IC 4715,M24.gif,M24.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M25,NULL,Open Cluster,4.6,32' x 32',2:000 ly,Sagittarius,Summer,18h 31m 36s,-19° 15' 00\",Messier,IC 4725,M25.gif,M25.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M26,NULL,Open Cluster,8.0,15' x 15',5:000 ly,Scutum,Summer,18h 45m 12s,-09° 24' 00\",Messier,NGC 6694,M26.gif,M26.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M27,Dumbbell Nebula,Planetary Nebula,7.5,8' x 5.6',1:360 ly,Vulpecula,Fall,19h 59m 36.34s,+22° 43' 16.09\",Messier,NGC 6853,M27.gif,M27.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M28,NULL,Globular Cluster,7.7,11.2' x 11.2',18:300 ly,Sagittarius,Summer,18h 24m 32.89s,-24° 52' 11.4\",Messier,NGC 6626,M28.gif,M28.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M29,NULL,Open Cluster,7.1,7' x 7',4:000 ly,Cygnus,Fall,20h 23m 56s,+38° 31' 24\",Messier,NGC 6913,M29.gif,M29.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M30,NULL,Globular Cluster,7.7,11' x 11',29:400 ly,Capricornus,Fall,21h 40m 22.03s,-23° 10' 44.6\",Messier,NGC 7099,M30.gif,M30.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M31,Andromeda Galaxy,Spiral Galaxy,3.4,190' x 60',2.54 million ly,Andromeda,Winter,00h 42m 44.3s,+41° 16' 09\",Messier,NGC 224,M31.gif,M31.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M32,Satellit of Andromeda Galaxy,Dwarf Elliptical Galaxy,8.1,8.7' x 6.5',2.49 million ly,Andromeda,Winter,00h 42m 41.8s,+40° 51' 55\",Messier,NGC 221: Arp 1686,M32.gif,M32.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M33,Triangulum Galaxy,Spiral Galaxy,5.7,70.8' x 41.7',2.38 million ly,Triangulum,Winter,01h 33m 50.02s,+30° 39' 36.7\",Messier,NGC 598,M33.gif,M33.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M34,NULL,Open Cluster,5.5,35' x 35',1:500 ly,Perseus,Winter,02h 42m 06s,+42° 46' 00\",Messier,NGC 1039,M34.gif,M34.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M35,NULL,Open Cluster,5.3,28' x 28',2:800 ly,Gemini,Winter,06h 09m 06s,+24° 21' 00\",Messier,NGC 2168,M35.gif,M35.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M36,NULL,Open Cluster,6.3,12' x 12',4:100 ly,Auriga,Winter,05h 36m 12s,+34° 08' 04\",Messier,NGC 1960,M36.gif,M36.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M37,NULL,Open Cluster,6.2,24' x 24',4:511 ly,Auriga,Winter,05h 52m 18s,+32° 33' 02\",Messier,NGC 2099,M37.gif,M37.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M38,NULL,Open Cluster,7.4,21' x 21',4:200 ly,Auriga,Winter,05h 28m 42s,+35° 51' 18\",Messier,NGC 1912,M38.gif,M38.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M39,NULL,Open Cluster,5.5,32' x 32',800 ly,Cygnus,Fall,21h 32m 12s,+48° 26' 00\",Messier,NGC 7092,M39.gif,M39.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M40,Winnecke 4,Double Star,9.7,0.8' x .08',510 ly,Ursa Major,Spring,12h 22m 12.5s,+58° 04' 59\",Messier,NULL,M40.gif,M40.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M41,NULL,Open Cluster,4.5,38' x 38',2:300 ly,Canis Major,Winter,06h 46m 00s,-20° 46' 00\",Messier,NGC 2287,M41.gif,M41.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M42,Orion Nebula,Reflection/Emission Nebula,4.0,65' x 60',1:344 ly,Orion,Winter,05h 35m 17.3s,-05° 23' 28\",Messier,NGC 1976: Sharpless 281,M42.gif,M42.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M43,De Mairan's Nebula,Reflection/Emission Nebula,9.0,20' x 15',1:600 ly,Orion,Winter,05h 35m 36s,-05° 16' 00\",Messier,NGC 1982,M43.gif,M43.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M44,Beehive Cluster,Open Cluster,3.7,95' x 95',577 ly,Cancer,Spring,08h 40m 24s,+19° 41' 00\",Messier,NGC 2632,M44.gif,M44.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M45,Pleiades: Seven Sisters,Open Cluster,1.6,110' x 110',391 ly,Taurus,Winter,03h 47m 24s,+24° 07' 00\",Messier,NULL,M45.gif,M45.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M46,NULL,Open Cluster,6.1,27' x 27',5:400 ly,Puppis,Winter,07h 41m 48s,-14° 49' 00\",Messier,NGC 2437,M46.gif,M46.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M47,NULL,Open Cluster,4.2,30' x 30',1:600 ly,Puppis,Winter,07h 36m 36s,-14° 30' 00\",Messier,NGC 2422,M47.gif,M47.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M48,NULL,Open Cluster,5.5,54' x 54',1:500 ly,Hydra,Spring,08h 13m 42s,-05° 45' 00\",Messier,NGC 2548,M48.gif,M48.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M49,NULL,Elliptical Galaxy,9.4,10.2' x 8.3',55.9 million ly,Virgo,Spring,12h 29m 46.7s,+08° 00' 02\",Messier,NGC 4472: UGC 7629: Arp 134,M49.gif,M49.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M50,NULL,Open Cluster,5.9,16' x 16',3:200 ly,Monoceros,Winter,07h 03m 12s,-08° 20' 00\",Messier,NGC 2323,M50.gif,M50.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M51,Whirlpool Galaxy,Spiral Galaxy,8.4,11.2' x 6.9',23 million ly,Canes Venatici,Spring,13h 29m 52.7s,+47° 11' 43\",Messier,NGC 5194: NGC 5195: UGC 8493: Arp 85,M51.gif,M51.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M52,NULL,Open Cluster,5.0,13' x 13',5:000 ly,Cassiopeia,Winter,23h 24m 12s,+61° 35' 00\",Messier,NGC 7654,M52.gif,M52.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M53,NULL,Globular Cluster,8.3,13' x 13',58:000 ly,Coma Berenices,Spring,13h 12m 55.3s,+18° 10' 09\",Messier,NGC 5024,M53.gif,M53.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M54,NULL,Globular Cluster,8.4,12' x 12',87:400 ly,Sagittarius,Summer,18h 55m 03.28s,-30° 28' 42.6\",Messier,NGC 6715,M54.gif,M54.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M55,NULL,Globular Cluster,7.4,19' x 19',17:600 ly,Sagittarius,Summer,19h 39m 59.71s,-30° 57' 53.1\",Messier,NGC 6809,M55.gif,M55.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M56,NULL,Globular Cluster,8.3,8.8' x 8.8',32:900 ly,Lyra,Fall,19h 16m 35.50s,+30° 11' 04.2\",Messier,NGC 6779,M56.gif,M56.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M57,Ring Nebula,Planetary Nebula,8.8,3.8' x 3.8',2:300 ly,Lyra,Fall,18h 53m 35.079s,+33° 01' 45.03\",Messier,NGC 6720,M57.gif,M57.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M58,NULL,Barred Spiral Galaxy,10.5,5.9' x 4.7',62 million ly,Virgo,Spring,12h 37m 43.5s,+11° 49' 05\",Messier,NGC 4579,M58.gif,M58.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M59,NULL,Elliptical Galaxy,10.6,5.4' x 3.7',60 million ly,Virgo,Spring,12h 42m02.3 s,+11° 38' 49\",Messier,NGC 4621,M59.gif,M59.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M60,NULL,Elliptical Galaxy,9.8,7.4' x 6',55 million ly,Virgo,Spring,12h 43m 39.6s,+11° 33' 09\",Messier,NGC 4649: Arp 116,M60.gif,M60.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M61,NULL,Spiral Galaxy,10.2,6.5' x 5.8',52.5 million ly,Virgo,Spring,12h 21m 54.9s,+04° 28' 25\",Messier,NGC 4303,M61.gif,M61.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M62,NULL,Globular Cluster,7.4,15' x 15',22:500 ly,Ophiuchus,Summer,17h 01m 12.6s,-30° 06' 44.5\",Messier,NGC 6266: GCI 51,M62.gif,M62.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M63,Sunflower Galaxy,Spiral Galaxy,9.3,12.6' x 7.2',37 million ly,Canes Venatici,Spring,13h 15m 49.3s,+42° 01' 45\",Messier,NGC 5055,M63.gif,M63.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M64,Black Eye Galaxy,Spiral Galaxy,9.4,10.71' x 5.128',24 million ly,Coma Berenices,Spring,12h 56m 43.7s,+21° 40' 58\",Messier,NGC 4826,M64.gif,M64.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M65,Leo Triplet,Barred Spiral Galaxy,10.3,8.7' x 2.5',35 million ly,Leo,Spring,11h 18m 55.9s,+13° 05' 32\",Messier,NGC 3623,M65.gif,M65.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M66,Leo Triplet,Barred Spiral Galaxy,8.9,9.1' x 4.2',36 million ly,Leo,Spring,11h 20m 15s,+12° 59' 30\",Messier,NGC 3627: Arp 16,M66.gif,M66.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M67,NULL,Open Cluster,6.1,30' x 30',2:610 ly,Cancer,Spring,08h 51m 24s,+11° 49' 00\",Messier,NGC 2682,M67.gif,M67.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M68,NULL,Globular Cluster,9.7,11' x 11',33:000 ly,Hydra,Spring,12h 39m 28.01s,-26° 44' 34.9\",Messier,NGC 4590: GCI 20,M68.gif,M68.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M69,NULL,Globular Cluster,9.8,9.8' x 9.8',29:700 ly,Sagittarius,Summer,18h 31m 23.23s,-32° 20' 52.7\",Messier,NGC 6637: GCI 96,M69.gif,M69.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M70,NULL,Globular Cluster,9.1,8' x 8',29:300 ly,Sagittarius,Summer,18h 43m 12.64s,-32° 17' 30.8\",Messier,NGC 6681: GCI 101,M70.gif,M70.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M71,NULL,Globular Cluster,6.1,7.2' x 7.2',12:000 ly,Sagitta,Summer,19h 53m 46.11s,+18° 46' 42.3\",Messier,NGC 6838: GCI 115,M71.gif,M71.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M72,NULL,Globular Cluster,9.3,5.9' x 5.9',55:400 ly,Aquarius,Fall,20h 53m 27.91s,-12° 32' 13.4\",Messier,NGC 6981: GCI 118,M72.gif,M72.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M73,NULL,Asterism,9.0,2.8' x 2.8',2:500 ly,Aquarius,Fall,20h 58m 54s,-12° 38' 00\",Messier,NGC 6994,M73.gif,M73.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M74,NULL,Spiral Galaxy,10.0,10.5' x 9.5',30 million ly,Pisces,Fall,01h 36m 41.8s,+15° 47' 01\",Messier,NGC 628,M74.gif,M74.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M75,NULL,Globular Cluster,9.2,6.8' x 6.8',67:500 ly,Sagittarius,Summer,20h 06m 04.75s,-21° 55' 16.2\",Messier,NGC 6864: GCI 116,M75.gif,M75.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M76,Little Dumbbell Nebula,Planetary Nebula,10.1,2.7' x 1.8',2:500 ly,Perseus,Winter,01h 42m 24s,+51° 34' 31\",Messier,NGC 650: NGC 651,M76.gif,M76.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M77,Cetus A,Spiral Galaxy,9.6,7.1' x 6',47 million ly,Cetus,Fall,02h 42m 40.7s,-00° 00' 48\",Messier,NGC 1068: Arp 37,M77.gif,M77.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M78,NULL,Reflection Nebula,8.3,8' x 6',1:600 ly,Orion,Winter,05h 46m 42s,+00° 03' 00\",Messier,NGC 2068,M78.gif,M78.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M79,NULL,Globular Cluster,8.6,8.7' x 8.7',41:000 ly,Lepus,Winter,05h 24m 10.59s,-24° 31' 27.3\",Messier,NGC 1904: GCI 10,M79.gif,M79.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M80,NULL,Globular Cluster,7.9,10' x 10',32:600 ly,Scorpius,Summer,16h 17m 02.51s,-22° 58' 30.4\",Messier,NGC 6093: GCI 39,M80.gif,M80.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M81,Bode's Galaxy,Spiral Galaxy,6.9,26.9' x 14.1',11.8 million ly,Ursa Major,Spring,09h 55m 33.2s,+69° 03' 55\",Messier,NGC 3031,M81.gif,M81.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M82,Cigar Galaxy,Starburst Galaxy,8.4,11.2' x 4.3',11.5 million ly,Ursa Major,Spring,09h 55m 52.2s,+69° 40' 47\",Messier,NGC 3034: Arp 337,M82.gif,M82.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M83,Southern Pinwheel Galaxy,Barred Spiral Galaxy,7.5,12.9' x 11.5',14.7 million ly,Hydra,Summer,13h 37m 00.9s,-29° 51' 57\",Messier,NGC 5236,M83.gif,M83.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M84,NULL,Lenticular Galaxy,10.1,6.5' x 5.6',60 million ly,Virgo,Spring,12h 25m 03.7s,+12° 53' 13\",Messier,NGC 4374,M84.gif,M84.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M85,NULL,Lenticular Galaxy,10.0,7.1' x 5.5',60 million ly,Coma Berenices,Spring,12h 25m 24s,+18° 11' 28\",Messier,NGC 4382,M85.gif,M85.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M86,NULL,Lenticular Galaxy,9.8,8.9' x 5.8',52 million ly,Virgo,Spring,12h 26m 11.7s,+12° 56' 46\",Messier,NGC 4406,M86.gif,M86.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M87,Virgo A,Elliptical Galaxy,9.6,8.3' x 6.6',53.5 million ly,Virgo,Spring,12h 30m 49.42s,+12° 23' 28\",Messier,NGC 4486: Arp 152,M87.gif,M87.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M88,NULL,Spiral Galaxy,10.4,6.9' x 3.7',47 million ly,Coma Berenices,Spring,12h 31m 59.2s,+14° 25' 14\",Messier,NGC 4501,M88.gif,M88.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M89,NULL,Elliptical Galaxy,10.7,5.1' x 4.7',50 million ly,Virgo,Spring,12h 35m 39.8s,+12° 33' 23\",Messier,NGC 4552,M89.gif,M89.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M90,NULL,Spiral Galaxy,10.3,9.5' x 4.4',58.7 million ly,Virgo,Spring,12h 36m 49.8s,+13° 09' 46\",Messier,NGC 4569: Arp 76,M90.gif,M90.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M91,NULL,Barred Spiral Galaxy,11.0,5.4' x 4.3',63 million ly,Coma Berenices,Spring,12h 35m 26.4s,+14° 29' 47\",Messier,NGC 4548,M91.gif,M91.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M92,NULL,Globular Cluster,6.3,14' x 14',26:700 ly,Hercules,Summer,17h 17m 07.27s,+43° 08' 11.5\",Messier,NGC 6341: GCI 59,M92.gif,M92.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M93,NULL,Open Cluster,6.0,22' x 22',3:600 ly,Puppis,Winter,07h 44m 36s,-23° 52' 00\",Messier,NGC 2447,M93.gif,M93.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M94,NULL,Spiral Galaxy,9.0,11.2' x 9.1',16 million ly,Canes Venatici,Spring,12h 50m 53.1s,+41° 07' 14\",Messier,NGC 4736,M94.gif,M94.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M95,NULL,Barred Spiral Galaxy,11.4,3.1' x 2.9',32.6 million ly,Leo,Spring,10h 43m 57.7s,+11° 42' 14\",Messier,NGC 3351,M95.gif,M95.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M96,NULL,Spiral Galaxy,10.1,7.6' x 5.2',31 million ly,Leo,Spring,10h 46m 45.7s,+11° 49' 12\",Messier,NGC 3368,M96.gif,M96.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M97,Owl Nebula,Planetary Nebula,9.9,3.4' x 3.3',2:600 ly,Ursa Major,Spring,11h 14m 48s,+55° 01' 00\",Messier,NGC 3587,M97.gif,M97.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M98,NULL,Spiral Galaxy,11.0,9.8' x 2.8',54.1 million ly,Coma Berenices,Spring,12h 13m 48.3s,+14° 54' 01\",Messier,NGC 4192,M98.gif,M98.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M99,NULL,Spiral Galaxy,10.4,5.4' x 4.7',50.2 million ly,Coma Berenices,Fall,12h 18m 49.6s,+14° 24' 59\",Messier,NGC 4254,M99.gif,M99.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M100,NULL,Spiral Galaxy,10.1,7.4' x 6.3',55 million ly,Coma Berenices,Spring,12h 22m 54.9s,+15° 49' 21\",Messier,NGC 4321,M100.gif,M100.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M101,Pinwheel Galaxy,Spiral Galaxy,7.9,28.8' x 26.9',20.9 million ly,Ursa Major,Spring,14h 03m 12.6s,+54° 20' 57\",Messier,NGC 5457: Arp 26,M101.gif,M101.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M102,Spindle Galaxy,Lenticular Galaxy,10.7,4.7' x 1.9',50 million ly,Draco,Summer,15h 06m 29.5s,+55° 45' 48\",Messier,NGC 5866,M102.gif,M102.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M103,NULL,Open Cluster,7.4,6.0' x 6.0',10:000 ly,Cassiopeia,Winter,01h 33m 12s,+60° 42' 00\",Messier,NGC 581,M103.gif,M103.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M104,Sombrero Galaxy,Spiral Galaxy,9.0,8.7' x 3.5',29.3 million ly,Virgo,Spring,12h 39m 59.4s,-11° 37' 23\",Messier,NGC 4594,M104.gif,M104.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M105,NULL,Elliptical Galaxy,10.2,5.4' x 4.8',32 million ly,Leo,Spring,10h 47m 49.6s,+12° 34' 54\",Messier,NGC 3379,M105.gif,M105.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M106,NULL,Spiral Galaxy,9.1,18.6' x 7.2',23.7 million ly,Canes Venatici,Spring,12h 18m 57.5s,+47° 18' 14\",Messier,NGC 4258,M106.gif,M106.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M107,NULL,Globular Cluster,8.9,13' x 13',20:900 ly,Ophiuchus,Summer,16h 32m 31.91s,-13° 03' 13.1\",Messier,NGC 6171: GCI 44,M107.gif,M107.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M108,NULL,Spiral Galaxy,10.7,8.7' x 2.2',14.1 million ly,Ursa Major,Spring,11h 11m 31s,+55° 40' 27\",Messier,NGC 3556,M108.gif,M108.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M109,NULL,Barred Spiral Galaxy,10.6,7.6' x 4.7',83.5 million ly,Ursa Major,Spring,11h 57m 36s,+53° 22' 28\",Messier,NGC 3992,M109.gif,M109.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+NULL,M110,NULL,Dwarf Elliptical Galaxy,8.9,21.9' x 11',2.69 million ly,Andromeda,Winter,00h 40m 22.1s,+41° 41' 07\",Messier,NGC 205,M110.gif,M110.gif,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
