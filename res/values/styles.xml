@@ -37,15 +37,11 @@
     	<item name="android:layout_marginBottom">15dp</item>
     	<item name="android:layout_marginTop">15dp</item>
 		<item name="android:layout_gravity">center</item>
-		<item name="android:shadowDx">3</item>
-		<item name="android:shadowDy">3</item>
     </style>
     
     <style name="homescreenButtonLargeNight" parent="homescreenButtonLargeNormal">
     	<item name="android:background">@drawable/black_button_state</item>
     	<item name="android:textColor">@color/red</item>
-		<item name="android:shadowDx">0</item>
-		<item name="android:shadowDy">0</item>
     </style>
     
     <style name="homescreenButtonSquareNormal" parent="homescreenButtonLargeNormal">

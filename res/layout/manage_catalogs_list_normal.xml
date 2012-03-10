@@ -7,12 +7,14 @@
     android:layout_height="wrap_content"
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="4dp"
     >
     
     <ImageView 
         android:src="@drawable/unchecked_normal"
-	    android:layout_width="36dp"
-	    android:layout_height="36dp"
+	    android:layout_width="30dp"
+	    android:layout_height="30dp"
 	    android:contentDescription="@string/unchecked_normal_image_alt"
 	    android:layout_marginTop="5dp"
 	    android:layout_marginBottom="5dp"
@@ -31,7 +33,7 @@
 		    android:layout_height="wrap_content"
 		    android:id="@+id/catalog_name"
 		    android:layout_gravity="center_horizontal"
-		    android:textSize="16sp" 
+		    android:textSize="18sp" 
 		    android:textColor="@color/black"
 		    android:textStyle="bold"
 		    />
@@ -41,7 +43,7 @@
 		    android:layout_height="wrap_content"
 		    android:id="@+id/catalog_description"
 		    android:layout_gravity="center_horizontal"
-		    android:textSize="10sp" 
+		    android:textSize="12sp" 
 		    android:textColor="@color/black"
 		    />
         

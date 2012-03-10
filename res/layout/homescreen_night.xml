@@ -31,7 +31,7 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="0dp"
 		    android:layout_gravity="center"
-	    	android:layout_weight="40"
+	    	android:layout_weight="38"
 		    >
 	
 			<Button xmlns:android="http://schemas.android.com/apk/res/android"
@@ -49,7 +49,7 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="0dp"
 		    android:layout_gravity="center"
-	    	android:layout_weight="30"
+	    	android:layout_weight="31"
 		    >
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"
@@ -75,7 +75,7 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="0dp"
 		    android:layout_gravity="center"
-	    	android:layout_weight="30"
+	    	android:layout_weight="31"
 		    >
 		    
 		    <Button xmlns:android="http://schemas.android.com/apk/res/android"

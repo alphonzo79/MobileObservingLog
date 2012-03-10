@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ManageCatalogsTabParent extends ActivityBase {
@@ -17,6 +20,32 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	ArrayList<Catalog> availableCatalogList;
 	ArrayList<Catalog> installedCatalogList;
 	Button submitButton;
+	ArrayList<String> selectedItems;
+
+	public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(settingsRef.getAddCatalogsTabLayout());
+        submitButton = (Button)findViewById(R.id.submit);
+        prepareListView();
+        
+        selectedItems = new ArrayList<String>();
+    }
+
+	@Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 	
 	/**
 	 * Internal method to handle preparation of the list view upon creation or to be called by setLayout when session mode changes or onResume.
@@ -30,13 +59,26 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		DatabaseHelper db = new DatabaseHelper(this);
 		Cursor catalogs = db.getAvailableCatalogs();
 		
-		//temp for testing
-		for (int i = 0; i < 5; i++){
-			availableCatalogList.add(new Catalog("Available Catalog " + (i + 1), "3.5 MB", "100"));
-			installedCatalogList.add(new Catalog("Installed Catalog " + (i + 1), "3.5 MB", "100"));
-		}
+		catalogs.moveToFirst();
 		
+		for (int i = 0; i < catalogs.getCount(); i++)
+        {
+			String name = catalogs.getString(0);
+			String installed = catalogs.getString(1);
+			String count = catalogs.getString(2);
+			String size = catalogs.getString(4);
+			
+			if (installed.equals("Yes")){
+				installedCatalogList.add(new Catalog(name, size, count));
+			}
+			else{
+				availableCatalogList.add(new Catalog(name, size, count));
+			}
+        	
+        	catalogs.moveToNext();
+        }
 		
+		db.close();
 	}
 	
 	//For this screen, the tabs layout was causing problems with our regular toggle mode handling. So instead on this screen we will simply relaunch the activity,
@@ -47,6 +89,28 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		Intent intent = new Intent(this.getApplication(), AddCatalogsScreen.class);
         startActivity(intent);
         finish();
+	}
+	
+	/**
+	 * Take action on each of the list items when clicked. We need to swap out the image and add/remove it from the selected list
+	 */
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id)
+	{
+		
+		TextView name = (TextView) v.findViewById(R.id.catalog_name);
+		String catalog = name.getText().toString();
+		
+		ImageView checked = (ImageView) v.findViewById(R.id.checkbox);
+		
+		if (!selectedItems.contains(catalog)){ //This item is not currently checked
+			selectedItems.add(catalog);
+			checked.setImageResource(settingsRef.getCheckbox_Selected());
+		}
+		else{
+			selectedItems.remove(catalog);
+			checked.setImageResource(settingsRef.getCheckbox_Unselected());
+		}
 	}
 	
 	static class Catalog{

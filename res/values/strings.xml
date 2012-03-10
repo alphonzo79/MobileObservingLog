@@ -34,4 +34,8 @@
     <string name="checked_normal_image_alt">Checked Normal</string>
     <string name="unchecked_night_image_alt">Unchecked Night</string>
     <string name="checked_night_image_alt">Checked Normal</string>
+    <string name="install_selected_catalogs">Install Selected Catalogs</string>
+    <string name="remove_selected_catalogs">Remove Selected Catalogs</string>
+    <string name="no_installed_catalogs">There are no catalogs currently installed. Please press Available Catalogs to install some</string>
+    <string name="no_available_catalogs">There are no more catalogs currently available.</string>
 </resources>

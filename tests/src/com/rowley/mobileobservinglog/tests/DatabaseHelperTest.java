@@ -139,7 +139,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		dbCursor = db.rawQuery("select type, size, declination from objects where designation = 'M1'", null);
 		dbCursor.moveToFirst();
 		assertEquals("The data in the objects table did not match", "Supernova Remnant", dbCursor.getString(0));
-		assertEquals("The data in the objects table did not match", "420\" × 290\"", dbCursor.getString(1));
+		assertEquals("The data in the objects table did not match", "6' × 4'", dbCursor.getString(1));
 		assertEquals("The data in the objects table did not match", "+22° 00\' 52.1\"", dbCursor.getString(2));
 		dbCursor.close();
 		

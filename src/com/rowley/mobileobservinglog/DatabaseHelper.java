@@ -121,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			else
 			{
 				Log.d("JoeDebug", "Error in populateAvailableCatalogs");
-				throw new Exception("There were not 4 values to populate the settings table with. Values were" + rowData.toString());
+				throw new Exception("There were not 5 values to populate the catalogs table with. Values were" + rowData.toString());
 			}
 		}
 	}
