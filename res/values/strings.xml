@@ -38,4 +38,6 @@
     <string name="remove_selected_catalogs">Remove Selected Catalogs</string>
     <string name="no_installed_catalogs">There are no catalogs currently installed. Please press Available Catalogs to install some</string>
     <string name="no_available_catalogs">There are no more catalogs currently available.</string>
+    <string name="ok">OK</string>
+    <string name="no_items_selected">ATTENTION: Please select an item before proceeding</string>
 </resources>

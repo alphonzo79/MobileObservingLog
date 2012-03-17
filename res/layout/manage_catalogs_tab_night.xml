@@ -1,43 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/manage_catalogs_tab_root"
    	android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:orientation="vertical"
     >
-	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         android:listSelector="@drawable/list_item_back_state"
-         />
     
-    <Button
-        android:id="@+id/submit"
-        android:background="@drawable/red_button_state"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/manage_catalogs_tab_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	>
+	    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:listSelector="@drawable/list_item_back_state"
+	         />
+	    
+	    <Button
+	        android:id="@+id/submit"
+	        android:background="@drawable/red_button_state"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:paddingLeft="7dp"
+	        android:paddingRight="7dp"
+	        android:paddingTop="12dp"
+	        android:paddingBottom="12dp"
+	        android:layout_margin="10dp"
+	        android:layout_below="@android:id/list" 
+	        android:layout_centerHorizontal="true"
+	        />
+    
+	    <TextView 
+	        android:id="@+id/nothing_left"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone"
+	        android:textSize="14dp"
+	        android:paddingTop="25dp"
+	        android:paddingLeft="15dp"
+	        android:paddingRight="15dp"
+	        android:textColor="@color/red"
+	        android:layout_below="@id/submit" 
+	        />
+    
+    </RelativeLayout>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal_night"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:layout_margin="10dp"
-        />
-    
-    <TextView 
-        android:id="@+id/nothing_left"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:textSize="14dp"
-        android:paddingTop="25dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/red"
+        android:layout_gravity="center|center"
         />
 	    
-</LinearLayout>
+</FrameLayout>

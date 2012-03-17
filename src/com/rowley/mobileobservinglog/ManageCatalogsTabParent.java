@@ -1,5 +1,6 @@
 package com.rowley.mobileobservinglog;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ManageCatalogsTabParent extends ActivityBase {
@@ -21,15 +23,26 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	ArrayList<Catalog> installedCatalogList;
 	Button submitButton;
 	ArrayList<String> selectedItems;
+	float size;
+	RelativeLayout alertModal;
+	TextView alertText;
+	Button alertOk;
+	Button alertCancel;
+	DecimalFormat twoDigits = new DecimalFormat("###.##");
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(settingsRef.getAddCatalogsTabLayout());
         submitButton = (Button)findViewById(R.id.submit);
+        alertText = (TextView)findViewById(R.id.alert_main_text);
+        alertOk = (Button)findViewById(R.id.alert_ok_button);
+        alertCancel = (Button)findViewById(R.id.alert_cancel_button);
+        alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
         prepareListView();
         
         selectedItems = new ArrayList<String>();
+        size = 0.0F;
     }
 
 	@Override
@@ -100,18 +113,73 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		
 		TextView name = (TextView) v.findViewById(R.id.catalog_name);
 		String catalog = name.getText().toString();
+		TextView description = (TextView) v.findViewById(R.id.catalog_description);
+		String catalogSizeText = description.getText().toString();
+		float catalogSizeFloat = extractCatalogSize(catalogSizeText);
 		
 		ImageView checked = (ImageView) v.findViewById(R.id.checkbox);
 		
 		if (!selectedItems.contains(catalog)){ //This item is not currently checked
 			selectedItems.add(catalog);
+			size += catalogSizeFloat;
 			checked.setImageResource(settingsRef.getCheckbox_Selected());
 		}
 		else{
 			selectedItems.remove(catalog);
+			size -= catalogSizeFloat;
 			checked.setImageResource(settingsRef.getCheckbox_Unselected());
 		}
 	}
+	
+	private float extractCatalogSize(String text){
+		float retVal = 0.0F;
+		String[] parsed = text.split(" ");
+		String methodSize = parsed[parsed.length -2]; //get the second-to-last element
+		
+		retVal = Float.parseFloat(methodSize);
+		
+		return retVal;
+	}
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	protected void prepForModal()
+	{
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.manage_catalogs_tab_main);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(false);
+		listView.setEnabled(false);
+		submitButton.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+	}
+	
+	protected void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.manage_catalogs_tab_main);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(true);
+		listView.setEnabled(true);
+		submitButton.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		alertModal.setVisibility(View.INVISIBLE);
+	}
+    
+    protected final Button.OnClickListener dismissAlert = new Button.OnClickListener() {
+		public void onClick(View view){
+			tearDownModal();
+        }
+    };
+    
+    /**
+     * Take our existing alert modal and modify the layout to provide a progress indicator
+     */
+    protected void prepProgressModal(){
+    	
+    }
 	
 	static class Catalog{
 		String name;

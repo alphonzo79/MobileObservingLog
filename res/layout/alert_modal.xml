@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:id="@+id/alert_modal"
+   	style="@style/modalContainerNormal"
+   	>
+   
+    <TextView  
+	    android:id="@+id/alert_main_text"
+	    style="@style/alertMainTextNormal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+	    />
+    
+    <LinearLayout 
+   		android:id="@+id/save_cancel_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+   		android:layout_marginLeft="15dp"
+   		android:layout_marginRight="15dp"
+   		android:gravity="center_horizontal"
+        android:layout_below="@id/alert_main_text" 
+        >
+	    
+	    <Button 
+	    	android:id="@+id/alert_ok_button"
+	    	style="@style/modalSaveCancelButtonNormal"
+	    	android:text="@string/ok"
+	    	android:layout_weight="40"
+	    	/>
+	    
+	    <Button 
+	    	android:id="@+id/alert_cancel_button"
+	    	style="@style/modalSaveCancelButtonNormal"
+	    	android:text="@string/num_picker_cancel_button"
+	    	android:layout_weight="40"
+	    	/>
+    
+    </LinearLayout>
+    
+</RelativeLayout>

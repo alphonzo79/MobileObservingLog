@@ -31,6 +31,8 @@ public final class SettingsContainer {
 	public static final String NM_BACKLIGHT = "Night Mode Backlight Intensity";
 	public static final String USE_GPS = "Use Device GPS";
 	public static final String SEARCH_MODE = "Search/Filter Type";
+	public static final String IMAGE_DOWNLOAD_ROOT = "http://www.scinvites.com/mobile_observing_log/";
+	public static final String MESSIER_DIRECTORY = "messier/";
 	
 	//Persistent Settings Map
 	private Map<String, String> persistentSettingsMap = null;
