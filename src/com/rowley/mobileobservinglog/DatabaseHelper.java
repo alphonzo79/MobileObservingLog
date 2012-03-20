@@ -1,5 +1,8 @@
 package com.rowley.mobileobservinglog;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -347,5 +350,69 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		db.close();
 				
 		return retVal;
+	}
+
+	/**
+	 * This method is used to return the list of image paths from the databse for the given catalogs. It is used primarily by AvailableCatalogsTab.java and
+	 * InstalledCatalogsTab.java to get the images we need to download and save or delete
+	 * 
+	 * @return A cursor containing the list of image paths for the given catalogs.
+	 */
+	public Cursor getImagePaths(ArrayList<String> catalogs)
+	{
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT imageResource, nightImageResource FROM objects WHERE catalog ='" + catalogs.get(0);
+		
+		for (int i = 1; i < catalogs.size(); i++){
+			sqlStatement = sqlStatement + "' OR '" + catalogs.get(i);
+		}
+		
+		sqlStatement += "'";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
+
+	/**
+	 * This method is used to update the database for whether a catalog has been installed or not for the given catalogs. It is used primarily by AvailableCatalogsTab.java and
+	 * InstalledCatalogsTab.java installing or removing catalogs
+	 * 
+	 * @return A cursor containing the list of image paths for the given catalogs.
+	 */
+	public boolean updateAvailableCatalogsInstalled(String catalog, String installed)
+	{
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("UPDATE availableCatalogs SET installed = ? WHERE catalogName = ?");
+		sqlStatement.bindString(1, catalog);
+		sqlStatement.bindString(2, installed);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		db.close();
+		
+		return success;
 	}
 }

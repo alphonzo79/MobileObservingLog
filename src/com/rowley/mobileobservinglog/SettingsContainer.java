@@ -31,8 +31,10 @@ public final class SettingsContainer {
 	public static final String NM_BACKLIGHT = "Night Mode Backlight Intensity";
 	public static final String USE_GPS = "Use Device GPS";
 	public static final String SEARCH_MODE = "Search/Filter Type";
-	public static final String IMAGE_DOWNLOAD_ROOT = "http://www.scinvites.com/mobile_observing_log/";
-	public static final String MESSIER_DIRECTORY = "messier/";
+	public static final String STAR_CHART_DIRECTORY = "Star Chart Location";
+	public static final String EXTERNAL = "External";
+	public static final String INTERNAL = "Internal";
+	public static final String IMAGE_DOWNLOAD_ROOT = "http://www.scinvites.com/mobile_observing_log";
 	
 	//Persistent Settings Map
 	private Map<String, String> persistentSettingsMap = null;
@@ -290,6 +292,7 @@ public final class SettingsContainer {
 			persistentSettingsMap.put(NM_BACKLIGHT, db.getPersistentSettings(NM_BACKLIGHT));
 			persistentSettingsMap.put(SEARCH_MODE, db.getPersistentSettings(SEARCH_MODE));
 			persistentSettingsMap.put(USE_GPS, db.getPersistentSettings(USE_GPS));
+			persistentSettingsMap.put(STAR_CHART_DIRECTORY, db.getPersistentSettings(STAR_CHART_DIRECTORY));
 		}
 		
 		return persistentSettingsMap.get(setting);

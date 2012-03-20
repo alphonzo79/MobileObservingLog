@@ -127,7 +127,7 @@ public class SettingsScreen extends ActivityBase{
         	
         	settingsCursor.moveToNext();
         }
-        
+        settingsCursor.close();
 		return retVal;
 	}
 	

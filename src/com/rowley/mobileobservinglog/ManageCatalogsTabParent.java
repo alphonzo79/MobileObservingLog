@@ -2,6 +2,10 @@ package com.rowley.mobileobservinglog;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
+
+import com.rowley.mobileobservinglog.SettingsContainer.SessionMode;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,11 +29,16 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	Button submitButton;
 	ArrayList<String> selectedItems;
 	float size;
+	DecimalFormat twoDigits = new DecimalFormat("###.##");
+	int numFiles;
 	RelativeLayout alertModal;
 	TextView alertText;
 	Button alertOk;
 	Button alertCancel;
-	DecimalFormat twoDigits = new DecimalFormat("###.##");
+	LinearLayout progressLayout;
+	ImageView progressImage;
+	TextView progressMessage;
+	ArrayList<Integer> progressImages = new ArrayList<Integer>();
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +49,9 @@ public class ManageCatalogsTabParent extends ActivityBase {
         alertOk = (Button)findViewById(R.id.alert_ok_button);
         alertCancel = (Button)findViewById(R.id.alert_cancel_button);
         alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+        progressLayout = (LinearLayout)findViewById(R.id.progress_display);
+        progressImage = (ImageView)findViewById(R.id.progress_image);
+        progressMessage = (TextView)findViewById(R.id.progress_text);
         prepareListView();
         
         selectedItems = new ArrayList<String>();
@@ -90,7 +103,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
         	
         	catalogs.moveToNext();
         }
-		
+		catalogs.close();
 		db.close();
 	}
 	
@@ -116,17 +129,20 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		TextView description = (TextView) v.findViewById(R.id.catalog_description);
 		String catalogSizeText = description.getText().toString();
 		float catalogSizeFloat = extractCatalogSize(catalogSizeText);
+		int catalogObjects = extractNumObjects(catalogSizeText);
 		
 		ImageView checked = (ImageView) v.findViewById(R.id.checkbox);
 		
 		if (!selectedItems.contains(catalog)){ //This item is not currently checked
 			selectedItems.add(catalog);
 			size += catalogSizeFloat;
+			numFiles += catalogObjects;
 			checked.setImageResource(settingsRef.getCheckbox_Selected());
 		}
 		else{
 			selectedItems.remove(catalog);
 			size -= catalogSizeFloat;
+			numFiles -= catalogObjects;
 			checked.setImageResource(settingsRef.getCheckbox_Unselected());
 		}
 	}
@@ -137,6 +153,14 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		String methodSize = parsed[parsed.length -2]; //get the second-to-last element
 		
 		retVal = Float.parseFloat(methodSize);
+		
+		return retVal;
+	}
+	
+	private int extractNumObjects(String text){
+		int retVal = 0;
+		String[] parsed = text.split(" ");
+		String methodNumber = parsed[0]; //first element will have the number of objects
 		
 		return retVal;
 	}
@@ -174,11 +198,79 @@ public class ManageCatalogsTabParent extends ActivityBase {
         }
     };
     
+    protected final Button.OnClickListener dismissSuccess = new Button.OnClickListener() {
+		public void onClick(View view){
+			tearDownModal();
+			
+			//restart the activity
+			Intent intent = new Intent(ManageCatalogsTabParent.this, AddCatalogsScreen.class);
+	        startActivity(intent);
+	        finish();
+        }
+    };
+    
     /**
      * Take our existing alert modal and modify the layout to provide a progress indicator
      */
     protected void prepProgressModal(){
-    	
+    	prepareImageArray();
+    	alertText.setVisibility(View.GONE);
+    	alertOk.setVisibility(View.GONE);
+    	alertCancel.setVisibility(View.GONE);
+    	progressImage.setImageResource(progressImages.get(0));
+    	progressLayout.setVisibility(View.VISIBLE);
+    }
+    
+    private void prepareImageArray(){
+    	if (settingsRef.getSessionMode() == SessionMode.normal){
+    		progressImages.add(R.drawable.progress_normal_01);
+    		progressImages.add(R.drawable.progress_normal_02);
+    		progressImages.add(R.drawable.progress_normal_03);
+    		progressImages.add(R.drawable.progress_normal_04);
+    		progressImages.add(R.drawable.progress_normal_05);
+    		progressImages.add(R.drawable.progress_normal_06);
+    		progressImages.add(R.drawable.progress_normal_07);
+    		progressImages.add(R.drawable.progress_normal_08);
+    	}
+    	else{
+    		progressImages.add(R.drawable.progress_night_01);
+    		progressImages.add(R.drawable.progress_night_02);
+    		progressImages.add(R.drawable.progress_night_03);
+    		progressImages.add(R.drawable.progress_night_04);
+    		progressImages.add(R.drawable.progress_night_05);
+    		progressImages.add(R.drawable.progress_night_06);
+    		progressImages.add(R.drawable.progress_night_07);
+    		progressImages.add(R.drawable.progress_night_08);
+    	}
+    }
+    
+    public void advanceProgressImage(Iterator<Integer> it, ArrayList<Integer> images){
+    	if(!it.hasNext()){
+    		it = images.iterator();
+    	}
+    	progressImage.setImageResource(it.next());
+    }
+    
+    public void setProgressText(int current, int total){
+    	progressMessage.setText("Downloading File " + current + " of " + total + ".");
+    }
+    
+    public void showFailureMessage(String message){
+		progressImage.setVisibility(View.GONE);
+		progressMessage.setVisibility(View.GONE);
+		alertText.setText(message);
+		alertOk.setOnClickListener(dismissAlert);
+		alertText.setVisibility(View.VISIBLE);
+		alertOk.setVisibility(View.VISIBLE);
+    }
+    
+    public void showSuccessMessage(){
+		progressImage.setVisibility(View.GONE);
+		progressMessage.setVisibility(View.GONE);
+		alertText.setText("Success");
+		alertOk.setOnClickListener(dismissAlert);
+		alertText.setVisibility(View.VISIBLE);
+		alertOk.setVisibility(View.VISIBLE);
     }
 	
 	static class Catalog{

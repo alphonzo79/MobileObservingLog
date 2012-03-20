@@ -40,4 +40,5 @@
     <string name="no_available_catalogs">There are no more catalogs currently available.</string>
     <string name="ok">OK</string>
     <string name="no_items_selected">ATTENTION: Please select an item before proceeding</string>
+    <string name="progress_image_alt">Progress Image</string>
 </resources>

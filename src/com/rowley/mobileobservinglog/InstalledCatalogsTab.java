@@ -55,6 +55,7 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 				alertCancel.setVisibility(View.GONE);
 				alertOk.setVisibility(View.VISIBLE);
 				alertOk.setOnClickListener(dismissAlert);
+				progressLayout.setVisibility(View.GONE);
 				alertModal.setVisibility(View.VISIBLE);
 			}
 			else{
@@ -68,11 +69,12 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 				confirmRemoval = confirmRemoval + "? (This will remove all of the related star charts from the file system, freeing up " + twoDigits.format(size) + " MB of space)";
 				
 				alertText.setText(confirmRemoval);
-				alertModal.setVisibility(View.VISIBLE);
 				alertCancel.setVisibility(View.VISIBLE);
 				alertOk.setVisibility(View.VISIBLE);
 				alertCancel.setOnClickListener(dismissAlert);
 				alertOk.setOnClickListener(confirmRemove);
+				progressLayout.setVisibility(View.GONE);
+				alertModal.setVisibility(View.VISIBLE);
 				//Control picks up again after the user presses one of the buttons. The rest of removing the catalogs takes place in ConfirmRemove
 			}
         }		
@@ -81,6 +83,8 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
     private final Button.OnClickListener confirmRemove = new Button.OnClickListener() {
 		public void onClick(View view){
 			//remove images
+			prepProgressModal();
+			progressMessage.setText("Doing Stuff");
 			
 			//update database
 			
