@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +37,12 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	TextView alertText;
 	Button alertOk;
 	Button alertCancel;
-	LinearLayout progressLayout;
+	RelativeLayout progressLayout;
 	ImageView progressImage;
 	TextView progressMessage;
 	ArrayList<Integer> progressImages = new ArrayList<Integer>();
+	ListIterator<Integer> imageIterator;
+	String failureMessage;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +53,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
         alertOk = (Button)findViewById(R.id.alert_ok_button);
         alertCancel = (Button)findViewById(R.id.alert_cancel_button);
         alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
-        progressLayout = (LinearLayout)findViewById(R.id.progress_display);
+        progressLayout = (RelativeLayout)findViewById(R.id.progress_modal);
         progressImage = (ImageView)findViewById(R.id.progress_image);
         progressMessage = (TextView)findViewById(R.id.progress_text);
         prepareListView();
@@ -137,12 +141,14 @@ public class ManageCatalogsTabParent extends ActivityBase {
 			selectedItems.add(catalog);
 			size += catalogSizeFloat;
 			numFiles += catalogObjects;
+			Log.d("JoeTest", "numFiles: " + numFiles);
 			checked.setImageResource(settingsRef.getCheckbox_Selected());
 		}
 		else{
 			selectedItems.remove(catalog);
 			size -= catalogSizeFloat;
 			numFiles -= catalogObjects;
+			Log.d("JoeTest", "numFiles: " + numFiles);
 			checked.setImageResource(settingsRef.getCheckbox_Unselected());
 		}
 	}
@@ -161,6 +167,8 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		int retVal = 0;
 		String[] parsed = text.split(" ");
 		String methodNumber = parsed[0]; //first element will have the number of objects
+		
+		retVal = Integer.parseInt(methodNumber);
 		
 		return retVal;
 	}
@@ -190,6 +198,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		submitButton.setEnabled(true);
 		blackOutLayer.setVisibility(View.INVISIBLE);
 		alertModal.setVisibility(View.INVISIBLE);
+		progressLayout.setVisibility(View.GONE);
 	}
     
     protected final Button.OnClickListener dismissAlert = new Button.OnClickListener() {
@@ -213,13 +222,24 @@ public class ManageCatalogsTabParent extends ActivityBase {
      * Take our existing alert modal and modify the layout to provide a progress indicator
      */
     protected void prepProgressModal(){
+    	Log.d("JoeTest", "prepProgressModal called");
     	prepareImageArray();
     	alertText.setVisibility(View.GONE);
     	alertOk.setVisibility(View.GONE);
     	alertCancel.setVisibility(View.GONE);
+    	alertModal.setVisibility(View.GONE);
     	progressImage.setImageResource(progressImages.get(0));
+    	progressImage.setVisibility(View.VISIBLE);
+    	progressMessage.setVisibility(View.VISIBLE);
     	progressLayout.setVisibility(View.VISIBLE);
     }
+    
+    Handler prepProgressModalHandler = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		prepProgressModal();
+    	}
+    };
     
     private void prepareImageArray(){
     	if (settingsRef.getSessionMode() == SessionMode.normal){
@@ -242,36 +262,70 @@ public class ManageCatalogsTabParent extends ActivityBase {
     		progressImages.add(R.drawable.progress_night_07);
     		progressImages.add(R.drawable.progress_night_08);
     	}
+    	imageIterator = progressImages.listIterator();
     }
     
-    public void advanceProgressImage(Iterator<Integer> it, ArrayList<Integer> images){
-    	if(!it.hasNext()){
-    		it = images.iterator();
+    Handler uiUpdateHandler = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		Log.d("JoeTest", "Handling message #" + msg.getData().getInt("current"));
+    		advanceProgressImage();
+    		setProgressText(msg.getData().getInt("current"), msg.getData().getInt("filesToDownLoad"));
     	}
-    	progressImage.setImageResource(it.next());
+    };
+    
+    public void advanceProgressImage(){
+    	Log.d("JoeTest", "advanceProgressImage called");
+    	if(!imageIterator.hasNext()){
+    		imageIterator = progressImages.listIterator();
+    	}
+    	progressImage.setImageResource(imageIterator.next());
     }
     
     public void setProgressText(int current, int total){
+    	Log.d("JoeTest", "setProgressText called");
     	progressMessage.setText("Downloading File " + current + " of " + total + ".");
     }
     
-    public void showFailureMessage(String message){
-		progressImage.setVisibility(View.GONE);
-		progressMessage.setVisibility(View.GONE);
-		alertText.setText(message);
+    public void showFailureMessage(){
+		progressLayout.setVisibility(View.GONE);
+		alertModal.setVisibility(View.VISIBLE);
+		alertText.setText(failureMessage);
 		alertOk.setOnClickListener(dismissAlert);
 		alertText.setVisibility(View.VISIBLE);
 		alertOk.setVisibility(View.VISIBLE);
     }
     
+    Handler failureMessageHandler = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		runOnUiThread(new Runnable(){
+    			public void run(){
+    				showFailureMessage();
+    			}
+    		});  
+    	}
+    };
+    
     public void showSuccessMessage(){
-		progressImage.setVisibility(View.GONE);
-		progressMessage.setVisibility(View.GONE);
+    	progressLayout.setVisibility(View.GONE);
+		alertModal.setVisibility(View.VISIBLE);
 		alertText.setText("Success");
 		alertOk.setOnClickListener(dismissAlert);
 		alertText.setVisibility(View.VISIBLE);
 		alertOk.setVisibility(View.VISIBLE);
     }
+    
+    Handler successMessageHandler = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		runOnUiThread(new Runnable(){
+    			public void run(){
+    				showSuccessMessage();
+    			}
+    		});    		
+    	}
+    };
 	
 	static class Catalog{
 		String name;

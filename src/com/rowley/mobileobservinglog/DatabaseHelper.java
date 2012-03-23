@@ -315,6 +315,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		db.beginTransaction();
 		try
 		{
+			Log.d("JoeTest", "SqlStatement is " + sqlStatement.toString());
 			sqlStatement.execute();
 			db.setTransactionSuccessful();
 			settingsRef.setPersistentSetting(setting, value);
@@ -391,8 +392,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		SQLiteDatabase db = getReadableDatabase();
 		
 		SQLiteStatement sqlStatement = db.compileStatement("UPDATE availableCatalogs SET installed = ? WHERE catalogName = ?");
-		sqlStatement.bindString(1, catalog);
-		sqlStatement.bindString(2, installed);
+		sqlStatement.bindString(1, installed);
+		sqlStatement.bindString(2, catalog);
 		
 		db.beginTransaction();
 		try

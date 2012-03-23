@@ -15,6 +15,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -98,16 +100,28 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
     private final Button.OnClickListener confirmInstall = new Button.OnClickListener() {
 		public void onClick(View view){
 			Log.d("JoeTest", "confirmInstall called");
+			new Thread(new InstallCatalogsRunnable()).start();
+        }
+    };
+    
+    private class InstallCatalogsRunnable implements Runnable{
+
+		public void run() {
+			Log.d("JoeTest", "InstallCatalogsRunnable.run called");
 			boolean success = true;
 			int filesToDownload = numFiles * 2; //double because we have night mode and normal mode
-			int currentFileNumber = 0;
-			prepProgressModal();
+			int currentFileNumber = 1;
+			prepProgressModalHandler.sendEmptyMessage(0);
 			setProgressText(currentFileNumber, filesToDownload);
-			ListIterator<Integer> imageIterator = progressImages.listIterator();
+						
+			Bundle messageData = new Bundle();
+			messageData.putInt("filesToDownLoad", filesToDownload);
+			Message updateMessage = new Message();
 			
 			//Download the images
 			//check the settings table for the files location
 			String fileLocationString = settingsRef.getPersistentSetting(settingsRef.STAR_CHART_DIRECTORY, AvailableCatalogsTab.this);
+			Log.d("JoeTest", "FileLocationString is " + fileLocationString);
 			File starChartRoot = null;
 			DatabaseHelper db = new DatabaseHelper(AvailableCatalogsTab.this);
 			
@@ -117,7 +131,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			String state = Environment.getExternalStorageState();
 
 			//First, check whether we have established a file location already. If not then do so, with the preference going to the external system (for size)
-			if (fileLocationString.equals(null)){
+			if (fileLocationString.equals("NULL")){
 				//If the external card is not available, then establish a file location on the internal file system
 				if (Environment.MEDIA_MOUNTED.equals(state)) {
 				    // We can read and write the media
@@ -152,7 +166,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			
 			String tempNightFilePath = imagePaths.getString(1);
 			directoryBuilder = new File(starChartRoot.toString()  + tempNightFilePath);
-			directoryBuilder.mkdirs();
+			//directoryBuilder.mkdirs();
 			//We have left the cursor at the first row, so we can just continue and grab the columns again in the next loop.
 			
 			//Establish connection and download the files
@@ -164,11 +178,10 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				
 				//If the file already exists (maybe from a previous, unsuccessful attempt to install the images) then we will skip this image and move to the next
 				if (!normalPath.exists()){
-					Log.d("JoeTest", "NormalPath #" + i + " is " + normalPath.toString());
+					//Log.d("JoeTest", "NormalPath #" + i + " is " + normalPath.toString());
 					try{
 						//setup input streams
 						URL imageFile = new URL(SettingsContainer.IMAGE_DOWNLOAD_ROOT + normalPathString);
-						Log.d("JoeTest", "imageFile is " + imageFile.toString());
 						URLConnection ucon = imageFile.openConnection();
 						InputStream is = ucon.getInputStream();
 						BufferedInputStream bis = new BufferedInputStream(is);
@@ -176,23 +189,16 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 						//Read in the remote file until we hit a -1 bit
 						ByteArrayBuffer buf = new ByteArrayBuffer(50);
 						int current = 0;
-						Log.d("JoeTest", "Starting the read");
 						while ((current = bis.read()) != -1){
 							buf.append((byte) current);
 						}
 						
-						Log.d("JoeTest", "Finished with the read. Size is " + buf.length() + ". Creating File Output Stream");
 						FileOutputStream fos = new FileOutputStream(normalPath);
-						Log.d("JoeTest", "FileOutputStream created, writing to file");
 						fos.write(buf.toByteArray());
 						fos.close();
 					}
 					catch(IOException e){
 						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
-						Log.d("JoeTest", "Exception caught: " + e.getMessage());
-						Log.d("JoeTest", "Stack Trace: " + e.getStackTrace());
-						Log.d("JoeTest", "e.toString() is " + e.toString());
-						Log.d("JoeTest", "e.getCause is " + e.getCause());
 						e.printStackTrace();
 						
 						success = false;
@@ -202,19 +208,19 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 						}
 					}
 					finally{
-						Log.d("JoeTest", "Updating the alert");
-						advanceProgressImage(imageIterator, progressImages);
+						//Log.d("JoeTest", "Updating the alert");
 						currentFileNumber++;
-						setProgressText(currentFileNumber, filesToDownload);
+						messageData.putInt("current", currentFileNumber);
+						messageData.putInt("filesToDownLoad", filesToDownload);
+						updateMessage.setData(messageData);
+						uiUpdateHandler.sendMessage(updateMessage);
 					}
 				}
 				
 				if (!nightPath.exists()){
-					Log.d("JoeTest", "NightPath #" + i + " is " + nightPath.toString());
 					try{
 						//setup input streams
 						URL imageFile = new URL(SettingsContainer.IMAGE_DOWNLOAD_ROOT + nightPathString);
-						Log.d("JoeTest", "imageFile is " + imageFile.toString());
 						URLConnection ucon = imageFile.openConnection();
 						InputStream is = ucon.getInputStream();
 						BufferedInputStream bis = new BufferedInputStream(is);
@@ -232,7 +238,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					catch(Exception e){
 						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
-						Log.d("JoeTest", "Exception caught: " + e.getMessage());
 						success = false;
 						if (nightPath.exists()){
 							Log.d("JoeTest", "Deleting the file");
@@ -240,18 +245,21 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 						}
 					}
 					finally{
-						Log.d("JoeTest", "Updating the alert");
-						advanceProgressImage(imageIterator, progressImages);
+						//Log.d("JoeTest", "Updating the alert");
 						currentFileNumber++;
-						setProgressText(currentFileNumber, filesToDownload);
+						messageData.putInt("current", currentFileNumber);
+						messageData.putInt("filesToDownLoad", filesToDownload);
+						updateMessage.setData(messageData);
+						uiUpdateHandler.sendMessage(updateMessage);
 					}
 				}
 				
 				imagePaths.moveToNext();
 			}
-			
+			/*
 			//Update the database
 			if(success){
+				Log.d("JoeTest", "Install Was successfull. Going to update the DB");
 				boolean dbSuccess = false;
 				for (String catalog : selectedItems){
 					Log.d("JoeTest", "Updating catalog " + catalog + " in the database");
@@ -259,28 +267,39 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				}
 				
 				if (dbSuccess){
-					showSuccessMessage();
+					Log.d("JoeTest", "DB Updated successful. Displaying success message");
+					//successMessageHandler.sendEmptyMessage(0);
+					runOnUiThread(new Runnable(){
+		    			public void run(){
+		    				showSuccessMessage();
+		    			}
+		    		});  
 				}
 				else{
-					String message = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
-					showFailureMessage(message);
+					failureMessage = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
+					Log.d("JoeTest", "Db Update unsuccessfull. Displaying failure message");
+					//failureMessageHandler.sendEmptyMessage(0);
+					runOnUiThread(new Runnable(){
+		    			public void run(){
+		    				showFailureMessage();
+		    			}
+		    		});  
 				}
-				//show alert message
-				progressImage.setVisibility(View.GONE);
-				progressMessage.setVisibility(View.GONE);
-				alertText.setText("Success");
-				alertOk.setOnClickListener(dismissSuccess);
-				alertText.setVisibility(View.VISIBLE);
-				alertOk.setVisibility(View.VISIBLE);
 			}
 			else{
-				String message = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
+				failureMessage = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
 				//show alert message
-				showFailureMessage(message);
+				Log.d("JoeTest", "Install was unsuccessfull. Displaying failure message");
+				//failureMessageHandler.sendEmptyMessage(0);
+				runOnUiThread(new Runnable(){
+	    			public void run(){
+	    				showFailureMessage();
+	    			}
+	    		});  
 			}
 			
 			imagePaths.close();
-			db.close();
-        }
-    };
+			db.close();*/
+		}
+    }
 }
