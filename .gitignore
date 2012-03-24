@@ -17,6 +17,8 @@
 */gen/*
 *.idlk
 #*/Catalogs/*
+.metadata
+.project
 
 
 # MS VS performance output file

@@ -265,12 +265,21 @@ public class ManageCatalogsTabParent extends ActivityBase {
     	imageIterator = progressImages.listIterator();
     }
     
-    Handler uiUpdateHandler = new Handler(){
+    Handler uiUpdateHandler_Download = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
     		Log.d("JoeTest", "Handling message #" + msg.getData().getInt("current"));
     		advanceProgressImage();
-    		setProgressText(msg.getData().getInt("current"), msg.getData().getInt("filesToDownLoad"));
+    		setDownloadProgressText(msg.getData().getInt("current"), msg.getData().getInt("filesToDownLoad"));
+    	}
+    };
+    
+    Handler uiUpdateHandler_Remove = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		Log.d("JoeTest", "Handling message #" + msg.getData().getInt("current"));
+    		advanceProgressImage();
+    		setRemoveProgressText(msg.getData().getInt("current"), msg.getData().getInt("filesToDownLoad"));
     	}
     };
     
@@ -282,9 +291,14 @@ public class ManageCatalogsTabParent extends ActivityBase {
     	progressImage.setImageResource(imageIterator.next());
     }
     
-    public void setProgressText(int current, int total){
+    public void setDownloadProgressText(int current, int total){
     	Log.d("JoeTest", "setProgressText called");
     	progressMessage.setText("Downloading File " + current + " of " + total + ".");
+    }
+    
+    public void setRemoveProgressText(int current, int total){
+    	Log.d("JoeTest", "setProgressText called");
+    	progressMessage.setText("Removing File " + current + " of " + total + ".");
     }
     
     public void showFailureMessage(){
@@ -299,11 +313,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
     Handler failureMessageHandler = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
-    		runOnUiThread(new Runnable(){
-    			public void run(){
-    				showFailureMessage();
-    			}
-    		});  
+    		showFailureMessage();
     	}
     };
     
@@ -311,7 +321,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
     	progressLayout.setVisibility(View.GONE);
 		alertModal.setVisibility(View.VISIBLE);
 		alertText.setText("Success");
-		alertOk.setOnClickListener(dismissAlert);
+		alertOk.setOnClickListener(dismissSuccess);
 		alertText.setVisibility(View.VISIBLE);
 		alertOk.setVisibility(View.VISIBLE);
     }
@@ -319,11 +329,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
     Handler successMessageHandler = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
-    		runOnUiThread(new Runnable(){
-    			public void run(){
-    				showSuccessMessage();
-    			}
-    		});    		
+    		showSuccessMessage();
     	}
     };
 	

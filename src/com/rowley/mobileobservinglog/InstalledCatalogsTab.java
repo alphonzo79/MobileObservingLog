@@ -1,6 +1,12 @@
 package com.rowley.mobileobservinglog;
 
+import java.io.File;
+
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -82,13 +88,123 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
     
     private final Button.OnClickListener confirmRemove = new Button.OnClickListener() {
 		public void onClick(View view){
-			//remove images
-			prepProgressModal();
-			progressMessage.setText("Doing Stuff");
-			
-			//update database
-			
-			//relaunch activity
+			Log.d("JoeTest", "confirmRemove called");
+			new Thread(new RemoveCatalogsRunnable()).start();
         }
     };
+    
+    private class RemoveCatalogsRunnable implements Runnable{
+
+		public void run() {
+			Log.d("JoeTest", "RemoveCatalogsRunnable.run called");
+			boolean success = true;
+			int filesToRemove = numFiles * 2; //double because we have night mode and normal mode
+			int currentFileNumber = 0;
+			prepProgressModalHandler.sendMessage(new Message());
+			setRemoveProgressText(currentFileNumber, filesToRemove);
+						
+			Bundle messageData = new Bundle();
+			messageData.putInt("filesToDownLoad", filesToRemove);
+			
+			//Remove the images
+			//check the settings table for the files location
+			String fileLocationString = settingsRef.getPersistentSetting(settingsRef.STAR_CHART_DIRECTORY, InstalledCatalogsTab.this);
+			Log.d("JoeTest", "FileLocationString is " + fileLocationString);
+			File starChartRoot = null;
+			DatabaseHelper db = new DatabaseHelper(InstalledCatalogsTab.this);
+			
+			//if it's not set yet, then first look for an external storage card and establish the file location
+			boolean mExternalStorageAvailable = false;
+			boolean mExternalStorageWriteable = false;
+			String state = Environment.getExternalStorageState();
+			
+			//Now actually get the file location
+			if (fileLocationString.equals(SettingsContainer.EXTERNAL)){
+				starChartRoot = getExternalFilesDir(null);
+			}
+			else{
+				starChartRoot = getFilesDir();
+			}
+			
+			//Get a list of the file paths we need to fetch/save
+			Cursor imagePaths = db.getImagePaths(selectedItems);
+			imagePaths.moveToFirst();
+			int rowCount = imagePaths.getCount();
+			Log.d("JoeTest", "imagePaths cursor had " + rowCount + " rows");
+			
+			//Establish connection and download the files
+			for (int i = 0; i < rowCount; i++){
+				String normalPathString = imagePaths.getString(0);
+				String nightPathString = imagePaths.getString(1);
+				File normalPath = new File(starChartRoot + normalPathString);
+				File nightPath = new File(starChartRoot + nightPathString);
+				
+				//If the file already exists then we will remove it
+				if (normalPath.exists()){
+					try{
+						normalPath.delete();
+					}
+					catch(Exception e){
+						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
+						success = false;
+					}
+					finally{
+						currentFileNumber++;
+						messageData.putInt("current", currentFileNumber);
+						messageData.putInt("filesToDownLoad", filesToRemove);
+						Message updateMessage = new Message();
+						updateMessage.setData(messageData);
+						uiUpdateHandler_Remove.sendMessage(updateMessage);
+					}
+				}
+				
+				shortDelay();
+				
+				if (nightPath.exists()){
+					try{
+						nightPath.delete();
+					}
+					catch(Exception e){
+						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
+						success = false;
+					}
+					finally{
+						//Log.d("JoeTest", "Updating the alert");
+						currentFileNumber++;
+						messageData.putInt("current", currentFileNumber);
+						messageData.putInt("filesToDownLoad", filesToRemove);
+						Message updateMessage = new Message();
+						updateMessage.setData(messageData);
+						uiUpdateHandler_Remove.sendMessage(updateMessage);
+					}
+				}
+				
+				shortDelay();
+				
+				imagePaths.moveToNext();
+			}
+			
+			//Update the database regardless of success. This will avoid problems with images not being available.
+			Log.d("JoeTest", "Install Was successfull. Going to update the DB");
+			boolean dbSuccess = false;
+			for (String catalog : selectedItems){
+				Log.d("JoeTest", "Updating catalog " + catalog + " in the database");
+				dbSuccess = db.updateAvailableCatalogsInstalled(catalog, "No");
+			}
+			
+			successMessageHandler.sendMessage(new Message());
+						
+			imagePaths.close();
+			db.close();
+		}
+    };
+    
+    private void shortDelay(){
+    	try{
+    		Thread.sleep(35);
+    	}
+    	catch(InterruptedException ex){
+    		
+    	}
+    }
 }

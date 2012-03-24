@@ -111,12 +111,11 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			boolean success = true;
 			int filesToDownload = numFiles * 2; //double because we have night mode and normal mode
 			int currentFileNumber = 1;
-			prepProgressModalHandler.sendEmptyMessage(0);
-			setProgressText(currentFileNumber, filesToDownload);
+			prepProgressModalHandler.sendMessage(new Message());
+			setDownloadProgressText(currentFileNumber, filesToDownload);
 						
 			Bundle messageData = new Bundle();
 			messageData.putInt("filesToDownLoad", filesToDownload);
-			Message updateMessage = new Message();
 			
 			//Download the images
 			//check the settings table for the files location
@@ -145,6 +144,8 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				db.setPersistentSetting(SettingsContainer.STAR_CHART_DIRECTORY, fileLocationString);
 			}
 			
+			addNoMediaFile(starChartRoot);
+			
 			//Now actually get the file location
 			if (fileLocationString.equals(SettingsContainer.EXTERNAL)){
 				starChartRoot = getExternalFilesDir(null);
@@ -166,7 +167,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			
 			String tempNightFilePath = imagePaths.getString(1);
 			directoryBuilder = new File(starChartRoot.toString()  + tempNightFilePath);
-			//directoryBuilder.mkdirs();
+			directoryBuilder.mkdirs();
 			//We have left the cursor at the first row, so we can just continue and grab the columns again in the next loop.
 			
 			//Establish connection and download the files
@@ -199,8 +200,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					catch(IOException e){
 						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
-						e.printStackTrace();
-						
 						success = false;
 						if (normalPath.exists()){
 							Log.d("JoeTest", "Deleting the file");
@@ -212,8 +211,9 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 						currentFileNumber++;
 						messageData.putInt("current", currentFileNumber);
 						messageData.putInt("filesToDownLoad", filesToDownload);
+						Message updateMessage = new Message();
 						updateMessage.setData(messageData);
-						uiUpdateHandler.sendMessage(updateMessage);
+						uiUpdateHandler_Download.sendMessage(updateMessage);
 					}
 				}
 				
@@ -249,14 +249,15 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 						currentFileNumber++;
 						messageData.putInt("current", currentFileNumber);
 						messageData.putInt("filesToDownLoad", filesToDownload);
+						Message updateMessage = new Message();
 						updateMessage.setData(messageData);
-						uiUpdateHandler.sendMessage(updateMessage);
+						uiUpdateHandler_Download.sendMessage(updateMessage);
 					}
 				}
 				
 				imagePaths.moveToNext();
 			}
-			/*
+			
 			//Update the database
 			if(success){
 				Log.d("JoeTest", "Install Was successfull. Going to update the DB");
@@ -268,38 +269,36 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				
 				if (dbSuccess){
 					Log.d("JoeTest", "DB Updated successful. Displaying success message");
-					//successMessageHandler.sendEmptyMessage(0);
-					runOnUiThread(new Runnable(){
-		    			public void run(){
-		    				showSuccessMessage();
-		    			}
-		    		});  
+					successMessageHandler.sendMessage(new Message());
 				}
 				else{
 					failureMessage = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
 					Log.d("JoeTest", "Db Update unsuccessfull. Displaying failure message");
-					//failureMessageHandler.sendEmptyMessage(0);
-					runOnUiThread(new Runnable(){
-		    			public void run(){
-		    				showFailureMessage();
-		    			}
-		    		});  
+					failureMessageHandler.sendMessage(new Message());
 				}
 			}
 			else{
 				failureMessage = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
 				//show alert message
 				Log.d("JoeTest", "Install was unsuccessfull. Displaying failure message");
-				//failureMessageHandler.sendEmptyMessage(0);
-				runOnUiThread(new Runnable(){
-	    			public void run(){
-	    				showFailureMessage();
-	    			}
-	    		});  
+				failureMessageHandler.sendMessage(new Message());
 			}
 			
 			imagePaths.close();
-			db.close();*/
+			db.close();
+		}
+    }
+    
+    private void addNoMediaFile(File rootDirectory){
+    	try{
+    		File noMedia = new File(rootDirectory + ".nomedia");
+			FileOutputStream fos = new FileOutputStream(noMedia);
+			fos.write(null);
+			fos.close();
+		}
+		catch(IOException e){
+			//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
+			e.printStackTrace();
 		}
     }
 }
