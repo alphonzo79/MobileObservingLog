@@ -10,7 +10,7 @@
 	<string name="create_locations_table">
 	CREATE TABLE IF NOT EXISTS locations (_id INTEGER PRIMARY KEY AUTOINCREMENT, locationName TEXT, coordinates TEXT, description TEXT);</string>
 	<string name="create_telescope_table">
-	CREATE TABLE IF NOT EXISTS telescopes (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, primaryDiameter INTEGER, focalRation DECIMAL, focalLength INTEGER);</string>
+	CREATE TABLE IF NOT EXISTS telescopes (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, primaryDiameter TEXT, focalRatio TEXT, focalLength TEXT);</string>
 	<string name="create_eyepiece_table">
 	CREATE TABLE IF NOT EXISTS eyepieces (_id INTEGER PRIMARY KEY AUTOINCREMENT, focalLength INTEGER, type TEXT);</string>
 	<string name="create_target_lists_table">

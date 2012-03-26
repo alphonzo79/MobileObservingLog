@@ -1,49 +1,82 @@
 package com.rowley.mobileobservinglog;
 
+import com.rowley.strategies.CustomizeBrightness;
+
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
+import android.widget.TextView;
 
-public class ManageEquipmentScreen extends ActivityBase {
+public class ManageEquipmentScreen extends TabActivity {
+	
+	//Get access to the settings container singleton
+	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
+	CustomizeBrightness customizeBrightness = new CustomizeBrightness(this, this);
 
 	//gather resources
-		LinearLayout body;
-		
-		@Override
-	    public void onCreate(Bundle icicle) {
-			Log.d("JoeDebug", "ManageEquipment onCreate. Current session mode is " + settingsRef.getSessionMode());
-	        super.onCreate(icicle);
+	TabHost tabHost;
+	
+	@Override
+    public void onCreate(Bundle icicle) {
+		super.onCreate(icicle);
 
-			customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
-			
-	        //setup the layout
-	        setContentView(settingsRef.getManageEquipmentLayout());
-	        body = (LinearLayout)findViewById(R.id.manage_equipment_root); 
-		}
+		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
+        customizeBrightness.setBacklight();        
 		
-		@Override
-	    public void onPause() {
-	        super.onPause();
-	    }
+        //setup the layout
+        setContentView(settingsRef.getManageEquipmentLayout());
+        setupTabs(); 
+	}
 
-	    @Override
-	    public void onDestroy() {
-	        super.onDestroy();
-	    }
+	private void setupTabs() {
+		tabHost = getTabHost();  // The activity TabHost
+        Intent intent;  // Reusable Intent for each tab
 
-	    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
-	    @Override
-	    public void onResume() {
-			Log.d("JoeDebug", "ManageEquipment onResume. Current session mode is " + settingsRef.getSessionMode());
-	        super.onResume();
-	        setLayout();
-	    }
+        // Create an Intent to launch an Activity for the tab (to be reused)
+        intent = new Intent().setClass(this, InstalledCatalogsTab.class);
+        setupTabIndicator(intent, R.string.manage_telescopes_tab);
+
+        // Do the same for the other tabs
+        intent = new Intent().setClass(this, AvailableCatalogsTab.class);
+        setupTabIndicator(intent, R.string.manage_eyepieces_tab);
+
+        tabHost.setCurrentTab(0);
+	}
+	
+	private void setupTabIndicator(Intent intent, int labelId){
+		View tabIndicator = LayoutInflater.from(this).inflate(settingsRef.getTabIndicator(), getTabWidget(), false);
+		TabHost.TabSpec spec = tabHost.newTabSpec("tab" + labelId);	
 		
-	  //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
-		@Override
-		public void setLayout(){
-			setContentView(settingsRef.getManageEquipmentLayout());
-			super.setLayout();
-			body.postInvalidate();
-		}
+		TextView title = (TextView) tabIndicator.findViewById(R.id.title);
+		title.setText(labelId);
+		
+		spec.setIndicator(tabIndicator);
+		spec.setContent(intent);
+		tabHost.addTab(spec);
+	}
+	
+	@Override
+    public void onPause() {
+        super.onPause();
+        customizeBrightness.setDimButtons(settingsRef.getOriginalButtonBrightness());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        customizeBrightness.setDimButtons(settingsRef.getOriginalButtonBrightness());
+    }
+
+    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
+    @Override
+    public void onResume() {
+		super.onResume();
+        customizeBrightness.setBacklight();        
+        customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
+    }
 }

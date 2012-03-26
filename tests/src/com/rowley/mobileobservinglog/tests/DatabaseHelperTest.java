@@ -3,6 +3,8 @@
  */
 package com.rowley.mobileobservinglog.tests;
 
+import java.util.ArrayList;
+
 import android.app.Instrumentation;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -242,5 +244,66 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Return the setting back to what it was
 		mCut.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, "5");
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#getAvailableCatalogs()}.
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetAvailableCatalogs(){
+		Log.d("JoeDebug", "testGetAvailableCatalogs");
+		
+		Cursor catalogs = mCut.getAvailableCatalogs();
+		assertEquals("We found the wrong number of available catalogs", 1, catalogs.getCount());
+		assertEquals("Messier was not included in the list", "Messier Catalog", catalogs.getString(0));
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#updateAvailableCatalogsInstalled(String catalog, String installed)}.
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testUpdateAvailableCatalogsInstalled(){
+		Log.d("JoeDebug", "testUpdateAvailableCatalogsInstalled");
+		
+		String catalogName = "Messier Catalog";
+		
+		mCut.updateAvailableCatalogsInstalled(catalogName, "Yes");
+		
+		Cursor catalogs = mCut.getAvailableCatalogs();
+		assertEquals("Messier did not show as installed", "Yes", catalogs.getString(1));
+		
+		mCut.updateAvailableCatalogsInstalled(catalogName, "No");
+		
+		catalogs = mCut.getAvailableCatalogs();
+		assertEquals("Messier did not show as installed", "No", catalogs.getString(1));
+		
+		//Try giving it a bad value
+		mCut.updateAvailableCatalogsInstalled("Fake Catalog Name", "Yes");
+		
+		catalogs = mCut.getAvailableCatalogs();
+		assertEquals("We found the wrong number of available catalogs", 1, catalogs.getCount());
+		assertEquals("Messier did not show as installed", "No", catalogs.getString(1));
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#getImagePaths(ArrayList<String> catalogs)}.
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetImagePaths(){
+		Log.d("JoeDebug", "testGetImagePaths");
+		
+		ArrayList<String> catalogs = new ArrayList<String>();
+		catalogs.add("Messier Catalog");
+		
+		Cursor paths = mCut.getAvailableCatalogs();
+		assertEquals("We found the wrong imageResource", "/messier/normal/M1.gif", paths.getString(0));
+		assertEquals("We found the wrong imageResource", "/messier/night/M1.gif", paths.getString(1));
+		
+		paths.moveToPosition(46);
+		assertEquals("We found the wrong imageResource", "/messier/normal/M47.gif", paths.getString(0));
+		assertEquals("We found the wrong imageResource", "/messier/night/M47.gif", paths.getString(1));
 	}
 }

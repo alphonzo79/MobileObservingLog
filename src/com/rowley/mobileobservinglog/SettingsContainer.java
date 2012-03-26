@@ -150,6 +150,38 @@ public final class SettingsContainer {
 		mManageEquipmentLayout = layout;
 	}
 	
+	private int mTelescopeTabLayout;
+	public int getTelescopeTabLayout(){
+		return mTelescopeTabLayout;
+	}
+	private void setTelescopeTabLayout(int layout){
+		mTelescopeTabLayout = layout;
+	}
+	
+	private int mTelescopeListLayout;
+	public int getTelescopeListLayout(){
+		return mTelescopeListLayout;
+	}
+	private void setTelescopeListLayout(int layout){
+		mTelescopeListLayout = layout;
+	}
+	
+	private int mEyepieceTabLayout;
+	public int getEyepieceTabLayout(){
+		return mEyepieceTabLayout;
+	}
+	private void setEyepieceTabLayout(int layout){
+		mEyepieceTabLayout = layout;
+	}
+	
+	private int mEyepieceListLayout;
+	public int getEyepieceListLayout(){
+		return mEyepieceListLayout;
+	}
+	private void setEyepieceListLayout(int layout){
+		mEyepieceListLayout = layout;
+	}
+	
 	private int mManageLocationsLayout;
 	public int getManageLocationsLayout(){
 		return mManageLocationsLayout;
@@ -239,6 +271,10 @@ public final class SettingsContainer {
 		setTargetListsLayout(R.layout.target_lists_screen_night);
 		setBackupRestoreLayout(R.layout.backup_restore_screen_night);
 		setManageEquipmentLayout(R.layout.manage_equipment_screen_night);
+		setTelescopeTabLayout(R.layout.telescope_tab_night);
+		setTelescopeListLayout(R.layout.telescope_list_night);
+		setEyepieceTabLayout(R.layout.eyepiece_tab_night);
+		setEyepieceListLayout(R.layout.eyepiece_list_night);
 		setManageLocationsLayout(R.layout.manage_locations_screen_night);
 		setPersonalInfoLayout(R.layout.personal_info_screen_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
@@ -263,6 +299,10 @@ public final class SettingsContainer {
 		setTargetListsLayout(R.layout.target_lists_screen);
 		setBackupRestoreLayout(R.layout.backup_restore_screen);
 		setManageEquipmentLayout(R.layout.manage_equipment_screen);
+		setTelescopeTabLayout(R.layout.telescope_tab_normal);
+		setTelescopeListLayout(R.layout.telescope_list_normal);
+		setEyepieceTabLayout(R.layout.eyepiece_tab_normal);
+		setEyepieceListLayout(R.layout.eyepiece_list_normal);
 		setManageLocationsLayout(R.layout.manage_locations_screen);
 		setPersonalInfoLayout(R.layout.personal_info_screen);
 		setTabIndicator(R.layout.tab_indicator_layout);

@@ -41,4 +41,6 @@
     <string name="ok">OK</string>
     <string name="no_items_selected">ATTENTION: Please select an item before proceeding</string>
     <string name="progress_image_alt">Progress Image</string>
+    <string name="manage_telescopes_tab">Manage Telescopes</string>
+    <string name="manage_eyepieces_tab">Manage Eyepieces</string>
 </resources>

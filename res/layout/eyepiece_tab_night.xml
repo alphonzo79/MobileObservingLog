@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/telescope_tab_root"
+   	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:orientation="vertical"
+    >
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/telescope_tab_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	>
+	    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:listSelector="@drawable/list_item_back_state"
+	         android:longClickable="true" 
+	         />
+	    
+	    <Button
+	        android:id="@+id/add_equipment_button"
+	        android:background="@drawable/red_button_state"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:paddingLeft="7dp"
+	        android:paddingRight="7dp"
+	        android:paddingTop="12dp"
+	        android:paddingBottom="12dp"
+	        android:layout_margin="10dp"
+	        android:layout_below="@android:id/list" 
+	        android:layout_centerHorizontal="true"
+	        />
+    
+	    <TextView 
+	        android:id="@+id/nothing_here"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone"
+	        android:textSize="14dp"
+	        android:paddingTop="25dp"
+	        android:paddingLeft="15dp"
+	        android:paddingRight="15dp"
+	        android:textColor="@color/red"
+	        android:layout_below="@id/add_equipment_button" 
+	        />
+    
+    </RelativeLayout>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal_night"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="center|center"
+        />
+	    
+</FrameLayout>

@@ -300,6 +300,78 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 	}
 
 	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getTelescopeTabLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetTelescopeTabLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.telescope_tab_night, mCut.getTelescopeTabLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.telescope_tab_normal, mCut.getTelescopeTabLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.telescope_tab_night, mCut.getTelescopeTabLayout());
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getTelescopeListLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetTelescopeListLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.telescope_list_night, mCut.getTelescopeListLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.telescope_list_normal, mCut.getTelescopeListLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.telescope_list_night, mCut.getTelescopeListLayout());
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getEyepieceTabLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetEyepieceTabLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_tab_night, mCut.getEyepieceTabLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_tab_normal, mCut.getEyepieceTabLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_tab_night, mCut.getEyepieceTabLayout());
+	}
+
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getEyepieceListLayout()}.
+	 * 
+	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
+	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
+	 */
+	public void testGetEyepieceListLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_list_night, mCut.getEyepieceListLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_list_normal, mCut.getEyepieceListLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_list_night, mCut.getEyepieceListLayout());
+	}
+
+	/**
 	 * Test method for {@link com.rowley.mobileobservinglog.SettingsContainer#getManageLocationsLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
@@ -451,6 +523,10 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen_night, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen_night, mCut.getBackupRestoreLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen_night, mCut.getManageEquipmentLayout());
+		assertEquals("The delivered layout was not correct", R.layout.telescope_tab_night, mCut.getTelescopeTabLayout());
+		assertEquals("The delivered layout was not correct", R.layout.telescope_list_night, mCut.getTelescopeListLayout());
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_tab_night, mCut.getEyepieceTabLayout());
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_list_night, mCut.getEyepieceListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen_night, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen_night, mCut.getPersonalInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout_night, mCut.getTabIndicator());
@@ -481,6 +557,10 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<Observin
 		assertEquals("The delivered layout was not correct", R.layout.target_lists_screen, mCut.getTargetListsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.backup_restore_screen, mCut.getBackupRestoreLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_equipment_screen, mCut.getManageEquipmentLayout());
+		assertEquals("The delivered layout was not correct", R.layout.telescope_tab_normal, mCut.getTelescopeTabLayout());
+		assertEquals("The delivered layout was not correct", R.layout.telescope_list_normal, mCut.getTelescopeListLayout());
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_tab_normal, mCut.getEyepieceTabLayout());
+		assertEquals("The delivered layout was not correct", R.layout.eyepiece_list_normal, mCut.getEyepieceListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen, mCut.getPersonalInfoLayout());
 		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout, mCut.getTabIndicator());

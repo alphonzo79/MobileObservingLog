@@ -354,36 +354,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	}
 
 	/**
-	 * This method is used to return the list of image paths from the databse for the given catalogs. It is used primarily by AvailableCatalogsTab.java and
-	 * InstalledCatalogsTab.java to get the images we need to download and save or delete
-	 * 
-	 * @return A cursor containing the list of image paths for the given catalogs.
-	 */
-	public Cursor getImagePaths(ArrayList<String> catalogs)
-	{
-		Cursor retVal = null;
-		SQLiteDatabase db = getReadableDatabase();
-		String sqlStatement = "SELECT imageResource, nightImageResource FROM objects WHERE catalog ='" + catalogs.get(0);
-		
-		for (int i = 1; i < catalogs.size(); i++){
-			sqlStatement = sqlStatement + "' OR '" + catalogs.get(i);
-		}
-		
-		sqlStatement += "'";
-		
-		retVal = db.rawQuery(sqlStatement, null);
-		retVal.moveToFirst();
-		
-		db.close();
-				
-		return retVal;
-	}
-
-	/**
 	 * This method is used to update the database for whether a catalog has been installed or not for the given catalogs. It is used primarily by AvailableCatalogsTab.java and
 	 * InstalledCatalogsTab.java installing or removing catalogs
 	 * 
-	 * @return A cursor containing the list of image paths for the given catalogs.
+	 * @return
 	 */
 	public boolean updateAvailableCatalogsInstalled(String catalog, String installed)
 	{
@@ -416,4 +390,151 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		return success;
 	}
+
+	/**
+	 * This method is used to return the list of image paths from the databse for the given catalogs. It is used primarily by AvailableCatalogsTab.java and
+	 * InstalledCatalogsTab.java to get the images we need to download and save or delete
+	 * 
+	 * @return A cursor containing the list of image paths for the given catalogs.
+	 */
+	public Cursor getImagePaths(ArrayList<String> catalogs)
+	{
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT imageResource, nightImageResource FROM objects WHERE catalog ='" + catalogs.get(0);
+		
+		for (int i = 1; i < catalogs.size(); i++){
+			sqlStatement = sqlStatement + "' OR '" + catalogs.get(i);
+		}
+		
+		sqlStatement += "'";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
+	
+	/**
+	 * Called by the TelescopesTab to get all saved telescopes in the database
+	 * @return
+	 */
+	public Cursor getSavedTelescopes(){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM telescopes WHERE _id IS NOT NULL";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
+	
+	/**
+	 * Called by AddTelescope page to add a telescope to the database
+	 * @param type
+	 * @param primaryDiameter
+	 * @param focalRatio
+	 * @param focalLength
+	 * @return
+	 */
+	public boolean addTelescopeData(String type, String primaryDiameter, String focalRatio, String focalLength){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("INSERT INTO telescopes (type, primaryDiameter, focalRatio, focalLength) VALUES (?, ?, ?, ?)");
+			sqlStatement.bindString(1, type);
+			sqlStatement.bindString(2, primaryDiameter);
+			sqlStatement.bindString(3, focalRatio);
+			sqlStatement.bindString(4, focalLength);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		db.close();
+		
+		return success;
+	}
+	
+	/**
+	 * Called by the AddTelescopePage to update the date in a saved telescope
+	 * @param id
+	 * @param type
+	 * @param primaryDiameter
+	 * @param focalRatio
+	 * @param focalLength
+	 * @return
+	 */
+	public boolean updateTelescopeData(int id, String type, String primaryDiameter, String focalRatio, String focalLength){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("UPDATE telescopes SET (type, primaryDiameter, focalRatio, focalLength) VALUES (?, ?, ?, ?) where _id = " + id);
+			sqlStatement.bindString(1, type);
+			sqlStatement.bindString(2, primaryDiameter);
+			sqlStatement.bindString(3, focalRatio);
+			sqlStatement.bindString(4, focalLength);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		db.close();
+		
+		return success;
+	}
+	
+	/**
+	 * Called by the EyepiecesTab to get all saved telescopes in the database
+	 * @return
+	 */
+	public Cursor getSavedEyepieces(){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM eyepieces WHERE _id IS NOT NULL";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
+	
+	//addEyepieceData
+	
+	//updateTelescopeData
 }
