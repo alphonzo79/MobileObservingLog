@@ -295,9 +295,6 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	public void testGetImagePaths(){
 		Log.d("JoeDebug", "testGetImagePaths");
 		
-		ArrayList<String> catalogs = new ArrayList<String>();
-		catalogs.add("Messier Catalog");
-		
 		Cursor paths = mCut.getAvailableCatalogs();
 		assertEquals("We found the wrong imageResource", "/messier/normal/M1.gif", paths.getString(0));
 		assertEquals("We found the wrong imageResource", "/messier/night/M1.gif", paths.getString(1));
@@ -305,5 +302,162 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		paths.moveToPosition(46);
 		assertEquals("We found the wrong imageResource", "/messier/normal/M47.gif", paths.getString(0));
 		assertEquals("We found the wrong imageResource", "/messier/night/M47.gif", paths.getString(1));
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#getSavedTelescopes()}.
+	 * this method inherently also tests addTelescopeData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetSavedTelescopes(){
+		Log.d("JoeDebug", "testGetSavedTelescopes");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		
+		Cursor telescopes = mCut.getSavedTelescopes();
+		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
+		assertEquals("We found the data", "Reflector", telescopes.getString(1));
+		assertEquals("We found the data", "10\"", telescopes.getString(2));
+		assertEquals("We found the data", "f/7", telescopes.getString(3));
+		assertEquals("We found the data", "1787 mm", telescopes.getString(4));
+		
+		//Clean up by deleting our seed data
+		int id = telescopes.getInt(0);
+		mCut.deleteTelescopeData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#updateTelescopeData()}.
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testUpdateTelescopeData(){
+		Log.d("JoeDebug", "testUpdateTelescopeData");
+		
+		//Since this table has nothing in it to start with we need to first stock it with some info
+		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		
+		//Check the first data
+		Cursor telescopes = mCut.getSavedTelescopes();
+		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
+		assertEquals("We found the data", "Reflector", telescopes.getString(1));
+		assertEquals("We found the data", "10\"", telescopes.getString(2));
+		assertEquals("We found the data", "f/7", telescopes.getString(3));
+		assertEquals("We found the data", "1787 mm", telescopes.getString(4));
+		
+		//change the data
+		int id = telescopes.getInt(0);
+		mCut.updateTelescopeData(id, "Refractor", "45 mm", "f/4", "180 mm");
+		
+		//check the changed data
+		telescopes = mCut.getSavedTelescopes();
+		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
+		assertEquals("We found the data", "Refractor", telescopes.getString(1));
+		assertEquals("We found the data", "45 mm", telescopes.getString(2));
+		assertEquals("We found the data", "f/4", telescopes.getString(3));
+		assertEquals("We found the data", "180 mm", telescopes.getString(4));
+		
+		//Clean up by deleting our seed data
+		id = telescopes.getInt(0);
+		mCut.deleteTelescopeData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#deleteTelescopeData()}.
+	 * this method inherently also tests addTelescopeData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testDeleteTelescopeData(){
+		Log.d("JoeDebug", "testDeleteTelescopeData");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		
+		Cursor telescopes = mCut.getSavedTelescopes();
+		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
+		
+		int id = telescopes.getInt(0);
+		mCut.deleteTelescopeData(id);
+		
+		telescopes = mCut.getSavedTelescopes();
+		assertEquals("We found the wrong number of rows", 0, telescopes.getCount());
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#getSavedEyepieces()}.
+	 * this method inherently also tests addEyepieceData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetSavedEyepieces(){
+		Log.d("JoeDebug", "testGetSavedEyepieces");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addEyepieceData("Plossl", "29 mm");
+		
+		Cursor eyepieces = mCut.getSavedEyepieces();
+		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
+		assertEquals("We found the data", "Plossl", eyepieces.getString(1));
+		assertEquals("We found the data", "29 mm", eyepieces.getString(2));
+		
+		//Clean up by deleting our seed data
+		int id = eyepieces.getInt(0);
+		mCut.deleteEyepieceData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#updateEyepieceData()}.
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testUpdateEyepieceData(){
+		Log.d("JoeDebug", "testUpdateEyepieceData");
+		
+		//Since this table has nothing in it to start with we need to first stock it with some info
+		mCut.addEyepieceData("Plossl", "29 mm");
+		
+		Cursor eyepieces = mCut.getSavedEyepieces();
+		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
+		assertEquals("We found the data", "Plossl", eyepieces.getString(1));
+		assertEquals("We found the data", "29 mm", eyepieces.getString(2));
+		
+		//change the data
+		int id = eyepieces.getInt(0);
+		mCut.updateEyepieceData(id, "Nagler", "45 mm");
+		
+		//check the changed data
+		eyepieces = mCut.getSavedTelescopes();
+		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
+		assertEquals("We found the data", "Nagler", eyepieces.getString(1));
+		assertEquals("We found the data", "45 mm", eyepieces.getString(2));
+		
+		//Clean up by deleting our seed data
+		id = eyepieces.getInt(0);
+		mCut.deleteEyepieceData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.rowley.mobileobservinglog.DatabaseHelper#deleteEyepieceData()}.
+	 * this method inherently also tests addEyepieceData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testDeleteEyepieceData(){
+		Log.d("JoeDebug", "testDeleteEyepieceData");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addEyepieceData("Plossl", "29 mm");
+		
+		Cursor eyepieces = mCut.getSavedEyepieces();
+		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
+		
+		int id = eyepieces.getInt(0);
+		mCut.deleteEyepieceData(id);
+		
+		eyepieces = mCut.getSavedTelescopes();
+		assertEquals("We found the wrong number of rows", 0, eyepieces.getCount());
 	}
 }

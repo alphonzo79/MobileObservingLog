@@ -12,7 +12,7 @@
 	<string name="create_telescope_table">
 	CREATE TABLE IF NOT EXISTS telescopes (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, primaryDiameter TEXT, focalRatio TEXT, focalLength TEXT);</string>
 	<string name="create_eyepiece_table">
-	CREATE TABLE IF NOT EXISTS eyepieces (_id INTEGER PRIMARY KEY AUTOINCREMENT, focalLength INTEGER, type TEXT);</string>
+	CREATE TABLE IF NOT EXISTS eyepieces (_id INTEGER PRIMARY KEY AUTOINCREMENT, focalLength TEXT, type TEXT);</string>
 	<string name="create_target_lists_table">
 	CREATE TABLE IF NOT EXISTS targetLists (_id INTEGER PRIMARY KEY AUTOINCREMENT, listName TEXT, listDescription TEXT, creationDate TEXT);</string>
 	<string name="create_target_list_items_table">

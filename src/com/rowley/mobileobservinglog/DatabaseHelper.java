@@ -518,7 +518,41 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	}
 	
 	/**
-	 * Called by the EyepiecesTab to get all saved telescopes in the database
+	 * Called by the AddTelescopePage to delete a saved telescope
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteTelescopeData(int id){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("DELETE from telescopes WHERE _id = " + id);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		db.close();
+		
+		return success;
+	}
+	
+	/**
+	 * Called by the EyepiecesTab to get all saved eyepieces in the database
 	 * @return
 	 */
 	public Cursor getSavedEyepieces(){
@@ -534,7 +568,112 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		return retVal;
 	}
 	
-	//addEyepieceData
+	/**
+	 * Called by AddEyepiecee page to add an eyepiece to the database
+	 * @param type
+	 * @param focalLength
+	 * @return
+	 */
+	public boolean addEyepieceData(String type, String focalLength){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("INSERT INTO eyepieces (type, focalLength) VALUES (?, ?)");
+			sqlStatement.bindString(1, type);
+			sqlStatement.bindString(2, focalLength);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		db.close();
+		
+		return success;
+	}
 	
-	//updateTelescopeData
+	/**
+	 * Called by the AddEyepiecee Page to update the data in a saved eyepiece
+	 * @param id
+	 * @param type
+	 * @param focalLength
+	 * @return
+	 */
+	public boolean updateEyepieceData(int id, String type, String focalLength){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("UPDATE telescopes SET (type, focalLength) VALUES (?, ?) where _id = " + id);
+			sqlStatement.bindString(1, type);
+			sqlStatement.bindString(4, focalLength);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		db.close();
+		
+		return success;
+	}
+	
+	/**
+	 * Called by the AddEyepiecePage to delete a saved telescope
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteEyepieceData(int id){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("DELETE from eyepieces WHERE _id = " + id);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		db.close();
+		
+		return success;
+	}
 }
