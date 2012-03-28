@@ -157,7 +157,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	{
 		Log.d("JoeDebug", "testParseResourceByLine");
 		String[] lines = mCut.parseResourceByLine(R.string.settings_default_values);
-		assertEquals("Wrong number of lines", 8, lines.length);
+		assertEquals("Wrong number of lines", 9, lines.length);
 		assertEquals("Wrong string in the first place", "Night Mode Backlight Intensity;1;1", lines[0]);
 		assertEquals("Wrong string in the last place", "Information/About;NULL;1", lines[7]);
 	}
@@ -201,7 +201,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Call the method, then check for the correct number of rows and columns
 		Cursor dbCursor = mCut.getPersistentSettings();
-		assertEquals("We got the wrong number of rows", 8, dbCursor.getCount());
+		assertEquals("We got the wrong number of rows", 9, dbCursor.getCount());
 		assertEquals("We got the wrong number of columns", 3, dbCursor.getColumnCount());
 		dbCursor.close();
 	}
@@ -295,7 +295,10 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	public void testGetImagePaths(){
 		Log.d("JoeDebug", "testGetImagePaths");
 		
-		Cursor paths = mCut.getAvailableCatalogs();
+		ArrayList<String> catalogs = new ArrayList<String>();
+		catalogs.add("Messier Catalog");
+		
+		Cursor paths = mCut.getImagePaths(catalogs);
 		assertEquals("We found the wrong imageResource", "/messier/normal/M1.gif", paths.getString(0));
 		assertEquals("We found the wrong imageResource", "/messier/night/M1.gif", paths.getString(1));
 		
@@ -318,10 +321,10 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		Cursor telescopes = mCut.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
-		assertEquals("We found the data", "Reflector", telescopes.getString(1));
-		assertEquals("We found the data", "10\"", telescopes.getString(2));
-		assertEquals("We found the data", "f/7", telescopes.getString(3));
-		assertEquals("We found the data", "1787 mm", telescopes.getString(4));
+		assertEquals("We found the wrong data", "Reflector", telescopes.getString(1));
+		assertEquals("We found the wrong data", "10\"", telescopes.getString(2));
+		assertEquals("We found the wrong data", "f/7", telescopes.getString(3));
+		assertEquals("We found the wrong data", "1787 mm", telescopes.getString(4));
 		
 		//Clean up by deleting our seed data
 		int id = telescopes.getInt(0);
@@ -342,10 +345,10 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		//Check the first data
 		Cursor telescopes = mCut.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
-		assertEquals("We found the data", "Reflector", telescopes.getString(1));
-		assertEquals("We found the data", "10\"", telescopes.getString(2));
-		assertEquals("We found the data", "f/7", telescopes.getString(3));
-		assertEquals("We found the data", "1787 mm", telescopes.getString(4));
+		assertEquals("We found the wrong data", "Reflector", telescopes.getString(1));
+		assertEquals("We found the wrong data", "10\"", telescopes.getString(2));
+		assertEquals("We found the wrong data", "f/7", telescopes.getString(3));
+		assertEquals("We found the wrong data", "1787 mm", telescopes.getString(4));
 		
 		//change the data
 		int id = telescopes.getInt(0);
@@ -354,10 +357,10 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		//check the changed data
 		telescopes = mCut.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
-		assertEquals("We found the data", "Refractor", telescopes.getString(1));
-		assertEquals("We found the data", "45 mm", telescopes.getString(2));
-		assertEquals("We found the data", "f/4", telescopes.getString(3));
-		assertEquals("We found the data", "180 mm", telescopes.getString(4));
+		assertEquals("We found the wrong data", "Refractor", telescopes.getString(1));
+		assertEquals("We found the wrong data", "45 mm", telescopes.getString(2));
+		assertEquals("We found the wrong data", "f/4", telescopes.getString(3));
+		assertEquals("We found the wrong data", "180 mm", telescopes.getString(4));
 		
 		//Clean up by deleting our seed data
 		id = telescopes.getInt(0);
@@ -400,8 +403,8 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		Cursor eyepieces = mCut.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
-		assertEquals("We found the data", "Plossl", eyepieces.getString(1));
-		assertEquals("We found the data", "29 mm", eyepieces.getString(2));
+		assertEquals("We found the wrong data", "29 mm", eyepieces.getString(1));
+		assertEquals("We found the wrong data", "Plossl", eyepieces.getString(2));
 		
 		//Clean up by deleting our seed data
 		int id = eyepieces.getInt(0);
@@ -421,18 +424,18 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		Cursor eyepieces = mCut.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
-		assertEquals("We found the data", "Plossl", eyepieces.getString(1));
-		assertEquals("We found the data", "29 mm", eyepieces.getString(2));
+		assertEquals("We found the wrong data", "29 mm", eyepieces.getString(1));
+		assertEquals("We found the wrong data", "Plossl", eyepieces.getString(2));
 		
 		//change the data
 		int id = eyepieces.getInt(0);
 		mCut.updateEyepieceData(id, "Nagler", "45 mm");
 		
 		//check the changed data
-		eyepieces = mCut.getSavedTelescopes();
+		eyepieces = mCut.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
-		assertEquals("We found the data", "Nagler", eyepieces.getString(1));
-		assertEquals("We found the data", "45 mm", eyepieces.getString(2));
+		assertEquals("We found the wrong data", "45 mm", eyepieces.getString(1));
+		assertEquals("We found the wrong data", "Nagler", eyepieces.getString(2));
 		
 		//Clean up by deleting our seed data
 		id = eyepieces.getInt(0);

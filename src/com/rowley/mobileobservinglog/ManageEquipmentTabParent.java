@@ -88,7 +88,7 @@ public class ManageEquipmentTabParent extends ActivityBase {
 	@Override
 	protected void toggleMode(){
 		super.toggleMode();
-		Intent intent = new Intent(this.getApplication(), AddCatalogsScreen.class);
+		Intent intent = new Intent(this.getApplication(), ManageEquipmentScreen.class);
         startActivity(intent);
         finish();
 	}

@@ -38,11 +38,11 @@ public class ManageEquipmentScreen extends TabActivity {
         Intent intent;  // Reusable Intent for each tab
 
         // Create an Intent to launch an Activity for the tab (to be reused)
-        intent = new Intent().setClass(this, InstalledCatalogsTab.class);
+        intent = new Intent().setClass(this, TelescopeTab.class);
         setupTabIndicator(intent, R.string.manage_telescopes_tab);
 
         // Do the same for the other tabs
-        intent = new Intent().setClass(this, AvailableCatalogsTab.class);
+        intent = new Intent().setClass(this, EyepiecesTab.class);
         setupTabIndicator(intent, R.string.manage_eyepieces_tab);
 
         tabHost.setCurrentTab(0);

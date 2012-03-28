@@ -73,7 +73,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -386,8 +385,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			db.close();
 		}
 		
-		db.close();
-		
 		return success;
 	}
 
@@ -470,8 +467,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			db.close();
 		}
 		
-		db.close();
-		
 		return success;
 	}
 	
@@ -489,7 +484,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		SQLiteDatabase db = getReadableDatabase();
 		
-		SQLiteStatement sqlStatement = db.compileStatement("UPDATE telescopes SET (type, primaryDiameter, focalRatio, focalLength) VALUES (?, ?, ?, ?) where _id = " + id);
+		String sql = "UPDATE telescopes SET type = ?, primaryDiameter = ?, focalRatio = ?, focalLength = ? where _id = " + id;
+		
+		SQLiteStatement sqlStatement = db.compileStatement(sql);
 			sqlStatement.bindString(1, type);
 			sqlStatement.bindString(2, primaryDiameter);
 			sqlStatement.bindString(3, focalRatio);
@@ -511,8 +508,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			db.endTransaction();
 			db.close();
 		}
-		
-		db.close();
 		
 		return success;
 	}
@@ -545,8 +540,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			db.endTransaction();
 			db.close();
 		}
-		
-		db.close();
 		
 		return success;
 	}
@@ -600,8 +593,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			db.close();
 		}
 		
-		db.close();
-		
 		return success;
 	}
 	
@@ -617,9 +608,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		SQLiteDatabase db = getReadableDatabase();
 		
-		SQLiteStatement sqlStatement = db.compileStatement("UPDATE telescopes SET (type, focalLength) VALUES (?, ?) where _id = " + id);
+		String sql = "UPDATE eyepieces SET type = ?, focalLength = ? where _id = " + id;
+		
+		SQLiteStatement sqlStatement = db.compileStatement(sql);
 			sqlStatement.bindString(1, type);
-			sqlStatement.bindString(4, focalLength);
+			sqlStatement.bindString(2, focalLength);
 		
 		db.beginTransaction();
 		try
@@ -637,8 +630,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			db.endTransaction();
 			db.close();
 		}
-		
-		db.close();
 		
 		return success;
 	}
@@ -671,8 +662,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			db.endTransaction();
 			db.close();
 		}
-		
-		db.close();
 		
 		return success;
 	}
