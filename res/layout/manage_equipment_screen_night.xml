@@ -5,6 +5,12 @@
     android:id="@+id/manage_equipment_root"
     >
     
+    <TextView 
+	    style="@style/headerBarNight" 
+	    android:id="@+id/add_catalogs_header"
+	    android:text="@string/app_name"
+	    />
+    
     <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@android:id/tabhost"
 	    android:layout_width="fill_parent"
