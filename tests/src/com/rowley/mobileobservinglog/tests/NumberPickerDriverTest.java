@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import android.app.Instrumentation;
 import android.test.SingleLaunchActivityTestCase;
 
+import com.mobileobservinglog.strategies.NumberPickerDriver;
 import com.rowley.mobileobservinglog.ObservingLogActivity;
-import com.rowley.strategies.NumberPickerDriver;
 
 /**
  * @author Joe Rowley
@@ -18,7 +18,7 @@ import com.rowley.strategies.NumberPickerDriver;
 public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<ObservingLogActivity>{
 	
 	//Class Under Test
-	com.rowley.strategies.NumberPickerDriver mCut = null;
+	com.mobileobservinglog.strategies.NumberPickerDriver mCut = null;
 	ObservingLogActivity mAut = null;
 	Instrumentation mInstrumentation = null;
 	ArrayList<String> possibleValues;
@@ -55,7 +55,7 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 	}
 	
 	/**
-	 * Test method for {@link com.rowley.strategies.NumberPickerDriver#upButton()}.
+	 *test method for {@link com.mobileobservinglog.strategies.NumberPickerDriver#upButton()}.
 	 * 
 	 * Simple test on the up button. We'll push it a couple times and make sure it works as expected
 	 */
@@ -72,8 +72,8 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 		assertEquals("The number picker did not increment as expected", "4", mCut.getCurrentValue());
 	}
 	
-	/**
-	 * Test method for {@link com.rowley.strategies.NumberPickerDriver#upButton()}.
+	/** 
+	 *test method for {@link com.mobileobservinglog.strategies.NumberPickerDriver#upButton()}.
 	 * 
 	 * Bounds test on the up button. We'll start at 10, push it and make sure it works as expected
 	 */
@@ -89,7 +89,7 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 	}
 	
 	/**
-	 * Test method for {@link com.rowley.strategies.NumberPickerDriver#downButton()}.
+	 * Test method for {@link com.mobileobservinglog.strategies.NumberPickerDriver#downButton()}.
 	 * 
 	 * Simple test on the down button. We'll push it a couple times and make sure it works as expected
 	 */
@@ -107,7 +107,7 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 	}
 	
 	/**
-	 * Test method for {@link com.rowley.strategies.NumberPickerDriver#downButton()}.
+	 * Test method for {@link com.mobileobservinglog.strategies.NumberPickerDriver#downButton()}.
 	 * 
 	 * Bounds test on the down button. We'll start at 1, push it and make sure it works as expected
 	 */
@@ -123,7 +123,7 @@ public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<Observi
 	}
 	
 	/**
-	 * Test method for {@link com.rowley.strategies.NumberPickerDriver#downButton()}.
+	 * Test method for {@link com.mobileobservinglog.strategies.NumberPickerDriver#downButton()}.
 	 * 
 	 * Change of direction test on up and down buttons. This is necessary because without extra logic, changing directions requires two presses
 	 * to change the current value because of the way the iterator works

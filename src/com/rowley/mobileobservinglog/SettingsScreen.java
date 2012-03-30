@@ -2,10 +2,10 @@ package com.rowley.mobileobservinglog;
 
 import java.util.ArrayList;
 
-import com.rowley.strategies.BacklightNumberPicker;
-import com.rowley.strategies.GpsModePicker;
-import com.rowley.strategies.NumberPickerDriver;
-import com.rowley.strategies.SearchModePicker;
+import com.mobileobservinglog.strategies.BacklightNumberPicker;
+import com.mobileobservinglog.strategies.GpsModePicker;
+import com.mobileobservinglog.strategies.NumberPickerDriver;
+import com.mobileobservinglog.strategies.SearchModePicker;
 
 import android.content.Intent;
 import android.database.Cursor;

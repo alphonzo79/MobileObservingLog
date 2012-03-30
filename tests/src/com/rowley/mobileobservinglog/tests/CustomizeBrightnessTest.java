@@ -21,7 +21,7 @@ import com.rowley.mobileobservinglog.ObservingLogActivity;
 public class CustomizeBrightnessTest extends SingleLaunchActivityTestCase<ObservingLogActivity>{
 	
 	//Class Under Test
-	com.rowley.strategies.CustomizeBrightness mCut = null;
+	com.mobileobservinglog.strategies.CustomizeBrightness mCut = null;
 	ObservingLogActivity mAut = null;
 	Instrumentation mInstrumentation = null;
 	

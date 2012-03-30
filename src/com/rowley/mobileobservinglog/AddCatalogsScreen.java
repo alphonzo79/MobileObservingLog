@@ -1,6 +1,6 @@
 package com.rowley.mobileobservinglog;
 
-import com.rowley.strategies.CustomizeBrightness;
+import com.mobileobservinglog.strategies.CustomizeBrightness;
 
 import android.app.TabActivity;
 import android.content.Intent;

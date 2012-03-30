@@ -7,7 +7,7 @@ import java.io.Reader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.rowley.strategies.CustomizeBrightness;
+import com.mobileobservinglog.strategies.CustomizeBrightness;
 
 import android.app.ListActivity;
 import android.content.Context;

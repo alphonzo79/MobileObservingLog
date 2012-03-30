@@ -1,4 +1,4 @@
-package com.rowley.strategies;
+package com.mobileobservinglog.strategies;
 
 import java.util.ArrayList;
 
@@ -7,17 +7,16 @@ import com.rowley.mobileobservinglog.SettingsContainer;
 
 import android.content.Context;
 
-public class GpsModePicker extends NumberPickerDriver {
+public class SearchModePicker extends NumberPickerDriver {
 
-	public GpsModePicker(ArrayList<String> values, String currentValue,
-			Context context) {
+	public SearchModePicker(ArrayList<String> values, String currentValue, Context context) {
 		super(values, currentValue, context);
 	}
 	
 	@Override
 	public boolean save(){
 		DatabaseHelper db = new DatabaseHelper(context);
-		if (db.setPersistentSetting(SettingsContainer.USE_GPS, currentValue)){
+		if (db.setPersistentSetting(SettingsContainer.SEARCH_MODE, currentValue)){
 			return true;
 		}
 		else{

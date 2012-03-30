@@ -1,4 +1,4 @@
-package com.rowley.strategies;
+package com.mobileobservinglog.strategies;
 
 import java.util.ArrayList;
 
