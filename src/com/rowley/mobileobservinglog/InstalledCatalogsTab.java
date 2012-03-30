@@ -2,6 +2,8 @@ package com.rowley.mobileobservinglog;
 
 import java.io.File;
 
+import com.rowley.mobileobservinglog.ManageCatalogsTabParent.ProgressIndicator;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
@@ -102,6 +104,10 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 			int currentFileNumber = 0;
 			prepProgressModalHandler.sendMessage(new Message());
 			setRemoveProgressText(currentFileNumber, filesToRemove);
+			
+			//kick off another thread to update the progress image rotation
+			keepRunningProgressUpdate = true;
+			new Thread(new ProgressIndicator()).start();
 						
 			Bundle messageData = new Bundle();
 			messageData.putInt("filesToDownLoad", filesToRemove);
@@ -191,6 +197,9 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 				Log.d("JoeTest", "Updating catalog " + catalog + " in the database");
 				dbSuccess = db.updateAvailableCatalogsInstalled(catalog, "No");
 			}
+
+			//stop the image update thread
+			keepRunningProgressUpdate = false;
 			
 			successMessageHandler.sendMessage(new Message());
 						
@@ -201,7 +210,7 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
     
     private void shortDelay(){
     	try{
-    		Thread.sleep(35);
+    		Thread.sleep(20);
     	}
     	catch(InterruptedException ex){
     		

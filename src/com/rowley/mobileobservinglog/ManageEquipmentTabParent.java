@@ -24,14 +24,20 @@ public class ManageEquipmentTabParent extends ActivityBase {
 	//joint member variables
 	Button addEquipmentButton;
 	RelativeLayout alertModal;
+	TextView alertText;
+	Button alertEdit;
+	Button alertDelete;
+	Button alertCancel;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addEquipmentButton = (Button)findViewById(R.id.add_equipment_button);
         alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
-        setContentView(settingsRef.getTelescopeTabLayout());
-        prepareListView();
+        alertText = (TextView)findViewById(R.id.alert_main_text);
+        alertEdit = (Button)findViewById(R.id.alert_ok_button);
+        alertDelete = (Button)findViewById(R.id.alert_cancel_button);
+        alertCancel = (Button)findViewById(R.id.alert_extra_button);
     }
 
 	@Override
@@ -49,40 +55,6 @@ public class ManageEquipmentTabParent extends ActivityBase {
         super.onResume();
     }
 	
-	/**
-	 * Internal method to handle preparation of the list view upon creation or to be called by setLayout when session mode changes or onResume.
-	 */
-	protected void prepareListView()
-	{
-//		availableCatalogList = new ArrayList<Catalog>();
-//		installedCatalogList = new ArrayList<Catalog>();
-//		
-//		//Get the list of available and installed catalogs. Itterate through and populate the right list with the right values
-//		DatabaseHelper db = new DatabaseHelper(this);
-//		Cursor catalogs = db.getAvailableCatalogs();
-//		
-//		catalogs.moveToFirst();
-//		
-//		for (int i = 0; i < catalogs.getCount(); i++)
-//        {
-//			String name = catalogs.getString(0);
-//			String installed = catalogs.getString(1);
-//			String count = catalogs.getString(2);
-//			String size = catalogs.getString(4);
-//			
-//			if (installed.equals("Yes")){
-//				installedCatalogList.add(new Catalog(name, size, count));
-//			}
-//			else{
-//				availableCatalogList.add(new Catalog(name, size, count));
-//			}
-//        	
-//        	catalogs.moveToNext();
-//        }
-//		catalogs.close();
-//		db.close();
-	}
-	
 	//For this screen, the tabs layout was causing problems with our regular toggle mode handling. So instead on this screen we will simply relaunch the activity,
 	//then kill the current instance so a back press will not take us back to the other mode.
 	@Override
@@ -91,38 +63,6 @@ public class ManageEquipmentTabParent extends ActivityBase {
 		Intent intent = new Intent(this.getApplication(), ManageEquipmentScreen.class);
         startActivity(intent);
         finish();
-	}
-	
-	/**
-	 * Take action on each of the list items when clicked. We need to let the user edit or remove their equipment profile
-	 */
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id)
-	{
-		
-//		TextView name = (TextView) v.findViewById(R.id.catalog_name);
-//		String catalog = name.getText().toString();
-//		TextView description = (TextView) v.findViewById(R.id.catalog_description);
-//		String catalogSizeText = description.getText().toString();
-//		float catalogSizeFloat = extractCatalogSize(catalogSizeText);
-//		int catalogObjects = extractNumObjects(catalogSizeText);
-//		
-//		ImageView checked = (ImageView) v.findViewById(R.id.checkbox);
-//		
-//		if (!selectedItems.contains(catalog)){ //This item is not currently checked
-//			selectedItems.add(catalog);
-//			size += catalogSizeFloat;
-//			numFiles += catalogObjects;
-//			Log.d("JoeTest", "numFiles: " + numFiles);
-//			checked.setImageResource(settingsRef.getCheckbox_Selected());
-//		}
-//		else{
-//			selectedItems.remove(catalog);
-//			size -= catalogSizeFloat;
-//			numFiles -= catalogObjects;
-//			Log.d("JoeTest", "numFiles: " + numFiles);
-//			checked.setImageResource(settingsRef.getCheckbox_Unselected());
-//		}
 	}
 
 	/**

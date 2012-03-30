@@ -43,4 +43,8 @@
     <string name="progress_image_alt">Progress Image</string>
     <string name="manage_telescopes_tab">Manage Telescopes</string>
     <string name="manage_eyepieces_tab">Manage Eyepieces</string>
+    <string name="no_telescopes_installed">There are no telescopes currently installed.</string>
+    <string name="no_eyepieces_installed">There are no eyepieces currently installed.</string>
+    <string name="add_telescope">Add Telescope</string>
+    <string name="add_eyepiece">Add Eyepiece</string>
 </resources>

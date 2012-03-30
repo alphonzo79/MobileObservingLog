@@ -27,14 +27,21 @@
 	    	android:id="@+id/alert_ok_button"
 	    	style="@style/modalSaveCancelButtonNight"
 	    	android:text="@string/ok"
-	    	android:layout_weight="40"
+	    	android:layout_weight="30"
 	    	/>
 	    
 	    <Button 
 	    	android:id="@+id/alert_cancel_button"
 	    	style="@style/modalSaveCancelButtonNight"
 	    	android:text="@string/num_picker_cancel_button"
-	    	android:layout_weight="40"
+	    	android:layout_weight="30"
+	    	/>
+	    
+	    <Button 
+	    	android:id="@+id/alert_extra_button"
+	    	style="@style/modalSaveCancelButtonNight"
+	    	android:layout_weight="30"
+	    	android:visibility="gone"
 	    	/>
     
     </LinearLayout>

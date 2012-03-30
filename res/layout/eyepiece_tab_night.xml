@@ -20,6 +20,19 @@
 	         android:listSelector="@drawable/list_item_back_state"
 	         android:longClickable="true" 
 	         />
+    
+	    <TextView 
+	        android:id="@+id/nothing_here"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone"
+	        android:textSize="14dp"
+	        android:paddingTop="25dp"
+	        android:paddingLeft="15dp"
+	        android:paddingRight="15dp"
+	        android:textColor="@color/red"
+	        android:layout_below="@android:id/list" 
+	        />
 	    
 	    <Button
 	        android:id="@+id/add_equipment_button"
@@ -32,21 +45,9 @@
 	        android:paddingTop="12dp"
 	        android:paddingBottom="12dp"
 	        android:layout_margin="10dp"
-	        android:layout_below="@android:id/list" 
+	        android:layout_below="@id/nothing_here" 
+	        android:text="@string/add_eyepiece"
 	        android:layout_centerHorizontal="true"
-	        />
-    
-	    <TextView 
-	        android:id="@+id/nothing_here"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:visibility="gone"
-	        android:textSize="14dp"
-	        android:paddingTop="25dp"
-	        android:paddingLeft="15dp"
-	        android:paddingRight="15dp"
-	        android:textColor="@color/red"
-	        android:layout_below="@id/add_equipment_button" 
 	        />
     
     </RelativeLayout>

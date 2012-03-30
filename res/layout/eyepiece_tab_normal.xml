@@ -20,15 +20,6 @@
 	         android:longClickable="true" 
 	         />
 	    
-	    <Button
-	        android:id="@+id/add_equipment_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_margin="10dp"
-	        android:layout_below="@android:id/list" 
-	        />
-	    
 	    <TextView 
 	        android:id="@+id/nothing_here"
 	        android:layout_width="fill_parent"
@@ -39,7 +30,17 @@
 	        android:paddingLeft="15dp"
 	        android:paddingRight="15dp"
 	        android:textColor="@color/black"
-	        android:layout_below="@id/add_equipment_button"
+	        android:layout_below="@android:id/list"
+	        />
+	    
+	    <Button
+	        android:id="@+id/add_equipment_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_margin="10dp"
+	        android:layout_below="@id/nothing_here" 
+	        android:text="@string/add_eyepiece"
 	        />
 	    
     </RelativeLayout>

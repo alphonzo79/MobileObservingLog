@@ -43,6 +43,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	ArrayList<Integer> progressImages = new ArrayList<Integer>();
 	ListIterator<Integer> imageIterator;
 	String failureMessage;
+	boolean keepRunningProgressUpdate = false;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -268,8 +269,6 @@ public class ManageCatalogsTabParent extends ActivityBase {
     Handler uiUpdateHandler_Download = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
-    		Log.d("JoeTest", "Handling message #" + msg.getData().getInt("current"));
-    		advanceProgressImage();
     		setDownloadProgressText(msg.getData().getInt("current"), msg.getData().getInt("filesToDownLoad"));
     	}
     };
@@ -277,14 +276,18 @@ public class ManageCatalogsTabParent extends ActivityBase {
     Handler uiUpdateHandler_Remove = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
-    		Log.d("JoeTest", "Handling message #" + msg.getData().getInt("current"));
-    		advanceProgressImage();
     		setRemoveProgressText(msg.getData().getInt("current"), msg.getData().getInt("filesToDownLoad"));
     	}
     };
     
+    Handler ProgressImageHandler = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		advanceProgressImage();
+    	}
+    };
+    
     public void advanceProgressImage(){
-    	Log.d("JoeTest", "advanceProgressImage called");
     	if(!imageIterator.hasNext()){
     		imageIterator = progressImages.listIterator();
     	}
@@ -292,12 +295,10 @@ public class ManageCatalogsTabParent extends ActivityBase {
     }
     
     public void setDownloadProgressText(int current, int total){
-    	Log.d("JoeTest", "setProgressText called");
     	progressMessage.setText("Downloading File " + current + " of " + total + ".");
     }
     
     public void setRemoveProgressText(int current, int total){
-    	Log.d("JoeTest", "setProgressText called");
     	progressMessage.setText("Removing File " + current + " of " + total + ".");
     }
     
@@ -332,6 +333,27 @@ public class ManageCatalogsTabParent extends ActivityBase {
     		showSuccessMessage();
     	}
     };
+    
+    protected class ProgressIndicator implements Runnable{
+
+		public void run() {
+	    	Log.d("JoeTest", "Progress Image Update thread started");
+			while (keepRunningProgressUpdate){
+				ProgressImageHandler.sendMessage(new Message());
+				try{
+					Thread.sleep(100);
+				}
+				catch (InterruptedException ex){
+					
+				}
+			}
+	    	Log.d("JoeTest", "Progress Image Update thread ended");
+		}
+    }
+    
+    //////////////////////////////////////
+    // Catalog List Inflation Utilities //
+    //////////////////////////////////////
 	
 	static class Catalog{
 		String name;

@@ -113,6 +113,10 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			int currentFileNumber = 1;
 			prepProgressModalHandler.sendMessage(new Message());
 			setDownloadProgressText(currentFileNumber, filesToDownload);
+			
+			//kick off another thread to update the progress image rotation
+			keepRunningProgressUpdate = true;
+			new Thread(new ProgressIndicator()).start();
 						
 			Bundle messageData = new Bundle();
 			messageData.putInt("filesToDownLoad", filesToDownload);
@@ -162,10 +166,24 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			
 			//create intermediate directory structure
 			String tempNormalFilePath = imagePaths.getString(0);
+			
+			//Cut the filename off the end of the path
+			String[] filePathSplit = tempNormalFilePath.split("/");
+			tempNormalFilePath = "";
+			for (int i = 0; i < (filePathSplit.length - 1); i++){
+				tempNormalFilePath += "/" + filePathSplit[i];
+			}
 			File directoryBuilder = new File(starChartRoot.toString() + tempNormalFilePath);
 			directoryBuilder.mkdirs();
 			
 			String tempNightFilePath = imagePaths.getString(1);
+			
+			//Cut the filename off the end of the path
+			filePathSplit = tempNightFilePath.split("/");
+			tempNightFilePath = "";
+			for (int i = 0; i < (filePathSplit.length - 1); i++){
+				tempNightFilePath += "/" + filePathSplit[i];
+			}
 			directoryBuilder = new File(starChartRoot.toString()  + tempNightFilePath);
 			directoryBuilder.mkdirs();
 			//We have left the cursor at the first row, so we can just continue and grab the columns again in the next loop.
@@ -257,6 +275,9 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				
 				imagePaths.moveToNext();
 			}
+			
+			//stop the image update thread
+			keepRunningProgressUpdate = false;
 			
 			//Update the database
 			if(success){
