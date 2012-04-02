@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
-import com.rowley.mobileobservinglog.SettingsContainer;
-import com.rowley.mobileobservinglog.SettingsContainer.SessionMode;
+import com.mobileobservinglog.SettingsContainer;
+import com.mobileobservinglog.SettingsContainer.SessionMode;
 
 public class CustomizeBrightness {
 

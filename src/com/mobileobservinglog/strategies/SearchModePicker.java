@@ -2,8 +2,8 @@ package com.mobileobservinglog.strategies;
 
 import java.util.ArrayList;
 
-import com.rowley.mobileobservinglog.DatabaseHelper;
-import com.rowley.mobileobservinglog.SettingsContainer;
+import com.mobileobservinglog.DatabaseHelper;
+import com.mobileobservinglog.SettingsContainer;
 
 import android.content.Context;
 
