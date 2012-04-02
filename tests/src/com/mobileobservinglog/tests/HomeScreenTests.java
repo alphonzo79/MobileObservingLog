@@ -77,7 +77,7 @@ public class HomeScreenTests extends SingleLaunchActivityTestCase<HomeScreen>{
 		//Check for the screen display
 		List<RunningTaskInfo> tasks = am.getRunningTasks(3);
 		Log.d("JoeTest", "Top task is " + tasks.get(0).topActivity.toString());
-		assertEquals("Home screen was not at the top of the stack", com.mobileobservinglog.HomeScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
+		assertEquals("Home screen was not at the top of the stack", com.mobileobservinglog.CatalogsScreen.class.toString(), "class " + tasks.get(0).topActivity.getClassName().toString());
 	}
 	
 	/**

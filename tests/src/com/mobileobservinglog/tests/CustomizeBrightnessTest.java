@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
 import com.mobileobservinglog.ObservingLogActivity;
+import com.mobileobservinglog.strategies.CustomizeBrightness;
 
 /**
  * @author Joe Rowley
@@ -21,7 +22,7 @@ import com.mobileobservinglog.ObservingLogActivity;
 public class CustomizeBrightnessTest extends SingleLaunchActivityTestCase<ObservingLogActivity>{
 	
 	//Class Under Test
-	com.mobileobservinglog.strategies.CustomizeBrightness mCut = null;
+	CustomizeBrightness mCut = null;
 	ObservingLogActivity mAut = null;
 	Instrumentation mInstrumentation = null;
 	
@@ -36,6 +37,7 @@ public class CustomizeBrightnessTest extends SingleLaunchActivityTestCase<Observ
 	public void setUp() throws Exception {
 		super.setUp();
 		mAut = getActivity();
+		mCut = new CustomizeBrightness(mAut, mAut);
 		mInstrumentation = getInstrumentation();
 	}
 
