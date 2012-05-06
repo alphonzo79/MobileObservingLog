@@ -19,8 +19,9 @@ public class AddEditTelescope extends ActivityBase {
 		
         telescopeId = this.getIntent().getIntExtra("com.mobileobservinglog", -1);
         //setup the layout
-        //setContentView(settingsRef.getObjectDetailLayout());
-        //body = (LinearLayout)findViewById(R.id.object_detail_root); 
+        setContentView(settingsRef.getAddEditTelescopeLayout());
+        setContentView(R.layout.add_edit_telescope);
+        body = (LinearLayout)findViewById(R.id.edit_telescope_root); 
 	}
 	
 	@Override
@@ -44,7 +45,7 @@ public class AddEditTelescope extends ActivityBase {
   //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
-		//setContentView(settingsRef.getObjectDetailLayout());
+		setContentView(settingsRef.getAddEditTelescopeLayout());
 		super.setLayout();
 		body.postInvalidate();
 	}

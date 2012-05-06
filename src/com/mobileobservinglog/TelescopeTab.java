@@ -148,6 +148,7 @@ public class TelescopeTab extends ManageEquipmentTabParent {
     	public void onClick(View view){
     		Intent intent = new Intent(TelescopeTab.this.getApplication(), AddEditTelescope.class);
 	        startActivity(intent);
+	        finish();
     	}
     };
     

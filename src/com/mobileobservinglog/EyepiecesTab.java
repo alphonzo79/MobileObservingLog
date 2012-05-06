@@ -146,6 +146,7 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
     	public void onClick(View view){
     		Intent intent = new Intent(EyepiecesTab.this.getApplication(), AddEditEyepiece.class);
 	        startActivity(intent);
+	        finish();
     	}
     };
     

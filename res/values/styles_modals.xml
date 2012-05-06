@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="modalContainerNormal">
+    	<item name="android:background">@drawable/empty_rounded_button_day</item>
+    	<item name="android:visibility">invisible</item>
+    	<item name="android:layout_gravity">center|center</item>
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:layout_marginLeft">15dp</item>
+    	<item name="android:layout_marginRight">15dp</item>
+    	<item name="android:paddingBottom">10dp</item>
+    	<item name="android:gravity">center|center</item>
+    </style>
+    
+    <style name="modalContainerNight" parent="modalContainerNormal">
+    	<item name="android:background">@drawable/empty_rounded_button_night</item>
+    </style>
+    
+    <style name="modalHeaderDay">
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/white</item>
+    	<item name="android:textSize">16dp</item>
+    	<item name="android:gravity">center_horizontal</item>
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:layout_marginTop">6dp</item>
+    </style>
+    
+    <style name="modalHeaderNight" parent="modalHeaderDay">
+    	<item name="android:textColor">@color/red</item>
+    </style>
+    
+    <style name="modalUpButtonNormal">
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textColor">@color/black</item>
+    	<item name="android:textSize">24dp</item>
+    	<item name="android:background">@drawable/modal_up_button_state_normal</item>
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:layout_marginTop">7dp</item>
+    	<item name="android:layout_marginLeft">15dp</item>
+    	<item name="android:layout_marginRight">15dp</item>
+    	<item name="android:padding">10dp</item>
+    </style>
+    
+    <style name="modalUpButtonNight" parent="modalUpButtonNormal">
+    	<item name="android:background">@drawable/modal_up_button_state_night</item>
+    </style>
+    
+    <style name="modalTextFieldNormal">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:textColor">@color/black</item>
+    	<item name="android:textSize">24dp</item>
+    	<item name="android:gravity">center_horizontal</item>
+    	<item name="android:padding">8dp</item>
+    	<item name="android:background">@drawable/text_field_normal</item>
+    	<item name="android:layout_marginLeft">15dp</item>
+    	<item name="android:layout_marginRight">15dp</item>
+    </style>
+    
+    <style name="modalTextFieldNight" parent="modalTextFieldNormal">
+    	<item name="android:background">@drawable/text_field_night</item>
+    	<item name="android:textColor">@color/red</item>
+    </style>
+    
+    <style name="modalDownButtonNormal" parent="modalUpButtonNormal">
+    	<item name="android:background">@drawable/modal_down_button_state_normal</item>
+    	<item name="android:layout_marginTop">0dp</item>
+    	<item name="android:layout_marginBottom">5dp</item>
+    </style>
+    
+    <style name="modalDownButtonNight" parent="modalUpButtonNight">
+    	<item name="android:background">@drawable/modal_down_button_state_night</item>
+    	<item name="android:layout_marginTop">0dp</item>
+    	<item name="android:layout_marginBottom">5dp</item>
+    </style>
+    
+    <style name="modalSaveCancelButtonNormal">
+    	<item name="android:textColor">@color/black</item>
+    	<item name="android:background">@drawable/modal_save_button_state_normal</item>
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:textSize">18dp</item>
+    	<item name="android:layout_marginTop">7dp</item>
+    	<item name="android:layout_marginLeft">7dp</item>
+    	<item name="android:layout_marginRight">7dp</item>
+    	<item name="android:padding">12dp</item>
+    </style>
+    
+    <style name="modalSaveCancelButtonNight" parent="modalSaveCancelButtonNormal">
+    	<item name="android:background">@drawable/modal_save_button_state_night</item>
+    </style>
+</resources>
