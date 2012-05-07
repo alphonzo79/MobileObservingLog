@@ -52,7 +52,7 @@
 	    <Button 
 	        style="@style/formItemButtonNormal"
 	        android:id="@+id/primary_diameter_unit"
-	        android:layout_width="wrap_content" 
+	        android:layout_width="40dp" 
 	        android:text="mm"	        
 	        />
         
@@ -115,7 +115,7 @@
 	    <Button 
 	        style="@style/formItemButtonNormal"
 	        android:id="@+id/focal_length_unit"
-	        android:layout_width="wrap_content" 
+	        android:layout_width="40dp" 
 	        android:text="mm"	        
 	        />
         
