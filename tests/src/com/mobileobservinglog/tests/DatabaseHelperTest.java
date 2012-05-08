@@ -332,6 +332,32 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	}
 	
 	/**
+	 * Test method for {@link com.mobileobservinglog.DatabaseHelper.getSavedTelescope()}.
+	 * this method inherently also tests addTelescopeData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetSavedTelescope(){
+		Log.d("JoeDebug", "testGetSavedTelescope");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		
+		Cursor telescopes = mCut.getSavedTelescopes();
+		telescopes.moveToLast();
+		int id = telescopes.getInt(0);
+		
+		Cursor myTelescope = mCut.getSavedTelescope(id);
+		assertEquals("We found the wrong data", "Reflector", myTelescope.getString(1));
+		assertEquals("We found the wrong data", "10\"", myTelescope.getString(2));
+		assertEquals("We found the wrong data", "f/7", myTelescope.getString(3));
+		assertEquals("We found the wrong data", "1787 mm", myTelescope.getString(4));
+		
+		//Clean up by deleting our seed data
+		mCut.deleteTelescopeData(id);
+	}
+	
+	/**
 	 * Test method for {@link com.mobileobservinglog.com.mobileobservinglog.maineData()}.
 	 * 
 	 * We will get a cursor from the method and check the contents against expectations
@@ -408,6 +434,30 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Clean up by deleting our seed data
 		int id = eyepieces.getInt(0);
+		mCut.deleteEyepieceData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.mobileobservinglog.DatabaseHelper.getSavedEyepiece()}.
+	 * this method inherently also tests addEyepieceData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetSavedEyepiece(){
+		Log.d("JoeDebug", "testGetSavedEyepiece");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addEyepieceData("Plossl", "29 mm");
+		
+		Cursor eyepieces = mCut.getSavedEyepieces();
+		eyepieces.moveToLast();
+		int id = eyepieces.getInt(0);
+		
+		Cursor myEyepieceCursor = mCut.getSavedEyepiece(id);
+		assertEquals("We found the wrong data", "29 mm", myEyepieceCursor.getString(1));
+		assertEquals("We found the wrong data", "Plossl", myEyepieceCursor.getString(2));
+		
+		//Clean up by deleting our seed data
 		mCut.deleteEyepieceData(id);
 	}
 	

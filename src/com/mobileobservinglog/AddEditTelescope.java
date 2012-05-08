@@ -1,17 +1,21 @@
 package com.mobileobservinglog;
 
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AddEditTelescope extends ActivityBase {
 
 	//gather resources
-	LinearLayout body;
+	FrameLayout body;
 	int telescopeId = -1;
 	Button primaryUnit;
 	Button focalLengthUnit;
@@ -21,6 +25,12 @@ public class AddEditTelescope extends ActivityBase {
 	TextView focalRatio;
 	TextView focalLength;
 	TextView type;
+
+	RelativeLayout alertModal;
+	TextView alertText;
+	Button alertEdit;
+	Button alertDelete;
+	Button alertCancel;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -33,10 +43,16 @@ public class AddEditTelescope extends ActivityBase {
         //setup the layout
         setContentView(settingsRef.getAddEditTelescopeLayout());
         setContentView(R.layout.add_edit_telescope);
-        body = (LinearLayout)findViewById(R.id.edit_telescope_root); 
+        body = (FrameLayout)findViewById(R.id.edit_telescope_root); 
         findButtonsSetListeners();
         findTextFields();
-        //TODO: populate if editing
+        populateFields();
+        
+        alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+        alertText = (TextView)findViewById(R.id.alert_main_text);
+        alertEdit = (Button)findViewById(R.id.alert_ok_button);
+        alertDelete = (Button)findViewById(R.id.alert_cancel_button);
+        alertCancel = (Button)findViewById(R.id.alert_extra_button);
 	}
 	
 	private void findButtonsSetListeners(){
@@ -57,6 +73,22 @@ public class AddEditTelescope extends ActivityBase {
 		type = (TextView)findViewById(R.id.telescope_type);
 	}
 	
+	private void populateFields(){
+		if(telescopeId >= 0){
+			DatabaseHelper db = new DatabaseHelper(this);
+			Cursor telescopeData = db.getSavedTelescope(telescopeId);
+			String diameter = telescopeData.getString(2);
+			String ratio = telescopeData.getString(3);
+			String length = telescopeData.getString(4);
+			String telescopeType = telescopeData.getString(1);
+			
+			primaryDiameter.setText(diameter);
+			focalRatio.setText(ratio);
+			focalLength.setText(length);
+			type.setText(telescopeType);
+		}
+	}
+	
 	@Override
     public void onPause() {
         super.onPause();
@@ -73,7 +105,6 @@ public class AddEditTelescope extends ActivityBase {
 		Log.d("JoeDebug", "AddEditTelescope onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
-        //TODO: Populate if we are editing
     }
 	
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
@@ -83,6 +114,7 @@ public class AddEditTelescope extends ActivityBase {
 		super.setLayout();
 		findButtonsSetListeners();
 		findTextFields();
+		populateFields();
 		body.postInvalidate();
 	}
     
@@ -112,13 +144,37 @@ public class AddEditTelescope extends ActivityBase {
     
     protected final Button.OnClickListener saveTelescope = new Button.OnClickListener(){
     	public void onClick(View view){
-    		//TODO: Check for empty text fields
-    		
-    		if(!checkMeasurements()){
-    			//TODO: display the dialog
+    		if(primaryDiameter.getText().length() < 1 || focalRatio.getText().length() < 1 || focalLength.getText().length() < 1 || type.getText().length() < 1){
+    			prepForModal();
+    			alertText.setText("At least one of the fields does not have anything in it. Do you want to continue and save or return and make changes?");
+    			alertText.setVisibility(View.VISIBLE);
+    			alertEdit.setText("Edit");
+    			alertEdit.setOnClickListener(cancelSave);
+    			alertEdit.setVisibility(View.VISIBLE);
+    			alertDelete.setText("Save");
+    			alertDelete.setOnClickListener(confirmSave);
+    			alertDelete.setVisibility(View.VISIBLE);
+    			alertCancel.setVisibility(View.GONE);
+    			alertModal.setVisibility(View.VISIBLE);
+        		return;
     		}
     		
-    		//TODO: Save it
+    		if(!checkMeasurements()){
+    			prepForModal();
+    			alertText.setText("The specs don't seem to agree (ObjectiveDiameter x FocalRatio = LocalLength). Do you want to continue and save or return and make changes?");
+    			alertText.setVisibility(View.VISIBLE);
+    			alertEdit.setText("Edit");
+    			alertEdit.setOnClickListener(cancelSave);
+    			alertEdit.setVisibility(View.VISIBLE);
+    			alertDelete.setText("Save");
+    			alertDelete.setOnClickListener(confirmSave);
+    			alertDelete.setVisibility(View.VISIBLE);
+    			alertCancel.setVisibility(View.GONE);
+    			alertModal.setVisibility(View.VISIBLE);
+        		return;
+    		}
+    		
+    		saveData();
     	}
     };
     
@@ -127,6 +183,44 @@ public class AddEditTelescope extends ActivityBase {
     		AddEditTelescope.this.finish();
     	}
     };
+    
+    protected final Button.OnClickListener cancelSave = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		tearDownModal();
+    	}
+    };
+    
+    protected final Button.OnClickListener confirmSave = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		
+    	}
+    };
+    
+    private void saveData(){
+    	DatabaseHelper db = new DatabaseHelper(this);
+    	db.addTelescopeData(type.getText().toString(), primaryDiameter.getText().toString(), focalRatio.getText().toString(), focalLength.getText().toString());
+    }
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	protected void prepForModal()
+	{
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.add_telescope_main);
+		
+		mainBackLayer.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+	}
+	
+	protected void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.add_telescope_main);
+		
+		mainBackLayer.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		alertModal.setVisibility(View.INVISIBLE);
+	}
     
     private boolean checkMeasurements(){
     	boolean retVal = false;

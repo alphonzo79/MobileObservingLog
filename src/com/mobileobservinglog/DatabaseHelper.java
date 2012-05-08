@@ -432,6 +432,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		return retVal;
 	}
 	
+	public Cursor getSavedTelescope(int id){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM telescopes WHERE _id = '" + id + "'";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+		
+		return retVal;
+	}
+	
 	/**
 	 * Called by AddTelescope page to add a telescope to the database
 	 * @param type
@@ -559,6 +572,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		db.close();
 				
+		return retVal;
+	}
+	
+	public Cursor getSavedEyepiece(int id){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM eyepieces WHERE _id = '" + id + "'";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+		
 		return retVal;
 	}
 	
