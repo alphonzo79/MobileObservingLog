@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/telescope_tab_root"
+    android:id="@+id/eyepiece_tab_root"
    	android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:orientation="vertical"
     >
     
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/telescope_tab_main"
+    	android:id="@+id/eyepiece_tab_main"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	>

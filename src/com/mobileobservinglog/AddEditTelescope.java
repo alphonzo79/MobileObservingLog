@@ -1,5 +1,11 @@
 package com.mobileobservinglog;
 
+import java.util.List;
+
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -30,7 +36,6 @@ public class AddEditTelescope extends ActivityBase {
 	TextView alertText;
 	Button alertEdit;
 	Button alertDelete;
-	Button alertCancel;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -39,7 +44,7 @@ public class AddEditTelescope extends ActivityBase {
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		
-        telescopeId = this.getIntent().getIntExtra("com.mobileobservinglog", -1);
+        telescopeId = this.getIntent().getIntExtra("com.mobileobservinglog.TelescopeID", -1);
         //setup the layout
         setContentView(settingsRef.getAddEditTelescopeLayout());
         setContentView(R.layout.add_edit_telescope);
@@ -52,7 +57,6 @@ public class AddEditTelescope extends ActivityBase {
         alertText = (TextView)findViewById(R.id.alert_main_text);
         alertEdit = (Button)findViewById(R.id.alert_ok_button);
         alertDelete = (Button)findViewById(R.id.alert_cancel_button);
-        alertCancel = (Button)findViewById(R.id.alert_extra_button);
 	}
 	
 	private void findButtonsSetListeners(){
@@ -77,16 +81,36 @@ public class AddEditTelescope extends ActivityBase {
 		if(telescopeId >= 0){
 			DatabaseHelper db = new DatabaseHelper(this);
 			Cursor telescopeData = db.getSavedTelescope(telescopeId);
-			String diameter = telescopeData.getString(2);
+			String diameter = removeUnits(telescopeData.getString(2));
+			String diameterUnits = getUnits(telescopeData.getString(2));
 			String ratio = telescopeData.getString(3);
-			String length = telescopeData.getString(4);
+			String length = removeUnits(telescopeData.getString(4));
+			String lengthUnits = getUnits(telescopeData.getString(4));
 			String telescopeType = telescopeData.getString(1);
 			
 			primaryDiameter.setText(diameter);
+			primaryUnit.setText(diameterUnits);
 			focalRatio.setText(ratio);
 			focalLength.setText(length);
+			focalLengthUnit.setText(lengthUnits);
 			type.setText(telescopeType);
 		}
+	}
+	
+	private String getUnits(String measurement){
+		if(measurement.contains("mm"))
+			return "mm";
+		else
+			return "in";
+	}
+	
+	private String removeUnits(String rawString){
+		int mmIndex = rawString.indexOf(" mm");
+		int inIndex = rawString.indexOf(" in");
+		//One of these will return an index, the other will return -1. Rather than try to figure which is larger, we'll just add them together. 
+		//That will always give us the index - 1, so then we'll add 1 back in and we have our index.
+		int index = mmIndex + inIndex + 1;
+		return rawString.substring(0, index);
 	}
 	
 	@Override
@@ -146,6 +170,7 @@ public class AddEditTelescope extends ActivityBase {
     	public void onClick(View view){
     		if(primaryDiameter.getText().length() < 1 || focalRatio.getText().length() < 1 || focalLength.getText().length() < 1 || type.getText().length() < 1){
     			prepForModal();
+    			Log.d("JoeTest", "Setting up alert in AddEditTelescope");
     			alertText.setText("At least one of the fields does not have anything in it. Do you want to continue and save or return and make changes?");
     			alertText.setVisibility(View.VISIBLE);
     			alertEdit.setText("Edit");
@@ -154,8 +179,10 @@ public class AddEditTelescope extends ActivityBase {
     			alertDelete.setText("Save");
     			alertDelete.setOnClickListener(confirmSave);
     			alertDelete.setVisibility(View.VISIBLE);
-    			alertCancel.setVisibility(View.GONE);
     			alertModal.setVisibility(View.VISIBLE);
+    			Log.d("JoeTest", "Done setting up alert in AddEditTelescope");
+    			Log.d("JoeTest", "alertModal Left and Top are " + alertModal.getLeft() + " and " + alertModal.getTop());
+    			Log.d("JoeTest", "alertModal dimensions are " + alertModal.getWidth() + " by " + alertModal.getHeight());
         		return;
     		}
     		
@@ -169,7 +196,6 @@ public class AddEditTelescope extends ActivityBase {
     			alertDelete.setText("Save");
     			alertDelete.setOnClickListener(confirmSave);
     			alertDelete.setVisibility(View.VISIBLE);
-    			alertCancel.setVisibility(View.GONE);
     			alertModal.setVisibility(View.VISIBLE);
         		return;
     		}
@@ -180,7 +206,9 @@ public class AddEditTelescope extends ActivityBase {
     
     protected final Button.OnClickListener cancelTelescope = new Button.OnClickListener(){
     	public void onClick(View view){
-    		AddEditTelescope.this.finish();
+        	Intent intent = new Intent(AddEditTelescope.this, ManageEquipmentScreen.class);
+            startActivity(intent);
+            finish();
     	}
     };
     
@@ -192,13 +220,27 @@ public class AddEditTelescope extends ActivityBase {
     
     protected final Button.OnClickListener confirmSave = new Button.OnClickListener(){
     	public void onClick(View view){
-    		
+    		saveData();
     	}
     };
     
     private void saveData(){
+    	String thisType = type.getText().toString();
+    	String diameter = primaryDiameter.getText().toString() + " " + primaryUnit.getText().toString();
+    	String ratio = focalRatio.getText().toString();
+    	String length = focalLength.getText().toString() + " " + focalLengthUnit.getText().toString();
+    	
     	DatabaseHelper db = new DatabaseHelper(this);
-    	db.addTelescopeData(type.getText().toString(), primaryDiameter.getText().toString(), focalRatio.getText().toString(), focalLength.getText().toString());
+    	if(telescopeId == -1){
+    		db.addTelescopeData(thisType, diameter, ratio, length);
+    	}
+    	else{
+    		db.updateTelescopeData(telescopeId, thisType, diameter, ratio, length);
+    	}
+    		    	
+    	Intent intent = new Intent(this, ManageEquipmentScreen.class);
+        startActivity(intent);
+        finish();
     }
 
 	/**
@@ -206,18 +248,38 @@ public class AddEditTelescope extends ActivityBase {
 	 */
 	protected void prepForModal()
 	{
+		Log.d("JoeTest", "PrepForModal Called in AddEditTelescop");
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
-		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.add_telescope_main);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_telescope_root);
 		
 		mainBackLayer.setEnabled(false);
+		primaryDiameter.setEnabled(false);
+		primaryDiameter.setClickable(false);
+		primaryUnit.setEnabled(false);
+		focalRatio.setEnabled(false);
+		focalLength.setEnabled(false);
+		focalLengthUnit.setEnabled(false);
+		type.setEnabled(false);
+		save.setEnabled(false);
+		cancel.setEnabled(false);
 		blackOutLayer.setVisibility(View.VISIBLE);
+		Log.d("JoeTest", "PrepForModal done in AddEditTelescop");
 	}
 	
 	protected void tearDownModal(){
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
-		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.add_telescope_main);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_telescope_root);
 		
 		mainBackLayer.setEnabled(true);
+		primaryDiameter.setEnabled(true);
+		primaryDiameter.setClickable(true);
+		primaryUnit.setEnabled(true);
+		focalRatio.setEnabled(true);
+		focalLength.setEnabled(true);
+		focalLengthUnit.setEnabled(true);
+		type.setEnabled(true);
+		save.setEnabled(true);
+		cancel.setEnabled(true);
 		blackOutLayer.setVisibility(View.INVISIBLE);
 		alertModal.setVisibility(View.INVISIBLE);
 	}
@@ -246,5 +308,14 @@ public class AddEditTelescope extends ActivityBase {
     	}
     	
     	return retVal;
+    }
+
+    //We killed the ManageEquipment screen when launching this activity, otherwise we would go back to it in a stale state. We need to kill this activity and relaunch
+    //that one when the back button is pressed.
+    @Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(this, ManageEquipmentScreen.class);
+        startActivity(intent);
+        finish();
     }
 }

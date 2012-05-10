@@ -8,11 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TelescopeTab extends ManageEquipmentTabParent {
@@ -27,6 +30,7 @@ public class TelescopeTab extends ManageEquipmentTabParent {
         prepareListView();        
         addEquipmentButton = (Button)findViewById(R.id.add_equipment_button);
         addEquipmentButton.setOnClickListener(addTelescope);
+        findModalElements();
     }
 
 	@Override
@@ -88,18 +92,25 @@ public class TelescopeTab extends ManageEquipmentTabParent {
 	protected void onListItemClick(ListView l, View v, int position, long id)
 	{
 		listItemId = telescopeList.get(position).id;
-		telescopeDescription = getTelescopeDescription(v);
+		telescopeDescription = getTelescopeDescription(position);
+		Log.d("TelescopeTab", "onListItemClick: telescopeDescription is " + telescopeDescription);
 		prepForModal();
 		alertText.setText("Edit or delete the telescope " + telescopeDescription + "?");
 		alertText.setVisibility(View.VISIBLE);
 		alertEdit.setText("Edit");
 		alertEdit.setOnClickListener(editTelescope);
+		alertEdit.setTextSize(16f);
+		alertEdit.setPadding(10, 10, 10, 10);
 		alertEdit.setVisibility(View.VISIBLE);
 		alertDelete.setText("Delete");
 		alertDelete.setOnClickListener(deleteTelescope);
+		alertDelete.setTextSize(16f);
+		alertDelete.setPadding(10, 10, 10, 10);
 		alertDelete.setVisibility(View.VISIBLE);
 		alertCancel.setText("Cancel");
 		alertCancel.setOnClickListener(cancelSelect);
+		alertCancel.setTextSize(16f);
+		alertCancel.setPadding(10, 10, 10, 10);
 		alertCancel.setVisibility(View.VISIBLE);
 		alertModal.setVisibility(View.VISIBLE);
 	}
@@ -119,7 +130,7 @@ public class TelescopeTab extends ManageEquipmentTabParent {
     	public void onClick(View view){
     		//Set up, display delete confirmation
     		alertText.setText("Delete the telescope " + telescopeDescription + "?");
-    		alertEdit.setText("Confirm Delete");
+    		alertEdit.setText("Delete");
     		alertEdit.setOnClickListener(confirmDelete);
     		alertDelete.setVisibility(View.GONE);
     	}
@@ -152,23 +163,37 @@ public class TelescopeTab extends ManageEquipmentTabParent {
     	}
     };
     
-    private String getTelescopeDescription(View v){
-    	String retVal = "";
-    	
-    	TextView text = (TextView) v.findViewById(R.id.telescope_primary_diameter);		
-    	retVal.concat(text.getText().toString() + " ");
-    	
-    	text = (TextView) v.findViewById(R.id.telescope_focal_ratio);		
-    	retVal.concat(text.getText().toString() + " ");
-    	
-    	text = (TextView) v.findViewById(R.id.telescope_focal_length);		
-    	retVal.concat(text.getText().toString() + " ");
-    	
-    	text = (TextView) v.findViewById(R.id.telescope_type);		
-    	retVal.concat(text.getText().toString());
-    			
-    	return retVal;
+    private String getTelescopeDescription(int position){
+    	return String.format("%s %s %s %s", telescopeList.get(position).primaryDiameter, telescopeList.get(position).focalRatio, 
+    			telescopeList.get(position).focalLength, telescopeList.get(position).type);
     }
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	protected void prepForModal()
+	{
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.telescope_tab_root);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(false);
+		listView.setEnabled(false);
+		addEquipmentButton.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+	}
+	
+	protected void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.telescope_tab_root);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(true);
+		listView.setEnabled(true);
+		addEquipmentButton.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		alertModal.setVisibility(View.INVISIBLE);
+	}
     
     ////////////////////////////////////////
     // Telescope List Inflation Utilities //
@@ -185,8 +210,8 @@ public class TelescopeTab extends ManageEquipmentTabParent {
 			this.id = id;
 			this.type = type;
 			this.primaryDiameter = primaryDiameter;
-			this.focalRatio = focalRatio;
-			this.focalLength = focalLength;
+			this.focalRatio = "f/" + focalRatio;
+			this.focalLength = "FL: " + focalLength;
 		}		
 	}
 	

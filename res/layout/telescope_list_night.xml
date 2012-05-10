@@ -9,14 +9,15 @@
     android:paddingRight="4dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
+    android:gravity="left"
     >
     
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:id="@+id/telescope_primary_diameter"
-	    android:layout_gravity="left"
-	    android:textSize="18sp" 
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
 	    android:textColor="@color/red"
 	    android:textStyle="bold"
 	    />
@@ -25,30 +26,33 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:id="@+id/telescope_focal_ratio"
-	    android:layout_gravity="left"
-	    android:textSize="12sp" 
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
 	    android:textColor="@color/red"
 	    android:textStyle="bold"
+	    android:layout_marginLeft="10dp"
 	    />
 
 	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:id="@+id/telescope_focal_length"
-	    android:layout_gravity="left"
-	    android:textSize="12sp" 
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
 	    android:textColor="@color/red"
 	    android:textStyle="bold"
+	    android:layout_marginLeft="10dp"
 	    />
 
 	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:id="@+id/telescope_type"
-	    android:layout_gravity="left"
-	    android:textSize="12sp" 
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
 	    android:textColor="@color/red"
 	    android:textStyle="bold"
+	    android:layout_marginLeft="10dp"
 	    />
 	
 </LinearLayout>

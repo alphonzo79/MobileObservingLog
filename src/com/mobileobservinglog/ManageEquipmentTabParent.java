@@ -22,12 +22,6 @@ public class ManageEquipmentTabParent extends ActivityBase {
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
-        alertText = (TextView)findViewById(R.id.alert_main_text);
-        alertEdit = (Button)findViewById(R.id.alert_ok_button);
-        alertDelete = (Button)findViewById(R.id.alert_cancel_button);
-        alertCancel = (Button)findViewById(R.id.alert_extra_button);
     }
 
 	@Override
@@ -54,31 +48,12 @@ public class ManageEquipmentTabParent extends ActivityBase {
         startActivity(intent);
         finish();
 	}
-
-	/**
-	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
-	 */
-	protected void prepForModal()
-	{
-		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
-		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.manage_catalogs_tab_main);
-		ListView listView = getListView();
-		
-		mainBackLayer.setEnabled(false);
-		listView.setEnabled(false);
-		addEquipmentButton.setEnabled(false);
-		blackOutLayer.setVisibility(View.VISIBLE);
-	}
 	
-	protected void tearDownModal(){
-		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
-		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.manage_catalogs_tab_main);
-		ListView listView = getListView();
-		
-		mainBackLayer.setEnabled(true);
-		listView.setEnabled(true);
-		addEquipmentButton.setEnabled(true);
-		blackOutLayer.setVisibility(View.INVISIBLE);
-		alertModal.setVisibility(View.INVISIBLE);
+	protected void findModalElements(){
+		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+        alertText = (TextView)findViewById(R.id.alert_main_text);
+        alertEdit = (Button)findViewById(R.id.alert_ok_button);
+        alertDelete = (Button)findViewById(R.id.alert_cancel_button);
+        alertCancel = (Button)findViewById(R.id.alert_extra_button);
 	}
 }

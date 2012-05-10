@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class EyepiecesTab extends ManageEquipmentTabParent {
@@ -27,6 +29,7 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
         prepareListView();
         addEquipmentButton = (Button)findViewById(R.id.add_equipment_button);
         addEquipmentButton.setOnClickListener(addEyepiece);
+        findModalElements();
     }
 
 	@Override
@@ -161,6 +164,33 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
     			
     	return retVal;
     }
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	protected void prepForModal()
+	{
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.eyepiece_tab_root);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(false);
+		listView.setEnabled(false);
+		addEquipmentButton.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+	}
+	
+	protected void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.eyepiece_tab_root);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(true);
+		listView.setEnabled(true);
+		addEquipmentButton.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		alertModal.setVisibility(View.INVISIBLE);
+	}
     
     ///////////////////////////////////////
     // Eyepiece List Inflation Utilities //
