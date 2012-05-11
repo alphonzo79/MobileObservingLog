@@ -52,11 +52,13 @@ public class AddEditTelescope extends ActivityBase {
         findButtonsSetListeners();
         findTextFields();
         populateFields();
-        
-        alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+	}
+	
+	private void findModalElements(){
+		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
         alertText = (TextView)findViewById(R.id.alert_main_text);
-        alertEdit = (Button)findViewById(R.id.alert_ok_button);
-        alertDelete = (Button)findViewById(R.id.alert_cancel_button);
+        alertEdit = (Button)findViewById(R.id.alert_cancel_button);
+        alertDelete = (Button)findViewById(R.id.alert_ok_button);
 	}
 	
 	private void findButtonsSetListeners(){
@@ -170,6 +172,7 @@ public class AddEditTelescope extends ActivityBase {
     	public void onClick(View view){
     		if(primaryDiameter.getText().length() < 1 || focalRatio.getText().length() < 1 || focalLength.getText().length() < 1 || type.getText().length() < 1){
     			prepForModal();
+    			findModalElements();
     			Log.d("JoeTest", "Setting up alert in AddEditTelescope");
     			alertText.setText("At least one of the fields does not have anything in it. Do you want to continue and save or return and make changes?");
     			alertText.setVisibility(View.VISIBLE);
@@ -179,6 +182,7 @@ public class AddEditTelescope extends ActivityBase {
     			alertDelete.setText("Save");
     			alertDelete.setOnClickListener(confirmSave);
     			alertDelete.setVisibility(View.VISIBLE);
+    			alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
     			alertModal.setVisibility(View.VISIBLE);
     			Log.d("JoeTest", "Done setting up alert in AddEditTelescope");
     			Log.d("JoeTest", "alertModal Left and Top are " + alertModal.getLeft() + " and " + alertModal.getTop());
@@ -188,7 +192,8 @@ public class AddEditTelescope extends ActivityBase {
     		
     		if(!checkMeasurements()){
     			prepForModal();
-    			alertText.setText("The specs don't seem to agree (ObjectiveDiameter x FocalRatio = LocalLength). Do you want to continue and save or return and make changes?");
+    			findModalElements();
+    			alertText.setText("The specs don't seem to agree (ObjectiveDiameter x FocalRatio = FocalLength). Do you want to continue and save or return and make changes?");
     			alertText.setVisibility(View.VISIBLE);
     			alertEdit.setText("Edit");
     			alertEdit.setOnClickListener(cancelSave);
@@ -196,6 +201,7 @@ public class AddEditTelescope extends ActivityBase {
     			alertDelete.setText("Save");
     			alertDelete.setOnClickListener(confirmSave);
     			alertDelete.setVisibility(View.VISIBLE);
+    			alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
     			alertModal.setVisibility(View.VISIBLE);
         		return;
     		}

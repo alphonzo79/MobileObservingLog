@@ -9,7 +9,7 @@
     android:paddingRight="4dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
-    android:gravity="left"
+    android:gravity="center_horizontal"
     >
     
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
