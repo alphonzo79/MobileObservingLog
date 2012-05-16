@@ -89,18 +89,24 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
 	protected void onListItemClick(ListView l, View v, int position, long id)
 	{
 		listItemId = eyepieceList.get(position).id;
-		eyepieceDescription = getEyepieceDescription(v);
+		eyepieceDescription = getEyepieceDescription(position);
 		prepForModal();
 		alertText.setText("Edit or delete the telescope " + eyepieceDescription + "?");
 		alertText.setVisibility(View.VISIBLE);
 		alertEdit.setText("Edit");
 		alertEdit.setOnClickListener(editEyepiece);
+		alertEdit.setTextSize(16f);
+		alertEdit.setPadding(10, 10, 10, 10);
 		alertEdit.setVisibility(View.VISIBLE);
 		alertDelete.setText("Delete");
 		alertDelete.setOnClickListener(deleteEyepiece);
+		alertDelete.setTextSize(16f);
+		alertDelete.setPadding(10, 10, 10, 10);
 		alertDelete.setVisibility(View.VISIBLE);
 		alertCancel.setText("Cancel");
 		alertCancel.setOnClickListener(cancelSelect);
+		alertDelete.setTextSize(16f);
+		alertDelete.setPadding(10, 10, 10, 10);
 		alertCancel.setVisibility(View.VISIBLE);
 		alertModal.setVisibility(View.VISIBLE);
 	}
@@ -120,7 +126,7 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
     	public void onClick(View view){
     		//Set up, display delete confirmation
     		alertText.setText("Delete the eyepiece " + eyepieceDescription + "?");
-    		alertEdit.setText("Confirm Delete");
+    		alertEdit.setText("Delete");
     		alertEdit.setOnClickListener(confirmDelete);
     		alertDelete.setVisibility(View.GONE);
     	}
@@ -153,16 +159,8 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
     	}
     };
     
-    private String getEyepieceDescription(View v){
-    	String retVal = "";
-    	
-    	TextView text = (TextView) v.findViewById(R.id.eyepiece_focal_length);		
-    	retVal.concat(text.getText().toString() + " ");
-    	
-    	text = (TextView) v.findViewById(R.id.eyepiece_type);		
-    	retVal.concat(text.getText().toString());
-    			
-    	return retVal;
+    private String getEyepieceDescription(int position){
+    	return String.format("%s %s", eyepieceList.get(position).focalLength, eyepieceList.get(position).type);
     }
 
 	/**
@@ -199,14 +197,12 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
 	static class EyepieceData{
 		int id;
 		String type;
-		String primaryDiameter;
-		String focalRatio;
 		String focalLength;
 		
 		EyepieceData(int id, String type, String focalLength){
 			this.id = id;
 			this.type = type;
-			this.focalLength = focalLength;
+			this.focalLength = "FL: " + focalLength;
 		}		
 	}
 	

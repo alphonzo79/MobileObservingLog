@@ -47,7 +47,6 @@ public class AddEditTelescope extends ActivityBase {
         telescopeId = this.getIntent().getIntExtra("com.mobileobservinglog.TelescopeID", -1);
         //setup the layout
         setContentView(settingsRef.getAddEditTelescopeLayout());
-        setContentView(R.layout.add_edit_telescope);
         body = (FrameLayout)findViewById(R.id.edit_telescope_root); 
         findButtonsSetListeners();
         findTextFields();

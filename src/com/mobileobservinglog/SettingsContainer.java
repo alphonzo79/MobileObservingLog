@@ -296,6 +296,7 @@ public final class SettingsContainer {
 		setManageLocationsLayout(R.layout.manage_locations_screen_night);
 		setPersonalInfoLayout(R.layout.personal_info_screen_night);
 		setAddEditTelescopeLayout(R.layout.add_edit_telescope_night);
+		setAddEditEyepieceLayout(R.layout.add_edit_eyepiece_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setCheckbox_Selected(R.drawable.checked_night);
 		setCheckbox_Unselected(R.drawable.unchecked_night);
@@ -325,6 +326,7 @@ public final class SettingsContainer {
 		setManageLocationsLayout(R.layout.manage_locations_screen);
 		setPersonalInfoLayout(R.layout.personal_info_screen);
 		setAddEditTelescopeLayout(R.layout.add_edit_telescope);
+		setAddEditEyepieceLayout(R.layout.add_edit_eyepiece);
 		setTabIndicator(R.layout.tab_indicator_layout);
 		setCheckbox_Selected(R.drawable.checked_normal);
 		setCheckbox_Unselected(R.drawable.unchecked_normal);

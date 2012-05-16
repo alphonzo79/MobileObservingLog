@@ -404,6 +404,38 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
+	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getAddEditTelescopeLayout(). 
+	 * The first layout delivered should be night mode, since the class will instantiate by default witcom.mobileobservinglogo normal mode and ccom.mobileobservinglogthen switch back to night mode and check the layout.
+	 */
+	public void testGetAddEditTelescopeLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_telescope_night, mCut.getAddEditTelescopeLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_telescope, mCut.getAddEditTelescopeLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_telescope_night, mCut.getAddEditTelescopeLayout());
+	}
+
+	/**
+	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getAddEditEyepieceLayout(). 
+	 * The first layout delivered should be night mode, since the class will instantiate by default witcom.mobileobservinglogo normal mode and ccom.mobileobservinglogthen switch back to night mode and check the layout.
+	 */
+	public void testGetAddEditEyepieceLayout() {
+		SessionMode currentMode = mCut.getSessionMode();
+		assertEquals("The default mode was not NightMode.", SessionMode.night, currentMode);
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_eyepiece_night, mCut.getAddEditEyepieceLayout());
+		
+		mCut.setNormalMode();
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_eyepiece, mCut.getAddEditEyepieceLayout());
+		
+		mCut.setNightMode();
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_eyepiece_night, mCut.getAddEditEyepieceLayout());
+	}
+
+	/**
 	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getModeButtonText().
  	 * When the session mode changes, the text displayed on the toggle button in the menu should change.
 	 * The default session mode is night mode, and we reset to night mode at the end
@@ -511,6 +543,8 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 		assertEquals("The delivered layout was not correct", R.layout.eyepiece_list_night, mCut.getEyepieceListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen_night, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen_night, mCut.getPersonalInfoLayout());
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_telescope_night, mCut.getAddEditTelescopeLayout());
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_eyepiece_night, mCut.getAddEditEyepieceLayout());
 		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout_night, mCut.getTabIndicator());
 		assertEquals("The delivered resource was not correct", R.drawable.unchecked_night, mCut.getCheckbox_Unselected());
 		assertEquals("The delivered resource was not correct", R.drawable.checked_night, mCut.getCheckbox_Selected());
@@ -542,6 +576,8 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 		assertEquals("The delivered layout was not correct", R.layout.eyepiece_list_normal, mCut.getEyepieceListLayout());
 		assertEquals("The delivered layout was not correct", R.layout.manage_locations_screen, mCut.getManageLocationsLayout());
 		assertEquals("The delivered layout was not correct", R.layout.personal_info_screen, mCut.getPersonalInfoLayout());
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_telescope, mCut.getAddEditTelescopeLayout());
+		assertEquals("The delivered layout was not correct", R.layout.add_edit_eyepiece, mCut.getAddEditEyepieceLayout());
 		assertEquals("The delivered layout was not correct", R.layout.tab_indicator_layout, mCut.getTabIndicator());
 		assertEquals("The delivered resource was not correct", R.drawable.unchecked_normal, mCut.getCheckbox_Unselected());
 		assertEquals("The delivered resource was not correct", R.drawable.checked_normal, mCut.getCheckbox_Selected());

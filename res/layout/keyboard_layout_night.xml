@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/keyboardRootNight"
+    android:id="@+id/keyboard_root"
+    android:visibility="invisible"
+    >
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/lower_case_letters"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:visibility="invisible"
+    	>
+    
+		<LinearLayout
+		    android:id="@+id/lc_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/q"
+		        style="@style/keyboardButtonNight"
+		        android:text="q"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/w"
+		        style="@style/keyboardButtonNight"
+		        android:text="w"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/e"
+		        style="@style/keyboardButtonNight"
+		        android:text="e"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/r"
+		        style="@style/keyboardButtonNight"
+		        android:text="r"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/t"
+		        style="@style/keyboardButtonNight"
+		        android:text="t"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/y"
+		        style="@style/keyboardButtonNight"
+		        android:text="y"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/u"
+		        style="@style/keyboardButtonNight"
+		        android:text="u"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/i"
+		        style="@style/keyboardButtonNight"
+		        android:text="i"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/o"
+		        style="@style/keyboardButtonNight"
+		        android:text="o"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/p"
+		        style="@style/keyboardButtonNight"
+		        android:text="p"
+		        android:layout_weight="10"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/lc_second"
+		    android:layout_below="@id/lc_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:paddingLeft="10dp"
+    		android:paddingRight="10dp"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/a"
+		        style="@style/keyboardButtonNight"
+		        android:text="a"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/s"
+		        style="@style/keyboardButtonNight"
+		        android:text="s"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/d"
+		        style="@style/keyboardButtonNight"
+		        android:text="d"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/f"
+		        style="@style/keyboardButtonNight"
+		        android:text="f"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/g"
+		        style="@style/keyboardButtonNight"
+		        android:text="g"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/h"
+		        style="@style/keyboardButtonNight"
+		        android:text="h"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/j"
+		        style="@style/keyboardButtonNight"
+		        android:text="j"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/k"
+		        style="@style/keyboardButtonNight"
+		        android:text="k"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/l"
+		        style="@style/keyboardButtonNight"
+		        android:text="l"
+		        android:layout_weight="11"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/lc_third"
+		    android:layout_below="@id/lc_second"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/shift"
+		        style="@style/keyboardButtonNight"
+		        android:text="shift"
+		        android:layout_weight="15"
+		        android:padding="0dp"
+		        android:textScaleX=".60"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/z"
+		        style="@style/keyboardButtonNight"
+		        android:text="z"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/x"
+		        style="@style/keyboardButtonNight"
+		        android:text="x"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/c"
+		        style="@style/keyboardButtonNight"
+		        android:text="c"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/v"
+		        style="@style/keyboardButtonNight"
+		        android:text="v"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/b"
+		        style="@style/keyboardButtonNight"
+		        android:text="b"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/n"
+		        style="@style/keyboardButtonNight"
+		        android:text="n"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/m"
+		        style="@style/keyboardButtonNight"
+		        android:text="m"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/backspace"
+		        style="@style/keyboardButtonNight"
+		        android:text="del"
+		        android:layout_weight="15"
+		        android:padding="0dp"
+		        android:textScaleX=".70"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/lc_fourth"
+		    android:layout_below="@id/lc_third"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/numbers"
+		        style="@style/keyboardButtonNight"
+		        android:text="\?123"
+		        android:layout_weight="20"
+		        android:padding="0dp"
+		        android:textScaleX=".80"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/comma"
+		        style="@style/keyboardButtonNight"
+		        android:text=","
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/space"
+		        style="@style/keyboardButtonNight"
+		        android:text="space"
+		        android:layout_weight="40"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/period"
+		        style="@style/keyboardButtonNight"
+		        android:text="."
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/enter"
+		        style="@style/keyboardButtonNight"
+		        android:text="enter"
+		        android:layout_weight="20"
+		        android:padding="0dp"
+		        android:textScaleX=".80"
+		        />
+		    
+		</LinearLayout>
+	    
+    </RelativeLayout>
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/upper_case_letters"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:visibility="invisible"
+    	>
+    
+		<LinearLayout
+		    android:id="@+id/uc_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/Q"
+		        style="@style/keyboardButtonNight"
+		        android:text="Q"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/W"
+		        style="@style/keyboardButtonNight"
+		        android:text="W"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/E"
+		        style="@style/keyboardButtonNight"
+		        android:text="E"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/R"
+		        style="@style/keyboardButtonNight"
+		        android:text="R"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/T"
+		        style="@style/keyboardButtonNight"
+		        android:text="T"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/Y"
+		        style="@style/keyboardButtonNight"
+		        android:text="Y"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/U"
+		        style="@style/keyboardButtonNight"
+		        android:text="U"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/I"
+		        style="@style/keyboardButtonNight"
+		        android:text="I"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/O"
+		        style="@style/keyboardButtonNight"
+		        android:text="O"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/P"
+		        style="@style/keyboardButtonNight"
+		        android:text="P"
+		        android:layout_weight="10"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/uc_second"
+		    android:layout_below="@id/uc_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/A"
+		        style="@style/keyboardButtonNight"
+		        android:text="A"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/S"
+		        style="@style/keyboardButtonNight"
+		        android:text="S"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/D"
+		        style="@style/keyboardButtonNight"
+		        android:text="D"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/F"
+		        style="@style/keyboardButtonNight"
+		        android:text="F"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/G"
+		        style="@style/keyboardButtonNight"
+		        android:text="G"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/H"
+		        style="@style/keyboardButtonNight"
+		        android:text="H"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/J"
+		        style="@style/keyboardButtonNight"
+		        android:text="J"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/K"
+		        style="@style/keyboardButtonNight"
+		        android:text="K"
+		        android:layout_weight="11"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/L"
+		        style="@style/keyboardButtonNight"
+		        android:text="L"
+		        android:layout_weight="11"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/uc_third"
+		    android:layout_below="@id/uc_second"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/uc_shift"
+		        style="@style/keyboardButtonNight"
+		        android:text="shift"
+		        android:layout_weight="15"
+		        android:padding="0dp"
+		        android:textScaleX=".60"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/Z"
+		        style="@style/keyboardButtonNight"
+		        android:text="Z"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/X"
+		        style="@style/keyboardButtonNight"
+		        android:text="X"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/C"
+		        style="@style/keyboardButtonNight"
+		        android:text="C"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/V"
+		        style="@style/keyboardButtonNight"
+		        android:text="V"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/B"
+		        style="@style/keyboardButtonNight"
+		        android:text="B"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/N"
+		        style="@style/keyboardButtonNight"
+		        android:text="N"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/M"
+		        style="@style/keyboardButtonNight"
+		        android:text="M"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/uc_backspace"
+		        style="@style/keyboardButtonNight"
+		        android:text="del"
+		        android:layout_weight="15"
+		        android:padding="0dp"
+		        android:textScaleX=".70"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/uc_fourth"
+		    android:layout_below="@id/uc_third"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/uc_numbers"
+		        style="@style/keyboardButtonNight"
+		        android:text="\?123"
+		        android:layout_weight="20"
+		        android:padding="0dp"
+		        android:textScaleX=".80"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/quote"
+		        style="@style/keyboardButtonNight"
+		        android:text='"'
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/uc_space"
+		        style="@style/keyboardButtonNight"
+		        android:text="space"
+		        android:layout_weight="40"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/apostrophe"
+		        style="@style/keyboardButtonNight"
+		        android:text="'"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/uc_enter"
+		        style="@style/keyboardButtonNight"
+		        android:text="enter"
+		        android:layout_weight="20"
+		        android:padding="0dp"
+		        android:textScaleX=".80"
+		        />
+		    
+		</LinearLayout>
+   
+    </RelativeLayout>
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/numbers_and_symbols"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:visibility="invisible"
+    	>
+    
+		<LinearLayout
+		    android:id="@+id/num_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/colon"
+		        style="@style/keyboardButtonNight"
+		        android:text=":"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/semicolon"
+		        style="@style/keyboardButtonNight"
+		        android:text=";"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/one"
+		        style="@style/keyboardButtonNight"
+		        android:text="1"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/two"
+		        style="@style/keyboardButtonNight"
+		        android:text="2"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/three"
+		        style="@style/keyboardButtonNight"
+		        android:text="3"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/plus"
+		        style="@style/keyboardButtonNight"
+		        android:text="+"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/open_paren"
+		        style="@style/keyboardButtonNight"
+		        android:text="("
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/close_paren"
+		        style="@style/keyboardButtonNight"
+		        android:text=")"
+		        android:layout_weight="10"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/num_second"
+		    android:layout_below="@id/num_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/at"
+		        style="@style/keyboardButtonNight"
+		        android:text="\@"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/dollar"
+		        style="@style/keyboardButtonNight"
+		        android:text="_"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/four"
+		        style="@style/keyboardButtonNight"
+		        android:text="4"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/five"
+		        style="@style/keyboardButtonNight"
+		        android:text="5"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/six"
+		        style="@style/keyboardButtonNight"
+		        android:text="6"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/minus"
+		        style="@style/keyboardButtonNight"
+		        android:text="-"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/underscore"
+		        style="@style/keyboardButtonNight"
+		        android:text="_"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/percent"
+		        style="@style/keyboardButtonNight"
+		        android:text="%"
+		        android:layout_weight="10"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/num_third"
+		    android:layout_below="@id/num_second"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/exclamation"
+		        style="@style/keyboardButtonNight"
+		        android:text="!"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/question"
+		        style="@style/keyboardButtonNight"
+		        android:text="\?"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/seven"
+		        style="@style/keyboardButtonNight"
+		        android:text="7"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/eight"
+		        style="@style/keyboardButtonNight"
+		        android:text="8"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/nine"
+		        style="@style/keyboardButtonNight"
+		        android:text="9"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/multiply"
+		        style="@style/keyboardButtonNight"
+		        android:text="*"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/pound"
+		        style="@style/keyboardButtonNight"
+		        android:text="#"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_backspace"
+		        style="@style/keyboardButtonNight"
+		        android:text="del"
+		        android:layout_weight="10"
+		        android:textScaleX=".70"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/num_fourth"
+		    android:layout_below="@id/num_third"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/letters"
+		        style="@style/keyboardButtonNight"
+		        android:text="ABC"
+		        android:layout_weight="10"
+		        android:textScaleX=".70"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_space"
+		        style="@style/keyboardButtonNight"
+		        android:text="space"
+		        android:layout_weight="20"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/zero"
+		        style="@style/keyboardButtonNight"
+		        android:text="0"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_period"
+		        style="@style/keyboardButtonNight"
+		        android:text="."
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/divide"
+		        style="@style/keyboardButtonNight"
+		        android:text="/"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/equals"
+		        style="@style/keyboardButtonNight"
+		        android:text="="
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_enter"
+		        style="@style/keyboardButtonNight"
+		        android:text="enter"
+		        android:layout_weight="10"
+		        android:textScaleX=".70"
+		        />
+		    
+		</LinearLayout>
+	    
+    </RelativeLayout>
+	    
+</FrameLayout>

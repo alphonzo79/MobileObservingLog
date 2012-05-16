@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/layoutRootNormal"
-    android:id="@+id/edit_telescope_root"
+	style="@style/layoutRootNight"
+    android:id="@+id/edit_eyepiece_root"
     >
     
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/add_telescope_main"
+    	android:id="@+id/add_eyepiece_main"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	>
     
 		<TextView  
-		    style="@style/headerBarNormal" 
-		    android:id="@+id/addTelescopeHeader"
+		    style="@style/headerBarNight" 
+		    android:id="@+id/addEyepieceHeader"
 		    android:text="@string/app_name"
 		    />
 		    
@@ -21,18 +21,18 @@
 	         android:id="@android:id/list"
 	         android:layout_width="fill_parent" 
 	         android:layout_height="wrap_content" 
-	         android:layout_below="@id/addTelescopeHeader"
+	         android:layout_below="@id/addEyepieceHeader"
 	         />
 	    
 	    <TextView
-	        style="@style/formScreenHeaderNormal"
+	        style="@style/formScreenHeaderNight"
 	        android:id="@+id/edit_header"
-	        android:text="@string/add_edit_telescope"
-	        android:layout_below="@id/addTelescopeHeader"
+	        android:text="@string/add_edit_eyepiece"
+	        android:layout_below="@id/addEyepieceHeader"
 	        />
 	    
 	    <LinearLayout
-	        android:id="@+id/diameter_layout"
+	        android:id="@+id/length_layout"
 	        android:orientation="horizontal"
 	        android:paddingLeft="14dp"
 	        android:paddingRight="14dp"
@@ -46,80 +46,13 @@
 	        >
 	    
 		    <TextView
-		        style="@style/formScreenLabelNormal"
-		        android:text="@string/primary_diameter"
-		        />
-		    
-		    <EditText 
-		        style="@style/formScreenTextFieldNormal"
-		        android:id="@+id/telescope_primary_diameter"
-		        android:maxLines="1"
-		        android:inputType="numberDecimal"
-		        android:layout_width="75dp" 
-		        android:layout_height="wrap_content"
-		        />
-		    
-		    <Button 
-		        style="@style/formItemButtonNormal"
-		        android:id="@+id/primary_diameter_unit"
-		        android:layout_width="40dp" 
-		        android:text="mm"	        
-		        />
-	        
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:id="@+id/ratio_layout"
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingTop="5dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="wrap_content" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="10dp"
-	        android:gravity="center_horizontal"
-	        android:layout_below="@id/diameter_layout"
-	        >
-	    
-		    <TextView
-		        style="@style/formScreenLabelNormal"
-		        android:text="@string/focal_ratio"
-		        />
-		    
-		    <EditText 
-		        style="@style/formScreenTextFieldNormal"
-		        android:id="@+id/telescope_focal_ratio"
-		        android:maxLines="1"
-		        android:inputType="numberDecimal"
-		        android:layout_width="60dp" 
-		        android:layout_height="wrap_content"
-		        />
-	        
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:id="@+id/length_layout"
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingTop="5dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="wrap_content" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="10dp"
-	        android:gravity="center_horizontal"
-	        android:layout_below="@id/ratio_layout"
-	        >
-	    
-		    <TextView
-		        style="@style/formScreenLabelNormal"
+		        style="@style/formScreenLabelNight"
 		        android:text="@string/focal_length"
 		        />
 		    
 		    <EditText 
-		        style="@style/formScreenTextFieldNormal"
-		        android:id="@+id/telescope_focal_length"
+		        style="@style/formScreenTextFieldNight"
+		        android:id="@+id/eyepiece_focal_length"
 		        android:maxLines="1"
 		        android:inputType="numberDecimal"
 		        android:layout_width="75dp" 
@@ -127,7 +60,7 @@
 		        />
 		    
 		    <Button 
-		        style="@style/formItemButtonNormal"
+		        style="@style/formItemButtonNight"
 		        android:id="@+id/focal_length_unit"
 		        android:layout_width="40dp" 
 		        android:text="mm"	        
@@ -150,13 +83,13 @@
 	        >
 	    
 		    <TextView
-		        style="@style/formScreenLabelNormal"
+		        style="@style/formScreenLabelNight"
 		        android:text="@string/type"
 		        />
 		    
 		    <EditText 
-		        style="@style/formScreenTextFieldNormal"
-		        android:id="@+id/telescope_type"
+		        style="@style/formScreenTextFieldNight"
+		        android:id="@+id/eyepiece_type"
 		        android:maxLines="1"
 		        android:layout_width="175dp" 
 		        android:layout_height="wrap_content"
@@ -177,7 +110,8 @@
 	        >
 		    
 		    <Button 
-		        android:id="@+id/telescope_save"
+				style="@style/modalSaveCancelButtonNight"
+		        android:id="@+id/eyepiece_save"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="33"
@@ -186,7 +120,8 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/telescope_cancel"
+				style="@style/modalSaveCancelButtonNight"
+		        android:id="@+id/eyepiece_cancel"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="33"
@@ -206,13 +141,13 @@
     	/>
     
     <include android:id="@+id/alert_modal"
-        layout="@layout/alert_modal"
+        layout="@layout/alert_modal_night"
         android:layout_gravity="center|center"
         />
     
     <include android:id="@+id/keyboard_root" 
-        layout="@layout/keyboard_layout_normal"
-        android:layout_gravity="bottom"
+        layout="@layout/keyboard_layout_night"
+        android:layout_gravity="top"
         />
 	    
 </FrameLayout>

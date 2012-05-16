@@ -48,6 +48,7 @@
     <string name="add_telescope">Add Telescope</string>
     <string name="add_eyepiece">Add Eyepiece</string>
     <string name="add_edit_telescope">Add/Edit Telescope</string>
+    <string name="add_edit_eyepiece">Add/Edit Eyepiece</string>
     <string name="primary_diameter">Primary Diameter:</string>
     <string name="focal_ratio">Focal Ratio: f/</string>
     <string name="focal_length">Focal Length:</string>
