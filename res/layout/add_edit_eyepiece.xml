@@ -54,7 +54,7 @@
 		        style="@style/formScreenTextFieldNormal"
 		        android:id="@+id/eyepiece_focal_length"
 		        android:maxLines="1"
-		        android:inputType="numberDecimal"
+		        android:inputType="none"
 		        android:layout_width="75dp" 
 		        android:layout_height="wrap_content"
 		        />
@@ -93,6 +93,7 @@
 		        android:maxLines="1"
 		        android:layout_width="175dp" 
 		        android:layout_height="wrap_content"
+		        android:inputType="none"
 		        />
 	        
 	    </LinearLayout>
@@ -145,7 +146,7 @@
     
     <include android:id="@+id/keyboard_root" 
         layout="@layout/keyboard_layout_normal"
-        android:layout_gravity="top"
+        android:layout_gravity="bottom"
         />
 	    
 </FrameLayout>

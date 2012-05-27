@@ -19,6 +19,8 @@
 #*/Catalogs/*
 .metadata
 .project
+*.settings/*
+*/.classpath
 
 
 # MS VS performance output file

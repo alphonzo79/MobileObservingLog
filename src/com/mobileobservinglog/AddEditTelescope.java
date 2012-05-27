@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.EditText;
 
 public class AddEditTelescope extends ActivityBase {
 
@@ -27,10 +28,10 @@ public class AddEditTelescope extends ActivityBase {
 	Button focalLengthUnit;
 	Button save;
 	Button cancel;
-	TextView primaryDiameter;
-	TextView focalRatio;
-	TextView focalLength;
-	TextView type;
+	EditText primaryDiameter;
+	EditText focalRatio;
+	EditText focalLength;
+	EditText type;
 
 	RelativeLayout alertModal;
 	TextView alertText;
@@ -72,10 +73,10 @@ public class AddEditTelescope extends ActivityBase {
 	}
 	
 	private void findTextFields(){
-		primaryDiameter = (TextView)findViewById(R.id.telescope_primary_diameter);
-		focalRatio = (TextView)findViewById(R.id.telescope_focal_ratio);
-		focalLength = (TextView)findViewById(R.id.telescope_focal_length);
-		type = (TextView)findViewById(R.id.telescope_type);
+		primaryDiameter = (EditText)findViewById(R.id.telescope_primary_diameter);
+		focalRatio = (EditText)findViewById(R.id.telescope_focal_ratio);
+		focalLength = (EditText)findViewById(R.id.telescope_focal_length);
+		type = (EditText)findViewById(R.id.telescope_type);
 	}
 	
 	private void populateFields(){
