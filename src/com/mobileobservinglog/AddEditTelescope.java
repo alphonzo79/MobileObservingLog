@@ -2,15 +2,23 @@ package com.mobileobservinglog;
 
 import java.util.List;
 
+import com.mobileobservinglog.softkeyboard.SoftKeyboard;
+import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.FrameLayout;
@@ -37,6 +45,9 @@ public class AddEditTelescope extends ActivityBase {
 	TextView alertText;
 	Button alertEdit;
 	Button alertDelete;
+	
+	FrameLayout keyboardRoot;
+	SoftKeyboard keyboardDriver;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -77,6 +88,16 @@ public class AddEditTelescope extends ActivityBase {
 		focalRatio = (EditText)findViewById(R.id.telescope_focal_ratio);
 		focalLength = (EditText)findViewById(R.id.telescope_focal_length);
 		type = (EditText)findViewById(R.id.telescope_type);
+		
+		primaryDiameter.setOnClickListener(showNumbers);
+		focalRatio.setOnClickListener(showNumbers);
+		focalLength.setOnClickListener(showNumbers);
+		type.setOnClickListener(showLetters);
+		
+		primaryDiameter.setInputType(InputType.TYPE_NULL);
+		focalRatio.setInputType(InputType.TYPE_NULL);
+		focalLength.setInputType(InputType.TYPE_NULL);
+		type.setInputType(InputType.TYPE_NULL);
 	}
 	
 	private void populateFields(){
@@ -230,6 +251,36 @@ public class AddEditTelescope extends ActivityBase {
     	}
     };
     
+    protected final EditText.OnClickListener showNumbers = new EditText.OnClickListener(){
+    	public void onClick(View view){
+    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+    		keyboardRoot.setVisibility(View.VISIBLE);
+    		if(keyboardDriver != null)
+    			keyboardDriver = null;
+    		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
+    	}
+    };
+    
+    protected final EditText.OnClickListener showLetters = new EditText.OnClickListener(){
+    	public void onClick(View view){
+    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+    		keyboardRoot.setVisibility(View.VISIBLE);
+    		if(keyboardDriver != null)
+    			tearDownKeyboard();
+    		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) view, TargetInputType.LETTERS);
+    	}
+    };
+    
+    private void tearDownKeyboard(){
+    	keyboardDriver.hideAll();
+    	keyboardRoot.setVisibility(View.INVISIBLE);
+    	keyboardDriver = null;
+    }
+    
     private void saveData(){
     	String thisType = type.getText().toString();
     	String diameter = primaryDiameter.getText().toString() + " " + primaryUnit.getText().toString();
@@ -293,24 +344,29 @@ public class AddEditTelescope extends ActivityBase {
     private boolean checkMeasurements(){
     	boolean retVal = false;
     	
-    	//Get focal length, ratio and primary diameter
-    	float diameter = Float.parseFloat(primaryDiameter.getText().toString());
-    	float ratio = Float.parseFloat(focalRatio.getText().toString());
-    	float length = Float.parseFloat(focalLength.getText().toString());
-    	//Convert all to mm
-    	if(primaryUnit.getText().toString().equals(getString(R.string.inches))){
-    		diameter = diameter * 25.4f;
+    	try{
+	    	//Get focal length, ratio and primary diameter
+	    	float diameter = Float.parseFloat(primaryDiameter.getText().toString());
+	    	float ratio = Float.parseFloat(focalRatio.getText().toString());
+	    	float length = Float.parseFloat(focalLength.getText().toString());
+	    	//Convert all to mm
+	    	if(primaryUnit.getText().toString().equals(getString(R.string.inches))){
+	    		diameter = diameter * 25.4f;
+	    	}
+	    	if(focalLengthUnit.getText().toString().equals(getString(R.string.inches))){
+	    		length = length * 25.4f;
+	    	}
+	    	//Check if they agree within 1.5%
+	    	float figuredLength = diameter * ratio;
+	    	float minThresh = figuredLength * 0.985f;
+	    	float maxThresh = figuredLength * 1.015f;
+	    	
+	    	if(minThresh < length && length < maxThresh){
+	    		retVal = true;
+	    	}
     	}
-    	if(focalLengthUnit.getText().toString().equals(getString(R.string.inches))){
-    		length = length * 25.4f;
-    	}
-    	//Check if they agree within 1.5%
-    	float figuredLength = diameter * ratio;
-    	float minThresh = figuredLength * 0.985f;
-    	float maxThresh = figuredLength * 1.015f;
-    	
-    	if(minThresh < length && length < maxThresh){
-    		retVal = true;
+    	catch(NumberFormatException e){
+    		//return false
     	}
     	
     	return retVal;
@@ -320,8 +376,13 @@ public class AddEditTelescope extends ActivityBase {
     //that one when the back button is pressed.
     @Override
     public void onBackPressed() {
-    	Intent intent = new Intent(this, ManageEquipmentScreen.class);
-        startActivity(intent);
-        finish();
+		if(keyboardDriver != null){
+			tearDownKeyboard();
+		}
+		else{
+	    	Intent intent = new Intent(this, ManageEquipmentScreen.class);
+	        startActivity(intent);
+	        finish();
+		}
     }
 }

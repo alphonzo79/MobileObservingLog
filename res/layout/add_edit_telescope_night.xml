@@ -54,7 +54,7 @@
 		        style="@style/formScreenTextFieldNight"
 		        android:id="@+id/telescope_primary_diameter"
 		        android:maxLines="1"
-		        android:inputType="none"
+		        android:inputType="numberDecimal"
 		        android:layout_width="75dp" 
 		        android:layout_height="wrap_content"
 		        />
@@ -91,7 +91,7 @@
 		        style="@style/formScreenTextFieldNight"
 		        android:id="@+id/telescope_focal_ratio"
 		        android:maxLines="1"
-		        android:inputType="none"
+		        android:inputType="numberDecimal"
 		        android:layout_width="60dp" 
 		        android:layout_height="wrap_content"
 		        />
@@ -121,7 +121,7 @@
 		        style="@style/formScreenTextFieldNight"
 		        android:id="@+id/telescope_focal_length"
 		        android:maxLines="1"
-		        android:inputType="none"
+		        android:inputType="numberDecimal"
 		        android:layout_width="75dp" 
 		        android:layout_height="wrap_content"
 		        />
@@ -160,7 +160,6 @@
 		        android:maxLines="1"
 		        android:layout_width="175dp" 
 		        android:layout_height="wrap_content"
-		        android:inputType="none"
 		        />
 	        
 	    </LinearLayout>

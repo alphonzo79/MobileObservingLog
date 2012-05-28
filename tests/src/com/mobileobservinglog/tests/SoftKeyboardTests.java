@@ -5,23 +5,24 @@ import android.app.Instrumentation;
 import android.test.SingleLaunchActivityTestCase;
 import android.widget.EditText;
 
-import com.mobileobservinglog.ObservingLogActivity;
+import com.mobileobservinglog.AddEditEyepiece;
 import com.mobileobservinglog.SettingsContainer;
 import com.mobileobservinglog.SettingsContainer.SessionMode;
 import com.mobileobservinglog.softkeyboard.SoftKeyboardTestHook;
+import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 
-public class SoftKeyboardTests extends SingleLaunchActivityTestCase<com.mobileobservinglog.ObservingLogActivity>{
+public class SoftKeyboardTests extends SingleLaunchActivityTestCase<com.mobileobservinglog.AddEditEyepiece>{
 	
 	//Class Under Test
 	SoftKeyboardTestHook mCut = null;
-	ObservingLogActivity mAut = null;
+	AddEditEyepiece mAut = null;
 	Instrumentation mInstrumentation = null;
 	
 	//Text field to use
 	EditText textField;
 	
 	public SoftKeyboardTests(){
-		super("com.mobileobservinglog", ObservingLogActivity.class);
+		super("com.mobileobservinglog", AddEditEyepiece.class);
 	}
 
 	/**
@@ -30,9 +31,10 @@ public class SoftKeyboardTests extends SingleLaunchActivityTestCase<com.mobileob
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		textField = new EditText(mAut);
-		mCut = new SoftKeyboardTestHook(mAut, textField);
 		mAut = getActivity();
+		//textField = (EditText)mAut.findViewById(com.mobileobservinglog.R.id.eyepiece_type);
+		textField = new EditText(mAut);
+		mCut = new SoftKeyboardTestHook(mAut, textField, TargetInputType.LETTERS);
 		mInstrumentation = getInstrumentation();
 	}
 
@@ -54,7 +56,98 @@ public class SoftKeyboardTests extends SingleLaunchActivityTestCase<com.mobileob
 		textField.setSelection(9);
 		mCut.testInsertText('!');
 		String foundText = textField.getText().toString();
-		Assert.assertEquals("test text!", foundText);
+		Assert.assertEquals("Failed to add text at the end", "test text!", foundText);
 	}
 
+	/**
+	 * Test method for {@link com.mobileobservinglog.softkeyboard.SoftKeyboard#insertText()}.
+	 * 
+	 */
+	public void testInsertTextAtBeginning() {
+		textField.setText("test text");
+		textField.setSelection(0);
+		mCut.testInsertText('!');
+		String foundText = textField.getText().toString();
+		Assert.assertEquals("Failed to add text at the beginning", "!test text", foundText);
+	}
+
+	/**
+	 * Test method for {@link com.mobileobservinglog.softkeyboard.SoftKeyboard#insertText()}.
+	 * 
+	 */
+	public void testInsertTextInMiddle() {
+		textField.setText("test text");
+		textField.setSelection(3);
+		mCut.testInsertText('!');
+		String foundText = textField.getText().toString();
+		Assert.assertEquals("Failed to add text in the middle", "tes!t text", foundText);
+	}
+
+	/**
+	 * Test method for {@link com.mobileobservinglog.softkeyboard.SoftKeyboard#insertText()}.
+	 * 
+	 */
+	public void testInsertTextInSelection() {
+		textField.setText("test text");
+		textField.setSelection(3, 7);
+		mCut.testInsertText('!');
+		String foundText = textField.getText().toString();
+		Assert.assertEquals("Failed to add text in place of a selection", "tes!xt", foundText);
+	}
+
+	/**
+	 * Test method for {@link com.mobileobservinglog.softkeyboard.SoftKeyboard#handleBackspace()}.
+	 * 
+	 */
+	public void testHandleBackspaceAtEnd() {
+		textField.setText("test text");
+		textField.setSelection(9);
+		mCut.testHandleBackspace();
+		String foundText = textField.getText().toString();
+		String expected = "test tex";
+		Assert.assertEquals("Failed to remove a character at the end. Expected: " + expected + ". Found: " + foundText, expected, foundText);
+		Assert.assertEquals("The cursor is in the wrong spot", 8, textField.getSelectionStart());
+	}
+
+	/**
+	 * Test method for {@link com.mobileobservinglog.softkeyboard.SoftKeyboard#handleBackspace()}.
+	 * 
+	 */
+	public void testHandleBackspaceAtBeginning() {
+		textField.setText("test text");
+		textField.setSelection(0);
+		mCut.testHandleBackspace();
+		String foundText = textField.getText().toString();
+		String expected = "test text";
+		Assert.assertEquals("Failed to handle the backspace at the beginning. Expected: " + expected + ". Found: " + foundText, expected, foundText);
+		Assert.assertEquals("The cursor is in the wrong spot", 0, textField.getSelectionStart());
+	}
+
+	/**
+	 * Test method for {@link com.mobileobservinglog.softkeyboard.SoftKeyboard#handleBackspace()}.
+	 * 
+	 */
+	public void testHandleBackspaceInMiddle() {
+		textField.setText("test text");
+		textField.setSelection(5);
+		mCut.testHandleBackspace();
+		String foundText = textField.getText().toString();
+		String expected = "testtext";
+		Assert.assertEquals("Failed to delete text in the middle. Expected: " + expected + ". Found: " + foundText, expected, foundText);
+		Assert.assertEquals("The cursor is in the wrong spot", 4, textField.getSelectionStart());
+	}
+
+	/**
+	 * Test method for {@link com.mobileobservinglog.softkeyboard.SoftKeyboard#handleBackspace()}.
+	 * 
+	 */
+	public void testHandleBackspaceWithSelection() {
+		textField.setText("test text");
+		textField.setSelection(2, 7);
+		mCut.testHandleBackspace();
+		String foundText = textField.getText().toString();
+		String expected = "text";
+		Assert.assertEquals("Failed to delete a chunk of text. Expected: " + expected + ". Found: " + foundText, expected, foundText);
+		Assert.assertEquals("The cursor is in the wrong spot", 2, textField.getSelectionStart());
+	}
 }

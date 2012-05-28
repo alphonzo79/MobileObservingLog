@@ -1,8 +1,11 @@
 package com.mobileobservinglog.softkeyboard;
 
+import java.nio.CharBuffer;
+
 import com.mobileobservinglog.R;
 
 import android.app.Activity;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
@@ -115,14 +118,16 @@ public class SoftKeyboard{
 	Button numSpace;
 	Button letters;
 	
-	public SoftKeyboard(Activity context, EditText textView){
+	public SoftKeyboard(Activity context, EditText textView, TargetInputType input){
 		this.context = context;
 		targetTextView = textView;
 		findLayouts();
 		findButtons();
 		setListeners();
 		
-		if(textView.getInputType() == InputType.TYPE_NUMBER_FLAG_DECIMAL){
+		hideAll();
+		
+		if(input == TargetInputType.NUMBER_DECIMAL){
 			lowerCase.setVisibility(View.INVISIBLE);
 			upperCase.setVisibility(View.INVISIBLE);
 			numberLayout.setVisibility(View.VISIBLE);
@@ -132,6 +137,11 @@ public class SoftKeyboard{
 			numberLayout.setVisibility(View.INVISIBLE);
 			lowerCase.setVisibility(View.VISIBLE);
 		}
+	}
+	
+	public static enum TargetInputType{
+		NUMBER_DECIMAL,
+		LETTERS
 	}
 	
 	private void findLayouts(){
@@ -340,14 +350,57 @@ public class SoftKeyboard{
 		letters.setOnClickListener(showLowerCase);
 	}
 	
+	public void hideAll(){
+		lowerCase.setVisibility(View.INVISIBLE);
+		upperCase.setVisibility(View.INVISIBLE);
+		numberLayout.setVisibility(View.INVISIBLE);
+	}
+	
 	protected void insertText(char character){
-		//TODO
-		//How do I handle cursor position and mid-text editing?
-		//Other conditions I need to consider and handle: Selected Text
+		//Get the position of the cursor
+		int cursorStart = targetTextView.getSelectionStart();
+		int cursorEnd = targetTextView.getSelectionEnd();
+		Editable text = targetTextView.getText();
+		char[] input = new char[]{character};
+		
+		if(cursorStart > cursorEnd){//if the selection was made from right to left
+			int temp = cursorStart;
+			cursorStart = cursorEnd;
+			cursorEnd = temp;
+		}
+		
+		text = text.replace(cursorStart, cursorEnd, CharBuffer.wrap(input));
+
+		//Set the text
+		targetTextView.setText(text);
+		//set the cursor position
+		targetTextView.setSelection(cursorStart + 1);
 	}
 	
 	protected void handleBackspace(){
-		//TODO
+		//Get the position of the cursor
+		int cursorStart = targetTextView.getSelectionStart();
+		int cursorEnd = targetTextView.getSelectionEnd();
+		Editable text = targetTextView.getText();
+		
+		if(cursorStart > cursorEnd){//if the selection was made from right to left
+			int temp = cursorStart;
+			cursorStart = cursorEnd;
+			cursorEnd = temp;
+		}
+		
+		//Set the text
+		//set the cursor position
+		if(cursorStart < cursorEnd || cursorStart == 0){
+			text = text.replace(cursorStart, cursorEnd, "");
+			targetTextView.setText(text);
+			targetTextView.setSelection(cursorStart);
+		}
+		else{
+			text = text.replace(cursorStart - 1, cursorEnd, "");
+			targetTextView.setText(text);
+			targetTextView.setSelection(cursorStart - 1);
+		}
 	}
 	
 	protected final Button.OnClickListener inputLowerQ = new Button.OnClickListener(){
