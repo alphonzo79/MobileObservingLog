@@ -55,4 +55,5 @@
     <string name="type">Type:</string>
     <string name="millimeters">mm</string>
     <string name="inches">in</string>
+    <string name="add_location">Add Observing Location</string>
 </resources>

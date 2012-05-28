@@ -105,8 +105,8 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
 		alertDelete.setVisibility(View.VISIBLE);
 		alertCancel.setText("Cancel");
 		alertCancel.setOnClickListener(cancelSelect);
-		alertDelete.setTextSize(16f);
-		alertDelete.setPadding(10, 10, 10, 10);
+		alertCancel.setTextSize(16f);
+		alertCancel.setPadding(10, 10, 10, 10);
 		alertCancel.setVisibility(View.VISIBLE);
 		alertModal.setVisibility(View.VISIBLE);
 	}
@@ -138,6 +138,7 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
     		db.deleteEyepieceData(listItemId);
     		db.close();
     		Intent intent = new Intent(EyepiecesTab.this.getParent(), ManageEquipmentScreen.class);
+	    	intent.putExtra("com.mobileobservinglog.ActiveTab", "Eyepieces");
             startActivity(intent);
             finish();
     	}

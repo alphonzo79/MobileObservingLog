@@ -44,7 +44,14 @@ public class ManageEquipmentScreen extends TabActivity {
         intent = new Intent().setClass(this, EyepiecesTab.class);
         setupTabIndicator(intent, R.string.manage_eyepieces_tab);
 
-        tabHost.setCurrentTab(0);
+        String activeTab = this.getIntent().getStringExtra("com.mobileobservinglog.ActiveTab");
+        
+        if(activeTab != null && activeTab.equals("Eyepieces")){
+        	tabHost.setCurrentTab(1);
+        }
+        else{
+        	tabHost.setCurrentTab(0);
+        }
 	}
 	
 	private void setupTabIndicator(Intent intent, int labelId){

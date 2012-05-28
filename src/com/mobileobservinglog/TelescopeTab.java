@@ -93,7 +93,6 @@ public class TelescopeTab extends ManageEquipmentTabParent {
 	{
 		listItemId = telescopeList.get(position).id;
 		telescopeDescription = getTelescopeDescription(position);
-		Log.d("TelescopeTab", "onListItemClick: telescopeDescription is " + telescopeDescription);
 		prepForModal();
 		alertText.setText("Edit or delete the telescope " + telescopeDescription + "?");
 		alertText.setVisibility(View.VISIBLE);

@@ -125,8 +125,6 @@ public class SoftKeyboard{
 		findButtons();
 		setListeners();
 		
-		hideAll();
-		
 		if(input == TargetInputType.NUMBER_DECIMAL){
 			lowerCase.setVisibility(View.INVISIBLE);
 			upperCase.setVisibility(View.INVISIBLE);

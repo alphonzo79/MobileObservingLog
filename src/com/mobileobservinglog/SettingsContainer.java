@@ -192,6 +192,14 @@ public final class SettingsContainer {
 		mManageLocationsLayout = layout;
 	}
 	
+	private int mLocationsLayout;
+	public int getLocationsLayout(){
+		return mLocationsLayout;
+	}
+	private void setLocationsLayout(int layout){
+		mLocationsLayout = layout;
+	}
+	
 	private int mPersonalInfoLayout;
 	public int getPersonalInfoLayout(){
 		return mPersonalInfoLayout;
@@ -214,6 +222,22 @@ public final class SettingsContainer {
 	}
 	private void setAddEditEyepieceLayout(int layout){
 		mAddEditEyepieceLayout = layout;
+	}
+	
+	private int mAddEditLocationsLayout;
+	public int getAddEditLocationsLayout(){
+		return mAddEditLocationsLayout;
+	}
+	private void setAddEditLocationsLayout(int layout){
+		mAddEditLocationsLayout = layout;
+	}
+	
+	private int mViewLocationsLayout;
+	public int getViewLocationsLayout(){
+		return mViewLocationsLayout;
+	}
+	private void setViewLocationsLayout(int layout){
+		mViewLocationsLayout = layout;
 	}
 	
 	//Options Menu toggle mode button text changes according to the mode.
@@ -297,6 +321,9 @@ public final class SettingsContainer {
 		setPersonalInfoLayout(R.layout.personal_info_screen_night);
 		setAddEditTelescopeLayout(R.layout.add_edit_telescope_night);
 		setAddEditEyepieceLayout(R.layout.add_edit_eyepiece_night);
+		setAddEditLocationsLayout(R.layout.add_edit_locations_screen_night);
+		setViewLocationsLayout(R.layout.view_locations_screen_night);
+		setLocationsLayout(R.layout.locations_list_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setCheckbox_Selected(R.drawable.checked_night);
 		setCheckbox_Unselected(R.drawable.unchecked_night);
@@ -327,6 +354,9 @@ public final class SettingsContainer {
 		setPersonalInfoLayout(R.layout.personal_info_screen);
 		setAddEditTelescopeLayout(R.layout.add_edit_telescope);
 		setAddEditEyepieceLayout(R.layout.add_edit_eyepiece);
+		setAddEditLocationsLayout(R.layout.add_edit_locations_screen);
+		setViewLocationsLayout(R.layout.view_locations_screen);
+		setLocationsLayout(R.layout.locations_list_normal);
 		setTabIndicator(R.layout.tab_indicator_layout);
 		setCheckbox_Selected(R.drawable.checked_normal);
 		setCheckbox_Unselected(R.drawable.unchecked_normal);

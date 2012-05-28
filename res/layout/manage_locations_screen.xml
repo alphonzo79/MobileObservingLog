@@ -1,31 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/layoutRootNormal"
     android:id="@+id/manage_locations_root"
     >
     
-    <TextView 
-	    style="@style/headerBarNormal" 
-	    android:id="@+id/manage_locations_header"
-	    android:text="@string/app_name"
-	    />
-	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/settings_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	>
     
-    <TextView 
-	    android:id="@+id/temp_text"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    android:text="Manage Locations Screen"
-	    android:textColor="@color/black"
-	    android:gravity="center|center_vertical"
-	    android:padding="2dp"
-	    android:textStyle="bold"
-	    />
+	    <TextView 
+		    style="@style/headerBarNormal" 
+		    android:id="@+id/manage_locations_header"
+		    android:text="@string/app_name"
+		    />
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         />
 	    
-</LinearLayout>
+	    <TextView 
+	        android:id="@+id/nothing_here"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone"
+	        android:textSize="14dp"
+	        android:paddingTop="25dp"
+	        android:paddingLeft="15dp"
+	        android:paddingRight="15dp"
+	        android:textColor="@color/black"
+	        android:layout_below="@android:id/list"
+	        />
+	    
+	    <Button
+	        android:id="@+id/add_equipment_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_margin="10dp"
+	        android:layout_below="@id/nothing_here" 
+	        android:text="@string/add_location"
+	        />
+    
+    </RelativeLayout>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="center|center"
+        />
+	    
+</FrameLayout>

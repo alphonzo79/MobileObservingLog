@@ -1,28 +1,18 @@
 package com.mobileobservinglog;
 
-import java.util.List;
-
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.EditText;
@@ -256,9 +246,9 @@ public class AddEditTelescope extends ActivityBase {
     		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-    		keyboardRoot.setVisibility(View.VISIBLE);
     		if(keyboardDriver != null)
     			keyboardDriver = null;
+    		keyboardRoot.setVisibility(View.VISIBLE);
     		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
     	}
     };
@@ -268,9 +258,9 @@ public class AddEditTelescope extends ActivityBase {
     		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-    		keyboardRoot.setVisibility(View.VISIBLE);
     		if(keyboardDriver != null)
     			tearDownKeyboard();
+    		keyboardRoot.setVisibility(View.VISIBLE);
     		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) view, TargetInputType.LETTERS);
     	}
     };
