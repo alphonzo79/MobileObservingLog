@@ -5,6 +5,7 @@ import java.nio.CharBuffer;
 import com.mobileobservinglog.R;
 
 import android.app.Activity;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.RelativeLayout;
 public class SoftKeyboard{
 	EditText targetTextView;
 	Activity context;
+	
+	Vibrator vibrator;
 	
 	RelativeLayout lowerCase;
     RelativeLayout upperCase;
@@ -121,6 +124,7 @@ public class SoftKeyboard{
 	public SoftKeyboard(Activity context, EditText textView, TargetInputType input){
 		this.context = context;
 		targetTextView = textView;
+		vibrator = (Vibrator)context.getSystemService(context.VIBRATOR_SERVICE);
 		findLayouts();
 		findButtons();
 		setListeners();
@@ -360,6 +364,7 @@ public class SoftKeyboard{
 		int cursorEnd = targetTextView.getSelectionEnd();
 		Editable text = targetTextView.getText();
 		char[] input = new char[]{character};
+		vibrator.vibrate(100);
 		
 		if(cursorStart > cursorEnd){//if the selection was made from right to left
 			int temp = cursorStart;
@@ -380,6 +385,7 @@ public class SoftKeyboard{
 		int cursorStart = targetTextView.getSelectionStart();
 		int cursorEnd = targetTextView.getSelectionEnd();
 		Editable text = targetTextView.getText();
+		vibrator.vibrate(100);
 		
 		if(cursorStart > cursorEnd){//if the selection was made from right to left
 			int temp = cursorStart;
