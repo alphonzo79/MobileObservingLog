@@ -35,10 +35,16 @@ public class AddEditEyepiece extends ActivityBase {
 	
 	FrameLayout keyboardRoot;
 	SoftKeyboard keyboardDriver;
+	
+	int firstFocus; //used to control the keyboard showing on first load
+	int firstClick;
     
     @Override
     public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+        
+        firstFocus = -1;
+        firstClick = 1;
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		
@@ -51,6 +57,27 @@ public class AddEditEyepiece extends ActivityBase {
         findTextFields();
         populateFields();
 	}
+	
+	@Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
+    @Override
+    public void onResume() {
+		Log.d("JoeDebug", "AddEditEyepiece onResume. Current session mode is " + settingsRef.getSessionMode());
+        super.onResume();
+        
+        firstFocus = -1;
+        firstClick = 1;
+        setLayout();
+    }
 	
 	private void findModalElements(){
 		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
@@ -74,6 +101,9 @@ public class AddEditEyepiece extends ActivityBase {
 		
 		focalLength.setOnClickListener(showNumbers);
 		type.setOnClickListener(showLetters);
+		
+		focalLength.setOnFocusChangeListener(showNumbers_focus);
+		type.setOnFocusChangeListener(showLetters_focus);
 		
 		focalLength.setInputType(InputType.TYPE_NULL);
 		type.setInputType(InputType.TYPE_NULL);
@@ -108,24 +138,6 @@ public class AddEditEyepiece extends ActivityBase {
 		int index = mmIndex + inIndex + 1;
 		return rawString.substring(0, index);
 	}
-	
-	@Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
-    @Override
-    public void onResume() {
-		Log.d("JoeDebug", "AddEditEyepiece onResume. Current session mode is " + settingsRef.getSessionMode());
-        super.onResume();
-        setLayout();
-    }
 	
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
@@ -199,32 +211,76 @@ public class AddEditEyepiece extends ActivityBase {
     
     protected final EditText.OnClickListener showNumbers = new EditText.OnClickListener(){
     	public void onClick(View view){
-    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-    		if(keyboardDriver != null)
-    			keyboardDriver = null;
-    		keyboardRoot.setVisibility(View.VISIBLE);
-    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
+    		if(firstClick > 0){
+	    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+	    		if(keyboardDriver != null)
+	    			keyboardDriver = null;
+	    		keyboardRoot.setVisibility(View.VISIBLE);
+	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
+    		}
+    		firstClick = -1;
     	}
+    };
+    
+    protected final EditText.OnFocusChangeListener showNumbers_focus = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View view, boolean hasFocus) {
+			if(firstFocus > 0 && hasFocus){
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+	    		if(keyboardDriver != null)
+	    			keyboardDriver = null;
+	    		keyboardRoot.setVisibility(View.VISIBLE);
+	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
+			}
+			else{
+				tearDownKeyboard();
+			}
+			firstFocus = 1;
+		}
     };
     
     protected final EditText.OnClickListener showLetters = new EditText.OnClickListener(){
     	public void onClick(View view){
-    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-    		if(keyboardDriver != null)
-    			tearDownKeyboard();
-    		keyboardRoot.setVisibility(View.VISIBLE);
-    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.LETTERS);
+    		if(firstClick > 0){
+	    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+	    		if(keyboardDriver != null)
+	    			tearDownKeyboard();
+	    		keyboardRoot.setVisibility(View.VISIBLE);
+	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.LETTERS);
+    		}
+    		firstClick = -1;
     	}
     };
     
+    protected final EditText.OnFocusChangeListener showLetters_focus = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View view, boolean hasFocus) {
+			if(firstFocus > 0 && hasFocus){
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+	    		if(keyboardDriver != null)
+	    			keyboardDriver = null;
+	    		keyboardRoot.setVisibility(View.VISIBLE);
+	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.LETTERS);
+			}
+			else{
+				tearDownKeyboard();
+			}
+			firstFocus = 1;
+		}
+    };
+    
     private void tearDownKeyboard(){
-    	keyboardDriver.hideAll();
-    	keyboardRoot.setVisibility(View.INVISIBLE);
-    	keyboardDriver = null;
+    	if(keyboardDriver != null){
+	    	keyboardDriver.hideAll();
+	    	keyboardRoot.setVisibility(View.INVISIBLE);
+	    	keyboardDriver = null;
+    	}
     }
     
     private void saveData(){
