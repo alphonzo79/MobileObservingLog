@@ -29,7 +29,7 @@ import android.widget.TextView;
 public class ManageLocationsScreen extends ActivityBase {
 
 	//gather resources
-	LinearLayout body;
+	FrameLayout body;
 	Button addLocationButton;
 	RelativeLayout alertModal;
 	TextView alertText;
@@ -50,9 +50,9 @@ public class ManageLocationsScreen extends ActivityBase {
 		
         //setup the layout
         setContentView(settingsRef.getManageLocationsLayout());
-        body = (LinearLayout)findViewById(R.id.manage_locations_root); 
+        body = (FrameLayout)findViewById(R.id.manage_locations_root); 
         prepareListView();             
-        addLocationButton = (Button)findViewById(R.id.add_equipment_button);
+        addLocationButton = (Button)findViewById(R.id.add_location_button);
         addLocationButton.setOnClickListener(addLocation);
         findModalElements();
 	}
@@ -159,7 +159,7 @@ public class ManageLocationsScreen extends ActivityBase {
     protected final Button.OnClickListener editLocation = new Button.OnClickListener() {
 		public void onClick(View view){
 			//start new intent
-			Intent intent = new Intent(getApplication(), AddEditObservingLocation.class);
+			Intent intent = new Intent(ManageLocationsScreen.this.getApplication(), AddEditObservingLocation.class);
 			intent.putExtra("com.mobileobservinglog.LocationID", listItemId);
 	        startActivity(intent);
         }
@@ -177,10 +177,10 @@ public class ManageLocationsScreen extends ActivityBase {
     
     protected final Button.OnClickListener confirmDelete = new Button.OnClickListener(){
     	public void onClick(View view){
-    		DatabaseHelper db = new DatabaseHelper(getApplication());
+    		DatabaseHelper db = new DatabaseHelper(ManageLocationsScreen.this);
     		db.deleteTelescopeData(listItemId);
     		db.close();
-    		Intent intent = new Intent(getApplication(), ManageLocationsScreen.class);
+    		Intent intent = new Intent(ManageLocationsScreen.this.getApplication(), ManageLocationsScreen.class);
             startActivity(intent);
             finish();
     	}
@@ -189,7 +189,7 @@ public class ManageLocationsScreen extends ActivityBase {
     protected final Button.OnClickListener viewLocation = new Button.OnClickListener() {
 		public void onClick(View view){
 			//start new intent
-			Intent intent = new Intent(getApplication(), ViewObservingLocation.class);
+			Intent intent = new Intent(ManageLocationsScreen.this.getApplication(), ViewObservingLocation.class);
 			intent.putExtra("com.mobileobservinglog.LocationID", listItemId);
 	        startActivity(intent);
         }
@@ -203,7 +203,7 @@ public class ManageLocationsScreen extends ActivityBase {
     
     protected final Button.OnClickListener addLocation = new Button.OnClickListener(){
     	public void onClick(View view){
-    		Intent intent = new Intent(getApplication(), AddEditObservingLocation.class);
+    		Intent intent = new Intent(ManageLocationsScreen.this.getApplication(), AddEditObservingLocation.class);
 	        startActivity(intent);
     	}
     };
@@ -332,7 +332,7 @@ public class ManageLocationsScreen extends ActivityBase {
 		void populateFrom(LocationData location){
 			getName().setText(location.name);
 			getCoordinates().setText(location.coordinates);
-			getDescription().setText(location.description);
+			//getDescription().setText(location.description);
 			id = location.id;
 		}
 	}

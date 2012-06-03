@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -53,7 +54,29 @@ public class AddEditTelescope extends ActivityBase {
         findButtonsSetListeners();
         findTextFields();
         populateFields();
+		//set the keyboard so the back press below will dismiss it on first load.
+        keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText)primaryDiameter, TargetInputType.LETTERS);
+        dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 	}
+	
+	@Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
+    @Override
+    public void onResume() {
+		Log.d("JoeDebug", "AddEditTelescope onResume. Current session mode is " + settingsRef.getSessionMode());
+        super.onResume();
+        setLayout();
+    }
 	
 	private void findModalElements(){
 		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
@@ -79,10 +102,10 @@ public class AddEditTelescope extends ActivityBase {
 		focalLength = (EditText)findViewById(R.id.telescope_focal_length);
 		type = (EditText)findViewById(R.id.telescope_type);
 		
-		primaryDiameter.setOnClickListener(showNumbers);
-		focalRatio.setOnClickListener(showNumbers);
-		focalLength.setOnClickListener(showNumbers);
-		type.setOnClickListener(showLetters);
+		primaryDiameter.setOnFocusChangeListener(showNumbers_focus);
+		focalRatio.setOnFocusChangeListener(showNumbers_focus);
+		focalLength.setOnFocusChangeListener(showNumbers_focus);
+		type.setOnFocusChangeListener(showLetters_focus);
 		
 		primaryDiameter.setInputType(InputType.TYPE_NULL);
 		focalRatio.setInputType(InputType.TYPE_NULL);
@@ -126,24 +149,6 @@ public class AddEditTelescope extends ActivityBase {
 		return rawString.substring(0, index);
 	}
 	
-	@Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
-    @Override
-    public void onResume() {
-		Log.d("JoeDebug", "AddEditTelescope onResume. Current session mode is " + settingsRef.getSessionMode());
-        super.onResume();
-        setLayout();
-    }
-	
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
@@ -153,6 +158,11 @@ public class AddEditTelescope extends ActivityBase {
 		findTextFields();
 		populateFields();
 		body.postInvalidate();
+		//set the keyboard so the back press below will dismiss it on first load.
+        keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText)primaryDiameter, TargetInputType.LETTERS);
+        body.requestFocus();
+        dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 	}
     
     protected final Button.OnClickListener switchPrimaryUnits = new Button.OnClickListener(){
@@ -241,28 +251,32 @@ public class AddEditTelescope extends ActivityBase {
     	}
     };
     
-    protected final EditText.OnClickListener showNumbers = new EditText.OnClickListener(){
-    	public void onClick(View view){
-    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-    		if(keyboardDriver != null)
-    			keyboardDriver = null;
-    		keyboardRoot.setVisibility(View.VISIBLE);
-    		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
-    	}
+    protected final EditText.OnFocusChangeListener showNumbers_focus = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View arg0, boolean arg1) {
+			if(arg0.isFocused()){
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(arg0.getWindowToken(), 0);
+	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+	    		if(keyboardDriver != null)
+	    			keyboardDriver = null;
+	    		keyboardRoot.setVisibility(View.VISIBLE);
+	    		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) arg0, TargetInputType.NUMBER_DECIMAL);
+			}
+		}
     };
     
-    protected final EditText.OnClickListener showLetters = new EditText.OnClickListener(){
-    	public void onClick(View view){
-    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-    		if(keyboardDriver != null)
-    			tearDownKeyboard();
-    		keyboardRoot.setVisibility(View.VISIBLE);
-    		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) view, TargetInputType.LETTERS);
-    	}
+    protected final EditText.OnFocusChangeListener showLetters_focus = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View arg0, boolean arg1) {
+			if(arg0.isFocused()){
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(arg0.getWindowToken(), 0);
+	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+	    		if(keyboardDriver != null)
+	    			keyboardDriver = null;
+	    		keyboardRoot.setVisibility(View.VISIBLE);
+	    		keyboardDriver = new SoftKeyboard(AddEditTelescope.this, (EditText) arg0, TargetInputType.LETTERS);
+			}
+		}
     };
     
     private void tearDownKeyboard(){
