@@ -510,7 +510,110 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		int id = eyepieces.getInt(0);
 		mCut.deleteEyepieceData(id);
 		
-		eyepieces = mCut.getSavedTelescopes();
+		eyepieces = mCut.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 0, eyepieces.getCount());
+	}
+	
+	/**
+	 * Test method for {@link com.mobileobservinglog.DatabaseHelper.getSavedLocations())}.
+	 * this method inherently also tests addLocationData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetSavedLocations(){
+		Log.d("JoeDebug", "testGetSavedLocations");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		
+		Cursor locations = mCut.getSavedLocations();
+		assertEquals("We found the wrong number of rows", 1, locations.getCount());
+		assertEquals("We found the wrong data", "Reynolds Creek", locations.getString(1));
+		assertEquals("We found the wrong data", "45°28'55\" N, 114°33'01\" W", locations.getString(2));
+		assertEquals("We found the wrong data", "Out by Reynold's Creek.", locations.getString(3));
+		
+		//Clean up by deleting our seed data
+		int id = locations.getInt(0);
+		mCut.deleteLocationData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.mobileobservinglog.DatabaseHelper.getSavedLocation()}.
+	 * this method inherently also tests addLocationData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testGetSavedLocation(){
+		Log.d("JoeDebug", "testGetSavedLocation");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		
+		Cursor locations = mCut.getSavedLocations();
+		locations.moveToLast();
+		int id = locations.getInt(0);
+		
+		Cursor myLocationsCursor = mCut.getSavedLocation(id);
+		assertEquals("We found the wrong data", "Reynolds Creek", myLocationsCursor.getString(1));
+		assertEquals("We found the wrong data", "45°28'55\" N, 114°33'01\" W", myLocationsCursor.getString(2));
+		assertEquals("We found the wrong data", "Out by Reynold's Creek.", myLocationsCursor.getString(3));
+		
+		//Clean up by deleting our seed data
+		mCut.deleteLocationData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.mobileobservinglog.DatabaseHelper.updateLocationData()}.
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testUpdateLocationData(){
+		Log.d("JoeDebug", "testUpdateLocationData");
+		
+		//Since this table has nothing in it to start with we need to first stock it with some info
+		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		
+		Cursor locations = mCut.getSavedLocations();
+		assertEquals("We found the wrong number of rows", 1, locations.getCount());
+		assertEquals("We found the wrong data", "Reynolds Creek", locations.getString(1));
+		assertEquals("We found the wrong data", "45°28'55\" N, 114°33'01\" W", locations.getString(2));
+		assertEquals("We found the wrong data", "Out by Reynold's Creek.", locations.getString(3));
+		
+		//change the data
+		int id = locations.getInt(0);
+		mCut.updateLocationData(id, "My Back Yard", "35°28'55\" N, 114°33'01\" E", "Behind my house");
+		
+		//check the changed data
+		locations = mCut.getSavedEyepieces();
+		assertEquals("We found the wrong number of rows", 1, locations.getCount());
+		assertEquals("We found the wrong data", "My Back Yard", locations.getString(1));
+		assertEquals("We found the wrong data", "35°28'55\" N, 114°33'01\" E", locations.getString(2));
+		assertEquals("We found the wrong data", "Behind my house", locations.getString(3));
+		
+		//Clean up by deleting our seed data
+		id = locations.getInt(0);
+		mCut.deleteLocationData(id);
+	}
+	
+	/**
+	 * Test method for {@link com.mobileobservinglog.DatabaseHelper.deleteLocationData()}
+	 * this method inherently also tests addLocationData() since that test would be essentially the same
+	 * 
+	 * We will get a cursor from the method and check the contents against expectations
+	 */
+	public void testDeleteLocationData(){
+		Log.d("JoeDebug", "testDeleteLocationData");
+		
+		//Since this table has nothing in it to start with we need to first seed it with some info
+		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		
+		Cursor locations = mCut.getSavedLocations();
+		assertEquals("We found the wrong number of rows", 1, locations.getCount());
+		
+		int id = locations.getInt(0);
+		mCut.deleteLocationData(id);
+		
+		locations = mCut.getSavedLocations();
+		assertEquals("We found the wrong number of rows", 0, locations.getCount());
 	}
 }

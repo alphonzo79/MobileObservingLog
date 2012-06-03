@@ -672,7 +672,7 @@
 		    <Button 
 		        android:id="@+id/dollar"
 		        style="@style/keyboardButtonNormal"
-		        android:text="_"
+		        android:text="$"
 		        android:layout_weight="10"
 		        />
 		    
@@ -705,9 +705,9 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/underscore"
+		        android:id="@+id/degree"
 		        style="@style/keyboardButtonNormal"
-		        android:text="_"
+		        android:text="°"
 		        android:layout_weight="10"
 		        />
 		    

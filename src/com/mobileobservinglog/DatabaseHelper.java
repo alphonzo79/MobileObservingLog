@@ -692,4 +692,145 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		return success;
 	}
+	
+	/**
+	 * Called by the ManageLocations screen to get all saved observing locations in the database
+	 * @return
+	 */
+	public Cursor getSavedLocations(){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM locations WHERE _id IS NOT NULL";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
+	
+	public Cursor getSavedLocation(int id){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM locations WHERE _id = '" + id + "'";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+		
+		return retVal;
+	}
+	
+	/**
+	 * Called by ManageLocations screen to add a location to the database
+	 * @param locationName
+	 * @param coordinates
+	 * @param description
+	 * @return
+	 */
+	public boolean addLocationData(String locationName, String coordinates, String description){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("INSERT INTO locations (locationName, coordinates, description) VALUES (?, ?, ?)");
+			sqlStatement.bindString(1, locationName);
+			sqlStatement.bindString(2, coordinates);
+			sqlStatement.bindString(3, description);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
+	
+	/**
+	 * Called by the ManageLocations screen to update a location in the database
+	 * @param id
+	 * @param locationName
+	 * @param coordinates
+	 * @param description
+	 * @return
+	 */
+	public boolean updateLocationData(int id, String locationName, String coordinates, String description){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		String sql = "UPDATE locations SET locationName = ?, coordinates = ?, description = ? where _id = ?";
+		
+		SQLiteStatement sqlStatement = db.compileStatement(sql);
+			sqlStatement.bindString(1, locationName);
+			sqlStatement.bindString(2, coordinates);
+			sqlStatement.bindString(3, description);
+			sqlStatement.bindLong(4, id);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
+	
+	/**
+	 * Called by the ManageLocations Screen to delete a saved location
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteLocationData(int id){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("DELETE from locations WHERE _id = ?");
+		sqlStatement.bindLong(1, id);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
 }

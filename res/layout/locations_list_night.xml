@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_root"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dp"
-    android:gravity="left|center_vertical"
-    android:textSize="16sp"
-    android:textColor="@color/red"
-    android:textStyle="bold"  >
-</TextView>
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:gravity="center_horizontal"
+    >
+    
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/location_name"
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
+	    android:textColor="@color/red"
+	    android:textStyle="bold"
+	    />
+
+	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/location_coordinates"
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
+	    android:textColor="@color/red"
+	    android:textStyle="bold"
+	    android:layout_marginLeft="10dp"
+	    />
+
+	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/telescope_focal_length"
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
+	    android:textColor="@color/red"
+	    android:textStyle="bold"
+	    android:layout_marginLeft="10dp"
+	    />
+
+	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/location_description"
+	    android:layout_gravity="left|center_vertical"
+	    android:textSize="14sp" 
+	    android:textColor="@color/red"
+	    android:textStyle="bold"
+	    android:layout_marginLeft="10dp"
+	    />
+	
+</LinearLayout>

@@ -43,8 +43,8 @@
     <string name="progress_image_alt">Progress Image</string>
     <string name="manage_telescopes_tab">Manage Telescopes</string>
     <string name="manage_eyepieces_tab">Manage Eyepieces</string>
-    <string name="no_telescopes_installed">There are no telescopes currently installed.</string>
-    <string name="no_eyepieces_installed">There are no eyepieces currently installed.</string>
+    <string name="no_telescopes_installed">There are no telescopes currently saved.</string>
+    <string name="no_eyepieces_installed">There are no eyepieces currently saved.</string>
     <string name="add_telescope">Add Telescope</string>
     <string name="add_eyepiece">Add Eyepiece</string>
     <string name="add_edit_telescope">Add/Edit Telescope</string>
@@ -56,4 +56,5 @@
     <string name="millimeters">mm</string>
     <string name="inches">in</string>
     <string name="add_location">Add Observing Location</string>
+    <string name="no_locations_installed">There are no observing locations currently saved.</string>
 </resources>

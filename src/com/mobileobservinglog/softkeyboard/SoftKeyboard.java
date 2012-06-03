@@ -96,7 +96,7 @@ public class SoftKeyboard{
 	Button openParen;
 	Button closeParen;
 	Button at;
-	Button dollar;
+	Button degree;
 	Button minus;
 	Button underscore;
 	Button percent;
@@ -226,7 +226,7 @@ public class SoftKeyboard{
 		openParen = (Button)context.findViewById(com.mobileobservinglog.R.id.open_paren);
 		closeParen = (Button)context.findViewById(com.mobileobservinglog.R.id.close_paren);
 		at = (Button)context.findViewById(com.mobileobservinglog.R.id.at);
-		dollar = (Button)context.findViewById(com.mobileobservinglog.R.id.dollar);
+		degree = (Button)context.findViewById(com.mobileobservinglog.R.id.degree);
 		minus = (Button)context.findViewById(com.mobileobservinglog.R.id.minus);
 		underscore = (Button)context.findViewById(com.mobileobservinglog.R.id.underscore);
 		percent = (Button)context.findViewById(com.mobileobservinglog.R.id.percent);
@@ -326,7 +326,7 @@ public class SoftKeyboard{
 		openParen.setOnClickListener(inputOpenParen);
 		closeParen.setOnClickListener(inputCloseParen);
 		at.setOnClickListener(inputAt);
-		dollar.setOnClickListener(inputDollar);
+		degree.setOnClickListener(inputDegree);
 		minus.setOnClickListener(inputMinus);
 		underscore.setOnClickListener(inputUnderscore);
 		percent.setOnClickListener(inputPercent);
@@ -839,9 +839,9 @@ public class SoftKeyboard{
     	}
     };
 	
-	protected final Button.OnClickListener inputDollar = new Button.OnClickListener(){
+	protected final Button.OnClickListener inputDegree = new Button.OnClickListener(){
     	public void onClick(View view){
-    		insertText('$');
+    		insertText('°');
     	}
     };
 	
