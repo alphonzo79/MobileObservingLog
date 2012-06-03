@@ -549,9 +549,9 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/quote"
+		        android:id="@+id/uc_comma"
 		        style="@style/keyboardButtonNight"
-		        android:text='"'
+		        android:text=','
 		        android:layout_weight="10"
 		        />
 		    
@@ -563,9 +563,9 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/apostrophe"
+		        android:id="@+id/uc_period"
 		        style="@style/keyboardButtonNight"
-		        android:text="'"
+		        android:text="."
 		        android:layout_weight="10"
 		        />
 		    
@@ -583,7 +583,7 @@
     </RelativeLayout>
     
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/numbers_and_symbols"
+    	android:id="@+id/numbers_and_symbols_main"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:visibility="invisible"
@@ -639,16 +639,9 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/open_paren"
+		        android:id="@+id/multiply"
 		        style="@style/keyboardButtonNight"
-		        android:text="("
-		        android:layout_weight="10"
-		        />
-		    
-		    <Button 
-		        android:id="@+id/close_paren"
-		        style="@style/keyboardButtonNight"
-		        android:text=")"
+		        android:text="*"
 		        android:layout_weight="10"
 		        />
 		    
@@ -670,9 +663,9 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/degree"
+		        android:id="@+id/dollar"
 		        style="@style/keyboardButtonNight"
-		        android:text="°"
+		        android:text="$"
 		        android:layout_weight="10"
 		        />
 		    
@@ -711,13 +704,6 @@
 		        android:layout_weight="10"
 		        />
 		    
-		    <Button 
-		        android:id="@+id/percent"
-		        style="@style/keyboardButtonNight"
-		        android:text="%"
-		        android:layout_weight="10"
-		        />
-		    
 		</LinearLayout>
     
 		<LinearLayout
@@ -729,16 +715,18 @@
 		    >
 		    
 		    <Button 
-		        android:id="@+id/exclamation"
+		        android:id="@+id/num_shift"
 		        style="@style/keyboardButtonNight"
-		        android:text="!"
-		        android:layout_weight="10"
+		        android:text="shift"
+		        android:layout_weight="15"
+		        android:padding="0dp"
+		        android:textScaleX=".60"
 		        />
 		    
 		    <Button 
-		        android:id="@+id/question"
+		        android:id="@+id/ampersand"
 		        style="@style/keyboardButtonNight"
-		        android:text="\?"
+		        android:text="&"
 		        android:layout_weight="10"
 		        />
 		    
@@ -764,16 +752,9 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/multiply"
+		        android:id="@+id/divide"
 		        style="@style/keyboardButtonNight"
-		        android:text="*"
-		        android:layout_weight="10"
-		        />
-		    
-		    <Button 
-		        android:id="@+id/pound"
-		        style="@style/keyboardButtonNight"
-		        android:text="#"
+		        android:text="/"
 		        android:layout_weight="10"
 		        />
 		    
@@ -825,13 +806,6 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/divide"
-		        style="@style/keyboardButtonNight"
-		        android:text="/"
-		        android:layout_weight="10"
-		        />
-		    
-		    <Button 
 		        android:id="@+id/equals"
 		        style="@style/keyboardButtonNight"
 		        android:text="="
@@ -840,6 +814,241 @@
 		    
 		    <Button 
 		        android:id="@+id/num_enter"
+		        style="@style/keyboardButtonNight"
+		        android:text="enter"
+		        android:layout_weight="10"
+		        android:textScaleX=".70"
+		        />
+		    
+		</LinearLayout>
+	    
+    </RelativeLayout>
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/numbers_and_symbols_second"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:visibility="invisible"
+    	>
+    
+		<LinearLayout
+		    android:id="@+id/num_two_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/exclamation"
+		        style="@style/keyboardButtonNight"
+		        android:text="!"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/question"
+		        style="@style/keyboardButtonNight"
+		        android:text="\?"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_one"
+		        style="@style/keyboardButtonNight"
+		        android:text="1"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_two"
+		        style="@style/keyboardButtonNight"
+		        android:text="2"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_three"
+		        style="@style/keyboardButtonNight"
+		        android:text="3"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/open_paren"
+		        style="@style/keyboardButtonNight"
+		        android:text="("
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/close_paren"
+		        style="@style/keyboardButtonNight"
+		        android:text=")"
+		        android:layout_weight="10"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/num_two_second"
+		    android:layout_below="@id/num_top"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/pound"
+		        style="@style/keyboardButtonNight"
+		        android:text="#"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/percent"
+		        style="@style/keyboardButtonNight"
+		        android:text="%"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_four"
+		        style="@style/keyboardButtonNight"
+		        android:text="4"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_five"
+		        style="@style/keyboardButtonNight"
+		        android:text="5"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_six"
+		        style="@style/keyboardButtonNight"
+		        android:text="6"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/quote"
+		        style="@style/keyboardButtonNight"
+		        android:text='"'
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/apostrophe"
+		        style="@style/keyboardButtonNight"
+		        android:text="'"
+		        android:layout_weight="10"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/num_third"
+		    android:layout_below="@id/num_second"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/num_two_shift"
+		        style="@style/keyboardButtonNight"
+		        android:text="shift"
+		        android:layout_weight="15"
+		        android:padding="0dp"
+		        android:textScaleX=".60"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/carat"
+		        style="@style/keyboardButtonNight"
+		        android:text="^"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_seven"
+		        style="@style/keyboardButtonNight"
+		        android:text="7"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_eight"
+		        style="@style/keyboardButtonNight"
+		        android:text="8"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_nine"
+		        style="@style/keyboardButtonNight"
+		        android:text="9"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/degree"
+		        style="@style/keyboardButtonNight"
+		        android:text="°"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_backspace"
+		        style="@style/keyboardButtonNight"
+		        android:text="del"
+		        android:layout_weight="10"
+		        android:textScaleX=".70"
+		        />
+		    
+		</LinearLayout>
+    
+		<LinearLayout
+		    android:id="@+id/num_fourth"
+		    android:layout_below="@id/num_third"
+			android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:id="@+id/num_two_letters"
+		        style="@style/keyboardButtonNight"
+		        android:text="ABC"
+		        android:layout_weight="10"
+		        android:textScaleX=".70"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_space"
+		        style="@style/keyboardButtonNight"
+		        android:text="space"
+		        android:layout_weight="20"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_zero"
+		        style="@style/keyboardButtonNight"
+		        android:text="0"
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_period"
+		        style="@style/keyboardButtonNight"
+		        android:text="."
+		        android:layout_weight="10"
+		        />
+		    
+		    <Button 
+		        android:id="@+id/num_two_enter"
 		        style="@style/keyboardButtonNight"
 		        android:text="enter"
 		        android:layout_weight="10"

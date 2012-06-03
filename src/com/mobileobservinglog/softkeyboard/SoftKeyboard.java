@@ -22,6 +22,7 @@ public class SoftKeyboard{
 	RelativeLayout lowerCase;
     RelativeLayout upperCase;
     RelativeLayout numberLayout;
+    RelativeLayout numberLayoutSecondary;
 	
 	Button q;
 	Button w;
@@ -85,9 +86,22 @@ public class SoftKeyboard{
 	Button eight;
 	Button nine;
 	Button zero;
+	Button oneNumTwo;
+	Button twoNumTwo;
+	Button threeNumTwo;
+	Button fourNumTwo;
+	Button fiveNumTwo;
+	Button sixNumTwo;
+	Button sevenNumTwo;
+	Button eightNumTwo;
+	Button nineNumTwo;
+	Button zeroNumTwo;
 	Button comma;
+	Button ucComma;
 	Button period;
+	Button ucPeriod;
 	Button numPeriod;
+	Button numTwoPeriod;
 	Button quote;
 	Button apostrophe;
 	Button colon;
@@ -106,20 +120,29 @@ public class SoftKeyboard{
 	Button pound;
 	Button divide;
 	Button equals;
+	Button dollar;
+	Button carat;
+	Button ampersand;
 	Button shift;
 	Button ucShift;
+	Button numShift;
+	Button numTwoShift;
 	Button backspace;
 	Button ucBackspace;
 	Button numBackspace;
+	Button numTwoBackspace;
 	Button numbers;
 	Button ucNumbers;
 	Button enter;
 	Button ucEnter;
 	Button numEnter;
+	Button numTwoEnter;
 	Button space;
 	Button ucSpace;
 	Button numSpace;
+	Button numTwoSpace;
 	Button letters;
+	Button numTwoLetters;
 	
 	public SoftKeyboard(Activity context, EditText textView, TargetInputType input){
 		this.context = context;
@@ -132,11 +155,13 @@ public class SoftKeyboard{
 		if(input == TargetInputType.NUMBER_DECIMAL){
 			lowerCase.setVisibility(View.INVISIBLE);
 			upperCase.setVisibility(View.INVISIBLE);
+			numberLayoutSecondary.setVisibility(View.INVISIBLE);
 			numberLayout.setVisibility(View.VISIBLE);
 		}
 		else{
 			upperCase.setVisibility(View.INVISIBLE);
 			numberLayout.setVisibility(View.INVISIBLE);
+			numberLayoutSecondary.setVisibility(View.INVISIBLE);
 			lowerCase.setVisibility(View.VISIBLE);
 		}
 	}
@@ -215,9 +240,22 @@ public class SoftKeyboard{
 		eight = (Button)context.findViewById(com.mobileobservinglog.R.id.eight);
 		nine = (Button)context.findViewById(com.mobileobservinglog.R.id.nine);
 		zero = (Button)context.findViewById(com.mobileobservinglog.R.id.zero);
+		oneNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_one);
+		twoNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_two);
+		threeNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_three);
+		fourNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_four);
+		fiveNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_five);
+		sixNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_six);
+		sevenNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_seven);
+		eightNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_eight);
+		nineNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_nine);
+		zeroNumTwo = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_zero);
 		comma = (Button)context.findViewById(com.mobileobservinglog.R.id.comma);
+		ucComma = (Button)context.findViewById(com.mobileobservinglog.R.id.uc_comma);
 		period = (Button)context.findViewById(com.mobileobservinglog.R.id.period);
+		ucPeriod = (Button)context.findViewById(com.mobileobservinglog.R.id.uc_period);
 		numPeriod = (Button)context.findViewById(com.mobileobservinglog.R.id.num_period);
+		numTwoPeriod = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_period);
 		quote = (Button)context.findViewById(com.mobileobservinglog.R.id.quote);
 		apostrophe = (Button)context.findViewById(com.mobileobservinglog.R.id.apostrophe);
 		colon = (Button)context.findViewById(com.mobileobservinglog.R.id.colon);
@@ -236,20 +274,29 @@ public class SoftKeyboard{
 		pound = (Button)context.findViewById(com.mobileobservinglog.R.id.pound);
 		divide = (Button)context.findViewById(com.mobileobservinglog.R.id.divide);
 		equals = (Button)context.findViewById(com.mobileobservinglog.R.id.equals);
+		dollar = (Button)context.findViewById(com.mobileobservinglog.R.id.dollar);
+		carat = (Button)context.findViewById(com.mobileobservinglog.R.id.carat);
+		ampersand = (Button)context.findViewById(com.mobileobservinglog.R.id.ampersand);
 		shift = (Button)context.findViewById(com.mobileobservinglog.R.id.shift);
 		ucShift = (Button)context.findViewById(com.mobileobservinglog.R.id.uc_shift);
+		numShift = (Button)context.findViewById(com.mobileobservinglog.R.id.num_shift);
+		numTwoShift = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_shift);
 		backspace = (Button)context.findViewById(com.mobileobservinglog.R.id.backspace);
 		ucBackspace = (Button)context.findViewById(com.mobileobservinglog.R.id.uc_backspace);
 		numBackspace = (Button)context.findViewById(com.mobileobservinglog.R.id.num_backspace);
+		numTwoBackspace = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_backspace);
 		numbers = (Button)context.findViewById(com.mobileobservinglog.R.id.numbers);
 		ucNumbers = (Button)context.findViewById(com.mobileobservinglog.R.id.uc_numbers);
 		enter = (Button)context.findViewById(com.mobileobservinglog.R.id.enter);
 		ucEnter = (Button)context.findViewById(com.mobileobservinglog.R.id.uc_enter);
 		numEnter = (Button)context.findViewById(com.mobileobservinglog.R.id.num_enter);
+		numTwoEnter = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_enter);
 		space = (Button)context.findViewById(com.mobileobservinglog.R.id.space);
 		ucSpace = (Button)context.findViewById(com.mobileobservinglog.R.id.uc_space);
 		numSpace = (Button)context.findViewById(com.mobileobservinglog.R.id.num_space);
+		numTwoSpace = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_space);
 		letters = (Button)context.findViewById(com.mobileobservinglog.R.id.letters);
+		numTwoLetters = (Button)context.findViewById(com.mobileobservinglog.R.id.num_two_letters);
 	}
 	
 	private void setListeners(){
@@ -315,9 +362,22 @@ public class SoftKeyboard{
 		eight.setOnClickListener(inputEight);
 		nine.setOnClickListener(inputNine);
 		zero.setOnClickListener(inputZero);
+		oneNumTwo.setOnClickListener(inputOne);
+		twoNumTwo.setOnClickListener(inputTwo);
+		threeNumTwo.setOnClickListener(inputThree);
+		fourNumTwo.setOnClickListener(inputFour);
+		fiveNumTwo.setOnClickListener(inputFive);
+		sixNumTwo.setOnClickListener(inputSix);
+		sevenNumTwo.setOnClickListener(inputSeven);
+		eightNumTwo.setOnClickListener(inputEight);
+		nineNumTwo.setOnClickListener(inputNine);
+		zeroNumTwo.setOnClickListener(inputZero);
 		comma.setOnClickListener(inputComma);
+		ucComma.setOnClickListener(inputComma);
 		period.setOnClickListener(inputPeriod);
+		ucPeriod.setOnClickListener(inputPeriod);
 		numPeriod.setOnClickListener(inputPeriod);
+		numTwoPeriod.setOnClickListener(inputPeriod);
 		quote.setOnClickListener(inputQuote);
 		apostrophe.setOnClickListener(inputApostrophe);
 		colon.setOnClickListener(inputColon);
@@ -336,20 +396,29 @@ public class SoftKeyboard{
 		pound.setOnClickListener(inputPound);
 		divide.setOnClickListener(inputDivide);
 		equals.setOnClickListener(inputEquals);
+		dollar.setOnClickListener(inputDollar);
+		carat.setOnClickListener(inputCarat);
+		ampersand.setOnClickListener(inputAmpersand);
 		shift.setOnClickListener(showUpperCase);
 		ucShift.setOnClickListener(showLowerCase);
+		numShift.setOnClickListener(showSecondaryNumbers);
+		numTwoShift.setOnClickListener(showNumbers);
 		backspace.setOnClickListener(doBackspace);
 		ucBackspace.setOnClickListener(doBackspace);
 		numBackspace.setOnClickListener(doBackspace);
+		numTwoBackspace.setOnClickListener(doBackspace);
 		numbers.setOnClickListener(showNumbers);
 		ucNumbers.setOnClickListener(showNumbers);
 		enter.setOnClickListener(inputEnter);
 		ucEnter.setOnClickListener(inputEnter);
 		numEnter.setOnClickListener(inputEnter);
+		numTwoEnter.setOnClickListener(inputEnter);
 		space.setOnClickListener(inputSpace);
 		ucSpace.setOnClickListener(inputSpace);
 		numSpace.setOnClickListener(inputSpace);
+		numTwoSpace.setOnClickListener(inputSpace);
 		letters.setOnClickListener(showLowerCase);
+		numTwoLetters.setOnClickListener(showLowerCase);
 	}
 	
 	public void hideAll(){
@@ -899,9 +968,28 @@ public class SoftKeyboard{
     	}
     };
 	
+	protected final Button.OnClickListener inputCarat = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		insertText('^');
+    	}
+    };
+	
+	protected final Button.OnClickListener inputDollar = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		insertText('$');
+    	}
+    };
+	
+	protected final Button.OnClickListener inputAmpersand = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		insertText('&');
+    	}
+    };
+	
 	protected final Button.OnClickListener showUpperCase = new Button.OnClickListener(){
     	public void onClick(View view){
 			numberLayout.setVisibility(View.INVISIBLE);
+			numberLayoutSecondary.setVisibility(View.INVISIBLE);
 			lowerCase.setVisibility(View.INVISIBLE);
     		upperCase.setVisibility(View.VISIBLE);
     	}
@@ -910,6 +998,7 @@ public class SoftKeyboard{
 	protected final Button.OnClickListener showLowerCase = new Button.OnClickListener(){
     	public void onClick(View view){
     		numberLayout.setVisibility(View.INVISIBLE);
+			numberLayoutSecondary.setVisibility(View.INVISIBLE);
     		upperCase.setVisibility(View.INVISIBLE);
 			lowerCase.setVisibility(View.VISIBLE);
     	}
@@ -925,6 +1014,7 @@ public class SoftKeyboard{
     	public void onClick(View view){
     		upperCase.setVisibility(View.INVISIBLE);
 			lowerCase.setVisibility(View.INVISIBLE);
+			numberLayoutSecondary.setVisibility(View.INVISIBLE);
     		numberLayout.setVisibility(View.VISIBLE);
     	}
     };
@@ -938,6 +1028,15 @@ public class SoftKeyboard{
 	protected final Button.OnClickListener inputSpace = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText(' ');
+    	}
+    };
+	
+	protected final Button.OnClickListener showSecondaryNumbers = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		upperCase.setVisibility(View.INVISIBLE);
+			lowerCase.setVisibility(View.INVISIBLE);
+    		numberLayout.setVisibility(View.INVISIBLE);
+			numberLayoutSecondary.setVisibility(View.VISIBLE);
     	}
     };
 }
