@@ -174,7 +174,8 @@ public class SoftKeyboard{
 	private void findLayouts(){
 		lowerCase = (RelativeLayout)context.findViewById(com.mobileobservinglog.R.id.lower_case_letters);
         upperCase = (RelativeLayout)context.findViewById(com.mobileobservinglog.R.id.upper_case_letters);
-        numberLayout = (RelativeLayout)context.findViewById(com.mobileobservinglog.R.id.numbers_and_symbols);
+        numberLayout = (RelativeLayout)context.findViewById(com.mobileobservinglog.R.id.numbers_and_symbols_main);
+        numberLayoutSecondary = (RelativeLayout)context.findViewById(com.mobileobservinglog.R.id.numbers_and_symbols_second);
 	}
 
 	private void findButtons(){

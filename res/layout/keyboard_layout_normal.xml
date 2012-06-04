@@ -726,7 +726,7 @@
 		    <Button 
 		        android:id="@+id/ampersand"
 		        style="@style/keyboardButtonNormal"
-		        android:text="&"
+		        android:text="&#38;"
 		        android:layout_weight="10"
 		        />
 		    
@@ -891,7 +891,7 @@
     
 		<LinearLayout
 		    android:id="@+id/num_two_second"
-		    android:layout_below="@id/num_top"
+		    android:layout_below="@id/num_two_top"
 			android:layout_width="fill_parent"
     		android:layout_height="wrap_content"
     		android:orientation="horizontal"
@@ -949,8 +949,8 @@
 		</LinearLayout>
     
 		<LinearLayout
-		    android:id="@+id/num_third"
-		    android:layout_below="@id/num_second"
+		    android:id="@+id/num_two_third"
+		    android:layout_below="@id/num_two_second"
 			android:layout_width="fill_parent"
     		android:layout_height="wrap_content"
     		android:orientation="horizontal"
@@ -1012,7 +1012,7 @@
     
 		<LinearLayout
 		    android:id="@+id/num_fourth"
-		    android:layout_below="@id/num_third"
+		    android:layout_below="@id/num_two_third"
 			android:layout_width="fill_parent"
     		android:layout_height="wrap_content"
     		android:orientation="horizontal"
