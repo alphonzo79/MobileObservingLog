@@ -38,6 +38,12 @@ public class AddEditEyepiece extends ActivityBase {
 	
 	int firstFocus; //used to control the keyboard showing on first load
 	int firstClick;
+	
+	String focalLengthText;
+	String typeText;
+	String lengthUnitText;
+	
+	boolean paused;
     
     @Override
     public void onCreate(Bundle icicle) {
@@ -45,6 +51,12 @@ public class AddEditEyepiece extends ActivityBase {
         
         firstFocus = -1;
         firstClick = 1;
+        
+        focalLengthText = "";
+    	typeText = "";
+    	lengthUnitText = "mm";
+    	
+    	paused = false;
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		
@@ -61,6 +73,11 @@ public class AddEditEyepiece extends ActivityBase {
 	@Override
     public void onPause() {
         super.onPause();
+        focalLengthText = focalLength.getText().toString();
+        typeText = type.getText().toString();
+        lengthUnitText = focalLengthUnit.getText().toString();
+        
+        paused = true;
     }
 
     @Override
@@ -110,17 +127,17 @@ public class AddEditEyepiece extends ActivityBase {
 	}
 	
 	private void populateFields(){
-		if(eyepieceId >= 0){
+		if(eyepieceId >= 0 && !paused){ //Only populate these from the db if we have not saved state after pausing. Otherwise use what onPause set
 			DatabaseHelper db = new DatabaseHelper(this);
 			Cursor eyepieceData = db.getSavedEyepiece(eyepieceId);
-			String length = removeUnits(eyepieceData.getString(1));
-			String lengthUnits = getUnits(eyepieceData.getString(1));
-			String eyepieceType = eyepieceData.getString(2);
-			
-			focalLength.setText(length);
-			focalLengthUnit.setText(lengthUnits);
-			type.setText(eyepieceType);
+			focalLengthText = removeUnits(eyepieceData.getString(1));
+			lengthUnitText = getUnits(eyepieceData.getString(1));
+			typeText = eyepieceData.getString(2);
 		}
+			
+		focalLength.setText(focalLengthText);
+		focalLengthUnit.setText(lengthUnitText);
+		type.setText(typeText);
 	}
 	
 	private String getUnits(String measurement){

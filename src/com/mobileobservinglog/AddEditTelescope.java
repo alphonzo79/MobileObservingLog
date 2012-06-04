@@ -43,6 +43,16 @@ public class AddEditTelescope extends ActivityBase {
 	int firstFocus; //used to control the keyboard showing on first load
 	int firstClick;
 	
+	String primaryDiameterText;
+	String focalLengthText;
+	String focalRatioText;
+	String typeText;
+	String diameterUnits;
+	String lengthUnits;
+	
+	boolean paused;
+	
+	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "AddEditTelescope onCreate. Current session mode is " + settingsRef.getSessionMode());
@@ -50,6 +60,15 @@ public class AddEditTelescope extends ActivityBase {
         
         firstFocus = -1;
         firstClick = 1;
+        
+        primaryDiameterText = "";
+    	focalLengthText = "";
+    	focalRatioText = "";
+    	typeText = "";
+    	diameterUnits = "mm";
+    	lengthUnits = "mm";
+    	
+    	paused = false;
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		
@@ -65,6 +84,14 @@ public class AddEditTelescope extends ActivityBase {
 	@Override
     public void onPause() {
         super.onPause();
+        primaryDiameterText = primaryDiameter.getText().toString();
+		diameterUnits = primaryUnit.getText().toString();
+		focalRatioText = focalRatio.getText().toString();
+		focalLengthText = focalLength.getText().toString();
+		lengthUnits = focalLengthUnit.getText().toString();
+		typeText = type.getText().toString();
+		
+		paused = true;
     }
 
     @Override
@@ -123,23 +150,23 @@ public class AddEditTelescope extends ActivityBase {
 	}
 	
 	private void populateFields(){
-		if(telescopeId >= 0){
+		if(telescopeId >= 0 && !paused){ //Only populate these from the db if we have not saved state after pausing. Otherwise use what onPause set
 			DatabaseHelper db = new DatabaseHelper(this);
 			Cursor telescopeData = db.getSavedTelescope(telescopeId);
-			String diameter = removeUnits(telescopeData.getString(2));
-			String diameterUnits = getUnits(telescopeData.getString(2));
-			String ratio = telescopeData.getString(3);
-			String length = removeUnits(telescopeData.getString(4));
-			String lengthUnits = getUnits(telescopeData.getString(4));
-			String telescopeType = telescopeData.getString(1);
-			
-			primaryDiameter.setText(diameter);
-			primaryUnit.setText(diameterUnits);
-			focalRatio.setText(ratio);
-			focalLength.setText(length);
-			focalLengthUnit.setText(lengthUnits);
-			type.setText(telescopeType);
+			primaryDiameterText = removeUnits(telescopeData.getString(2));
+			diameterUnits = getUnits(telescopeData.getString(2));
+			focalRatioText = telescopeData.getString(3);
+			focalLengthText = removeUnits(telescopeData.getString(4));
+			lengthUnits = getUnits(telescopeData.getString(4));
+			typeText = telescopeData.getString(1);
 		}
+		
+		primaryDiameter.setText(primaryDiameterText);
+		primaryUnit.setText(diameterUnits);
+		focalRatio.setText(focalRatioText);
+		focalLength.setText(focalLengthText);
+		focalLengthUnit.setText(lengthUnits);
+		type.setText(typeText);
 	}
 	
 	private String getUnits(String measurement){
