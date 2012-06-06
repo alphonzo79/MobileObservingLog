@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class AddEditEyepiece extends ActivityBase {
@@ -165,6 +167,39 @@ public class AddEditEyepiece extends ActivityBase {
 		findTextFields();
 		populateFields();
 		body.postInvalidate();
+		setMargins_noKeyboard();
+	}
+	
+	private void setMargins_noKeyboard()
+	{
+		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.scroll_fields_view);
+		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
+		int buttonsKeyboardSize = keyboardFrame.getHeight();
+		
+		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
+		frameParams.setMargins(0, 0, 0, 0);
+		
+		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
+		scrollParams.setMargins(0, 0, 0, 0);
+		
+		keyboardFrame.setLayoutParams(frameParams);
+		fieldsScroller.setLayoutParams(scrollParams);
+	}
+	
+	private void setMargins_keyboard()
+	{
+		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.scroll_fields_view);
+		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
+		int buttonsKeyboardSize = keyboardFrame.getHeight();
+		
+		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
+		frameParams.setMargins(0, -buttonsKeyboardSize, 0, 0);
+		
+		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
+		scrollParams.setMargins(0, 0, 0, buttonsKeyboardSize);
+		
+		keyboardFrame.setLayoutParams(frameParams);
+		fieldsScroller.setLayoutParams(scrollParams);
 	}
     
     protected final Button.OnClickListener switchFocalUnits = new Button.OnClickListener(){
@@ -236,6 +271,7 @@ public class AddEditEyepiece extends ActivityBase {
 	    			keyboardDriver = null;
 	    		keyboardRoot.setVisibility(View.VISIBLE);
 	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
+	    		setMargins_keyboard();
     		}
     		firstClick = -1;
     	}
@@ -251,6 +287,7 @@ public class AddEditEyepiece extends ActivityBase {
 	    			keyboardDriver = null;
 	    		keyboardRoot.setVisibility(View.VISIBLE);
 	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
+	    		setMargins_keyboard();
 			}
 			else{
 				tearDownKeyboard();
@@ -269,6 +306,7 @@ public class AddEditEyepiece extends ActivityBase {
 	    			tearDownKeyboard();
 	    		keyboardRoot.setVisibility(View.VISIBLE);
 	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.LETTERS);
+	    		setMargins_keyboard();
     		}
     		firstClick = -1;
     	}
@@ -284,6 +322,7 @@ public class AddEditEyepiece extends ActivityBase {
 	    			keyboardDriver = null;
 	    		keyboardRoot.setVisibility(View.VISIBLE);
 	    		keyboardDriver = new SoftKeyboard(AddEditEyepiece.this, (EditText) view, TargetInputType.LETTERS);
+	    		setMargins_keyboard();
 			}
 			else{
 				tearDownKeyboard();
@@ -297,6 +336,7 @@ public class AddEditEyepiece extends ActivityBase {
 	    	keyboardDriver.hideAll();
 	    	keyboardRoot.setVisibility(View.INVISIBLE);
 	    	keyboardDriver = null;
+	    	setMargins_noKeyboard();
     	}
     }
     

@@ -5,200 +5,208 @@
     android:id="@+id/edit_telescope_root"
     >
     
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView 
+        android:id="@+id/scroll_fields_view"
+        android:fillViewport="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    
+	    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     	android:id="@+id/add_telescope_main"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	>
     
-		<TextView  
-		    style="@style/headerBarNight" 
-		    android:id="@+id/addTelescopeHeader"
-		    android:text="@string/app_name"
-		    />
+			<TextView  
+			    style="@style/headerBarNight" 
+			    android:id="@+id/addTelescopeHeader"
+			    android:text="@string/app_name"
+			    />
+			    
+		    <ListView  
+		         android:id="@android:id/list"
+		         android:layout_width="fill_parent" 
+		         android:layout_height="wrap_content" 
+		         android:layout_below="@id/addTelescopeHeader"
+		         />
 		    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content" 
-	         android:layout_below="@id/addTelescopeHeader"
-	         />
-	    
-	    <TextView
-	        style="@style/formScreenHeaderNight"
-	        android:id="@+id/edit_header"
-	        android:text="@string/add_edit_telescope"
-	        android:layout_below="@id/addTelescopeHeader"
-	        />
-	    
-	    <LinearLayout
-	        android:id="@+id/diameter_layout"
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingTop="5dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="wrap_content" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="10dp"
-	        android:gravity="center_horizontal"
-	        android:layout_below="@id/edit_header"
-	        >
-	    
 		    <TextView
-		        style="@style/formScreenLabelNight"
-		        android:text="@string/primary_diameter"
+		        style="@style/formScreenHeaderNight"
+		        android:id="@+id/edit_header"
+		        android:text="@string/add_edit_telescope"
+		        android:layout_below="@id/addTelescopeHeader"
 		        />
 		    
-		    <EditText 
-		        style="@style/formScreenTextFieldNight"
-		        android:id="@+id/telescope_primary_diameter"
-		        android:maxLines="1"
-		        android:inputType="numberDecimal"
-		        android:layout_width="75dp" 
-		        android:layout_height="wrap_content"
-		        />
-		    
-		    <Button 
-		        style="@style/formItemButtonNight"
-		        android:id="@+id/primary_diameter_unit"
-		        android:layout_width="40dp" 
-		        android:text="mm"	        
-		        />
-	        
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:id="@+id/ratio_layout"
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingTop="5dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="wrap_content" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="10dp"
-	        android:gravity="center_horizontal"
-	        android:layout_below="@id/diameter_layout"
-	        >
-	    
-		    <TextView
-		        style="@style/formScreenLabelNight"
-		        android:text="@string/focal_ratio"
-		        />
-		    
-		    <EditText 
-		        style="@style/formScreenTextFieldNight"
-		        android:id="@+id/telescope_focal_ratio"
-		        android:maxLines="1"
-		        android:inputType="numberDecimal"
-		        android:layout_width="60dp" 
-		        android:layout_height="wrap_content"
-		        />
-	        
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:id="@+id/length_layout"
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingTop="5dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="wrap_content" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="10dp"
-	        android:gravity="center_horizontal"
-	        android:layout_below="@id/ratio_layout"
-	        >
-	    
-		    <TextView
-		        style="@style/formScreenLabelNight"
-		        android:text="@string/focal_length"
-		        />
-		    
-		    <EditText 
-		        style="@style/formScreenTextFieldNight"
-		        android:id="@+id/telescope_focal_length"
-		        android:maxLines="1"
-		        android:inputType="numberDecimal"
-		        android:layout_width="75dp" 
-		        android:layout_height="wrap_content"
-		        />
-		    
-		    <Button 
-		        style="@style/formItemButtonNight"
-		        android:id="@+id/focal_length_unit"
-		        android:layout_width="40dp" 
-		        android:text="mm"	        
-		        />
-	        
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:id="@+id/type_layout"
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingTop="5dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="wrap_content" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="10dp"
-	        android:gravity="center_horizontal"
-	        android:layout_below="@id/length_layout"
-	        >
-	    
-		    <TextView
-		        style="@style/formScreenLabelNight"
-		        android:text="@string/type"
-		        />
-		    
-		    <EditText 
-		        style="@style/formScreenTextFieldNight"
-		        android:id="@+id/telescope_type"
-		        android:maxLines="1"
-		        android:layout_width="175dp" 
-		        android:layout_height="wrap_content"
-		        />
-	        
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingBottom="14dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="fill_parent" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="5dp"
-	        android:gravity="bottom"
-	        >
-		    
-		    <Button 
-				style="@style/modalSaveCancelButtonNight"
-		        android:id="@+id/telescope_save"
+		    <LinearLayout
+		        android:id="@+id/diameter_layout"
+		        android:orientation="horizontal"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
-		        android:layout_weight="33"
-		        android:layout_marginRight="6dp"
-		        android:text="Save"	      
-		        />
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/edit_header"
+		        >
 		    
-		    <Button 
-				style="@style/modalSaveCancelButtonNight"
-		        android:id="@+id/telescope_cancel"
+			    <TextView
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/primary_diameter"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/telescope_primary_diameter"
+			        android:maxLines="1"
+			        android:inputType="numberDecimal"
+			        android:layout_width="75dp" 
+			        android:layout_height="wrap_content"
+			        />
+			    
+			    <Button 
+			        style="@style/formItemButtonNight"
+			        android:id="@+id/primary_diameter_unit"
+			        android:layout_width="40dp" 
+			        android:text="mm"	        
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/ratio_layout"
+		        android:orientation="horizontal"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
-		        android:layout_weight="33"
-		        android:layout_marginLeft="6dp"
-		        android:text="Cancel"	       
-		        />
-	        
-	    </LinearLayout>
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/diameter_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/focal_ratio"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/telescope_focal_ratio"
+			        android:maxLines="1"
+			        android:inputType="numberDecimal"
+			        android:layout_width="60dp" 
+			        android:layout_height="wrap_content"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/length_layout"
+		        android:orientation="horizontal"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/ratio_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/focal_length"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/telescope_focal_length"
+			        android:maxLines="1"
+			        android:inputType="numberDecimal"
+			        android:layout_width="75dp" 
+			        android:layout_height="wrap_content"
+			        />
+			    
+			    <Button 
+			        style="@style/formItemButtonNight"
+			        android:id="@+id/focal_length_unit"
+			        android:layout_width="40dp" 
+			        android:text="mm"	        
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/type_layout"
+		        android:orientation="horizontal"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/length_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/type"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/telescope_type"
+			        android:maxLines="1"
+			        android:layout_width="175dp" 
+			        android:layout_height="wrap_content"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:orientation="horizontal"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingBottom="14dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="fill_parent" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="5dp"
+		        android:gravity="bottom"
+		        >
+			    
+			    <Button 
+					style="@style/modalSaveCancelButtonNight"
+			        android:id="@+id/telescope_save"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginRight="6dp"
+			        android:text="Save"	      
+			        />
+			    
+			    <Button 
+					style="@style/modalSaveCancelButtonNight"
+			        android:id="@+id/telescope_cancel"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginLeft="6dp"
+			        android:text="Cancel"	       
+			        />
+		        
+		    </LinearLayout>
+		    
+	    </RelativeLayout>
 	    
-    </RelativeLayout>
+    </ScrollView>
     
     <include android:id="@+id/settings_fog"
         layout="@layout/background_dim_out"
