@@ -37,7 +37,7 @@ public class ManageLocationsScreen extends ActivityBase {
 	Button alertDelete;
 	Button alertCancel;
 	
-	ArrayList<LocationData> locationList = new ArrayList<LocationData>();
+	ArrayList<LocationData> locationList;
 	int listItemId = -1;
 	String locationTitle = "";
 	
@@ -51,10 +51,11 @@ public class ManageLocationsScreen extends ActivityBase {
         //setup the layout
         setContentView(settingsRef.getManageLocationsLayout());
         body = (FrameLayout)findViewById(R.id.manage_locations_root); 
-        prepareListView();             
-        addLocationButton = (Button)findViewById(R.id.add_location_button);
+	}
+
+	private void findButtonAddListener() {
+		addLocationButton = (Button)findViewById(R.id.add_location_button);
         addLocationButton.setOnClickListener(addLocation);
-        findModalElements();
 	}
 	
 	@Override
@@ -80,6 +81,8 @@ public class ManageLocationsScreen extends ActivityBase {
 	public void setLayout(){
 		setContentView(settingsRef.getManageLocationsLayout());
 		super.setLayout();
+		prepareListView();
+		findButtonAddListener();
 		body.postInvalidate();
 	}
 	
@@ -96,6 +99,7 @@ public class ManageLocationsScreen extends ActivityBase {
 	 */
 	protected void prepareListView()
 	{
+		 locationList = new ArrayList<LocationData>();
 		//Get the list of saved telescopes and populate the list
 		DatabaseHelper db = new DatabaseHelper(this);
 		Cursor locations = db.getSavedLocations();
@@ -104,6 +108,7 @@ public class ManageLocationsScreen extends ActivityBase {
 		
 		for (int i = 0; i < locations.getCount(); i++)
         {
+			Log.d("JoeDebug", "cursor size is " + locations.getCount());
 			int id = locations.getInt(0);
 			String name = locations.getString(1);
 			String coordinates = locations.getString(2);
@@ -123,6 +128,7 @@ public class ManageLocationsScreen extends ActivityBase {
 			nothingLeft.setVisibility(View.VISIBLE);
 		}
 		else{
+			Log.d("JoeTest", "List size is " + locationList.size());
 			setListAdapter(new LocationAdapter(this, settingsRef.getLocationsListLayout(), locationList));
 		}
 	}
@@ -136,7 +142,8 @@ public class ManageLocationsScreen extends ActivityBase {
 		listItemId = locationList.get(position).id;
 		locationTitle = getLocationDescription(position);
 		prepForModal();
-		alertText.setText("Edit or delete the location " + locationTitle + "?");
+		findModalElements();
+		alertText.setText("Edit, delete or view the location \"" + locationTitle + "\"?");
 		alertText.setVisibility(View.VISIBLE);
 		alertEdit.setText("Edit");
 		alertEdit.setOnClickListener(editLocation);
@@ -168,9 +175,11 @@ public class ManageLocationsScreen extends ActivityBase {
     protected final Button.OnClickListener deleteLocation = new Button.OnClickListener(){
     	public void onClick(View view){
     		//Set up, display delete confirmation
-    		alertText.setText("Delete the location " + locationTitle + "?");
+    		alertText.setText("Delete the location \"" + locationTitle + "\"?");
     		alertEdit.setText("Delete");
     		alertEdit.setOnClickListener(confirmDelete);
+    		alertCancel.setText("Cancel");
+    		alertCancel.setOnClickListener(cancelSelect);
     		alertDelete.setVisibility(View.GONE);
     	}
     };
@@ -178,7 +187,7 @@ public class ManageLocationsScreen extends ActivityBase {
     protected final Button.OnClickListener confirmDelete = new Button.OnClickListener(){
     	public void onClick(View view){
     		DatabaseHelper db = new DatabaseHelper(ManageLocationsScreen.this);
-    		db.deleteTelescopeData(listItemId);
+    		db.deleteLocationData(listItemId);
     		db.close();
     		Intent intent = new Intent(ManageLocationsScreen.this.getApplication(), ManageLocationsScreen.class);
             startActivity(intent);
@@ -195,11 +204,17 @@ public class ManageLocationsScreen extends ActivityBase {
         }
     };
     
-    private void cancelSelect(){
-		listItemId = -1;
+    protected final Button.OnClickListener cancelSelect = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		cancelSelection();
+    	}
+    };
+    
+    private void cancelSelection(){
+    	listItemId = -1;
 		locationTitle = "";
 		tearDownModal();
-	}
+    }
     
     protected final Button.OnClickListener addLocation = new Button.OnClickListener(){
     	public void onClick(View view){
@@ -211,7 +226,7 @@ public class ManageLocationsScreen extends ActivityBase {
     @Override
     public void onBackPressed() {
     	if(alertModal.getVisibility() == View.VISIBLE){
-    		cancelSelect();
+    		cancelSelection();
     	}
     	else
     	{
@@ -334,6 +349,7 @@ public class ManageLocationsScreen extends ActivityBase {
 			getCoordinates().setText(location.coordinates);
 			//getDescription().setText(location.description);
 			id = location.id;
+			Log.d("JoeDebug", "location id " + id);
 		}
 	}
 }

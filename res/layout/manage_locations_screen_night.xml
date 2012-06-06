@@ -1,31 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/layoutRootNight"
     android:id="@+id/manage_locations_root"
     >
     
-    <TextView 
-	    style="@style/headerBarNight" 
-	    android:id="@+id/manage_locations_header"
-	    android:text="@string/app_name"
-	    />
-	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/settings_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	>
     
-    <TextView 
-	    android:id="@+id/temp_text"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    android:text="Manage Locations Screen Night"
-	    android:textColor="@color/red"
-	    android:gravity="center|center_vertical"
-	    android:padding="2dp"
-	    android:textStyle="bold"
-	    />
+	    <TextView 
+		    style="@style/headerBarNight" 
+		    android:id="@+id/manage_locations_header"
+		    android:text="@string/app_name"
+		    />
 	    
-</LinearLayout>
+	    <TextView 
+	        android:id="@+id/header_text"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/manage_locations_header"
+	        android:textStyle="bold"
+	        android:text="@string/observing_locations_header"
+	        android:textColor="@color/red"
+	        android:gravity="center_horizontal"
+	        android:textSize="18dp"
+	        android:layout_marginTop="3dip"
+	        />
+	    
+	    <View
+	        android:id="@+id/line"
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dip"
+	        android:layout_marginLeft="15dip"
+	        android:layout_marginRight="15dip"
+	        android:layout_marginTop="5dip"
+	        android:layout_marginBottom="5dip"
+	        android:background="@color/red"
+	        android:layout_below="@id/header_text"
+	        />
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content"
+	         android:layout_below="@id/line" 
+	         android:listSelector="@drawable/list_item_back_state"
+	         />
+	    
+	    <TextView 
+	        android:id="@+id/nothing_here"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone"
+	        android:textSize="14dp"
+	        android:paddingTop="25dp"
+	        android:paddingLeft="15dp"
+	        android:paddingRight="15dp"
+	        android:textColor="@color/red"
+	        android:layout_below="@android:id/list"
+	        />
+	    
+	    <Button
+	        android:id="@+id/add_location_button"
+			style="@style/modalSaveCancelButtonNight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_margin="10dp"
+	        android:layout_below="@id/nothing_here" 
+	        android:text="@string/add_location"
+	        />
+    
+    </RelativeLayout>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal_night"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="center|center"
+        />
+	    
+</FrameLayout>

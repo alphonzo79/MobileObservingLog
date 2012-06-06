@@ -57,4 +57,5 @@
     <string name="inches">in</string>
     <string name="add_location">Add Observing Location</string>
     <string name="no_locations_installed">There are no observing locations currently saved.</string>
+    <string name="observing_locations_header">Saved Observing Locations</string>
 </resources>
