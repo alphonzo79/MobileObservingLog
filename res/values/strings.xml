@@ -58,4 +58,8 @@
     <string name="add_location">Add Observing Location</string>
     <string name="no_locations_installed">There are no observing locations currently saved.</string>
     <string name="observing_locations_header">Saved Observing Locations</string>
+    <string name="add_edit_location">Add/Edit Observing Location</string>
+    <string name="location_title_label">Location Name:</string>
+    <string name="location_coordinates_label">GPS Coordinates:</string>
+    <string name="location_description_label">Description/Directions:</string>
 </resources>

@@ -321,7 +321,7 @@ public final class SettingsContainer {
 		setPersonalInfoLayout(R.layout.personal_info_screen_night);
 		setAddEditTelescopeLayout(R.layout.add_edit_telescope_night);
 		setAddEditEyepieceLayout(R.layout.add_edit_eyepiece_night);
-		setAddEditLocationsLayout(R.layout.add_edit_locations_screen_night);
+		setAddEditLocationsLayout(R.layout.add_edit_location_night);
 		setViewLocationsLayout(R.layout.view_locations_screen_night);
 		setLocationsListLayout(R.layout.locations_list_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
@@ -354,7 +354,7 @@ public final class SettingsContainer {
 		setPersonalInfoLayout(R.layout.personal_info_screen);
 		setAddEditTelescopeLayout(R.layout.add_edit_telescope);
 		setAddEditEyepieceLayout(R.layout.add_edit_eyepiece);
-		setAddEditLocationsLayout(R.layout.add_edit_locations_screen);
+		setAddEditLocationsLayout(R.layout.add_edit_location);
 		setViewLocationsLayout(R.layout.view_locations_screen);
 		setLocationsListLayout(R.layout.locations_list_normal);
 		setTabIndicator(R.layout.tab_indicator_layout);

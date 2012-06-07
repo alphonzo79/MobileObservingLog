@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/layoutRootNormal"
-    android:id="@+id/edit_eyepiece_root"
+	style="@style/layoutRootNight"
+    android:id="@+id/edit_location_root"
     >
     
     <ScrollView 
@@ -14,14 +14,14 @@
         >
     
 	    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:id="@+id/add_eyepiece_main"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	>
-    
+	    	android:id="@+id/add_location_main"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	>
+	    
 			<TextView  
-			    style="@style/headerBarNormal" 
-			    android:id="@+id/addEyepieceHeader"
+			    style="@style/headerBarNight" 
+			    android:id="@+id/add_location_header"
 			    android:text="@string/app_name"
 			    />
 			    
@@ -29,19 +29,19 @@
 		         android:id="@android:id/list"
 		         android:layout_width="fill_parent" 
 		         android:layout_height="wrap_content" 
-		         android:layout_below="@id/addEyepieceHeader"
+		         android:layout_below="@id/add_location_header"
 		         />
 		    
 		    <TextView
-		        style="@style/formScreenHeaderNormal"
+		        style="@style/formScreenHeaderNight"
 		        android:id="@+id/edit_header"
-		        android:text="@string/add_edit_eyepiece"
-		        android:layout_below="@id/addEyepieceHeader"
+		        android:text="@string/add_edit_location"
+		        android:layout_below="@id/add_location_header"
 		        />
 		    
 		    <LinearLayout
-		        android:id="@+id/length_layout"
-		        android:orientation="horizontal"
+		        android:id="@+id/name_layout"
+		        android:orientation="vertical"
 		        android:paddingLeft="14dp"
 		        android:paddingRight="14dp"
 		        android:paddingTop="5dp"
@@ -54,31 +54,25 @@
 		        >
 		    
 			    <TextView
-			        style="@style/formScreenLabelNormal"
-			        android:text="@string/focal_length"
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/location_title_label"
+			        android:layout_gravity="left"
 			        />
 			    
 			    <EditText 
-			        style="@style/formScreenTextFieldNormal"
-			        android:id="@+id/eyepiece_focal_length"
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/location_title"
 			        android:maxLines="1"
-			        android:inputType="numberDecimal"
-			        android:layout_width="75dp" 
+			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content"
-			        />
-			    
-			    <Button 
-			        style="@style/formItemButtonNormal"
-			        android:id="@+id/focal_length_unit"
-			        android:layout_width="40dp" 
-			        android:text="mm"	        
+			        android:layout_marginTop="3dp"
 			        />
 		        
 		    </LinearLayout>
 		    
 		    <LinearLayout
-		        android:id="@+id/type_layout"
-		        android:orientation="horizontal"
+		        android:id="@+id/coordinates_layout"
+		        android:orientation="vertical"
 		        android:paddingLeft="14dp"
 		        android:paddingRight="14dp"
 		        android:paddingTop="5dp"
@@ -87,20 +81,55 @@
 		        android:layout_gravity="center"
 		        android:layout_marginTop="10dp"
 		        android:gravity="center_horizontal"
-		        android:layout_below="@id/length_layout"
+		        android:layout_below="@id/name_layout"
 		        >
 		    
 			    <TextView
-			        style="@style/formScreenLabelNormal"
-			        android:text="@string/type"
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/location_coordinates_label"
+			        android:layout_gravity="left"
 			        />
 			    
 			    <EditText 
-			        style="@style/formScreenTextFieldNormal"
-			        android:id="@+id/eyepiece_type"
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/location_coordinates"
 			        android:maxLines="1"
-			        android:layout_width="175dp" 
+			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content"
+			        android:layout_marginTop="3dp"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/description_layout"
+		        android:orientation="vertical"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/coordinates_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/location_description_label"
+			        android:layout_gravity="left"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/location_description_text_field"
+			        android:minHeight="150dp"
+			        android:maxLines="10"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="3dp"
+			        android:gravity="top|left"
 			        />
 		        
 		    </LinearLayout>
@@ -114,12 +143,13 @@
 		        android:layout_height="fill_parent" 
 		        android:layout_gravity="center"
 		        android:layout_marginTop="5dp"
-		        android:layout_below="@id/type_layout"
+		        android:layout_below="@id/description_layout"
 		        android:gravity="bottom"
 		        >
 			    
 			    <Button 
-			        android:id="@+id/eyepiece_save"
+			        style="@style/modalSaveCancelButtonNight"
+			        android:id="@+id/location_save"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="33"
@@ -128,14 +158,15 @@
 			        />
 			    
 			    <Button 
-			        android:id="@+id/eyepiece_cancel"
+			        style="@style/modalSaveCancelButtonNight"
+			        android:id="@+id/location_cancel"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="33"
 			        android:layout_marginLeft="6dp"
 			        android:text="Cancel"	       
 			        />
-		        
+			        
 		    </LinearLayout>
 		    
 	    </RelativeLayout>
@@ -155,7 +186,7 @@
         />
     
     <include android:id="@+id/keyboard_root" 
-        layout="@layout/keyboard_layout_normal"
+        layout="@layout/keyboard_layout_night"
         android:layout_gravity="bottom"
         />
 	    

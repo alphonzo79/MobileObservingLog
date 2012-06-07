@@ -9,7 +9,9 @@
         android:id="@+id/scroll_fields_view"
         android:fillViewport="true"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:scrollbarStyle="insideOverlay"
+        >
     
 	    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     	android:id="@+id/add_telescope_main"
@@ -179,6 +181,7 @@
 		        android:layout_height="fill_parent" 
 		        android:layout_gravity="center"
 		        android:layout_marginTop="5dp"
+		        android:layout_below="@id/type_layout"
 		        android:gravity="bottom"
 		        >
 			    
