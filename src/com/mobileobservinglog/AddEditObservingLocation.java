@@ -6,6 +6,9 @@ import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -47,6 +50,9 @@ public class AddEditObservingLocation extends ActivityBase{
 	String locationDescriptionText;
 	
 	boolean paused;
+	
+	LocationManager locationManager;
+	Location lastKnownLocation;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -119,11 +125,11 @@ public class AddEditObservingLocation extends ActivityBase{
 		locationDescription = (EditText)findViewById(R.id.location_description_text_field);
 		
 		locationName.setOnFocusChangeListener(showLetters_focus);
-		locationCoordinates.setOnFocusChangeListener(showLetters_focus);
+		locationCoordinates.setOnFocusChangeListener(showGpsOptions_focus);
 		locationDescription.setOnFocusChangeListener(showLetters_focus);
 		
 		locationName.setOnClickListener(showLetters_click);
-		locationCoordinates.setOnClickListener(showLetters_click);
+		locationCoordinates.setOnClickListener(showGpsOptions_click);
 		locationDescription.setOnClickListener(showLetters_click);
 		
 		locationName.setInputType(InputType.TYPE_NULL);
@@ -155,6 +161,28 @@ public class AddEditObservingLocation extends ActivityBase{
 		populateFields();
 		body.postInvalidate();
 		setMargins_noKeyboard();
+		setUpLocationService();
+	}
+	
+	private void setUpLocationService(){
+		// Acquire a reference to the system Location Manager
+		locationManager = (LocationManager)AddEditObservingLocation.this.getSystemService(Context.LOCATION_SERVICE);
+
+		// Define a listener that responds to location updates
+		LocationListener locationListener = new LocationListener() {
+		    public void onLocationChanged(Location location) {
+		    	lastKnownLocation = location;
+		    }
+
+		    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+		    public void onProviderEnabled(String provider) {}
+
+		    public void onProviderDisabled(String provider) {}
+		  };
+
+		// Register the listener with the Location Manager to receive location updates
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 	}
 	
 	private void setMargins_noKeyboard()
@@ -235,14 +263,7 @@ public class AddEditObservingLocation extends ActivityBase{
     protected final Button.OnClickListener showLetters_click = new Button.OnClickListener(){
     	public void onClick(View view){
     		if(firstClick > 0){
-    			InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-	    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-	    		if(keyboardDriver != null)
-	    			keyboardDriver = null;
-	    		keyboardRoot.setVisibility(View.VISIBLE);
-	    		keyboardDriver = new SoftKeyboard(AddEditObservingLocation.this, (EditText) view, TargetInputType.LETTERS);
-	    		setMargins_keyboard();
+    			showKeyboard(view);
     		}
     		firstClick = -1;
     	}
@@ -251,14 +272,7 @@ public class AddEditObservingLocation extends ActivityBase{
     protected final EditText.OnFocusChangeListener showLetters_focus = new EditText.OnFocusChangeListener(){
     	public void onFocusChange(View view, boolean hasFocus) {
 			if(firstFocus > 0 && hasFocus){
-				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-	    		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-	    		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
-	    		if(keyboardDriver != null)
-	    			keyboardDriver = null;
-	    		keyboardRoot.setVisibility(View.VISIBLE);
-	    		keyboardDriver = new SoftKeyboard(AddEditObservingLocation.this, (EditText) view, TargetInputType.LETTERS);
-	    		setMargins_keyboard();
+				showKeyboard(view);
 			}
 			else{
 				tearDownKeyboard();
@@ -266,6 +280,90 @@ public class AddEditObservingLocation extends ActivityBase{
 			firstFocus = 1;
 		}
     };
+    
+    protected final Button.OnClickListener showGpsOptions_click = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		if(firstClick > 0){
+				askAboutGps();
+    		}
+    		firstClick = -1;
+    	}
+    };
+    
+    protected final EditText.OnFocusChangeListener showGpsOptions_focus = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View view, boolean hasFocus) {
+			if(firstFocus > 0 && hasFocus){
+				askAboutGps();
+			}
+			else{
+				tearDownKeyboard();
+			}
+			firstFocus = 1;
+		}
+    };
+    
+    protected final Button.OnClickListener gpsFromDevice = new Button.OnClickListener(){
+    	public void onClick(View view) {
+    		tearDownModal();
+    		lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    		double longitude = lastKnownLocation.getLongitude();
+    		double latitude = lastKnownLocation.getLatitude();
+    		String northSouth = "";
+    		String eastWest = "";
+    		
+    		if(longitude > 0){
+    			eastWest = "E";
+    		}
+    		else{
+    			eastWest = "W";
+    		}
+    		
+    		if(latitude > 0){
+    			northSouth = "N";
+    		}
+    		else{
+    			northSouth = "S";
+    		}
+    		
+    		String longitudeString = lastKnownLocation.convert(longitude, Location.FORMAT_SECONDS);
+    		String lattitudeString = lastKnownLocation.convert(latitude, Location.FORMAT_SECONDS);
+    		String formatedLocation = String.format("%s %s, %s %s", lattitudeString, northSouth, longitudeString, eastWest);
+    		locationDescription.setText(formatedLocation);
+		}
+    };
+    
+    protected final Button.OnClickListener typeManually = new Button.OnClickListener(){
+    	public void onClick(View view) {
+    		tearDownModal();
+			showKeyboard(locationDescription);
+		}
+    };
+
+	private void askAboutGps() {
+		prepForModal();
+		findModalElements();
+		alertText.setText("Would you like to get the GPS coordinates from your Android device or type them in manually?");
+		alertText.setVisibility(View.VISIBLE);
+		alertEdit.setText("From Device");
+		alertEdit.setOnClickListener(gpsFromDevice);
+		alertEdit.setVisibility(View.VISIBLE);
+		alertDelete.setText("Type Manually");
+		alertDelete.setOnClickListener(typeManually);
+		alertDelete.setVisibility(View.VISIBLE);
+		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+		alertModal.setVisibility(View.VISIBLE);
+	}
+
+	private void showKeyboard(View view) {
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+		if(keyboardDriver != null)
+			keyboardDriver = null;
+		keyboardRoot.setVisibility(View.VISIBLE);
+		keyboardDriver = new SoftKeyboard(AddEditObservingLocation.this, (EditText) view, TargetInputType.LETTERS);
+		setMargins_keyboard();
+	}
     
     private void tearDownKeyboard(){
     	if(keyboardDriver != null){
@@ -301,7 +399,7 @@ public class AddEditObservingLocation extends ActivityBase{
 	{
 		Log.d("JoeTest", "PrepForModal Called in AddEditObservingLocation");
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
-		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_telescope_root);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_location_root);
 		
 		mainBackLayer.setEnabled(false);
 		locationName.setEnabled(false);
@@ -315,7 +413,7 @@ public class AddEditObservingLocation extends ActivityBase{
 	
 	protected void tearDownModal(){
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
-		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_telescope_root);
+		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_location_root);
 		
 		mainBackLayer.setEnabled(true);
 		locationName.setEnabled(true);
