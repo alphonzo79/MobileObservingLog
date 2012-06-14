@@ -305,37 +305,99 @@ public class AddEditObservingLocation extends ActivityBase{
     protected final Button.OnClickListener gpsFromDevice = new Button.OnClickListener(){
     	public void onClick(View view) {
     		tearDownModal();
-    		lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    		double longitude = lastKnownLocation.getLongitude();
-    		double latitude = lastKnownLocation.getLatitude();
-    		String northSouth = "";
-    		String eastWest = "";
     		
-    		if(longitude > 0){
-    			eastWest = "E";
+    		try{
+	    		lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+	    		if(lastKnownLocation == null){
+	    			tryCourseLocation();
+	    		}
+    		}
+    		catch(SecurityException e){
+    			tryCourseLocation();
+    		}
+    		catch(IllegalArgumentException e){
+    			tryCourseLocation();
+    		}
+    		
+    		if(lastKnownLocation != null){
+	    		double longitude = lastKnownLocation.getLongitude();
+	    		double latitude = lastKnownLocation.getLatitude();
+	    		String northSouth = "";
+	    		String eastWest = "";
+	    		
+	    		if(longitude > 0){
+	    			eastWest = "E";
+	    		}
+	    		else{
+	    			eastWest = "W";
+	    		}
+	    		
+	    		if(latitude > 0){
+	    			northSouth = "N";
+	    		}
+	    		else{
+	    			northSouth = "S";
+	    		}
+	    		
+	    		try{
+		    		String longitudeString = formatCoordinate(Location.convert(longitude, Location.FORMAT_SECONDS));
+		    		String lattitudeString = formatCoordinate(Location.convert(latitude, Location.FORMAT_SECONDS));
+		    		String formatedLocation = String.format("%s %s, %s %s", lattitudeString, northSouth, longitudeString, eastWest);
+		    		locationCoordinates.setText(formatedLocation);
+	    		}
+	    		catch(SecurityException e){
+	    			locationErrorModal();
+	    		}
+	    		catch(IllegalArgumentException e){
+	    			locationErrorModal();
+	    		}
     		}
     		else{
-    			eastWest = "W";
+    			locationErrorModal();
     		}
-    		
-    		if(latitude > 0){
-    			northSouth = "N";
-    		}
-    		else{
-    			northSouth = "S";
-    		}
-    		
-    		String longitudeString = lastKnownLocation.convert(longitude, Location.FORMAT_SECONDS);
-    		String lattitudeString = lastKnownLocation.convert(latitude, Location.FORMAT_SECONDS);
-    		String formatedLocation = String.format("%s %s, %s %s", lattitudeString, northSouth, longitudeString, eastWest);
-    		locationDescription.setText(formatedLocation);
 		}
     };
+    
+    public String formatCoordinate(String rawString){
+    	//The coordinate may be given in the format DD:DD:DD.DDDD
+    	//We want to convert it into DD°DD'DD.DD"
+    	String retVal;
+    	String[] parsed = rawString.split(":");
+    	if(parsed.length == 3){
+    		String[] thirdParsed = parsed[2].split("\\.");
+    		if(thirdParsed.length > 1 && thirdParsed[1].length() > 2){
+    			thirdParsed[1] = thirdParsed[1].substring(0, 2);
+    			parsed[2] = String.format("%s.%s", thirdParsed[0], thirdParsed[1]);
+    		}
+    		
+    		if(parsed[0].charAt(0) == '-'){
+    			parsed[0] = parsed[0].substring(1);
+    		}
+    		
+    		retVal = String.format("%s° %s' %s\"", parsed[0], parsed[1], parsed[2]);
+    	}
+    	else{
+    		retVal = rawString;
+    	}
+    	return retVal;
+    }
+    
+    private void tryCourseLocation(){
+    	try{
+    		lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		}
+		catch(SecurityException e){
+			locationErrorModal();
+		}
+		catch(IllegalArgumentException e){
+			locationErrorModal();
+		}
+    }
     
     protected final Button.OnClickListener typeManually = new Button.OnClickListener(){
     	public void onClick(View view) {
     		tearDownModal();
-			showKeyboard(locationDescription);
+			showKeyboard(locationCoordinates);
 		}
     };
 
@@ -345,6 +407,21 @@ public class AddEditObservingLocation extends ActivityBase{
 		alertText.setText("Would you like to get the GPS coordinates from your Android device or type them in manually?");
 		alertText.setVisibility(View.VISIBLE);
 		alertEdit.setText("From Device");
+		alertEdit.setOnClickListener(gpsFromDevice);
+		alertEdit.setVisibility(View.VISIBLE);
+		alertDelete.setText("Type Manually");
+		alertDelete.setOnClickListener(typeManually);
+		alertDelete.setVisibility(View.VISIBLE);
+		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+		alertModal.setVisibility(View.VISIBLE);
+	}
+	
+	private void locationErrorModal(){
+		prepForModal();
+		findModalElements();
+		alertText.setText("There was a problem getting the location from the device. Would you like to try again or type it in manually?");
+		alertText.setVisibility(View.VISIBLE);
+		alertEdit.setText("Try Again");
 		alertEdit.setOnClickListener(gpsFromDevice);
 		alertEdit.setVisibility(View.VISIBLE);
 		alertDelete.setText("Type Manually");
@@ -417,7 +494,7 @@ public class AddEditObservingLocation extends ActivityBase{
 		
 		mainBackLayer.setEnabled(true);
 		locationName.setEnabled(true);
-		locationCoordinates.setClickable(true);
+		locationCoordinates.setEnabled(true);
 		locationDescription.setEnabled(true);
 		save.setEnabled(true);
 		cancel.setEnabled(true);

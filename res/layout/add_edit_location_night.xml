@@ -124,9 +124,6 @@
 			    <EditText 
 			        style="@style/formScreenTextFieldNight"
 			        android:id="@+id/location_description_text_field"
-			        android:minHeight="150dp"
-			        android:maxLines="10"
-			        android:tag="multi_line"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content"
 			        android:layout_marginTop="3dp"
@@ -182,7 +179,7 @@
     	/>
     
     <include android:id="@+id/alert_modal"
-        layout="@layout/alert_modal"
+        layout="@layout/alert_modal_night"
         android:layout_gravity="center|center"
         />
     

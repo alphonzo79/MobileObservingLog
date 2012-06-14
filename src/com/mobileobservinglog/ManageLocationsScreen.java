@@ -337,13 +337,6 @@ public class ManageLocationsScreen extends ActivityBase {
 			return coordinates;
 		}
 		
-		TextView getDescription(){
-			if (description == null){
-				description = (TextView)row.findViewById(R.id.location_description);
-			}
-			return description;
-		}
-		
 		void populateFrom(LocationData location){
 			getName().setText(location.name);
 			getCoordinates().setText(location.coordinates);

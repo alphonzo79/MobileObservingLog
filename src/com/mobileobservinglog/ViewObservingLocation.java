@@ -2,12 +2,13 @@ package com.mobileobservinglog;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 public class ViewObservingLocation extends ActivityBase{
 
 	//gather resources
-			LinearLayout body;
+			FrameLayout body;
 			
 			@Override
 		    public void onCreate(Bundle icicle) {
@@ -18,7 +19,7 @@ public class ViewObservingLocation extends ActivityBase{
 				
 		        //setup the layout
 		        setContentView(settingsRef.getViewLocationsLayout());
-		        body = (LinearLayout)findViewById(R.id.view_locations_root); 
+		        body = (FrameLayout)findViewById(R.id.view_location_root); 
 			}
 			
 			@Override
