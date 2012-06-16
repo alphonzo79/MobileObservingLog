@@ -18,12 +18,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class ManageLocationsScreen extends ActivityBase {
@@ -83,6 +85,8 @@ public class ManageLocationsScreen extends ActivityBase {
 		super.setLayout();
 		prepareListView();
 		findButtonAddListener();
+		findModalElements();
+		
 		body.postInvalidate();
 	}
 	
@@ -90,8 +94,8 @@ public class ManageLocationsScreen extends ActivityBase {
 		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
         alertText = (TextView)findViewById(R.id.alert_main_text);
         alertEdit = (Button)findViewById(R.id.alert_ok_button);
-        alertDelete = (Button)findViewById(R.id.alert_cancel_button);
-        alertCancel = (Button)findViewById(R.id.alert_extra_button);
+        alertDelete = (Button)findViewById(R.id.alert_extra_button);
+        alertCancel = (Button)findViewById(R.id.alert_cancel_button);
 	}
 	
 	/**
@@ -189,9 +193,7 @@ public class ManageLocationsScreen extends ActivityBase {
     		DatabaseHelper db = new DatabaseHelper(ManageLocationsScreen.this);
     		db.deleteLocationData(listItemId);
     		db.close();
-    		Intent intent = new Intent(ManageLocationsScreen.this.getApplication(), ManageLocationsScreen.class);
-            startActivity(intent);
-            finish();
+    		setLayout();
     	}
     };
     

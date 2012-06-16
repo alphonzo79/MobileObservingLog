@@ -13,13 +13,19 @@
     	android:layout_height="fill_parent"
     	>
 	    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content" 
-	         android:listSelector="@drawable/list_item_back_state"
-	         android:longClickable="true" 
-	         />
+	    <Button
+	        android:id="@+id/add_equipment_button"
+			style="@style/modalSaveCancelButtonNight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:paddingLeft="7dp"
+	        android:paddingRight="7dp"
+	        android:layout_margin="10dp"
+	        android:layout_alignParentBottom="true"
+	        android:text="@string/add_eyepiece"
+	        android:layout_centerHorizontal="true"
+	        />
     
 	    <TextView 
 	        android:id="@+id/nothing_here"
@@ -31,22 +37,18 @@
 	        android:paddingLeft="15dp"
 	        android:paddingRight="15dp"
 	        android:textColor="@color/red"
-	        android:layout_below="@android:id/list" 
+	        android:layout_above="@id/add_equipment_button" 
 	        />
 	    
-	    <Button
-	        android:id="@+id/add_equipment_button"
-			style="@style/modalSaveCancelButtonNight"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textColor="@color/black"
-	        android:paddingLeft="7dp"
-	        android:paddingRight="7dp"
-	        android:layout_margin="10dp"
-	        android:layout_below="@id/nothing_here" 
-	        android:text="@string/add_eyepiece"
-	        android:layout_centerHorizontal="true"
-	        />
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:listSelector="@drawable/list_item_back_state"
+	         android:longClickable="true" 
+	         android:layout_above="@id/nothing_here"
+	         android:layout_alignParentTop="true"
+	         />
     
     </RelativeLayout>
     

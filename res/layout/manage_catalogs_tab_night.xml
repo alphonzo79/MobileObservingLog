@@ -13,13 +13,6 @@
     	android:layout_height="fill_parent"
     	>
 	    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content" 
-	         android:listSelector="@drawable/list_item_back_state"
-	         />
-	    
 	    <Button
 	        android:id="@+id/submit"
 	        android:background="@drawable/red_button_state"
@@ -31,7 +24,7 @@
 	        android:paddingTop="12dp"
 	        android:paddingBottom="12dp"
 	        android:layout_margin="10dp"
-	        android:layout_below="@android:id/list" 
+	        android:layout_alignParentBottom="true"
 	        android:layout_centerHorizontal="true"
 	        />
     
@@ -45,8 +38,17 @@
 	        android:paddingLeft="15dp"
 	        android:paddingRight="15dp"
 	        android:textColor="@color/red"
-	        android:layout_below="@id/submit" 
+	        android:layout_alignParentTop="true"
 	        />
+	    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:listSelector="@drawable/list_item_back_state"
+	         android:layout_below="@id/nothing_left"
+	        android:layout_centerHorizontal="true"
+	         />
     
     </RelativeLayout>
     

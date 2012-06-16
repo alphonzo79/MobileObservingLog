@@ -2,8 +2,10 @@ package com.mobileobservinglog;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 public class ViewObservingLocation extends ActivityBase{
 
@@ -45,6 +47,20 @@ public class ViewObservingLocation extends ActivityBase{
 			public void setLayout(){
 				setContentView(settingsRef.getViewLocationsLayout());
 				super.setLayout();
+				
+				ScrollView fieldsScroller = (ScrollView)findViewById(R.id.view_locations_scroll_fields_view);
+				LinearLayout buttonsLayout = (LinearLayout)findViewById(R.id.view_location_buttons_layout);
+				int buttonsKeyboardSize = buttonsLayout.getHeight();
+				
+				MarginLayoutParams frameParams = (MarginLayoutParams)buttonsLayout.getLayoutParams();
+				frameParams.setMargins(0, -buttonsKeyboardSize, 0, 0);
+				
+				MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
+				scrollParams.setMargins(0, 0, 0, buttonsKeyboardSize);
+				
+				buttonsLayout.setLayoutParams(frameParams);
+				fieldsScroller.setLayoutParams(scrollParams);
+				
 				body.postInvalidate();
 			}
 }

@@ -41,14 +41,17 @@
 	        android:background="@color/red"
 	        android:layout_below="@id/header_text"
 	        />
-		    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content"
-	         android:layout_below="@id/line" 
-	         android:listSelector="@drawable/list_item_back_state"
-	         />
+	    
+	    <Button
+	        android:id="@+id/add_location_button"
+			style="@style/modalSaveCancelButtonNight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_margin="10dp"
+	        android:text="@string/add_location"
+	        android:layout_alignParentBottom="true"
+	        />
 	    
 	    <TextView 
 	        android:id="@+id/nothing_here"
@@ -60,19 +63,17 @@
 	        android:paddingLeft="15dp"
 	        android:paddingRight="15dp"
 	        android:textColor="@color/red"
-	        android:layout_below="@android:id/list"
+	        android:layout_above="@id/add_location_button"
 	        />
-	    
-	    <Button
-	        android:id="@+id/add_location_button"
-			style="@style/modalSaveCancelButtonNight"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_margin="10dp"
-	        android:layout_below="@id/nothing_here" 
-	        android:text="@string/add_location"
-	        />
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="fill_parent"
+	         android:layout_below="@id/line"
+	         android:layout_above="@id/nothing_here" 
+	         android:listSelector="@drawable/list_item_back_state"
+	         />
     
     </RelativeLayout>
     

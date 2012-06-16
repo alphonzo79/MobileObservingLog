@@ -5,18 +5,75 @@
     android:id="@+id/view_location_root"
     >
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        >
-    
+	    >
+	   
+	    <TextView  
+		    style="@style/headerBarNight" 
+		    android:id="@+id/view_location_header"
+		    android:text="@string/app_name"
+		    android:layout_alignParentTop="true"
+		    />
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:layout_below="@id/view_location_header"
+	         />
+	    
+	    <TextView
+	        style="@style/form_data_display_header_night"
+	        android:id="@+id/view_header"
+	        android:layout_below="@id/view_location_header"
+	        />
+	    
+	    <LinearLayout
+	        android:id="@+id/view_location_buttons_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_marginTop="5dp"
+	        android:layout_alignParentBottom="true"
+	        android:orientation="horizontal"
+	        android:paddingBottom="14dp"
+	        android:paddingLeft="14dp"
+	        android:paddingRight="14dp"
+	        >
+		    
+		    <Button 
+				style="@style/modalSaveCancelButtonNight"
+		        android:id="@+id/location_save"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_weight="33"
+		        android:layout_marginRight="6dp"
+		        android:text="Edit/Delete"	      
+		        />
+		    
+		    <Button 
+				style="@style/modalSaveCancelButtonNight"
+		        android:id="@+id/location_cancel"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_weight="33"
+		        android:layout_marginLeft="6dp"
+		        android:text="Cancel"	       
+		        />
+		        
+	    </LinearLayout>
+	    
 	    <ScrollView 
-	        android:id="@+id/scroll_fields_view"
+	        android:id="@+id/view_locations_scroll_fields_view"
 	        android:fillViewport="true"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:scrollbarStyle="insideOverlay"
+	        android:layout_above="@id/view_location_buttons_layout"
+	        android:layout_below="@id/view_header"
 	        >
 	    
 		    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,26 +82,7 @@
 		    	android:layout_height="wrap_content"
 		    	>
 		    
-				<TextView  
-				    style="@style/headerBarNight" 
-				    android:id="@+id/view_location_header"
-				    android:text="@string/app_name"
-				    />
-				    
-			    <ListView  
-			         android:id="@android:id/list"
-			         android:layout_width="fill_parent" 
-			         android:layout_height="wrap_content" 
-			         android:layout_below="@id/view_location_header"
-			         />
-			    
-			    <TextView
-			        style="@style/formScreenHeaderNight"
-			        android:id="@+id/view_header"
-			        android:layout_below="@id/view_location_header"
-			        />
-			    
-			    <LinearLayout
+				<LinearLayout
 			        android:id="@+id/coordinates_layout"
 			        android:orientation="vertical"
 			        android:paddingLeft="14dp"
@@ -59,13 +97,13 @@
 			        >
 			    
 				    <TextView
-				        style="@style/formScreenLabelNight"
+				        style="@style/form_data_display_label_night"
 				        android:text="@string/location_coordinates_label"
 				        android:layout_gravity="left"
 				        />
 				    
 				    <TextView 
-				        style="@style/formScreenTextFieldNight"
+				        style="@style/form_data_display_body_night"
 				        android:id="@+id/location_coordinates"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
@@ -89,18 +127,18 @@
 			        >
 			    
 				    <TextView
-				        style="@style/formScreenLabelNight"
+				        style="@style/form_data_display_label_night"
 				        android:text="@string/location_description_label"
 				        android:layout_gravity="left"
 				        />
 				    
 				    <TextView 
-				        style="@style/formScreenTextFieldNight"
+				        style="@style/form_data_display_body_night"
 				        android:id="@+id/location_description_text_field"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
 				        android:layout_marginTop="3dp"
-				        android:gravity="top|left"
+				        android:gravity="top|center"
 				        />
 			        
 			    </LinearLayout>
@@ -108,43 +146,8 @@
 		    </RelativeLayout>
 		    
 	    </ScrollView>
-			    
-	    <LinearLayout
-	        android:orientation="horizontal"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
-	        android:paddingBottom="14dp"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="fill_parent" 
-	        android:layout_gravity="center"
-	        android:layout_marginTop="5dp"
-	        android:layout_below="@id/description_layout"
-	        android:gravity="bottom"
-	        >
-		    
-		    <Button 
-		        style="@style/modalSaveCancelButtonNight"
-		        android:id="@+id/location_save"
-		        android:layout_width="fill_parent" 
-		        android:layout_height="wrap_content" 
-		        android:layout_weight="33"
-		        android:layout_marginRight="6dp"
-		        android:text="Edit/Delete"	      
-		        />
-		    
-		    <Button 
-		        style="@style/modalSaveCancelButtonNight"
-		        android:id="@+id/location_cancel"
-		        android:layout_width="fill_parent" 
-		        android:layout_height="wrap_content" 
-		        android:layout_weight="33"
-		        android:layout_marginLeft="6dp"
-		        android:text="Cancel"	       
-		        />
-		        
-	    </LinearLayout>
 	    
-    </LinearLayout>
+    </RelativeLayout>
     
     <include android:id="@+id/settings_fog"
         layout="@layout/background_dim_out"
@@ -154,12 +157,12 @@
     	/>
     
     <include android:id="@+id/alert_modal"
-        layout="@layout/alert_modal"
+        layout="@layout/alert_modal_night"
         android:layout_gravity="center|center"
         />
     
     <include android:id="@+id/keyboard_root" 
-        layout="@layout/keyboard_layout_night"
+        layout="@layout/keyboard_layout_normal"
         android:layout_gravity="bottom"
         />
 	    
