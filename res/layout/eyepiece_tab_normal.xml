@@ -23,6 +23,15 @@
 	        android:text="@string/add_eyepiece"
 	        />
 	    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content"
+	         android:longClickable="true" 
+	         android:layout_above="@id/add_equipment_button"
+	         android:layout_alignParentTop="true"
+	         />
+	    
 	    <TextView 
 	        android:id="@+id/nothing_here"
 	        android:layout_width="fill_parent"
@@ -33,17 +42,8 @@
 	        android:paddingLeft="15dp"
 	        android:paddingRight="15dp"
 	        android:textColor="@color/black"
-	        android:layout_above="@id/add_equipment_button"
-	        />
-	    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content"
-	         android:longClickable="true" 
-	         android:layout_above="@id/nothing_here"
 	         android:layout_alignParentTop="true"
-	         />
+	        />
 	    
     </RelativeLayout>
     

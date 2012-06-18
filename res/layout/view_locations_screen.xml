@@ -45,7 +45,7 @@
 	        >
 		    
 		    <Button 
-		        android:id="@+id/location_save"
+		        android:id="@+id/view_location_edit"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="33"
@@ -54,7 +54,7 @@
 		        />
 		    
 		    <Button 
-		        android:id="@+id/location_cancel"
+		        android:id="@+id/view_location_cancel"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="33"
@@ -99,6 +99,17 @@
 				        android:text="@string/location_coordinates_label"
 				        android:layout_gravity="left"
 				        />
+	    
+				    <View
+				        android:id="@+id/coords_line"
+				        android:layout_width="fill_parent"
+				        android:layout_height=".5dip"
+				        android:layout_marginLeft="15dip"
+				        android:layout_marginRight="15dip"
+				        android:layout_marginTop="2dip"
+				        android:layout_marginBottom="2dip"
+				        android:background="@color/black"
+				        />
 				    
 				    <TextView 
 				        style="@style/form_data_display_body"
@@ -128,6 +139,17 @@
 				        style="@style/form_data_display_label"
 				        android:text="@string/location_description_label"
 				        android:layout_gravity="left"
+				        />
+	    
+				    <View
+				        android:id="@+id/desc_line"
+				        android:layout_width="fill_parent"
+				        android:layout_height=".5dip"
+				        android:layout_marginLeft="15dip"
+				        android:layout_marginRight="15dip"
+				        android:layout_marginTop="2dip"
+				        android:layout_marginBottom="2dip"
+				        android:background="@color/black"
 				        />
 				    
 				    <TextView 

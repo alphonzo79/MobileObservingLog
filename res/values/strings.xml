@@ -62,4 +62,10 @@
     <string name="location_title_label">Location Name:</string>
     <string name="location_coordinates_label">GPS Coordinates:</string>
     <string name="location_description_label">Description/Directions:</string>
+    <string name="personal_info_top_label">Personal Information</string>
+    <string name="personal_info_name_label">Full Name:</string>
+    <string name="personal_info_address_label">Address:</string>
+    <string name="personal_info_phone_label">Phone:</string>
+    <string name="personal_info_email_label">E-mail:</string>
+    <string name="personal_info_club_label">Astronomical Club:</string>
 </resources>

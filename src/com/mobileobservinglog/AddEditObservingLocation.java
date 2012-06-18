@@ -144,6 +144,8 @@ public class AddEditObservingLocation extends ActivityBase{
 			locationNameText = locationData.getString(1);
 			locationCoordinatesText = locationData.getString(2);
 			locationDescriptionText = locationData.getString(3);
+			locationData.close();
+			db.close();
 		}
 		
 		locationName.setText(locationNameText);
@@ -463,10 +465,9 @@ public class AddEditObservingLocation extends ActivityBase{
     	else{
     		db.updateLocationData(locationId, locationNameText, locationCoordinatesText, locationDescriptionText);
     	}
-    		    	
-    	Intent intent = new Intent(this, ManageLocationsScreen.class);
-        startActivity(intent);
-        finish();
+
+    	tearDownKeyboard();
+    	onBackPressed();
     }
 
 	/**

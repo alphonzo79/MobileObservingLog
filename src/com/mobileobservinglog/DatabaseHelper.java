@@ -54,6 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			populatePersistentSettings(db);
 			populateAvailableCatalogs(db);
 			populateObjects(db);
+			populatePersonalInfo(db);
 			db.setTransactionSuccessful();
 		}
 		catch (SQLException e)
@@ -179,6 +180,27 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				}
 			}
 		}
+	}
+
+	/**
+	 * Method used to seed values in the object table
+	 * @throws Exception If the number of values don't match the number of columns in the table, we will throw
+	 */
+	private void populatePersonalInfo(SQLiteDatabase db) throws Exception
+	{
+		Log.d("JoeDebug", "Starting populatePersonalInfo");
+		SQLiteStatement sqlStatement;
+		
+		sqlStatement = db.compileStatement("INSERT INTO personalInfo (_id, fullName, address, phone, eMail, localClub) VALUES (?, ?, ?, ?, ?, ?)");
+		sqlStatement.bindString(1, "1");
+		sqlStatement.bindString(2, "Press \"Edit Information\" to change");
+		sqlStatement.bindString(3, "Press \"Edit Information\" to change");
+		sqlStatement.bindString(4, "Press \"Edit Information\" to change");
+		sqlStatement.bindString(5, "Press \"Edit Information\" to change");
+		sqlStatement.bindString(6, "Press \"Edit Information\" to change");
+		
+		sqlStatement.execute();
+		sqlStatement.clearBindings();
 	}
 
 	/**
@@ -813,6 +835,65 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		SQLiteStatement sqlStatement = db.compileStatement("DELETE from locations WHERE _id = ?");
 		sqlStatement.bindLong(1, id);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
+	
+	/**
+	 * Called by the PersonalLayout screens to get the saved personal information in the database
+	 * @return
+	 */
+	public Cursor getPersonalInfo(){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM personalInfo WHERE _id = 1";
+		
+		retVal = db.rawQuery(sqlStatement, null);
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
+	
+	/**
+	 * Called by the PersonalInfo screen to update the personal info in the database
+	 * @param id
+	 * @param locationName
+	 * @param coordinates
+	 * @param description
+	 * @return
+	 */
+	public boolean updatePersonalInfoData(int id, String fullName, String address, String phone, String eMail, String localClub){
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		String sql = "UPDATE personalInfo SET fullName = ?, address = ?, phone = ?, eMail = ?, localClub= ? where _id = 1";
+		
+		SQLiteStatement sqlStatement = db.compileStatement(sql);
+			sqlStatement.bindString(1, fullName);
+			sqlStatement.bindString(2, address);
+			sqlStatement.bindString(3, phone);
+			sqlStatement.bindString(4, eMail);
+			sqlStatement.bindString(5, localClub);
 		
 		db.beginTransaction();
 		try
