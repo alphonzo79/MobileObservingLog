@@ -881,7 +881,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 * @param description
 	 * @return
 	 */
-	public boolean updatePersonalInfoData(int id, String fullName, String address, String phone, String eMail, String localClub){
+	public boolean updatePersonalInfoData(String fullName, String address, String phone, String eMail, String localClub){
 		boolean success = false;
 		
 		SQLiteDatabase db = getReadableDatabase();
