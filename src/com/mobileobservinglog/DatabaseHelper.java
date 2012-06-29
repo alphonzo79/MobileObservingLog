@@ -924,4 +924,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		return success;
 	}
+	
+	public int getNumLogged(String catalogName){
+		int retVal = 0;
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT count(*) AS count FROM objects WHERE logged = 'yes' AND catalog = ?;";
+		
+		Cursor rs = db.rawQuery(sql, new String[]{catalogName});
+		rs.moveToFirst();
+		
+		retVal = rs.getInt(0);
+		
+		rs.close();
+		db.close();
+				
+		return retVal;
+	}
 }

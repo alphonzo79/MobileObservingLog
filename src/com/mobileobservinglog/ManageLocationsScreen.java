@@ -11,16 +11,9 @@
 package com.mobileobservinglog;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.TelescopeTab.TelescopeAdapter;
-import com.mobileobservinglog.TelescopeTab.TelescopeData;
-import com.mobileobservinglog.TelescopeTab.TelescopeWrapper;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,14 +21,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class ManageLocationsScreen extends ActivityBase {

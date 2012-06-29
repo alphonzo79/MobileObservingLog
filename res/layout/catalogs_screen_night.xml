@@ -7,32 +7,72 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/layoutRootNight"
     android:id="@+id/catalogs_root"
     >
     
     <TextView 
 	    style="@style/headerBarNight" 
-	    android:id="@+id/add_catalogs_header"
-	    android:text="Catalog Name"
+	    android:id="@+id/catalogs_header"
+	    android:text="@string/app_name"
+	    android:layout_alignParentTop="true"
 	    />
+    
+    <LinearLayout 
+        android:id="@+id/catalog_button_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|center_horizontal"
+	    android:padding="16dp"
+	    android:layout_alignParentBottom="true"
+        >
+			    
+	    <Button 
+	        style="@style/modalSaveCancelButtonNight"
+	        android:id="@+id/search_button"
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content" 
+	        android:layout_gravity="bottom|center_horizontal"
+	        android:paddingLeft="20dp"
+	        android:paddingRight="20dp"
+	        android:text="Search Objects"
+	        android:layout_alignParentBottom="true"	      
+	        />
 	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         />
+    </LinearLayout>
+    
+    <ScrollView 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:fillViewport="true"
+	    android:id="@+id/catalogs_scroll_view"
+	    android:layout_below="@id/catalogs_header"
+	    android:layout_above="@id/catalog_button_layout"
+	    >
+	    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:listSelector="@drawable/list_item_back_state"
+	         />
+    
+    </ScrollView>
     
     <TextView 
-	    android:id="@+id/temp_text"
-    	android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    android:text="Catalog Index Screen Night"
-	    android:textColor="@color/red"
-	    android:gravity="center|center_vertical"
-	    android:padding="2dp"
-	    android:textStyle="bold"
+	    android:id="@+id/nothing_here"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:text="@string/no_installed_catalogs"
+	    android:gravity="center_horizontal"
+	    android:layout_below="@id/catalogs_header"
+        android:textSize="14dp"
+        android:paddingTop="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/red"
+        android:visibility="gone"
 	    />
 	    
-</LinearLayout>
+</RelativeLayout>

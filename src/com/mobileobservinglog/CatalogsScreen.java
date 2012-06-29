@@ -10,16 +10,36 @@
 
 package com.mobileobservinglog;
 
-import com.mobileobservinglog.R;
+import java.util.ArrayList;
 
+import com.mobileobservinglog.R;
+import com.mobileobservinglog.ManageCatalogsTabParent.Catalog;
+import com.mobileobservinglog.ManageCatalogsTabParent.CatalogWrapper;
+import com.mobileobservinglog.ManageLocationsScreen.LocationAdapter;
+import com.mobileobservinglog.ManageLocationsScreen.LocationData;
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class CatalogsScreen extends ActivityBase{
 
 	//gather resources
-	LinearLayout body;
+	RelativeLayout body;
+	Button searchButton;
+	TextView nothingHere;
+	ArrayList<Catalog> catalogList;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -30,7 +50,7 @@ public class CatalogsScreen extends ActivityBase{
 		
         //setup the layout
         setContentView(settingsRef.getCatalogsLayout());
-        body = (LinearLayout)findViewById(R.id.catalogs_root);
+        body = (RelativeLayout)findViewById(R.id.catalogs_root);
 	}
 	
 	@Override
@@ -56,6 +76,184 @@ public class CatalogsScreen extends ActivityBase{
 	public void setLayout(){
 		setContentView(settingsRef.getCatalogsLayout());
 		super.setLayout();
+		findButtonAddListener();
+		prepareListView();
 		body.postInvalidate();
+	}
+
+	private void findButtonAddListener() {
+		searchButton = (Button)findViewById(R.id.search_button);
+        searchButton.setOnClickListener(searchCatalogs);
+	}
+    
+    private final Button.OnClickListener searchCatalogs = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		Intent intent = new Intent(CatalogsScreen.this.getApplication(), SearchScreen.class);
+            startActivity(intent);
+        }
+    };
+    
+    private final Button.OnClickListener addCatalogs = new Button.OnClickListener() {
+    	public void onClick(View view){
+    		Intent intent = new Intent(CatalogsScreen.this.getApplication(), AddCatalogsScreen.class);
+            startActivity(intent);
+        }
+    };
+	
+	/**
+	 * Internal method to handle preparation of the list view upon creation or to be called by setLayout when session mode changes or onResume.
+	 */
+	protected void prepareListView()
+	{
+		catalogList = new ArrayList<Catalog>();
+		//Get the list of saved telescopes and populate the list
+		DatabaseHelper db = new DatabaseHelper(this);
+		Cursor catalogs = db.getAvailableCatalogs();
+		
+		catalogs.moveToFirst();
+		
+		for (int i = 0; i < catalogs.getCount(); i++)
+        {
+			Log.d("JoeDebug", "cursor size is " + catalogs.getCount());
+			String name = catalogs.getString(0);
+			String installed = catalogs.getString(1);
+			String count = catalogs.getString(2);
+			
+			if (installed.equals("Yes")){
+				int logged = db.getNumLogged(name);
+				catalogList.add(new Catalog(name, count, logged));
+			}
+        	
+        	catalogs.moveToNext();
+        }
+		catalogs.close();
+		db.close();
+		
+		if (catalogList.size() == 0){
+			TextView nothingLeft = (TextView)findViewById(R.id.nothing_here);
+			nothingLeft.setVisibility(View.VISIBLE);
+			searchButton.setText("Available Catalogs");
+			searchButton.setOnClickListener(addCatalogs);
+		}
+		else{
+			Log.d("JoeTest", "List size is " + catalogList.size());
+			setListAdapter(new CatalogAdapter(this, settingsRef.getCatalogsList(), catalogList));
+		}
+	}
+	
+	/**
+	 * Take action on each of the list items when clicked. We need to let the user edit or remove their equipment profile
+	 */
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id)
+	{
+		String catalog = catalogList.get(position).name;
+		Intent intent = new Intent(CatalogsScreen.this.getApplication(), ObjectIndexScreen.class);
+		intent.putExtra("com.mobileobservationlog.catalogName", catalog);
+        startActivity(intent);
+	}
+    
+    //////////////////////////////////////
+    // Catalog List Inflation Utilities //
+    //////////////////////////////////////
+	
+	static class Catalog{
+		String name;
+		String count;
+		int logged;
+		
+		Catalog(String catalogName, String objectCount, int numLogged){
+			name = catalogName;
+			count = objectCount;
+			logged = numLogged;
+		}		
+	}
+	
+	class CatalogAdapter extends ArrayAdapter<Catalog>{
+		
+		int listLayout;
+		
+		CatalogAdapter(Context context, int listLayout, ArrayList<Catalog> list){
+			super(context, listLayout, R.id.catalog_name, list);
+			this.listLayout = listLayout;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent){
+			CatalogWrapper wrapper = null;
+			
+			if (convertView == null){
+				convertView = getLayoutInflater().inflate(listLayout, null);
+				wrapper = new CatalogWrapper(convertView);
+				convertView.setTag(wrapper);
+			}
+			else{
+				wrapper = (CatalogWrapper)convertView.getTag();
+			}
+			
+			wrapper.populateFrom(getItem(position));
+			
+			return convertView;
+		}
+	}
+	
+	class CatalogWrapper{
+		
+		private TextView name = null;
+		private TextView specs = null;
+		private ImageView icon = null;
+		private View row = null;
+		
+		CatalogWrapper(View row){
+			this.row = row;
+		}
+		
+		TextView getName(){
+			if (name == null){
+				name = (TextView)row.findViewById(R.id.catalog_name);
+			}
+			return name;
+		}
+		
+		TextView getSpecs(){
+			if (specs == null){
+				specs = (TextView)row.findViewById(R.id.catalog_specs);
+			}
+			return specs;
+		}
+		
+		ImageView getIcon(){
+			if (icon == null){
+				icon = (ImageView)row.findViewById(R.id.catalog_icon);
+			}
+			return icon;
+		}
+		
+		void populateFrom(Catalog catalog){
+			getName().setText(catalog.name);
+			getSpecs().setText(formatStats(catalog));
+			getIcon().setImageResource(getIcon(catalog.name));
+		}
+		
+		private int getIcon(String catalogName){
+			int retVal = 0;
+			if(catalogName.equals("Messier Catalog")){
+				retVal = settingsRef.getMessierIcon();
+			}
+			else if (catalogName.equals("NGC Catalog")){
+				retVal = settingsRef.getNgcIcon();
+			}
+			else if (catalogName.equals("IC Catalog")){
+				retVal = settingsRef.getIcIcon();
+			}
+			return retVal;
+		}
+		
+		private String formatStats(Catalog catalog){
+			double countDouble = Double.parseDouble(catalog.count);
+			double percentFloor = Math.floor(catalog.logged/countDouble);
+			String retVal = String.format("%d of %s (%d%%) logged", catalog.logged, catalog.count, (int)percentFloor);
+			return retVal;
+		}
 	}
 }

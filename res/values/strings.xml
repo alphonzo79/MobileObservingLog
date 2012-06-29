@@ -76,4 +76,6 @@
     <string name="personal_info_phone_label">Phone:</string>
     <string name="personal_info_email_label">E-mail:</string>
     <string name="personal_info_club_label">Astronomical Club:</string>
+    <string name="catalog_icon_alt">Catalog Icon</string>
+    <string name="no_installed_catalogs_index_page">There are no catalogs currently installed. Please return home and press \"Manage Catalogs\" to install some</string>
 </resources>
