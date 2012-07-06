@@ -10,6 +10,8 @@
 
 package com.mobileobservinglog;
 
+import com.mobileobservinglog.support.DatabaseHelper;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;

@@ -22,8 +22,8 @@ import android.widget.Button;
 
 import com.mobileobservinglog.ObservingLogActivity;
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.SettingsContainer;
-import com.mobileobservinglog.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 
 public class ObservingLogActivityTests extends SingleLaunchActivityTestCase<ObservingLogActivity>
 {

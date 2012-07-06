@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
+import com.mobileobservinglog.support.DatabaseHelper;
 
 public class EditPersonalInfoScreen extends ActivityBase{
 

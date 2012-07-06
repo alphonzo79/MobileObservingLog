@@ -13,6 +13,7 @@ package com.mobileobservinglog;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.support.DatabaseHelper;
 
 import android.content.Context;
 import android.content.Intent;

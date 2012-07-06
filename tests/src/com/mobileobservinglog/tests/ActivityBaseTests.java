@@ -15,7 +15,7 @@ import android.test.SingleLaunchActivityTestCase;
 import android.view.Menu;
 
 import com.mobileobservinglog.HomeScreen;
-import com.mobileobservinglog.SettingsContainer;
+import com.mobileobservinglog.support.SettingsContainer;
 
 public class ActivityBaseTests extends SingleLaunchActivityTestCase<HomeScreen>{
 
@@ -43,7 +43,7 @@ public class ActivityBaseTests extends SingleLaunchActivityTestCase<HomeScreen>{
 	
 	//Test toggle mode method
 	public void testToggleMode() throws Throwable{
-		com.mobileobservinglog.SettingsContainer.SessionMode currentMode = mSettings.getSessionMode();
+		com.mobileobservinglog.support.SettingsContainer.SessionMode currentMode = mSettings.getSessionMode();
 		assertNotNull("Initial session mode is null", currentMode);
 		
 		runTestOnUiThread(new Runnable()
@@ -54,7 +54,7 @@ public class ActivityBaseTests extends SingleLaunchActivityTestCase<HomeScreen>{
 			}
 		});
 		
-		com.mobileobservinglog.SettingsContainer.SessionMode newMode = mSettings.getSessionMode();
+		com.mobileobservinglog.support.SettingsContainer.SessionMode newMode = mSettings.getSessionMode();
 		assertNotNull(newMode);
 		assertNotSame("The session mode did not change. Original mode: " + currentMode + ". new mode: " + newMode + ". ", currentMode, newMode);
 	}

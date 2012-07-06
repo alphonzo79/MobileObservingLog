@@ -24,8 +24,8 @@ import android.widget.Button;
 
 import com.mobileobservinglog.AddEditObservingLocation;
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.SettingsContainer;
-import com.mobileobservinglog.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 
 public class AddEditObservingLocationTests extends SingleLaunchActivityTestCase<AddEditObservingLocation>{
 	AddEditObservingLocation mAut = null;

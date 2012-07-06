@@ -17,6 +17,7 @@ import com.mobileobservinglog.ManageCatalogsTabParent.Catalog;
 import com.mobileobservinglog.ManageCatalogsTabParent.CatalogWrapper;
 import com.mobileobservinglog.ManageLocationsScreen.LocationAdapter;
 import com.mobileobservinglog.ManageLocationsScreen.LocationData;
+import com.mobileobservinglog.support.DatabaseHelper;
 
 import android.content.Context;
 import android.content.Intent;

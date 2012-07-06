@@ -12,6 +12,7 @@ package com.mobileobservinglog;
 
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
+import com.mobileobservinglog.support.DatabaseHelper;
 
 import android.content.Context;
 import android.content.Intent;

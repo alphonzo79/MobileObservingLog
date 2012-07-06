@@ -10,7 +10,8 @@
 
 package com.mobileobservinglog;
 
-import com.mobileobservinglog.strategies.CustomizeBrightness;
+import com.mobileobservinglog.support.CustomizeBrightness;
+import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.R;
 
 import android.app.TabActivity;

@@ -13,6 +13,8 @@ package com.mobileobservinglog;
 import java.io.File;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.SettingsContainer;
 
 import android.database.Cursor;
 import android.os.Bundle;

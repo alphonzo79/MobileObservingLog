@@ -18,10 +18,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
 
-import com.mobileobservinglog.DatabaseHelper;
 import com.mobileobservinglog.HomeScreen;
-import com.mobileobservinglog.SettingsContainer;
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.SettingsContainer;
 
 /**
  * @author Joe Rowley

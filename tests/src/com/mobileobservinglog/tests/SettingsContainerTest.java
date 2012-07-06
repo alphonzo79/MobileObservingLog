@@ -11,8 +11,8 @@
 package com.mobileobservinglog.tests;
 
 import com.mobileobservinglog.ObservingLogActivity;
-import com.mobileobservinglog.SettingsContainer;
-import com.mobileobservinglog.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 import com.mobileobservinglog.R;
 
 import android.app.Instrumentation;
@@ -55,7 +55,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getSettingsContainer()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getSettingsContainer()}.
 	 * 
 	 * Since the settings container is a singleton, we need to create a second SettingsContainer object, call the method to 
 	 * populate it, and compare it to the one that was established at the beginning of the test. They should refer to the same 
@@ -69,7 +69,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getSessionMode()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getSessionMode()}.
 	 * 
 	 * Testing this, we will get the default session mode, which should be night, then switch to normal mode
 	 * and check, then switch back to night. This will likely be duplicated in part in the methods that test the
@@ -87,7 +87,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getHomeLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getHomeLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -106,7 +106,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getAddCatalogsLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getAddCatalogsLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -125,7 +125,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getAddCatalogsListLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getAddCatalogsListLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -144,7 +144,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getAddCatalogsTabLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getAddCatalogsTabLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -163,7 +163,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getCatalogsLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getCatalogsLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -181,7 +181,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getInfoLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getInfoLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -199,7 +199,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getObjectDetailLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getObjectDetailLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -217,7 +217,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getSettingsLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getSettingsLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instantiate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -235,7 +235,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getSettingsListLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getSettingsListLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, sicom.mobileobservinglogate by default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -253,7 +253,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getTargetListsLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getTargetListsLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since thcom.mobileobservinglog default with night mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -307,7 +307,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getTelescopeTavLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getTelescopeTavLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will icom.mobileobservinglognight mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -325,7 +325,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getTelescopeListLayout()}.
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getTelescopeListLayout()}.
 	 * 
 	 * The first layout delivered should be night mode, since the class will instacom.mobileobservinglogt mode.
 	 * Switch to normal mode and check the layout delivered, then switch back to night mode and check the layout.
@@ -481,7 +481,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getTabIndicator()
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getTabIndicator()
 	 */
 	public void testGetTabIndicator() {
 		SessionMode currentMode = mCut.getSessionMode();
@@ -526,7 +526,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#setNightMode()
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#setNightMode()
 	 */
 	public void testSetNightMode() {
 		mCut.setNightMode();
@@ -559,7 +559,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#setNormalMode()
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#setNormalMode()
 	 */
 	public void testSetNormalMode() {
 		mCut.setNormalMode();
@@ -592,7 +592,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#getPersistentSetting()
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#getPersistentSetting()
 	 */
 	public void testGetPersistentSetting() {
 		assertNotNull("Night Mode Backlight Intensity was null", mCut.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, mAut));
@@ -601,7 +601,7 @@ public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobi
 	}
 
 	/**
-	 * Test method for {@link com.mobileobservinglog.SettingsContainer#setPersistentSetting()
+	 * Test method for {@link com.mobileobservinglog.support.SettingsContainer#setPersistentSetting()
 	 */
 	public void testSetPersistentSetting() {
 		String originalSetting = mCut.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, mAut);

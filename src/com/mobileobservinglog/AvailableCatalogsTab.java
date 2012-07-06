@@ -21,6 +21,8 @@ import java.net.URLConnection;
 import org.apache.http.util.ByteArrayBuffer;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.SettingsContainer;
 
 import android.database.Cursor;
 import android.os.Bundle;

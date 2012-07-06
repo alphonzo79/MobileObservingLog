@@ -12,6 +12,7 @@ package com.mobileobservinglog;
 
 import com.mobileobservinglog.R;
 import com.mobileobservinglog.R.id;
+import com.mobileobservinglog.support.DatabaseHelper;
 
 import android.content.Intent;
 import android.database.Cursor;

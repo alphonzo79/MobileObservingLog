@@ -21,8 +21,8 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.mobileobservinglog.HomeScreen;
-import com.mobileobservinglog.SettingsContainer;
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.support.SettingsContainer;
 
 public class HomeScreenTests extends SingleLaunchActivityTestCase<HomeScreen>{
 

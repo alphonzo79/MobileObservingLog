@@ -14,7 +14,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import com.mobileobservinglog.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 import com.mobileobservinglog.R;
 
 import android.content.Context;

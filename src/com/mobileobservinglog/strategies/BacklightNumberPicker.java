@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-import com.mobileobservinglog.DatabaseHelper;
-import com.mobileobservinglog.SettingsContainer;
+import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.SettingsContainer;
 
 public class BacklightNumberPicker extends NumberPickerDriver {
 	

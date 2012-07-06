@@ -16,6 +16,7 @@ import com.mobileobservinglog.strategies.BacklightNumberPicker;
 import com.mobileobservinglog.strategies.GpsModePicker;
 import com.mobileobservinglog.strategies.NumberPickerDriver;
 import com.mobileobservinglog.strategies.SearchModePicker;
+import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.R;
 
 import android.content.Intent;

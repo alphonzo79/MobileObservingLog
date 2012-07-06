@@ -12,8 +12,8 @@ package com.mobileobservinglog.strategies;
 
 import java.util.ArrayList;
 
-import com.mobileobservinglog.DatabaseHelper;
-import com.mobileobservinglog.SettingsContainer;
+import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.SettingsContainer;
 
 import android.content.Context;
 

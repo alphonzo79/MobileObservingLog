@@ -20,7 +20,7 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
 import com.mobileobservinglog.ObservingLogActivity;
-import com.mobileobservinglog.strategies.CustomizeBrightness;
+import com.mobileobservinglog.support.CustomizeBrightness;
 
 /**
  * @author Joe Rowley
