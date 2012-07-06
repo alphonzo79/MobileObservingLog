@@ -148,7 +148,8 @@ public class CatalogsScreen extends ActivityBase{
 	protected void onListItemClick(ListView l, View v, int position, long id)
 	{
 		String catalog = catalogList.get(position).name;
-		Intent intent = new Intent(CatalogsScreen.this.getApplication(), ObjectIndexScreen.class);
+		Intent intent = new Intent(this.getApplication(), ObjectIndexScreen.class);
+		intent.putExtra("com.mobileobservationlog.indexType", "catalog");
 		intent.putExtra("com.mobileobservationlog.catalogName", catalog);
         startActivity(intent);
 	}
@@ -252,7 +253,7 @@ public class CatalogsScreen extends ActivityBase{
 		private String formatStats(Catalog catalog){
 			double countDouble = Double.parseDouble(catalog.count);
 			double percentFloor = Math.floor(catalog.logged/countDouble);
-			String retVal = String.format("%d of %s (%d%%) logged", catalog.logged, catalog.count, (int)percentFloor);
+			String retVal = String.format("%d of %s logged - (%d%%)", catalog.logged, catalog.count, (int)percentFloor);
 			return retVal;
 		}
 	}

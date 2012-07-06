@@ -274,6 +274,14 @@ public final class SettingsContainer {
 		mObjectIndexLayout = layout;
 	}
 	
+	private int mObjectIndexListLayout;
+	public int getObjectIndexListLayout(){
+		return mObjectIndexListLayout;
+	}
+	private void setObjectIndexListLayout(int layout){
+		mObjectIndexListLayout = layout;
+	}
+	
 	//Options Menu toggle mode button text changes according to the mode.
 	private int mModeText;
 	public int getModeButtonText(){
@@ -396,6 +404,7 @@ public final class SettingsContainer {
 		setViewLocationsLayout(R.layout.view_locations_screen_night);
 		setEditPersonalInfoLayout(R.layout.edit_personal_info_night);
 		setObjectIndexLayout(R.layout.object_index_screen_night);
+		setObjectIndexListLayout(R.layout.object_index_list_night);
 		setLocationsListLayout(R.layout.locations_list_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setCheckbox_Selected(R.drawable.checked_night);
@@ -433,6 +442,7 @@ public final class SettingsContainer {
 		setViewLocationsLayout(R.layout.view_locations_screen);
 		setEditPersonalInfoLayout(R.layout.edit_personal_info);
 		setObjectIndexLayout(R.layout.object_index_screen);
+		setObjectIndexListLayout(R.layout.object_index_list);
 		setLocationsListLayout(R.layout.locations_list_normal);
 		setTabIndicator(R.layout.tab_indicator_layout);
 		setCheckbox_Selected(R.drawable.checked_normal);

@@ -78,4 +78,5 @@
     <string name="personal_info_club_label">Astronomical Club:</string>
     <string name="catalog_icon_alt">Catalog Icon</string>
     <string name="no_installed_catalogs_index_page">There are no catalogs currently installed. Please return home and press \"Manage Catalogs\" to install some</string>
+    <string name="no_objects_match_search">There were no objects found in the installed catalogs to match your search criteria. Please reduce your filter criteria or clear the filter.</string>
 </resources>

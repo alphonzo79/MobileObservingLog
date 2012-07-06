@@ -384,6 +384,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				
 		return retVal;
 	}
+	
+	public Cursor getCatalogSpecs(String catalogName){
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT * FROM availableCatalogs WHERE catalogName = ?";
+		
+		retVal = db.rawQuery(sqlStatement, new String[]{catalogName});
+		retVal.moveToFirst();
+		
+		db.close();
+				
+		return retVal;
+	}
 
 	/**
 	 * This method is used to update the database for whether a catalog has been installed or not for the given catalogs. It is used primarily by AvailableCatalogsTab.java and
@@ -928,7 +941,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	public int getNumLogged(String catalogName){
 		int retVal = 0;
 		SQLiteDatabase db = getReadableDatabase();
-		String sql = "SELECT count(*) AS count FROM objects WHERE logged = 'yes' AND catalog = ?;";
+		String sql = "SELECT count(*) AS count FROM objects WHERE logged = 'Yes' AND catalog = ?;";
 		
 		Cursor rs = db.rawQuery(sql, new String[]{catalogName});
 		rs.moveToFirst();
@@ -939,5 +952,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		db.close();
 				
 		return retVal;
+	}
+	
+	public Cursor getUnfilteredObjectList_Catalog(String catalogName){
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT designation, constellation, type, magnitude, logged FROM objects WHERE catalog = ?";
+		
+		Cursor rs = db.rawQuery(sql, new String[]{catalogName});
+		rs.moveToFirst();
+		
+		db.close();
+		return rs;
 	}
 }
