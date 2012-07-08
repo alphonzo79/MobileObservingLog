@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class ObjectIndexScreen extends ActivityBase {
 	ArrayList<Object> objectList;
 	String indexType;
 	String catalogName;
+	String listName;
 	ObjectIndexFilter filter;
 	
 	@Override
@@ -98,13 +100,19 @@ public class ObjectIndexScreen extends ActivityBase {
     
     private final Button.OnClickListener clearFilter = new Button.OnClickListener() {
     	public void onClick(View view){
-    		//TODO
+    		filter.clearFilter();
+    		setLayout();
         }
     };
     
     private final Button.OnClickListener refineFilter = new Button.OnClickListener() {
     	public void onClick(View view){
-    		//TODO
+    		Intent intent = new Intent(ObjectIndexScreen.this.getApplication(), SearchScreen.class);
+    		if(catalogName.length() > 1){
+	    		intent.putExtra("com.mobileobservationlog.indexType", "catalog");
+	    		intent.putExtra("com.mobileobservationlog.catalogName", catalogName);
+    		}
+    		startActivity(intent);
         }
     };
     
@@ -113,26 +121,25 @@ public class ObjectIndexScreen extends ActivityBase {
     	loggedSpecs = (TextView)findViewById(R.id.catalog_logged_specs);
     	currentFilter = (TextView)findViewById(R.id.current_filter);
     	if(indexType.equals("catalog")){
-    		String catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
+    		catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
     		header.setText(catalogName);
     		String loggedSpecsString = getLoggedSpecs();
     		loggedSpecs.setText(loggedSpecsString);
     	}
     	else if(indexType.equals("targetList")){
-    		//TODO
+    		listName = this.getIntent().getStringExtra("com.mobileobservationlog.listName");
+    		header.setText(listName);
     		loggedSpecs.setVisibility(View.GONE);
+    		currentFilter.setVisibility(View.GONE);
+    		LinearLayout buttonsLayout = (LinearLayout)findViewById(R.id.buttons_layout);
+    		buttonsLayout.setVisibility(View.GONE);
     	}
     	else{
     		header.setText(R.string.app_name);
     		loggedSpecs.setVisibility(View.GONE);
     	}
     	
-    	if(!filter.isSet()){
-    		currentFilter.setText("Current Filter: None");
-    	}
-    	else{
-    		//TODO
-    	}
+    	currentFilter.setText("Current Filter: " + filter.getFullFilterString());
     }
     
     private String getLoggedSpecs(){

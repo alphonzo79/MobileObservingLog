@@ -12,8 +12,8 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:gravity="center"
@@ -29,18 +29,9 @@
 	    android:textStyle="bold"
 	    android:typeface="serif"
 	    android:textSize="24dp"
-	    android:layout_weight="15"
+	    android:layout_weight="20"
+	    android:gravity="center"
 	    />
-    
-    <View 
-        android:layout_width="1dp"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-	    android:layout_marginRight="15dp"
-	    android:layout_marginLeft="15dp"
-        android:background="@color/red"
-        />
 
 	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="wrap_content"
@@ -50,7 +41,7 @@
 	    android:textSize="12sp" 
 	    android:textColor="@color/red"
 	    android:textStyle="normal"
-	    android:layout_weight="80"
+	    android:layout_weight="70"
 	    />
     
     <ImageView 
@@ -60,8 +51,8 @@
 	    android:contentDescription="@string/unchecked_normal_image_alt"
 	    android:layout_marginTop="5dp"
 	    android:layout_marginBottom="5dp"
-	    android:layout_marginRight="15dp"
 	    android:id="@+id/checkbox"
+	    android:layout_weight="10"
 	    />
 	
 </LinearLayout>
