@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layoutRootNormal"
+    android:id="@+id/search_root"
+    >
+    
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/object_index_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+	    >
+	   
+	    <TextView  
+		    style="@style/headerBarNormal" 
+		    android:id="@+id/search_header"
+		    android:text="@string/app_name"
+		    android:layout_alignParentTop="true"
+		    />
+	    
+	    <LinearLayout 
+	        android:id="@+id/bottom_content_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/object_index_header"
+	        android:orientation="vertical"
+	        android:padding="3dp"
+	        android:layout_alignParentBottom="true"
+	        >
+	        
+	        <TextView 
+	            style="@style/form_data_display_label"
+	            android:id="@+id/search_screen_label"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/search_string_label"
+	            />
+	        
+	        <EditText 
+	            style="@style/formScreenTextFieldNormal"
+	            android:id="@+id/search_string"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            />
+	        
+	        <LinearLayout 
+	            android:id="@+id/buttons_layout"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:padding="6dp"
+	            >
+		    
+			    <Button 
+			        android:id="@+id/show_results_button"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="50"
+			        android:layout_marginRight="3dp"
+			        android:text="@string/search_show_results"	      
+			        />
+			    
+			    <Button 
+			        android:id="@+id/cancel_button"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="50"
+			        android:layout_marginLeft="3dp"
+			        android:text="Cancel"	       
+			        />
+	            	            
+	        </LinearLayout>
+	        
+	    </LinearLayout>
+	    
+	    <ScrollView 
+	        android:id="@+id/scroll_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@id/bottom_content_layout"
+	        android:layout_below="@id/search_header"
+	        >
+	    
+		    <ListView  
+		        android:id="@android:id/list"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        />
+	    
+	    </ScrollView>
+		    
+	</RelativeLayout>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal_search"
+        android:layout_gravity="center|center"
+        />
+    
+    <include android:id="@+id/keyboard_root" 
+        layout="@layout/keyboard_layout_normal"
+        android:layout_gravity="bottom"
+        />
+	
+</FrameLayout>

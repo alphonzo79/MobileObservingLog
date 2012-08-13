@@ -168,15 +168,13 @@ public class ObjectIndexScreen extends ActivityBase {
 		Cursor objects = null;
 		
 		if(indexType.equals("catalog")){
-    		if(!filter.isSet()){
-    			objects = db.getUnfilteredObjectList_Catalog(catalogName);
-    		}
-    		else{
-    			//TODO
-    		}
+    		objects = db.getUnfilteredObjectList_Catalog(catalogName);
 		}
     	else if(indexType.equals("targetList")){
     		//TODO
+    	}
+    	else{
+    		//TODO -- search result - no catalog
     	}
 		
 		if(objects != null){

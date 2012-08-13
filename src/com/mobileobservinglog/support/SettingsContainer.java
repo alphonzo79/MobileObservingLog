@@ -285,6 +285,30 @@ public final class SettingsContainer {
 		mObjectIndexListLayout = layout;
 	}
 	
+	private int mSearchScreenLayout;
+	public int getSearchScreenLayout(){
+		return mSearchScreenLayout;
+	}
+	private void setSearchScreenLayout(int layout){
+		mSearchScreenLayout = layout;
+	}
+	
+	private int mSearchListLayout;
+	public int getSearchListLayout(){
+		return mSearchListLayout;
+	}
+	private void setSearchListLayout(int layout){
+		mSearchListLayout = layout;
+	}
+	
+	private int mSearchModalListLayout;
+	public int getSearchModalListLayout(){
+		return mSearchModalListLayout;
+	}
+	private void setSearchModalListLayout(int layout){
+		mSearchModalListLayout = layout;
+	}
+	
 	//Options Menu toggle mode button text changes according to the mode.
 	private int mModeText;
 	public int getModeButtonText(){
@@ -409,6 +433,8 @@ public final class SettingsContainer {
 		setObjectIndexLayout(R.layout.object_index_screen_night);
 		setObjectIndexListLayout(R.layout.object_index_list_night);
 		setLocationsListLayout(R.layout.locations_list_night);
+		setSearchScreenLayout(R.layout.search_screen_nite);
+		setSearchListLayout(R.layout.search_screen_list_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setCheckbox_Selected(R.drawable.checked_night);
 		setCheckbox_Unselected(R.drawable.unchecked_night);
@@ -447,6 +473,8 @@ public final class SettingsContainer {
 		setObjectIndexLayout(R.layout.object_index_screen);
 		setObjectIndexListLayout(R.layout.object_index_list);
 		setLocationsListLayout(R.layout.locations_list_normal);
+		setSearchScreenLayout(R.layout.search_screen);
+		setSearchListLayout(R.layout.search_screen_list);
 		setTabIndicator(R.layout.tab_indicator_layout);
 		setCheckbox_Selected(R.drawable.checked_normal);
 		setCheckbox_Unselected(R.drawable.unchecked_normal);

@@ -8,7 +8,7 @@ public class ObjectIndexFilter {
 	private ObjectIndexFilter(){
 		clearFilter();
 	}
-	
+	//TODO filterIsSet = true on all setFilter....
 	private static ObjectIndexFilter ref;
 	public static synchronized ObjectIndexFilter getReference(){
 		if(ref == null){
@@ -29,8 +29,7 @@ public class ObjectIndexFilter {
 		resetCatalog();
 	}
 	private void setFilter(){
-		if(!filterIsSet)
-			filterIsSet = true;
+		filterIsSet = true;
 	}	
 	public boolean isSet(){
 		return filterIsSet;
