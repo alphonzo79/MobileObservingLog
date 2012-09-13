@@ -14,10 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.R.drawable;
-import com.mobileobservinglog.R.layout;
-import com.mobileobservinglog.R.string;
-
 import android.content.Context;
 import android.util.Log;
 

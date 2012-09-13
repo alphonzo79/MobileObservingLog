@@ -12,12 +12,9 @@ package com.mobileobservinglog.softkeyboard;
 
 import java.nio.CharBuffer;
 
-import com.mobileobservinglog.R;
-
 import android.app.Activity;
 import android.os.Vibrator;
 import android.text.Editable;
-import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;

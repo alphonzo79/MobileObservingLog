@@ -17,7 +17,6 @@ import com.mobileobservinglog.R;
 
 import android.app.Instrumentation;
 import android.test.SingleLaunchActivityTestCase;
-import android.util.Log;
 
 /**
  * @author Joe Rowley

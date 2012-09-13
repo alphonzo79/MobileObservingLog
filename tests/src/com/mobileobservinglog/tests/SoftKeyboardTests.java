@@ -18,8 +18,6 @@ import android.widget.EditText;
 import com.mobileobservinglog.AddEditEyepiece;
 import com.mobileobservinglog.softkeyboard.SoftKeyboardTestHook;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
-import com.mobileobservinglog.support.SettingsContainer;
-import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 
 public class SoftKeyboardTests extends SingleLaunchActivityTestCase<com.mobileobservinglog.AddEditEyepiece>{
 	

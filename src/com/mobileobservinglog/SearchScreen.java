@@ -17,9 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mobileobservinglog.ObjectIndexScreen.Object;
-import com.mobileobservinglog.ObjectIndexScreen.ObjectAdapter;
-import com.mobileobservinglog.ObjectIndexScreen.ObjectWrapper;
 import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.ObjectIndexFilter;
 
@@ -97,7 +94,7 @@ public class SearchScreen extends ActivityBase {
 	    
 	    private final Button.OnClickListener refineFilter = new Button.OnClickListener() {
 	    	public void onClick(View view){
-	    		Intent intent = new Intent(ObjectIndexScreen.this.getApplication(), SearchScreen.class);
+	    		Intent intent = new Intent(SearchScreen.this.getApplication(), SearchScreen.class);
 	    		if(catalogName.length() > 1){
 		    		intent.putExtra("com.mobileobservationlog.indexType", "catalog");
 		    		intent.putExtra("com.mobileobservationlog.catalogName", catalogName);

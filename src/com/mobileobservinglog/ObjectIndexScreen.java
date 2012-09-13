@@ -27,9 +27,6 @@ import android.widget.ListView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.mobileobservinglog.CatalogsScreen.Catalog;
-import com.mobileobservinglog.CatalogsScreen.CatalogAdapter;
-import com.mobileobservinglog.CatalogsScreen.CatalogWrapper;
 import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.ObjectIndexFilter;
 

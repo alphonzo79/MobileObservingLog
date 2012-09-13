@@ -11,11 +11,7 @@
 package com.mobileobservinglog;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -25,10 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
-
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 import com.mobileobservinglog.support.DatabaseHelper;

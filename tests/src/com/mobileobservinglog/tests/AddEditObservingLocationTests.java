@@ -10,22 +10,12 @@
 
 package com.mobileobservinglog.tests;
 
-import java.util.List;
-
 import junit.framework.Assert;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Instrumentation;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
-import android.widget.Button;
-
 import com.mobileobservinglog.AddEditObservingLocation;
-import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.SettingsContainer;
-import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 
 public class AddEditObservingLocationTests extends SingleLaunchActivityTestCase<AddEditObservingLocation>{
 	AddEditObservingLocation mAut = null;

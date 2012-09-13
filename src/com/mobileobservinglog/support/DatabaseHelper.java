@@ -13,8 +13,6 @@ package com.mobileobservinglog.support;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.R.string;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;

@@ -13,10 +13,6 @@ package com.mobileobservinglog;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.ManageCatalogsTabParent.Catalog;
-import com.mobileobservinglog.ManageCatalogsTabParent.CatalogWrapper;
-import com.mobileobservinglog.ManageLocationsScreen.LocationAdapter;
-import com.mobileobservinglog.ManageLocationsScreen.LocationData;
 import com.mobileobservinglog.support.DatabaseHelper;
 
 import android.content.Context;
@@ -29,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
