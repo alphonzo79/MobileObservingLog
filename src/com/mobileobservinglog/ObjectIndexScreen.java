@@ -27,8 +27,8 @@ import android.widget.ListView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
 import com.mobileobservinglog.support.DatabaseHelper;
-import com.mobileobservinglog.support.ObjectIndexFilter;
 
 public class ObjectIndexScreen extends ActivityBase {
 	//gather resources
@@ -97,7 +97,7 @@ public class ObjectIndexScreen extends ActivityBase {
     
     private final Button.OnClickListener clearFilter = new Button.OnClickListener() {
     	public void onClick(View view){
-    		filter.clearFilter();
+    		filter.resetFilter();
     		setLayout();
         }
     };
@@ -136,7 +136,11 @@ public class ObjectIndexScreen extends ActivityBase {
     		loggedSpecs.setVisibility(View.GONE);
     	}
     	
-    	currentFilter.setText("Current Filter: " + filter.getFullFilterString());
+    	String filterText = "None";
+    	if(filter.isSet()) {
+    		filterText = filter.getSearchDescription();
+    	}
+    	currentFilter.setText("Current Filter: " + filterText);
     }
     
     private String getLoggedSpecs(){
