@@ -10,56 +10,97 @@
 
 package com.mobileobservinglog.objectSearch;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.util.Log;
+
+import com.mobileobservinglog.support.DatabaseHelper;
+
 public class CatalogObjectFilter extends AbstractObjectFilter {
-	public CatalogObjectFilter() {
+	ArrayList<String> installedCatalogs;
+	Context context;
+	
+	public CatalogObjectFilter(Context context) {
+		super();
 		title = "Catalog";
 		multiSelect = true;
+		
+		DatabaseHelper db = new DatabaseHelper(context);
+		Cursor catalogs = db.getInstalledCatalogs();
+		
+		catalogs.moveToFirst();
+		
+		installedCatalogs = new ArrayList<String>();
+		for (int i = 0; i < catalogs.getCount(); i++)
+        {
+			Log.d("JoeDebug", "cursor size is " + catalogs.getCount());
+			installedCatalogs.add(catalogs.getString(0));
+        	
+        	catalogs.moveToNext();
+        }
+		catalogs.close();
+		db.close();
+	}
+
+	@Override
+	public String getSearchDescription() {
+		String retVal = "";
+		
+		if(filters.containsValue(true)) {
+			Set<String> filterKeys = filters.keySet();
+			for(String key : filterKeys) {
+				if(filters.get(key)) {
+					if(retVal.length() != 0) {
+						retVal = retVal.concat(", ");
+					}
+					retVal = retVal.concat(key);
+				}
+			}
+		}
+		
+		return retVal;
+	}
+	
+	@Override
+	public boolean isSet() {
+		return true;
 	}
 
 	@Override
 	public String getSqlString() {
-		String retVal = "";
+		String retVal = "catalog IN (";
 		
-		if(filters.containsValue(true)) {
-			retVal = retVal.concat("catalog IN (");
-			
-			Set<String> keys = filters.keySet();
-			String inParens = "";
+		Set<String> keys = filters.keySet();
+		String inParens = "";
+		if(filters.containsValue(true)) { //If we've filtered on catalog return according to the filter
 			for(String key : keys) {
 				if(filters.get(key)) {
 					if(inParens.length() != 0) {
 						inParens = inParens.concat(", ");
 					}
-					inParens = inParens.concat(key.toString());
+					inParens = inParens.concat("'" + key + "'");
 				}
 			}
-			
-			retVal = retVal.concat(inParens + ")");
+		} else { //Otherwise return all installed catalogs (filtering out catalogs that are not installed, but exist in the DB
+			for(String key : keys) {
+				if(inParens.length() != 0) {
+					inParens = inParens.concat(", ");
+				}
+				inParens = inParens.concat("'" + key + "'");
+			}
 		}
+		retVal = retVal.concat(inParens + ")");
 		
 		return retVal;
 	}
 
 	@Override
 	protected void resetValues() {
-		for(CatalogFilterTypes type : CatalogFilterTypes.values()) {
-			filters.put(type.toString(), false);
-		}
-	}
-
-	public enum CatalogFilterTypes {
-		MESSIER("Messier Catalog"); 
-		
-		private String filterText;
-		
-		CatalogFilterTypes(String text) {
-			this.filterText = text;
-		}
-		
-		public String toString() {
-			return filterText;
+		for(String catalog : installedCatalogs) {
+			filters.put(catalog, false);
 		}
 	}
 }

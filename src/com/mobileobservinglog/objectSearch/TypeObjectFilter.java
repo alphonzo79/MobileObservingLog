@@ -12,6 +12,8 @@ package com.mobileobservinglog.objectSearch;
 
 import java.util.Set;
 
+import android.content.Context;
+
 import com.mobileobservinglog.objectSearch.LoggedObjectFilter.LoggedFilterTypes;
 
 public class TypeObjectFilter extends AbstractObjectFilter {
@@ -34,7 +36,7 @@ public class TypeObjectFilter extends AbstractObjectFilter {
 					if(inParens.length() != 0) {
 						inParens = inParens.concat(", ");
 					}
-					inParens = inParens.concat(key.toString());
+					inParens = inParens.concat("'" + key + "'");
 				}
 			}
 			

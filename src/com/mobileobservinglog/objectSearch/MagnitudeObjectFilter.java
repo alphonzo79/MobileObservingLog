@@ -12,6 +12,8 @@ package com.mobileobservinglog.objectSearch;
 
 import java.util.Set;
 
+import android.content.Context;
+
 public class MagnitudeObjectFilter extends AbstractObjectFilter {
 	public MagnitudeObjectFilter() {
 		title = "Minimum Magnitude";

@@ -147,6 +147,7 @@ public class CatalogsScreen extends ActivityBase{
 		Intent intent = new Intent(this.getApplication(), ObjectIndexScreen.class);
 		intent.putExtra("com.mobileobservationlog.indexType", "catalog");
 		intent.putExtra("com.mobileobservationlog.catalogName", catalog);
+		intent.putExtra("com.mobileobservationlog.listName", "None");
         startActivity(intent);
 	}
     

@@ -27,8 +27,11 @@ import android.widget.ListView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.mobileobservinglog.objectSearch.FilterBasicStrategy;
 import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
+import com.mobileobservinglog.objectSearch.StringSearchFilter;
 import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.SettingsContainer;
 
 public class ObjectIndexScreen extends ActivityBase {
 	//gather resources
@@ -38,7 +41,7 @@ public class ObjectIndexScreen extends ActivityBase {
 	TextView header;
 	TextView loggedSpecs;
 	TextView currentFilter;
-	ArrayList<Object> objectList;
+	ArrayList<ObservableObject> objectList;
 	String indexType;
 	String catalogName;
 	String listName;
@@ -50,7 +53,8 @@ public class ObjectIndexScreen extends ActivityBase {
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
-		filter = ObjectIndexFilter.getReference();
+		
+		filter = ObjectIndexFilter.getReference(this);
 		
         //setup the layout
         setContentView(settingsRef.getObjectIndexLayout());
@@ -70,7 +74,7 @@ public class ObjectIndexScreen extends ActivityBase {
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "CatalogsScreen onResume. Current session mode is " + settingsRef.getSessionMode());
+		Log.d("JoeDebug", "ObjectIndex onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -105,9 +109,11 @@ public class ObjectIndexScreen extends ActivityBase {
     private final Button.OnClickListener refineFilter = new Button.OnClickListener() {
     	public void onClick(View view){
     		Intent intent = new Intent(ObjectIndexScreen.this.getApplication(), SearchScreen.class);
-    		if(catalogName.length() > 1){
-	    		intent.putExtra("com.mobileobservationlog.indexType", "catalog");
-	    		intent.putExtra("com.mobileobservationlog.catalogName", catalogName);
+    		if(catalogName != null) {
+	    		if(catalogName.length() > 1){
+		    		intent.putExtra("com.mobileobservationlog.indexType", "catalog");
+		    		intent.putExtra("com.mobileobservationlog.catalogName", catalogName);
+	    		}
     		}
     		startActivity(intent);
         }
@@ -117,21 +123,24 @@ public class ObjectIndexScreen extends ActivityBase {
     	header = (TextView)findViewById(R.id.object_index_header);
     	loggedSpecs = (TextView)findViewById(R.id.catalog_logged_specs);
     	currentFilter = (TextView)findViewById(R.id.current_filter);
-    	if(indexType.equals("catalog")){
-    		catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
-    		header.setText(catalogName);
-    		String loggedSpecsString = getLoggedSpecs();
-    		loggedSpecs.setText(loggedSpecsString);
-    	}
-    	else if(indexType.equals("targetList")){
-    		listName = this.getIntent().getStringExtra("com.mobileobservationlog.listName");
-    		header.setText(listName);
-    		loggedSpecs.setVisibility(View.GONE);
-    		currentFilter.setVisibility(View.GONE);
-    		LinearLayout buttonsLayout = (LinearLayout)findViewById(R.id.buttons_layout);
-    		buttonsLayout.setVisibility(View.GONE);
-    	}
-    	else{
+    	if(indexType != null) {
+	    	if(indexType.equals("catalog")){
+	    		catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
+	    		header.setText(catalogName);
+	    		String loggedSpecsString = getLoggedSpecs();
+	    		loggedSpecs.setText(loggedSpecsString);
+	    		filter.resetFilter();
+	    	}
+	    	else if(indexType.equals("targetList")){
+	    		listName = this.getIntent().getStringExtra("com.mobileobservationlog.listName");
+	    		header.setText(listName);
+	    		loggedSpecs.setVisibility(View.GONE);
+	    		currentFilter.setVisibility(View.GONE);
+	    		LinearLayout buttonsLayout = (LinearLayout)findViewById(R.id.buttons_layout);
+	    		buttonsLayout.setVisibility(View.GONE);
+	    		filter.resetFilter();
+	    	}
+    	} else {
     		header.setText(R.string.app_name);
     		loggedSpecs.setVisibility(View.GONE);
     	}
@@ -162,20 +171,21 @@ public class ObjectIndexScreen extends ActivityBase {
 	 */
 	protected void prepareListView()
 	{
-		objectList = new ArrayList<Object>();
+		objectList = new ArrayList<ObservableObject>();
 		//Get the list of saved telescopes and populate the list
 		DatabaseHelper db = new DatabaseHelper(this);
 		
 		Cursor objects = null;
 		
-		if(indexType.equals("catalog")){
-    		objects = db.getUnfilteredObjectList_Catalog(catalogName);
-		}
-    	else if(indexType.equals("targetList")){
-    		//TODO
-    	}
-    	else{
-    		//TODO -- search result - no catalog
+		if(indexType != null) {
+			if(indexType.equals("catalog")){
+	    		objects = db.getUnfilteredObjectList_Catalog(catalogName);
+			}
+	    	else if(indexType.equals("targetList")){
+	    		//TODO
+	    	}
+		} else {
+    		objects = db.getFilteredObjectList();
     	}
 		
 		if(objects != null){
@@ -194,7 +204,7 @@ public class ObjectIndexScreen extends ActivityBase {
 				}
 				catch(NullPointerException e){/*leave it false*/}
 	
-				objectList.add(new Object(name, constellation, type, magnitude, logged));
+				objectList.add(new ObservableObject(name, constellation, type, magnitude, logged));
 				
 	        	objects.moveToNext();
 	        }
@@ -228,14 +238,14 @@ public class ObjectIndexScreen extends ActivityBase {
     // Catalog List Inflation Utilities //
     //////////////////////////////////////
 	
-	static class Object{
+	static class ObservableObject{
 		String name;
 		String constellation;
 		String type;
 		String magnitude;
 		boolean logged;
 		
-		Object(String objectName, String objectConstellation, String objectType, String objectMagnitude, boolean isLogged){
+		ObservableObject(String objectName, String objectConstellation, String objectType, String objectMagnitude, boolean isLogged){
 			name = objectName;
 			constellation = objectConstellation;
 			type = objectType;
@@ -244,11 +254,11 @@ public class ObjectIndexScreen extends ActivityBase {
 		}		
 	}
 	
-	class ObjectAdapter extends ArrayAdapter<Object>{
+	class ObjectAdapter extends ArrayAdapter<ObservableObject>{
 		
 		int listLayout;
 		
-		ObjectAdapter(Context context, int listLayout, ArrayList<Object> list){
+		ObjectAdapter(Context context, int listLayout, ArrayList<ObservableObject> list){
 			super(context, listLayout, R.id.object_designation, list);
 			this.listLayout = listLayout;
 		}
@@ -304,13 +314,13 @@ public class ObjectIndexScreen extends ActivityBase {
 			return icon;
 		}
 		
-		void populateFrom(Object object){
+		void populateFrom(ObservableObject object){
 			getName().setText(object.name);
 			getSpecs().setText(formatSpecs(object));
 			getIcon().setImageResource(getIcon(object.logged));
 		}
 		
-		private String formatSpecs(Object object){
+		private String formatSpecs(ObservableObject object){
 			String lineSeparator = System.getProperty("line.separator");
 			return String.format("%s,%s%s,%sMagnitude %s", object.constellation, lineSeparator, object.type, lineSeparator, object.magnitude);
 		}

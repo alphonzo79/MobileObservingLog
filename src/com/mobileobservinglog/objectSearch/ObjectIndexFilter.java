@@ -17,21 +17,28 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class ObjectIndexFilter implements ObjectFilter {
+import android.content.Context;
+import android.util.Log;
+
+public class ObjectIndexFilter implements ObjectFilter, TextSearch{
 	private boolean filterIsSet;
 	ObjectFilter[] filters;
+	StringSearchFilter searchFilter;
+	Context context;
 	
-	private ObjectIndexFilter(){
-		filters = new ObjectFilter[]{new LoggedObjectFilter(), new TypeObjectFilter(), new MagnitudeObjectFilter(), 
-				new ConstellationObjectFilter(), new SeasonObjectFilter(), new CatalogObjectFilter()
+	private ObjectIndexFilter(Context context){
+		filters = new ObjectFilter[]{new LoggedObjectFilter(), new TypeObjectFilter(), new CatalogObjectFilter(context), 
+				new MagnitudeObjectFilter(), new SeasonObjectFilter(), new ConstellationObjectFilter()
 		};
+		searchFilter = new StringSearchFilter(context);
+		this.context = context;
 		resetFilter();
 	}
 	
 	private static ObjectIndexFilter ref;
-	public static synchronized ObjectIndexFilter getReference(){
+	public static synchronized ObjectIndexFilter getReference(Context context){
 		if(ref == null){
-			ref = new ObjectIndexFilter();
+			ref = new ObjectIndexFilter(context);
 		}
 		return ref;
 	}
@@ -41,6 +48,7 @@ public class ObjectIndexFilter implements ObjectFilter {
 		for(ObjectFilter filter : filters) {
 			filter.resetFilter();
 		}
+		searchFilter.resetFilter();
 	}
 
 	public boolean isSet(){
@@ -55,32 +63,57 @@ public class ObjectIndexFilter implements ObjectFilter {
 				String description = filter.getSearchDescription();
 				if(description.length() > 0) {
 					if(retVal.length() > 0) {
-						retVal = retVal.concat(", "); //add a comma if stuff is already in there, but only if we got a non-empty string from this filter
+						retVal = retVal.concat("; "); //add a comma if stuff is already in there, but only if we got a non-empty string from this filter
 					}
 					retVal = retVal.concat(description);
 				}
 			}
 		}
 		
+		if(searchFilter.isSet()) {
+			String searchText = searchFilter.getSearchDescription();
+			if(searchText.length() > 0) {
+				if(retVal.length() > 0) {
+					retVal = retVal.concat("; "); //add a comma if stuff is already in there, but only if we got a non-empty string from this filter
+				}
+				retVal = retVal.concat("Text Search: " + searchText);
+			}
+		}
+		
+		if(retVal.equals("")) {
+			retVal = "None";
+		}
+		
 		return retVal;
 	}
 
-	public String getSqlString() {
-		String stmt = "SELECT * FROM objects WHERE";
+	public String getSqlString() { //TODO Add in String Search Sql
+		String stmt = "SELECT designation, constellation, type, magnitude, logged FROM objects WHERE ";
 		
-		String theRest = "";
+		String filterStmt = "";
 		for(ObjectFilter filter : filters) {
 			if(filter.isSet()) {
 				String segment = filter.getSqlString();
 				if(segment.length() > 0) { //Only if we got something good back
-					if(theRest.length() > 0) { //Only add the AND if we have previously put something in here
-						theRest = theRest.concat(" AND ");
+					if(filterStmt.length() > 0) { //Only add the AND if we have previously put something in here
+						filterStmt = filterStmt.concat(" AND ");
 					}
-					theRest = theRest.concat(segment);
+					filterStmt = filterStmt.concat(segment);
 				}
 			}
 		}
-		stmt = stmt.concat(theRest + ";");
+		stmt = stmt.concat(filterStmt);
+		
+		String textSearchStmt = searchFilter.getSqlString();
+		if(!textSearchStmt.equals("")) {
+			if(!filterStmt.equals("")) {
+				textSearchStmt = " AND (" + textSearchStmt + ")"; 
+			}
+			stmt = stmt.concat(textSearchStmt);
+		}
+		
+		stmt = stmt.concat(";");
+		Log.d("JoeDebug", "ObjectIndexFilter Sql String: " + stmt);
 		
 		return stmt;
 	}
@@ -105,5 +138,13 @@ public class ObjectIndexFilter implements ObjectFilter {
 		}
 		
 		return retVal;
+	}
+	
+	public String getStringSearchText() {
+		return searchFilter.getSearchDescription();
+	}
+	
+	public void setStringSearchText(String text) {
+		searchFilter.setSearchString(text);
 	}
 }

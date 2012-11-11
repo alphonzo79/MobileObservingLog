@@ -15,6 +15,8 @@ import java.util.Collection;
 import java.util.TreeMap;
 import java.util.Set;
 
+import android.content.Context;
+
 public abstract class AbstractObjectFilter implements ObjectFilter {
 	protected boolean filterIsSet;
 	protected boolean multiSelect;
@@ -23,13 +25,15 @@ public abstract class AbstractObjectFilter implements ObjectFilter {
 	
 	public AbstractObjectFilter() {
 		filters = new TreeMap<String, Boolean>();
-		resetFilter();
 	}
 
 	public String getSearchDescription() {
 		String retVal = "";
 		
 		Set<String> filterKeys = filters.keySet();
+		if(filterIsSet) {
+			retVal = title + ": ";
+		}
 		for(String key : filterKeys) {
 			if(filters.get(key)) {
 				if(retVal.length() != 0) {

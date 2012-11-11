@@ -13,6 +13,10 @@ package com.mobileobservinglog.support;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.objectSearch.ObjectFilter;
+import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
+import com.mobileobservinglog.objectSearch.StringSearchFilter;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -381,6 +385,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		db.close();
 				
+		return retVal;
+	}
+	
+	public Cursor getInstalledCatalogs() {
+		Cursor retVal = null;
+		SQLiteDatabase db = getReadableDatabase();
+		String sqlStatement = "SELECT catalogName FROM availableCatalogs WHERE installed = ?;";
+		
+		retVal = db.rawQuery(sqlStatement, new String[]{"Yes"});
+		retVal.moveToFirst();
+		
+		db.close();
+		
 		return retVal;
 	}
 	
@@ -958,6 +975,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		String sql = "SELECT designation, constellation, type, magnitude, logged FROM objects WHERE catalog = ?";
 		
 		Cursor rs = db.rawQuery(sql, new String[]{catalogName});
+		rs.moveToFirst();
+		
+		db.close();
+		return rs;
+	}
+	
+	public Cursor getFilteredObjectList() {
+		SQLiteDatabase db = getReadableDatabase();
+		
+		Cursor rs = db.rawQuery(ObjectIndexFilter.getReference(mContext).getSqlString(), null);
 		rs.moveToFirst();
 		
 		db.close();

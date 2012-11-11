@@ -30,8 +30,8 @@
     <string name="set_search_mode">Search Mode Setting</string>
     <string name="use_gps_yes">Yes</string>
     <string name="use_gps_no">No</string>
-    <string name="search_mode_simple">Simple</string>
-    <string name="search_mode_advanced">Advanced</string>
+    <string name="search_mode_simple">Filter</string>
+    <string name="search_mode_advanced">Text Search</string>
     <string name="num_picker_down_button">–</string>
     <string name="num_picker_up_button">+</string>
     <string name="num_picker_set_button">Set</string>
@@ -47,6 +47,7 @@
     <string name="no_installed_catalogs">There are no catalogs currently installed. Please press Available Catalogs to install some</string>
     <string name="no_available_catalogs">There are no more catalogs currently available.</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="no_items_selected">ATTENTION: Please select an item before proceeding</string>
     <string name="progress_image_alt">Progress Image</string>
     <string name="manage_telescopes_tab">Manage Telescopes</string>
@@ -79,7 +80,8 @@
     <string name="catalog_icon_alt">Catalog Icon</string>
     <string name="no_installed_catalogs_index_page">There are no catalogs currently installed. Please return home and press \"Manage Catalogs\" to install some</string>
     <string name="no_objects_match_search">There were no objects found in the installed catalogs to match your search criteria. Please reduce your filter criteria or clear the filter.</string>
-    <string name="search_string_label">Search Terms:</string>
+    <string name="search_string_label">Search Terms (comma-seperated, uses OR logic):</string>
+    <string name="search_string_hint">Messier, De Mairan\'s Nebula, Orion</string>
     <string name="search_show_results">Show Results</string>
     <string name="more_image_alt">Show Options</string>
 </resources>

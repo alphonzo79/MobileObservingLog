@@ -10,49 +10,7 @@
 
 package com.mobileobservinglog.objectSearch;
 
-import android.content.Context;
-
-public class LoggedObjectFilter extends AbstractObjectFilter {
-	public LoggedObjectFilter() {
-		title = "Logged State";
-		multiSelect = true;
-	}
-
-	@Override
-	public String getSqlString() {
-		String retVal = "";
-		
-		if(filters.get(LoggedFilterTypes.LOGGED)) {
-			retVal = retVal.concat("logged = 'true'");
-		}
-		if(filters.get(LoggedFilterTypes.NOT_LOGGED)) {
-			if(retVal.length() != 0) {
-				retVal = retVal.concat(" OR ");
-			}
-			retVal = retVal.concat("logged != 'true'"); //this value may be null or false (initialized to null)
-		}
-		
-		return retVal;
-	}
-
-	@Override
-	public void resetValues() {
-		for(LoggedFilterTypes type : LoggedFilterTypes.values()) {
-			filters.put(type.toString(), false);
-		}
-	}
-
-	public enum LoggedFilterTypes {
-		LOGGED("Logged"), NOT_LOGGED("Not Logged");
-		
-		private String filterText;
-		
-		LoggedFilterTypes(String text) {
-			this.filterText = text;
-		}
-		
-		public String toString() {
-			return filterText;
-		}
-	}
+public interface TextSearch {
+	public void setStringSearchText(String text);
+	public String getStringSearchText();
 }

@@ -7,16 +7,15 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  -->
 
-<resources>
-<!-- We will parse by row, then split on the semicolon. If there is no value after the semicolon, that is a setting
-item that will navigate to another screen - no single value for this setting -->
-    <string name="settings_default_values">"Night Mode Backlight Intensity;1;1
-Use Device GPS;Yes;1
-Search/Filter Type;Simple;0
-Manage Catalogs;NULL;1
-Manage Equipment;NULL;1
-Manage Observing Locations;NULL;1
-Personal Information;NULL;1
-Information/About;NULL;1
-Star Chart Location;NULL;0"</string>
-</resources>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_root"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="4dp"
+    >
+	
+</LinearLayout>

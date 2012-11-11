@@ -12,6 +12,8 @@ package com.mobileobservinglog.objectSearch;
 
 import java.util.Set;
 
+import android.content.Context;
+
 public class SeasonObjectFilter extends AbstractObjectFilter {
 	public SeasonObjectFilter() {
 		title = "Season Object is Visible";
@@ -32,7 +34,7 @@ public class SeasonObjectFilter extends AbstractObjectFilter {
 					if(inParens.length() != 0) {
 						inParens = inParens.concat(", ");
 					}
-					inParens = inParens.concat(key.toString());
+					inParens = inParens.concat("'" + key + "'");
 				}
 			}
 			

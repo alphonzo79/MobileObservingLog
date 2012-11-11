@@ -25,13 +25,41 @@
 		    />
 	    
 	    <LinearLayout 
-	        android:id="@+id/bottom_content_layout"
+	        android:id="@+id/buttons_container"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/object_index_header"
+	        android:orientation="horizontal"
+	        android:padding="6dp"
+	        android:layout_alignParentBottom="true"
+	        >
+		    
+		    <Button 
+		        android:id="@+id/show_results_button"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_weight="50"
+		        android:layout_marginRight="3dp"
+		        android:text="@string/search_show_results"	      
+		        />
+		    
+		    <Button 
+		        android:id="@+id/cancel_button"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_weight="50"
+		        android:layout_marginLeft="3dp"
+		        android:text="@string/cancel"	       
+		        />
+	        
+        </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/text_search_container"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/search_header"
 	        android:orientation="vertical"
 	        android:padding="3dp"
-	        android:layout_alignParentBottom="true"
 	        >
 	        
 	        <TextView 
@@ -47,44 +75,17 @@
 	            android:id="@+id/search_string"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
+	            android:hint="@string/search_string_hint"
 	            />
-	        
-	        <LinearLayout 
-	            android:id="@+id/buttons_layout"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:orientation="horizontal"
-	            android:padding="6dp"
-	            >
-		    
-			    <Button 
-			        android:id="@+id/show_results_button"
-			        android:layout_width="fill_parent" 
-			        android:layout_height="wrap_content" 
-			        android:layout_weight="50"
-			        android:layout_marginRight="3dp"
-			        android:text="@string/search_show_results"	      
-			        />
-			    
-			    <Button 
-			        android:id="@+id/cancel_button"
-			        android:layout_width="fill_parent" 
-			        android:layout_height="wrap_content" 
-			        android:layout_weight="50"
-			        android:layout_marginLeft="3dp"
-			        android:text="Cancel"	       
-			        />
-	            	            
-	        </LinearLayout>
 	        
 	    </LinearLayout>
 	    
 	    <ScrollView 
-	        android:id="@+id/scroll_view"
+	        android:id="@+id/search_scroll_view"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_above="@id/bottom_content_layout"
-	        android:layout_below="@id/search_header"
+	        android:layout_above="@id/buttons_container"
+	        android:layout_below="@id/text_search_container"
 	        >
 	    
 		    <ListView  
