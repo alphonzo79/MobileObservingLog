@@ -243,34 +243,34 @@ public class SearchScreen extends ActivityBase {
 	
 	private void setMargins_noKeyboard()
 	{
-		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.search_scroll_view);
-		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
-		int buttonsKeyboardSize = keyboardFrame.getHeight();
-		
-		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
-		frameParams.setMargins(0, 0, 0, 0);
-		
-		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
-		scrollParams.setMargins(0, 0, 0, 0);
-		
-		keyboardFrame.setLayoutParams(frameParams);
-		fieldsScroller.setLayoutParams(scrollParams);
+//		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.search_scroll_view);
+//		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
+//		int buttonsKeyboardSize = keyboardFrame.getHeight();
+//		
+//		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
+//		frameParams.setMargins(0, 0, 0, 0);
+//		
+//		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
+//		scrollParams.setMargins(0, 0, 0, 0);
+//		
+//		keyboardFrame.setLayoutParams(frameParams);
+//		fieldsScroller.setLayoutParams(scrollParams);
 	}
 	
 	private void setMargins_keyboard()
 	{
-		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.search_scroll_view);
-		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
-		int buttonsKeyboardSize = keyboardFrame.getHeight();
-		
-		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
-		frameParams.setMargins(0, -buttonsKeyboardSize, 0, 0);
-		
-		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
-		scrollParams.setMargins(0, 0, 0, buttonsKeyboardSize);
-		
-		keyboardFrame.setLayoutParams(frameParams);
-		fieldsScroller.setLayoutParams(scrollParams);
+//		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.search_scroll_view);
+//		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
+//		int buttonsKeyboardSize = keyboardFrame.getHeight();
+//		
+//		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
+//		frameParams.setMargins(0, -buttonsKeyboardSize, 0, 0);
+//		
+//		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
+//		scrollParams.setMargins(0, 0, 0, buttonsKeyboardSize);
+//		
+//		keyboardFrame.setLayoutParams(frameParams);
+//		fieldsScroller.setLayoutParams(scrollParams);
 	}
 		
 	/**

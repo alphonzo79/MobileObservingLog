@@ -41,22 +41,13 @@
 	    
     </LinearLayout>
     
-    <ScrollView 
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:fillViewport="true"
-	    android:id="@+id/catalogs_scroll_view"
+    <ListView  
+        android:id="@android:id/list"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
 	    android:layout_below="@id/catalogs_header"
 	    android:layout_above="@id/catalog_button_layout"
-	    >
-	    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content" 
-	         />
-    
-    </ScrollView>
+        />
     
     <TextView 
 	    android:id="@+id/nothing_here"
