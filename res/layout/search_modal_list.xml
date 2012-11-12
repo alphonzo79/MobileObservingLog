@@ -26,6 +26,7 @@
 	    android:layout_marginTop="5dp"
 	    android:layout_marginBottom="5dp"
 	    android:layout_marginRight="15dp"
+	    android:layout_marginLeft="15dp"
 	    android:id="@+id/checkbox"
 	    android:layout_weight="15"
 	    />
@@ -36,7 +37,7 @@
 	    android:id="@+id/filter_option"
 	    android:layout_gravity="left|center_vertical"
 	    android:textSize="18sp" 
-	    android:textColor="@color/black"
+	    android:textColor="@color/white"
 	    android:textStyle="bold"
 	    android:layout_weight="85"
 	    />

@@ -22,10 +22,10 @@ public class LoggedObjectFilter extends AbstractObjectFilter {
 	public String getSqlString() {
 		String retVal = "";
 		
-		if(filters.get(LoggedFilterTypes.LOGGED)) {
+		if(filters.get(LoggedFilterTypes.LOGGED.toString())) {
 			retVal = retVal.concat("logged = 'true'");
 		}
-		if(filters.get(LoggedFilterTypes.NOT_LOGGED)) {
+		if(filters.get(LoggedFilterTypes.NOT_LOGGED.toString())) {
 			if(retVal.length() != 0) {
 				retVal = retVal.concat(" OR ");
 			}

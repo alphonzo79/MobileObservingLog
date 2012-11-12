@@ -48,7 +48,7 @@ public class MagnitudeObjectFilter extends AbstractObjectFilter {
 	}
 
 	public enum MagnitudeFilterTypes {
-		ONE("1"), TWO("2"), THREE("3"), FOUR("4"), FIVE("5"), SIX("6"), SEVEN("7"), EIGHT("8"), NINE("9"), TEN("10"), ELEVEN("11"), 
+		ONE("01"), TWO("02"), THREE("03"), FOUR("04"), FIVE("05"), SIX("06"), SEVEN("07"), EIGHT("08"), NINE("09"), TEN("10"), ELEVEN("11"), 
 		TWELVE("12"), THIRTEEN("13"), FOURTEEN("14"); 
 		
 		private String filterText;

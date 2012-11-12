@@ -24,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +55,8 @@ public class SearchScreen extends ActivityBase {
 	ArrayList<ObjectFilterInformation> filterList;
 	TreeMap<String, Boolean> filterChangeSet;
 	ObjectFilterInformation focusedFilter;
+	ObjectFilterInformation focusedCloneForListPrep;
+	TreeMap<String, Boolean> tempValuesHolder;
 	String indexType;
 	String catalogName;
 	ObjectFilter filter;
@@ -131,8 +135,11 @@ public class SearchScreen extends ActivityBase {
 		
 		findButtonsAddListener();
 		findTextField();
+		findModalElements();
+		
 		setMargins_noKeyboard();
 		prepareListView();
+		
 		body.postInvalidate();
 	}
 	
@@ -146,6 +153,17 @@ public class SearchScreen extends ActivityBase {
 		if(searchText.length() > 0) {
 			textSearchField.setText(searchText);
 		}
+	}
+	
+	private void findModalElements() {
+		modalHeader = (TextView)findViewById(R.id.alert_main_text);
+		modalSave = (Button)findViewById(R.id.alert_ok_button);
+		modalCancel = (Button)findViewById(R.id.alert_cancel_button);
+		modalClear = (Button)findViewById(R.id.alert_extra_button);
+		
+		modalSave.setOnClickListener(setFilterOptions);
+		modalCancel.setOnClickListener(cancelFilterOptions);
+		modalClear.setOnClickListener(clearFilterOptions);
 	}
 
 	private void findButtonsAddListener() {
@@ -170,6 +188,52 @@ public class SearchScreen extends ActivityBase {
     	public void onClick(View view){
     		onBackPressed();
         }
+    };
+    
+    private final Button.OnClickListener setFilterOptions = new Button.OnClickListener() {
+    	public void onClick(View view) {
+    		if(tempValuesHolder != null && focusedFilter != null) {
+    			if(filterChangeSet == null) {
+    				filterChangeSet = new TreeMap<String, Boolean>();
+    			}
+    			if(tempValuesHolder.size() > 0) {
+	    			Set<String> keys = tempValuesHolder.keySet();
+	    			for(String key : keys) {
+	    				boolean value = tempValuesHolder.get(key);
+	    				focusedFilter.getFilterValues().put(key, value);
+	    				filterChangeSet.put(key, value);
+	    			}
+    			}
+    		}
+    		tearDownModal();
+    		prepareListView();
+    		body.postInvalidate();
+    	}
+    };
+    
+    private final Button.OnClickListener cancelFilterOptions = new Button.OnClickListener() {
+    	public void onClick(View view) {
+    		tempValuesHolder = null;
+    		tearDownModal();
+    	}
+    };
+    
+    
+    private final Button.OnClickListener clearFilterOptions = new Button.OnClickListener() {
+    	public void onClick(View view) {
+    		if(tempValuesHolder == null) {
+    			tempValuesHolder = new TreeMap<String, Boolean>();
+    		}
+    		if(focusedFilter != null) {
+    			Set<String> keys = focusedFilter.getFilterValues().keySet();
+    			for(String key : keys) {
+    				tempValuesHolder.put(key, false);
+    				focusedCloneForListPrep.getFilterValues().put(key, false);
+    			}
+    		}
+    		prepareModalListView(focusedCloneForListPrep);
+    		body.postInvalidate();
+    	}
     };
     
     protected final Button.OnClickListener showLetters_click = new Button.OnClickListener(){
@@ -296,8 +360,22 @@ public class SearchScreen extends ActivityBase {
 		setListAdapter(new FilterAdapter(this, settingsRef.getSearchListLayout(), filterList));
 	}
 	
-	protected void prepareModalListView() {
+	protected void prepareModalListView(ObjectFilterInformation filter) {
+		ListView modalList = (ListView)findViewById(R.id.modal_list);
+		ArrayList<IndividualFilter> filterData = new ArrayList<IndividualFilter>();
+		if(filter != null) {
+			boolean multiSelect = filter.isMultiSelect();
+			Set<String> keys = filter.getFilterValues().keySet();
+			for(String key : keys) {
+				filterData.add(new IndividualFilter(key, filter.getFilterValues().get(key), multiSelect));
+			}
+		}
 		
+		if(filterData != null) {
+			modalList.setAdapter(new IndividualFilterAdapter(this, settingsRef.getSearchModalListLayout(), filterData));
+		}
+		
+		modalList.setOnItemClickListener(filterOptionsItemClick);
 	}
 		
 	/**
@@ -306,8 +384,35 @@ public class SearchScreen extends ActivityBase {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		focusedFilter = filterList.get(position);
+		tempValuesHolder = new TreeMap<String, Boolean>();
 		prepForModal();
 	}
+	
+	protected final AdapterView.OnItemClickListener filterOptionsItemClick = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+			IndividualFilter filter = (IndividualFilter)adapter.getItemAtPosition(position);
+			if(tempValuesHolder == null) {
+				tempValuesHolder = new TreeMap<String, Boolean>();
+			}
+			
+			boolean newValue = !filter.optionValue;
+			
+			if(!filter.isMultiSelect()) {
+				clearFilterOptions.onClick(null);
+			}
+			//TODO Why does this not work?
+			//TODO Why do I keep the filter name on the search description after clearing?
+			tempValuesHolder.put(filter.optionName, newValue);
+			filter.setOptionValue(newValue);
+			
+			ImageView checked = (ImageView) view.findViewById(R.id.checkbox);
+			if(newValue) {
+				checked.setImageResource(settingsRef.getCheckbox_Selected());
+			} else {
+				checked.setImageResource(settingsRef.getCheckbox_Unselected());
+			}
+		}
+	};
 
 	/**
 	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
@@ -320,9 +425,10 @@ public class SearchScreen extends ActivityBase {
 		blackOutLayer.setVisibility(View.VISIBLE);
 		
 		if(focusedFilter != null) {
-			modalHeader.setText(focusedFilter.getFilterTitle());
+			focusedCloneForListPrep = new ObjectFilterInformation(focusedFilter);
+			modalHeader.setText(focusedCloneForListPrep.getFilterTitle());
 			
-			prepareModalListView();
+			prepareModalListView(focusedCloneForListPrep);
 			
 			RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.alert_modal);
 			backlightModal.setVisibility(View.VISIBLE);
@@ -339,9 +445,9 @@ public class SearchScreen extends ActivityBase {
 		filterModal.setVisibility(View.INVISIBLE);
 	}
 	    
-    //////////////////////////////////////
-    // Catalog List Inflation Utilities //
-    //////////////////////////////////////
+    /////////////////////////////////////
+    // Filter List Inflation Utilities //
+    /////////////////////////////////////
 	
 	class FilterAdapter extends ArrayAdapter<ObjectFilterInformation>{
 		
@@ -417,6 +523,105 @@ public class SearchScreen extends ActivityBase {
 			}
 			
 			return retVal;
+		}
+	}
+    
+	////////////////////////////////////
+	// Modal List Inflation Utilities //
+	////////////////////////////////////
+	
+	static class IndividualFilter {
+		String optionName;
+		boolean optionValue;
+		boolean multiSelect;
+		
+		IndividualFilter(String name, boolean value, boolean multiSelect) {
+			optionName = name;
+			optionValue = value;
+			this.multiSelect = multiSelect;
+		}
+		
+		String getName() {
+			return optionName;
+		}
+		
+		void setOptionValue(boolean value) {
+			optionValue = value;
+		}
+		boolean getOptionValue() {
+			return optionValue;
+		}
+		
+		boolean isMultiSelect() {
+			return multiSelect;
+		}
+	}
+	
+	class IndividualFilterAdapter extends ArrayAdapter<IndividualFilter>{
+		
+		int listLayout;
+		ArrayList<IndividualFilter> list;
+		
+		IndividualFilterAdapter(Context context, int listLayout, ArrayList<IndividualFilter> list){
+			super(context, listLayout, R.id.filter_option, list);
+			this.listLayout = listLayout;
+			this.list = list;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent){
+			IndividualFilterWrapper wrapper = null;
+			
+			if (convertView == null){
+				convertView = getLayoutInflater().inflate(listLayout, null);
+				wrapper = new IndividualFilterWrapper(convertView);
+				convertView.setTag(wrapper);
+			}
+			else{
+				wrapper = (IndividualFilterWrapper)convertView.getTag();
+			}
+			
+			wrapper.populateFrom(getItem(position));
+			
+			return convertView;
+		}
+		
+		public ArrayList<IndividualFilter> getList() {
+			return list;
+		}
+	}
+	
+	class IndividualFilterWrapper{
+		
+		private TextView filterOption = null;
+		private ImageView icon = null;
+		private View row = null;
+		
+		IndividualFilterWrapper(View row){
+			this.row = row;
+		}
+		
+		TextView getFilterOption(){
+			if (filterOption == null){
+				filterOption = (TextView)row.findViewById(R.id.filter_option);
+			}
+			return filterOption;
+		}
+		
+		ImageView getIcon(){
+			if (icon == null){
+				icon = (ImageView)row.findViewById(R.id.checkbox);
+			}
+			return icon;
+		}
+		
+		void populateFrom(IndividualFilter filter){
+			getFilterOption().setText(filter.getName());
+			if(filter.getOptionValue()) {
+				getIcon().setImageResource(settingsRef.getCheckbox_Selected());
+			} else {
+				getIcon().setImageResource(settingsRef.getCheckbox_Unselected());
+			}
 		}
 	}
 }

@@ -11,7 +11,7 @@
    	android:id="@+id/alert_modal"
    	style="@style/modalContainerNormal"
    	android:layout_height="fill_parent"
-   	android:layout_margin="15dp"
+   	android:layout_margin="7dp"
    	>
    
     <TextView  
@@ -29,6 +29,7 @@
         android:orientation="horizontal"
    		android:layout_marginLeft="15dp"
    		android:layout_marginRight="15dp"
+   		android:layout_marginBottom="15dp"
    		android:gravity="center_horizontal"
         android:layout_alignParentBottom="true" 
         >
@@ -37,6 +38,7 @@
 	    	android:id="@+id/alert_ok_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/ok"
+	    	android:textSize="14dp"
 	    	android:layout_weight="30"
 	    	/>
 	    
@@ -44,6 +46,7 @@
 	    	android:id="@+id/alert_cancel_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/num_picker_cancel_button"
+	    	android:textSize="14dp"
 	    	android:layout_weight="30"
 	    	/>
 	    
@@ -51,17 +54,19 @@
 	    	android:id="@+id/alert_extra_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/clear"
+	    	android:textSize="14dp"
 	    	android:layout_weight="30"
 	    	/>
     
     </LinearLayout>
 	    
     <ListView  
-        android:id="@android:id/list"
+        android:id="@+id/modal_list"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:layout_above="@id/save_cancel_container"
         android:layout_below="@id/alert_main_text"
+        android:layout_margin="5dp"
         />
     
 </RelativeLayout>

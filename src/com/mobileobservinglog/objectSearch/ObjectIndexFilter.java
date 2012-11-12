@@ -87,7 +87,7 @@ public class ObjectIndexFilter implements ObjectFilter, TextSearch{
 		return retVal;
 	}
 
-	public String getSqlString() { //TODO Add in String Search Sql
+	public String getSqlString() { 
 		String stmt = "SELECT designation, constellation, type, magnitude, logged FROM objects WHERE ";
 		
 		String filterStmt = "";

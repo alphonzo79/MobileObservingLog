@@ -34,15 +34,16 @@ public abstract class AbstractObjectFilter implements ObjectFilter {
 		if(filterIsSet) {
 			retVal = title + ": ";
 		}
+		String theRest = "";
 		for(String key : filterKeys) {
 			if(filters.get(key)) {
-				if(retVal.length() != 0) {
-					retVal = retVal.concat(", ");
+				if(theRest.length() != 0) {
+					theRest = theRest.concat(", ");
 				}
-				retVal = retVal.concat(key);
+				theRest = theRest.concat(key);
 			}
 		}
-		
+		retVal = retVal.concat(theRest);
 		return retVal;
 	}
 

@@ -23,6 +23,12 @@ public class ObjectFilterInformation {
 		this.multiSelect = multiSelect;
 	}
 	
+	public ObjectFilterInformation(ObjectFilterInformation toClone) {
+		this.filterTitle = toClone.getFilterTitle();
+		this.currentValues = (TreeMap<String, Boolean>) toClone.currentValues.clone();
+		this.multiSelect = toClone.multiSelect;
+	}
+	
 	public String getFilterTitle() {
 		return filterTitle;
 	}
