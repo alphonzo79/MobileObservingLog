@@ -61,7 +61,7 @@
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="50"
 			        android:layout_marginRight="3dp"
-			        android:text="Clear Filter"	      
+			        android:text="@string/clear_filter"	      
 			        />
 			    
 			    <Button 
@@ -70,7 +70,7 @@
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="50"
 			        android:layout_marginLeft="3dp"
-			        android:text="Refine Filter"	       
+			        android:text="@string/refine_filter"	       
 			        />
 	            	            
 	        </LinearLayout>

@@ -81,7 +81,11 @@
     <string name="no_installed_catalogs_index_page">There are no catalogs currently installed. Please return home and press \"Manage Catalogs\" to install some</string>
     <string name="no_objects_match_search">There were no objects found in the installed catalogs to match your search criteria. Please reduce your filter criteria or clear the filter.</string>
     <string name="search_string_label">Search Terms (comma-seperated, uses OR logic):</string>
+    <string name="search_filters_label">Filters use AND logic and include text search after filters are applied. Use text search, filters or both.</string>
     <string name="search_string_hint">Messier, De Mairan\'s Nebula, Orion</string>
     <string name="search_show_results">Show Results</string>
     <string name="more_image_alt">Show Options</string>
+    <string name="clear_filter">Clear Filter</string>
+    <string name="refine_filter">Refine Filter</string>
+    <string name="clear">Clear</string>
 </resources>

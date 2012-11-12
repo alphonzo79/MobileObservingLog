@@ -68,6 +68,7 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:text="@string/search_string_label"
+	            android:gravity="center"
 	            />
 	        
 	        <EditText 
@@ -76,8 +77,46 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:hint="@string/search_string_hint"
+	            android:gravity="left"
 	            />
 	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/division"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:layout_below="@id/text_search_container"
+	        >
+  
+		    <View
+		        android:id="@+id/coords_line"
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dip"
+		        android:layout_marginTop="3dip"
+		        android:layout_marginBottom="2dip"
+		        android:background="@color/black"
+		        />
+	        
+	        <TextView 
+	            style="@style/form_data_display_label"
+	            android:id="@+id/search_screen_filters_label"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/search_filters_label"
+	            android:gravity="center"
+	            />
+  
+		    <View
+		        android:id="@+id/coords_line"
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dip"
+		        android:layout_marginTop="3dip"
+		        android:layout_marginBottom="5dip"
+		        android:background="@color/black"
+		        />
+	       
 	    </LinearLayout>
 	    
 	    <ListView  
@@ -85,7 +124,7 @@
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_above="@id/buttons_container"
-	        android:layout_below="@id/text_search_container"
+	        android:layout_below="@id/division"
 	        />
 		    
 	</RelativeLayout>

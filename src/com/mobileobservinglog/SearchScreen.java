@@ -11,6 +11,7 @@
 package com.mobileobservinglog;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 
 import android.content.Context;
@@ -30,6 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -48,8 +50,9 @@ public class SearchScreen extends ActivityBase {
 	Button cancelButton;
 	TextView header;
 	EditText textSearchField;		
-	ArrayList<ObjectFilterInformation> objectList;
+	ArrayList<ObjectFilterInformation> filterList;
 	TreeMap<String, Boolean> filterChangeSet;
+	ObjectFilterInformation focusedFilter;
 	String indexType;
 	String catalogName;
 	ObjectFilter filter;
@@ -74,9 +77,6 @@ public class SearchScreen extends ActivityBase {
 		
 		firstFocus = -1;
         firstClick = 1;
-        
-		filter = ObjectIndexFilter.getReference(this);
-		textSearch = ObjectIndexFilter.getReference(this);
 		
         //setup the layout
         setContentView(settingsRef.getSearchScreenLayout());
@@ -102,6 +102,24 @@ public class SearchScreen extends ActivityBase {
 		firstFocus = -1;
         firstClick = 1;
         
+		indexType = this.getIntent().getStringExtra("com.mobileobservationlog.indexType");
+		catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
+        
+		filter = ObjectIndexFilter.getReference(this);
+		textSearch = ObjectIndexFilter.getReference(this);
+		
+		if(indexType != null) {
+			if(indexType.equals("catalog")) {
+				if(catalogName != null) {
+					TreeMap<String, Boolean> setCatalog = new TreeMap<String, Boolean>();
+					setCatalog.put(catalogName, true);
+					filter.setFilter(setCatalog);
+				}
+			}
+		}
+		
+		filterList = filter.getFilterInfo();
+        
         setLayout();
     }
 	
@@ -110,8 +128,6 @@ public class SearchScreen extends ActivityBase {
 	public void setLayout(){
 		setContentView(settingsRef.getSearchScreenLayout());
 		super.setLayout();
-		indexType = this.getIntent().getStringExtra("com.mobileobservationlog.indexType");
-		catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
 		
 		findButtonsAddListener();
 		findTextField();
@@ -276,110 +292,77 @@ public class SearchScreen extends ActivityBase {
 	/**
 	 * Internal method to handle preparation of the list view upon creation or to be called by setLayout when session mode changes or onResume.
 	 */
-	protected void prepareListView()
-	{
-//		objectList = new ArrayList<Object>();
-//		//Get the list of saved telescopes and populate the list
-//		DatabaseHelper db = new DatabaseHelper(this);
-//		
-//		Cursor objects = null;
-//		
-//		if(indexType.equals("catalog")){
-//    		objects = db.getUnfilteredObjectList_Catalog(catalogName);
-//		}
-//    	else if(indexType.equals("targetList")){
-//    		//TODO
-//    	}
-//    	else{
-//    		//TODO -- search result - no catalog
-//    	}
-//		
-//		if(objects != null){
-//			objects.moveToFirst();
-//			
-//			for (int i = 0; i < objects.getCount(); i++)
-//	        {
-//				Log.d("JoeDebug", "cursor size is " + objects.getCount());
-//				String name = objects.getString(0);
-//				String constellation = objects.getString(1);
-//				String type = objects.getString(2);
-//				String magnitude = objects.getString(3);
-//				boolean logged = false;
-//				try{
-//					logged = objects.getString(4).equals("Yes");
-//				}
-//				catch(NullPointerException e){/*leave it false*/}
-//	
-//				objectList.add(new Object(name, constellation, type, magnitude, logged));
-//				
-//	        	objects.moveToNext();
-//	        }
-//			objects.close();
-//			db.close();
-//		}
-//		
-//		if (objectList.size() == 0){
-//			TextView nothingLeft = (TextView)findViewById(R.id.nothing_here);
-//			nothingLeft.setVisibility(View.VISIBLE);
-//		}
-//		else{
-//			Log.d("JoeTest", "List size is " + objectList.size());
-//			setListAdapter(new ObjectAdapter(this, settingsRef.getObjectIndexListLayout(), objectList));
-//		}
+	protected void prepareListView() {
+		setListAdapter(new FilterAdapter(this, settingsRef.getSearchListLayout(), filterList));
+	}
+	
+	protected void prepareModalListView() {
+		
 	}
 		
 	/**
 	 * Take action on each of the list items when clicked. We need to let the user edit or remove their equipment profile
 	 */
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id)
-	{
-//		String objectName = objectList.get(position).name;
-//		Intent intent = new Intent(this.getApplication(), ObjectDetailScreen.class);
-//		intent.putExtra("com.mobileobservationlog.objectName", objectName);
-//        startActivity(intent);
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		focusedFilter = filterList.get(position);
+		prepForModal();
+	}
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	private void prepForModal() {
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_index_main);
+		
+		mainBackLayer.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+		
+		if(focusedFilter != null) {
+			modalHeader.setText(focusedFilter.getFilterTitle());
+			
+			prepareModalListView();
+			
+			RelativeLayout backlightModal = (RelativeLayout)findViewById(R.id.alert_modal);
+			backlightModal.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	private void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_index_main);
+		
+		mainBackLayer.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		RelativeLayout filterModal = (RelativeLayout)findViewById(R.id.alert_modal);
+		filterModal.setVisibility(View.INVISIBLE);
 	}
 	    
     //////////////////////////////////////
     // Catalog List Inflation Utilities //
     //////////////////////////////////////
 	
-	static class Object{
-		String name;
-		String constellation;
-		String type;
-		String magnitude;
-		boolean logged;
-		
-		Object(String objectName, String objectConstellation, String objectType, String objectMagnitude, boolean isLogged){
-			name = objectName;
-			constellation = objectConstellation;
-			type = objectType;
-			magnitude = objectMagnitude;
-			logged = isLogged;
-		}		
-	}
-	
-	class ObjectAdapter extends ArrayAdapter<Object>{
+	class FilterAdapter extends ArrayAdapter<ObjectFilterInformation>{
 		
 		int listLayout;
 		
-		ObjectAdapter(Context context, int listLayout, ArrayList<Object> list){
-			super(context, listLayout, R.id.object_designation, list);
+		FilterAdapter(Context context, int listLayout, ArrayList<ObjectFilterInformation> list){
+			super(context, listLayout, R.id.filter_label, list);
 			this.listLayout = listLayout;
 		}
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent){
-			ObjectWrapper wrapper = null;
+			FilterWrapper wrapper = null;
 			
 			if (convertView == null){
 				convertView = getLayoutInflater().inflate(listLayout, null);
-				wrapper = new ObjectWrapper(convertView);
+				wrapper = new FilterWrapper(convertView);
 				convertView.setTag(wrapper);
 			}
 			else{
-				wrapper = (ObjectWrapper)convertView.getTag();
+				wrapper = (FilterWrapper)convertView.getTag();
 			}
 			
 			wrapper.populateFrom(getItem(position));
@@ -388,54 +371,52 @@ public class SearchScreen extends ActivityBase {
 		}
 	}
 	
-	class ObjectWrapper{
+	class FilterWrapper{
 		
 		private TextView name = null;
 		private TextView specs = null;
-		private ImageView icon = null;
 		private View row = null;
 		
-		ObjectWrapper(View row){
+		FilterWrapper(View row){
 			this.row = row;
 		}
 		
 		TextView getName(){
 			if (name == null){
-				name = (TextView)row.findViewById(R.id.object_designation);
+				name = (TextView)row.findViewById(R.id.filter_label);
 			}
 			return name;
 		}
 		
 		TextView getSpecs(){
 			if (specs == null){
-				specs = (TextView)row.findViewById(R.id.object_specs);
+				specs = (TextView)row.findViewById(R.id.filter_settings);
 			}
 			return specs;
 		}
 		
-		ImageView getIcon(){
-			if (icon == null){
-				icon = (ImageView)row.findViewById(R.id.checkbox);
+		void populateFrom(ObjectFilterInformation filter){
+			getName().setText(filter.getFilterTitle());
+			getSpecs().setText(formatSpecs(filter.getFilterValues()));
+		}
+		
+		private String formatSpecs(TreeMap<String, Boolean> filterSpecs){
+			String retVal = "All (Press To Select)";
+			
+			if(filterSpecs.containsValue(true)) {
+				retVal = "";
+				Set<String> keys = filterSpecs.keySet();
+				for(String key : keys) {
+					if(filterSpecs.get(key)) {
+						if(retVal.length() > 0) {
+							retVal = retVal.concat(", ");
+						}
+						retVal = retVal.concat(key);
+					}
+				}
 			}
-			return icon;
-		}
-		
-		void populateFrom(Object object){
-			getName().setText(object.name);
-			getSpecs().setText(formatSpecs(object));
-			getIcon().setImageResource(getIcon(object.logged));
-		}
-		
-		private String formatSpecs(Object object){
-			String lineSeparator = System.getProperty("line.separator");
-			return String.format("%s,%s%s,%sMagnitude %s", object.constellation, lineSeparator, object.type, lineSeparator, object.magnitude);
-		}
-		
-		private int getIcon(boolean isLogged){
-			if(isLogged)
-				return settingsRef.getCheckbox_Selected();
-			else
-				return settingsRef.getCheckbox_Unselected();
+			
+			return retVal;
 		}
 	}
 }

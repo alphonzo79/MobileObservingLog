@@ -10,6 +10,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
    	android:id="@+id/alert_modal"
    	style="@style/modalContainerNormal"
+   	android:layout_height="fill_parent"
+   	android:layout_margin="15dp"
    	>
    
     <TextView  
@@ -17,6 +19,7 @@
 	    style="@style/alertMainTextNormal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
 	    />
     
     <LinearLayout 
@@ -27,7 +30,7 @@
    		android:layout_marginLeft="15dp"
    		android:layout_marginRight="15dp"
    		android:gravity="center_horizontal"
-        android:layout_below="@id/alert_main_text" 
+        android:layout_alignParentBottom="true" 
         >
 	    
 	    <Button 
@@ -47,10 +50,18 @@
 	    <Button 
 	    	android:id="@+id/alert_extra_button"
 	    	style="@style/modalSaveCancelButtonNormal"
+	    	android:text="@string/clear"
 	    	android:layout_weight="30"
-	    	android:visibility="gone"
 	    	/>
     
     </LinearLayout>
+	    
+    <ListView  
+        android:id="@android:id/list"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:layout_above="@id/save_cancel_container"
+        android:layout_below="@id/alert_main_text"
+        />
     
 </RelativeLayout>
