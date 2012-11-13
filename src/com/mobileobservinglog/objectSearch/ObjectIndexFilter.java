@@ -11,10 +11,6 @@
 package com.mobileobservinglog.objectSearch;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import android.content.Context;

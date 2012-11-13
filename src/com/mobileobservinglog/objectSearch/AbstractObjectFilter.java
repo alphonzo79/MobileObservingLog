@@ -61,12 +61,15 @@ public abstract class AbstractObjectFilter implements ObjectFilter {
 	}
 
 	public void setFilter(TreeMap<String, Boolean> filters) {
+		boolean multiSelectHasBeenReset = false;
+		
 		Set<String> keys = filters.keySet();
 		for(String key : keys) {
 			if(this.filters.containsKey(key)) {
 				//If it's not multiselect, we must first clear the current filters before setting this one
-				if(!multiSelect) {
+				if(!multiSelect && !multiSelectHasBeenReset) {
 					resetFilter();
+					multiSelectHasBeenReset = true;
 				}
 				
 				if(!filterIsSet) {
@@ -80,7 +83,12 @@ public abstract class AbstractObjectFilter implements ObjectFilter {
 	
 	public ArrayList<ObjectFilterInformation> getFilterInfo() {
 		ArrayList<ObjectFilterInformation> retVal = new ArrayList<ObjectFilterInformation>();
-		retVal.add(new ObjectFilterInformation(title, filters, multiSelect));
+		
+		//Make a deep copy so we don't unknowingly change these values somewhere down the line
+		TreeMap<String, Boolean> filtersCopy = new TreeMap<String, Boolean>();
+		filtersCopy.putAll(filters);
+		
+		retVal.add(new ObjectFilterInformation(title, filtersCopy, multiSelect));
 		return retVal;
 	}
 }

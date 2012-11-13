@@ -400,11 +400,13 @@ public class SearchScreen extends ActivityBase {
 			Log.i("SingleSelectDebug", "New Value: " + newValue);
 			
 			if(!filter.isMultiSelect()) {
-				//reset all the items to false 
+				//reset all the true items to false (Should only be one)
 				for(int i = 0; i < adapter.getCount(); i++) {
 					IndividualFilter currentOption = (IndividualFilter)adapter.getItemAtPosition(i);
-					focusedCloneForListPrep.getFilterValues().put(currentOption.getName(), false);
-					tempValuesHolder.put(currentOption.getName(), false);
+					if(currentOption.getOptionValue()) {
+						focusedCloneForListPrep.getFilterValues().put(currentOption.getName(), false);
+						tempValuesHolder.put(currentOption.getName(), false);
+					}
 				}
 				tempValuesHolder.put(filter.getName(), newValue);
 				focusedCloneForListPrep.getFilterValues().put(filter.getName(), newValue);
