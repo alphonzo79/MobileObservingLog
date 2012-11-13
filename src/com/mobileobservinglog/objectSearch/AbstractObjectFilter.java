@@ -31,9 +31,6 @@ public abstract class AbstractObjectFilter implements ObjectFilter {
 		String retVal = "";
 		
 		Set<String> filterKeys = filters.keySet();
-		if(filterIsSet) {
-			retVal = title + ": ";
-		}
 		String theRest = "";
 		for(String key : filterKeys) {
 			if(filters.get(key)) {
@@ -43,7 +40,10 @@ public abstract class AbstractObjectFilter implements ObjectFilter {
 				theRest = theRest.concat(key);
 			}
 		}
-		retVal = retVal.concat(theRest);
+		if(filterIsSet && theRest.length() > 0) {
+			retVal = title + ": " + theRest;
+		}
+		
 		return retVal;
 	}
 
