@@ -25,7 +25,9 @@ public class ObjectFilterInformation {
 	
 	public ObjectFilterInformation(ObjectFilterInformation toClone) {
 		this.filterTitle = toClone.getFilterTitle();
-		this.currentValues = (TreeMap<String, Boolean>) toClone.currentValues.clone();
+		TreeMap<String, Boolean> valuesToClone =  toClone.currentValues;
+		this.currentValues = new TreeMap<String, Boolean>(); //clone does a shallow copy, I want a deep copy
+		this.currentValues.putAll(valuesToClone);
 		this.multiSelect = toClone.multiSelect;
 	}
 	

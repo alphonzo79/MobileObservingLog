@@ -54,9 +54,9 @@ public class SearchScreen extends ActivityBase {
 	EditText textSearchField;		
 	ArrayList<ObjectFilterInformation> filterList;
 	TreeMap<String, Boolean> filterChangeSet;
-	ObjectFilterInformation focusedFilter;
-	ObjectFilterInformation focusedCloneForListPrep;
-	TreeMap<String, Boolean> tempValuesHolder;
+	ObjectFilterInformation focusedFilter; //Let us reference the filter object in the main list so that if we edit more than once we can maintain updated values
+	ObjectFilterInformation focusedCloneForListPrep; //Needed to populate the modal list from so we don't destroy the focused filter on clearing the filter
+	TreeMap<String, Boolean> tempValuesHolder; //Hold all the values that have been set for this filter, copied into filterChangeSet and focusedFilter upon commit
 	String indexType;
 	String catalogName;
 	ObjectFilter filter;
@@ -205,6 +205,7 @@ public class SearchScreen extends ActivityBase {
 	    			}
     			}
     		}
+    		
     		tearDownModal();
     		prepareListView();
     		body.postInvalidate();
@@ -395,21 +396,29 @@ public class SearchScreen extends ActivityBase {
 				tempValuesHolder = new TreeMap<String, Boolean>();
 			}
 			
-			boolean newValue = !filter.optionValue;
+			boolean newValue = !filter.getOptionValue();
+			Log.i("SingleSelectDebug", "New Value: " + newValue);
 			
 			if(!filter.isMultiSelect()) {
-				clearFilterOptions.onClick(null);
-			}
-			//TODO Why does this not work?
-			//TODO Why do I keep the filter name on the search description after clearing?
-			tempValuesHolder.put(filter.optionName, newValue);
-			filter.setOptionValue(newValue);
-			
-			ImageView checked = (ImageView) view.findViewById(R.id.checkbox);
-			if(newValue) {
-				checked.setImageResource(settingsRef.getCheckbox_Selected());
-			} else {
-				checked.setImageResource(settingsRef.getCheckbox_Unselected());
+				//reset all the items to false 
+				for(int i = 0; i < adapter.getCount(); i++) {
+					IndividualFilter currentOption = (IndividualFilter)adapter.getItemAtPosition(i);
+					focusedCloneForListPrep.getFilterValues().put(currentOption.getName(), false);
+					tempValuesHolder.put(currentOption.getName(), false);
+				}
+				tempValuesHolder.put(filter.getName(), newValue);
+				focusedCloneForListPrep.getFilterValues().put(filter.getName(), newValue);
+				prepareModalListView(focusedCloneForListPrep);
+			} else {			
+				tempValuesHolder.put(filter.optionName, newValue);
+				filter.setOptionValue(newValue);
+				
+				ImageView checked = (ImageView) view.findViewById(R.id.checkbox);
+				if(newValue) {
+					checked.setImageResource(settingsRef.getCheckbox_Selected());
+				} else {
+					checked.setImageResource(settingsRef.getCheckbox_Unselected());
+				}
 			}
 		}
 	};
