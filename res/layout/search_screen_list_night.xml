@@ -17,5 +17,50 @@
     android:paddingTop="2dp"
     android:paddingBottom="4dp"
     >
+    
+    <LinearLayout
+        android:id="@+id/search_list_text_vertical"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:paddingLeft="4dp"
+	    android:layout_weight="90"
+        >
+        
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:id="@+id/filter_label"
+		    android:layout_gravity="left"
+		    android:textSize="12sp" 
+		    android:textColor="@color/red"
+		    android:textStyle="bold"
+		    />
+
+		<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:id="@+id/filter_settings"
+		    android:layout_gravity="left"
+		    android:textSize="12sp" 
+		    android:textColor="@color/red"
+		    android:paddingTop="4dp"
+		    />
+        
+    </LinearLayout>
+    
+    <ImageView 
+        android:src="@drawable/more_arrow_night"
+	    android:layout_width="30dp"
+	    android:layout_height="30dp"
+	    android:contentDescription="@string/more_image_alt"
+	    android:layout_marginTop="5dp"
+	    android:layout_marginBottom="5dp"
+	    android:layout_marginRight="10dp"
+	    android:layout_gravity="right|center_vertical"
+	    android:id="@+id/more"
+	    android:layout_weight="10"
+	    />
 	
 </LinearLayout>
