@@ -14,12 +14,13 @@ import com.mobileobservinglog.R;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 public class ObjectDetailScreen extends ActivityBase{
 
 	//gather resources
-	LinearLayout body;
+	FrameLayout body;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -30,7 +31,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		
         //setup the layout
         setContentView(settingsRef.getObjectDetailLayout());
-        body = (LinearLayout)findViewById(R.id.object_detail_root); 
+        body = (FrameLayout)findViewById(R.id.object_detail_root); 
 	}
 	
 	@Override

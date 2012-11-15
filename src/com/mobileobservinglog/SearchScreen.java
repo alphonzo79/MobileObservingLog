@@ -430,7 +430,7 @@ public class SearchScreen extends ActivityBase {
 	 */
 	private void prepForModal() {
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
-		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_index_main);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.search_main);
 		
 		mainBackLayer.setEnabled(false);
 		blackOutLayer.setVisibility(View.VISIBLE);
