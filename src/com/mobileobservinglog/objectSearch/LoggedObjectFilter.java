@@ -29,7 +29,7 @@ public class LoggedObjectFilter extends AbstractObjectFilter {
 			if(retVal.length() != 0) {
 				retVal = retVal.concat(" OR ");
 			}
-			retVal = retVal.concat("logged != 'true'"); //this value may be null or false (initialized to null)
+			retVal = retVal.concat("logged IS NOT 'true'"); //this value may be null or false (initialized to null)
 		}
 		
 		return retVal;
