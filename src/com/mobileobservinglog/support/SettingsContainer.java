@@ -395,6 +395,22 @@ public final class SettingsContainer {
 		setIcIcon(R.drawable.ic_icon);		
 	}
 	
+	private int favoriteStar;
+	public int getFavoriteStar() {
+		return favoriteStar;
+	}
+	public void setFavoriteStar(int imageResource) {
+		favoriteStar = imageResource;
+	}
+	
+	private int notFavoriteStar;
+	public int getNotFavoriteStar() {
+		return notFavoriteStar;
+	}
+	public void setNotFavoriteStar(int imageResource) {
+		notFavoriteStar = imageResource;
+	}
+	
 	//Helper Methods
 	//Called to change from normal mode to night mode. This method will set all of the style attributes that are used in setting layouts
 	public void setNightMode(){
@@ -435,6 +451,8 @@ public final class SettingsContainer {
 		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setCheckbox_Selected(R.drawable.checked_night);
 		setCheckbox_Unselected(R.drawable.unchecked_night);
+		setFavoriteStar(R.drawable.checked_night);
+		setNotFavoriteStar(R.drawable.unchecked_night);
 		setButtonBrightness(0.0F);
 		setCatalogIconsNight();
 	}
@@ -476,6 +494,8 @@ public final class SettingsContainer {
 		setTabIndicator(R.layout.tab_indicator_layout);
 		setCheckbox_Selected(R.drawable.checked_normal);
 		setCheckbox_Unselected(R.drawable.unchecked_normal);
+		setFavoriteStar(R.drawable.checked_normal);
+		setNotFavoriteStar(R.drawable.unchecked_normal);
 		setButtonBrightness(getOriginalButtonBrightness());
 		setCatalogIconsNormal();
 	}

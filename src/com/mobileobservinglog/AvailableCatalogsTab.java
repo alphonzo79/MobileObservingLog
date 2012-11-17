@@ -237,6 +237,9 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					finally{
 						//Log.d("JoeTest", "Updating the alert");
+						if(!normalPath.exists()) {
+							success = false;
+						}
 						currentFileNumber++;
 						messageData.putInt("current", currentFileNumber);
 						messageData.putInt("filesToDownLoad", filesToDownload);
@@ -275,6 +278,9 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					finally{
 						//Log.d("JoeTest", "Updating the alert");
+						if(!normalPath.exists()) {
+							success = false;
+						}
 						currentFileNumber++;
 						messageData.putInt("current", currentFileNumber);
 						messageData.putInt("filesToDownLoad", filesToDownload);

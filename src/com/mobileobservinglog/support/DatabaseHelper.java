@@ -990,4 +990,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		db.close();
 		return rs;
 	}
+	
+	public Cursor getObjectData(String designation) {
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT * FROM objects WHERE designation = ?";
+		
+		Cursor rs = db.rawQuery(sql, new String[]{designation});
+		rs.moveToFirst();
+		
+		db.close();
+		return rs;
+	}
 }

@@ -71,56 +71,49 @@
 				    
 		        <LinearLayout 
 		            android:id="@+id/common_name_layout"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:orientation="horizontal"
-		            android:gravity="center_horizontal"
-		            android:layout_gravity="center_horizontal"
-		            android:visibility="gone"
+		            style="@style/object_detail_outer_block"
 		            >
 		            
 	            	<TextView 
 			            style="@style/object_detail_data_label_normal"
 			            android:id="@+id/common_name_label"
 			            android:text="@string/common_name_label"
+		            	android:visibility="gone"
 			            />
 	            
 	            	<TextView 
 			            style="@style/object_detail_data_normal"
 			            android:id="@+id/common_name_data"
 			            android:text="@string/n_a"
+		            	android:visibility="gone"
 			            />
 		            
 		        </LinearLayout>
 			    
 		        <LinearLayout 
 		            android:id="@+id/other_catalogs_layout"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:orientation="horizontal"
-		            android:gravity="center_horizontal"
-		            android:layout_gravity="center_horizontal"
+		            style="@style/object_detail_outer_block"
 		            android:layout_below="@id/common_name_layout"
-		        	android:visibility="gone"
 		            >
 		            
 	            	<TextView 
 			            style="@style/object_detail_data_label_normal"
 			            android:id="@+id/other_catalogs_label"
 			            android:text="@string/other_catalogs_label"
+		            	android:visibility="gone"
 			            />
 	            
 	            	<TextView 
 			            style="@style/object_detail_data_normal"
 			            android:id="@+id/other_catalogs_data"
 			            android:text="@string/n_a"
+		            	android:visibility="gone"
 			            />
 		            
 		        </LinearLayout>
 		    
 			    <ImageView 
 				    android:id="@+id/star_chart"
-			        android:src="@drawable/m1"
 				    android:layout_width="fill_parent"
 				    android:layout_height="wrap_content"
 				    android:scaleType="fitCenter"
@@ -163,7 +156,6 @@
 	    
 					    <ImageView 
 						    android:id="@+id/fav_star"
-					        android:src="@drawable/checked_normal"
 						    android:layout_width="30dp"
 						    android:layout_height="30dp"
 						    android:contentDescription="@string/unchecked_normal_image_alt"
@@ -408,6 +400,7 @@
 				            android:layout_width="fill_parent"
 				            android:minWidth="75dp"
 				            android:gravity="left"
+				            android:inputType="none"
 				            />
 		                
 		            </LinearLayout>
