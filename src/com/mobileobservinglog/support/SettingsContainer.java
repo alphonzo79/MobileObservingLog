@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.SettingsDAO;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -517,7 +520,7 @@ public final class SettingsContainer {
 		//dependency issues
 		if (persistentSettingsMap.keySet().size() < 3) //At this time we have three persistent settings. If we add more this number will need to be updated. We look for the full number because it is possible that we have called setPersistentSetting before we called this method
 		{			
-			DatabaseHelper db = new DatabaseHelper(context);
+			SettingsDAO db = new SettingsDAO(context);
 			persistentSettingsMap.put(NM_BACKLIGHT, db.getPersistentSettings(NM_BACKLIGHT));
 			persistentSettingsMap.put(SEARCH_MODE, db.getPersistentSettings(SEARCH_MODE));
 			persistentSettingsMap.put(USE_GPS, db.getPersistentSettings(USE_GPS));

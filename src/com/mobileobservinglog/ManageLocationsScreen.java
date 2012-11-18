@@ -13,7 +13,7 @@ package com.mobileobservinglog;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.LocationsDAO;
 
 import android.content.Context;
 import android.content.Intent;
@@ -106,7 +106,7 @@ public class ManageLocationsScreen extends ActivityBase {
 	{
 		 locationList = new ArrayList<LocationData>();
 		//Get the list of saved telescopes and populate the list
-		DatabaseHelper db = new DatabaseHelper(this);
+		 LocationsDAO db = new LocationsDAO(this);
 		Cursor locations = db.getSavedLocations();
 		
 		locations.moveToFirst();
@@ -191,7 +191,7 @@ public class ManageLocationsScreen extends ActivityBase {
     
     protected final Button.OnClickListener confirmDelete = new Button.OnClickListener(){
     	public void onClick(View view){
-    		DatabaseHelper db = new DatabaseHelper(ManageLocationsScreen.this);
+    		LocationsDAO db = new LocationsDAO(ManageLocationsScreen.this);
     		db.deleteLocationData(listItemId);
     		db.close();
     		setLayout();

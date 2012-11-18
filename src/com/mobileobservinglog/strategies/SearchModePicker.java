@@ -12,8 +12,9 @@ package com.mobileobservinglog.strategies;
 
 import java.util.ArrayList;
 
-import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.SettingsDAO;
 
 import android.content.Context;
 
@@ -25,7 +26,7 @@ public class SearchModePicker extends NumberPickerDriver {
 	
 	@Override
 	public boolean save(){
-		DatabaseHelper db = new DatabaseHelper(context);
+		SettingsDAO db = new SettingsDAO(context);
 		if (db.setPersistentSetting(SettingsContainer.SEARCH_MODE, currentValue)){
 			return true;
 		}

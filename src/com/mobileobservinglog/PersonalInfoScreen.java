@@ -12,7 +12,7 @@ package com.mobileobservinglog;
 
 import com.mobileobservinglog.R;
 import com.mobileobservinglog.R.id;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.PersonalInfoDAO;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -96,7 +96,7 @@ public class PersonalInfoScreen extends ActivityBase {
 	}
 	
 	private void populateFields(){
-		DatabaseHelper db = new DatabaseHelper(this);
+		PersonalInfoDAO db = new PersonalInfoDAO(this);
 		Cursor personalInfo = db.getPersonalInfo();
 		personalInfo.moveToFirst();
 		

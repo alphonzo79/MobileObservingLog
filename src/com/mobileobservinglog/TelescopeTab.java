@@ -13,7 +13,7 @@ package com.mobileobservinglog;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.EquipmentDAO;
 
 import android.content.Context;
 import android.content.Intent;
@@ -64,7 +64,7 @@ public class TelescopeTab extends ManageEquipmentTabParent {
 	protected void prepareListView()
 	{
 		//Get the list of saved telescopes and populate the list
-		DatabaseHelper db = new DatabaseHelper(this);
+		EquipmentDAO db = new EquipmentDAO(this);
 		Cursor telescopes = db.getSavedTelescopes();
 		
 		telescopes.moveToFirst();
@@ -147,7 +147,7 @@ public class TelescopeTab extends ManageEquipmentTabParent {
     
     protected final Button.OnClickListener confirmDelete = new Button.OnClickListener(){
     	public void onClick(View view){
-    		DatabaseHelper db = new DatabaseHelper(TelescopeTab.this);
+    		EquipmentDAO db = new EquipmentDAO(TelescopeTab.this);
     		db.deleteTelescopeData(listItemId);
     		db.close();
     		Intent intent = new Intent(TelescopeTab.this.getParent(), ManageEquipmentScreen.class);

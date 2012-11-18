@@ -24,7 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.PersonalInfoDAO;
 
 public class EditPersonalInfoScreen extends ActivityBase{
 
@@ -140,7 +140,7 @@ public class EditPersonalInfoScreen extends ActivityBase{
 	
 	private void populateFields(){
 		if(!paused){ //Only populate these from the db if we have not saved state after pausing. Otherwise use what onPause set
-			DatabaseHelper db = new DatabaseHelper(this);
+			PersonalInfoDAO db = new PersonalInfoDAO(this);
 			Cursor personalInfoData = db.getPersonalInfo();
 			userNameText = personalInfoData.getString(1);
 			userAddressText = personalInfoData.getString(2);
@@ -178,7 +178,7 @@ public class EditPersonalInfoScreen extends ActivityBase{
             userEmailText = userEmail.getText().toString();
             userClubText = userClub.getText().toString();
         	
-        	DatabaseHelper db = new DatabaseHelper(EditPersonalInfoScreen.this);
+            PersonalInfoDAO db = new PersonalInfoDAO(EditPersonalInfoScreen.this);
         	db.updatePersonalInfoData(userNameText, userAddressText, userPhoneText, userEmailText, userClubText);
 
         	tearDownKeyboard();

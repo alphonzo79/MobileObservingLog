@@ -13,8 +13,9 @@ package com.mobileobservinglog;
 import java.io.File;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.CatalogsDAO;
+import com.mobileobservinglog.support.database.DatabaseHelper;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -129,7 +130,7 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 			String fileLocationString = settingsRef.getPersistentSetting(settingsRef.STAR_CHART_DIRECTORY, InstalledCatalogsTab.this);
 			Log.d("JoeTest", "FileLocationString is " + fileLocationString);
 			File starChartRoot = null;
-			DatabaseHelper db = new DatabaseHelper(InstalledCatalogsTab.this);
+			CatalogsDAO db = new CatalogsDAO(InstalledCatalogsTab.this);
 			
 			//if it's not set yet, then first look for an external storage card and establish the file location
 			boolean mExternalStorageAvailable = false;

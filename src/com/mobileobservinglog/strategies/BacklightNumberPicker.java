@@ -14,8 +14,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.SettingsDAO;
 
 public class BacklightNumberPicker extends NumberPickerDriver {
 	
@@ -31,7 +32,7 @@ public class BacklightNumberPicker extends NumberPickerDriver {
 	}
 
 	public boolean save() {
-		DatabaseHelper db = new DatabaseHelper(context);
+		SettingsDAO db = new SettingsDAO(context);
 		if (db.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, currentValue)){
 			return true;
 		}

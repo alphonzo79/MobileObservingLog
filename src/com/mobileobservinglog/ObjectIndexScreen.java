@@ -30,8 +30,9 @@ import android.widget.TextView;
 import com.mobileobservinglog.objectSearch.FilterBasicStrategy;
 import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
 import com.mobileobservinglog.objectSearch.StringSearchFilter;
-import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.CatalogsDAO;
+import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 public class ObjectIndexScreen extends ActivityBase {
 	//gather resources
@@ -153,7 +154,7 @@ public class ObjectIndexScreen extends ActivityBase {
     }
     
     private String getLoggedSpecs(){
-    	DatabaseHelper db = new DatabaseHelper(this);
+    	CatalogsDAO db = new CatalogsDAO(this);
     	int numLogged = db.getNumLogged(catalogName);
     	Cursor specs = db.getCatalogSpecs(catalogName);
     	String count = specs.getString(2);
@@ -173,7 +174,7 @@ public class ObjectIndexScreen extends ActivityBase {
 	{
 		objectList = new ArrayList<ObservableObject>();
 		//Get the list of saved telescopes and populate the list
-		DatabaseHelper db = new DatabaseHelper(this);
+		ObservableObjectDAO db = new ObservableObjectDAO(this);
 		
 		Cursor objects = null;
 		

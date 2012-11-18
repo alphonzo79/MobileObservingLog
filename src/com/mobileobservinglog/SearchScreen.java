@@ -43,7 +43,7 @@ import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
 import com.mobileobservinglog.objectSearch.TextSearch;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.DatabaseHelper;
 
 public class SearchScreen extends ActivityBase {
 	//gather resources

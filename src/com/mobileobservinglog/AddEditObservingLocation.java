@@ -12,7 +12,7 @@ package com.mobileobservinglog;
 
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.LocationsDAO;
 
 import android.content.Context;
 import android.content.Intent;
@@ -149,7 +149,7 @@ public class AddEditObservingLocation extends ActivityBase{
 	
 	private void populateFields(){
 		if(locationId >= 0 && !paused){ //Only populate these from the db if we have not saved state after pausing. Otherwise use what onPause set
-			DatabaseHelper db = new DatabaseHelper(this);
+			LocationsDAO db = new LocationsDAO(this);
 			Cursor locationData = db.getSavedLocation(locationId);
 			locationNameText = locationData.getString(1);
 			locationCoordinatesText = locationData.getString(2);
@@ -468,7 +468,7 @@ public class AddEditObservingLocation extends ActivityBase{
         locationCoordinatesText = locationCoordinates.getText().toString();
         locationDescriptionText = locationDescription.getText().toString();
     	
-    	DatabaseHelper db = new DatabaseHelper(this);
+        LocationsDAO db = new LocationsDAO(this);
     	if(locationId == -1){
     		db.addLocationData(locationNameText, locationCoordinatesText, locationDescriptionText);
     	}

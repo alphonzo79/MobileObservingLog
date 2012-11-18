@@ -17,8 +17,9 @@ import java.io.InputStream;
 import java.util.Currency;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -155,7 +156,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	private void setObjectData() {
 		//Gather data on object
         objectName = getIntent().getStringExtra("com.mobileobservationlog.objectName");
-        DatabaseHelper db = new DatabaseHelper(this);
+        ObservableObjectDAO db = new ObservableObjectDAO(this);
         Cursor objectInfo = db.getObjectData(objectName);
         objectInfo.moveToFirst();
 

@@ -14,8 +14,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.database.CatalogsDAO;
+import com.mobileobservinglog.support.database.DatabaseHelper;
 import com.mobileobservinglog.R;
 
 import android.content.Context;
@@ -97,7 +98,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
 		installedCatalogList = new ArrayList<Catalog>();
 		
 		//Get the list of available and installed catalogs. Itterate through and populate the right list with the right values
-		DatabaseHelper db = new DatabaseHelper(this);
+		CatalogsDAO db = new CatalogsDAO(this);
 		Cursor catalogs = db.getAvailableCatalogs();
 		
 		catalogs.moveToFirst();

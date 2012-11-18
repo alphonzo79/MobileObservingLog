@@ -16,7 +16,8 @@ import com.mobileobservinglog.strategies.BacklightNumberPicker;
 import com.mobileobservinglog.strategies.GpsModePicker;
 import com.mobileobservinglog.strategies.NumberPickerDriver;
 import com.mobileobservinglog.strategies.SearchModePicker;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.SettingsDAO;
 import com.mobileobservinglog.R;
 
 import android.content.Intent;
@@ -113,7 +114,7 @@ public class SettingsScreen extends ActivityBase{
 	 */
 	private ArrayList<String> getSettingsList()
 	{
-        DatabaseHelper db = new DatabaseHelper(this);
+        SettingsDAO db = new SettingsDAO(this);
         Cursor settingsCursor = db.getPersistentSettings();
         
         ArrayList<String> retVal = new ArrayList<String>();

@@ -12,7 +12,7 @@ package com.mobileobservinglog;
 
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.EquipmentDAO;
 
 import android.content.Context;
 import android.content.Intent;
@@ -141,7 +141,7 @@ public class AddEditEyepiece extends ActivityBase {
 	
 	private void populateFields(){
 		if(eyepieceId >= 0 && !paused){ //Only populate these from the db if we have not saved state after pausing. Otherwise use what onPause set
-			DatabaseHelper db = new DatabaseHelper(this);
+			EquipmentDAO db = new EquipmentDAO(this);
 			Cursor eyepieceData = db.getSavedEyepiece(eyepieceId);
 			focalLengthText = removeUnits(eyepieceData.getString(1));
 			lengthUnitText = getUnits(eyepieceData.getString(1));
@@ -355,7 +355,7 @@ public class AddEditEyepiece extends ActivityBase {
     	String thisType = type.getText().toString();
     	String length = focalLength.getText().toString() + " " + focalLengthUnit.getText().toString();
     	
-    	DatabaseHelper db = new DatabaseHelper(this);
+    	EquipmentDAO db = new EquipmentDAO(this);
     	if(eyepieceId == -1){
     		db.addEyepieceData(thisType, length);
     	}

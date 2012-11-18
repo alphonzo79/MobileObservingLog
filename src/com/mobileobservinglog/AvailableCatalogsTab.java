@@ -21,8 +21,10 @@ import java.net.URLConnection;
 import org.apache.http.util.ByteArrayBuffer;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.DatabaseHelper;
 import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.CatalogsDAO;
+import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.SettingsDAO;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -137,7 +139,8 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			String fileLocationString = settingsRef.getPersistentSetting(settingsRef.STAR_CHART_DIRECTORY, AvailableCatalogsTab.this);
 			Log.d("JoeTest", "FileLocationString is " + fileLocationString);
 			File starChartRoot = null;
-			DatabaseHelper db = new DatabaseHelper(AvailableCatalogsTab.this);
+			CatalogsDAO catalogsDb = new CatalogsDAO(AvailableCatalogsTab.this);
+			SettingsDAO settingsDb = new SettingsDAO(AvailableCatalogsTab.this);
 			
 			//if it's not set yet, then first look for an external storage card and establish the file location
 			boolean mExternalStorageAvailable = false;
@@ -156,7 +159,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				}
 				
 				//If we just established the file location, store it in the database
-				db.setPersistentSetting(SettingsContainer.STAR_CHART_DIRECTORY, fileLocationString);
+				settingsDb.setPersistentSetting(SettingsContainer.STAR_CHART_DIRECTORY, fileLocationString);
 			}
 			
 			addNoMediaFile(starChartRoot);
@@ -170,7 +173,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			}
 			
 			//Get a list of the file paths we need to fetch/save
-			Cursor imagePaths = db.getImagePaths(selectedItems);
+			Cursor imagePaths = catalogsDb.getImagePaths(selectedItems);
 			imagePaths.moveToFirst();
 			int rowCount = imagePaths.getCount();
 			Log.d("JoeTest", "imagePaths cursor had " + rowCount + " rows");
@@ -302,7 +305,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				boolean dbSuccess = false;
 				for (String catalog : selectedItems){
 					Log.d("JoeTest", "Updating catalog " + catalog + " in the database");
-					dbSuccess = db.updateAvailableCatalogsInstalled(catalog, "Yes");
+					dbSuccess = catalogsDb.updateAvailableCatalogsInstalled(catalog, "Yes");
 				}
 				
 				if (dbSuccess){
@@ -323,7 +326,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			}
 			
 			imagePaths.close();
-			db.close();
+			catalogsDb.close();
 		}
     }
     

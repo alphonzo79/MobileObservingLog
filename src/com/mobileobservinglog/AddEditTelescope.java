@@ -12,7 +12,7 @@ package com.mobileobservinglog;
 
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.EquipmentDAO;
 
 import android.content.Context;
 import android.content.Intent;
@@ -163,7 +163,7 @@ public class AddEditTelescope extends ActivityBase {
 	
 	private void populateFields(){
 		if(telescopeId >= 0 && !paused){ //Only populate these from the db if we have not saved state after pausing. Otherwise use what onPause set
-			DatabaseHelper db = new DatabaseHelper(this);
+			EquipmentDAO db = new EquipmentDAO(this);
 			Cursor telescopeData = db.getSavedTelescope(telescopeId);
 			primaryDiameterText = removeUnits(telescopeData.getString(2));
 			diameterUnits = getUnits(telescopeData.getString(2));
@@ -412,7 +412,7 @@ public class AddEditTelescope extends ActivityBase {
     	String ratio = focalRatio.getText().toString();
     	String length = focalLength.getText().toString() + " " + focalLengthUnit.getText().toString();
     	
-    	DatabaseHelper db = new DatabaseHelper(this);
+    	EquipmentDAO db = new EquipmentDAO(this);
     	if(telescopeId == -1){
     		db.addTelescopeData(thisType, diameter, ratio, length);
     	}

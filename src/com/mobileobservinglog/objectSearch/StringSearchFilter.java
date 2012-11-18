@@ -12,7 +12,7 @@ package com.mobileobservinglog.objectSearch;
 
 import java.util.ArrayList;
 
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.CatalogsDAO;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -67,7 +67,7 @@ public class StringSearchFilter implements FilterBasicStrategy {
 	private ArrayList<String> getInstalledCatalogsList() {
 		ArrayList<String> catalogs = new ArrayList<String>();
 		
-		DatabaseHelper db = new DatabaseHelper(context);
+		CatalogsDAO db = new CatalogsDAO(context);
 		Cursor catsCursor = db.getInstalledCatalogs();
 		
 		catsCursor.moveToFirst();

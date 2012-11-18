@@ -13,7 +13,7 @@ package com.mobileobservinglog;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.EquipmentDAO;
 
 import android.content.Context;
 import android.content.Intent;
@@ -64,7 +64,7 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
 	protected void prepareListView()
 	{
 		//Get the list of saved eyepieces and populate the list
-		DatabaseHelper db = new DatabaseHelper(this);
+		EquipmentDAO db = new EquipmentDAO(this);
 		Cursor eyepieces = db.getSavedEyepieces();
 		
 		eyepieces.moveToFirst();
@@ -145,7 +145,7 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
     
     protected final Button.OnClickListener confirmDelete = new Button.OnClickListener(){
     	public void onClick(View view){
-    		DatabaseHelper db = new DatabaseHelper(EyepiecesTab.this);
+    		EquipmentDAO db = new EquipmentDAO(EyepiecesTab.this);
     		db.deleteEyepieceData(listItemId);
     		db.close();
     		Intent intent = new Intent(EyepiecesTab.this.getParent(), ManageEquipmentScreen.class);

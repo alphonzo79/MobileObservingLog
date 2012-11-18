@@ -17,7 +17,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.CatalogsDAO;
 
 public class CatalogObjectFilter extends AbstractObjectFilter {
 	ArrayList<String> installedCatalogs;
@@ -28,7 +28,7 @@ public class CatalogObjectFilter extends AbstractObjectFilter {
 		title = "Catalog";
 		multiSelect = true;
 		
-		DatabaseHelper db = new DatabaseHelper(context);
+		CatalogsDAO db = new CatalogsDAO(context);
 		Cursor catalogs = db.getInstalledCatalogs();
 		
 		catalogs.moveToFirst();

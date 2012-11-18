@@ -13,7 +13,8 @@ package com.mobileobservinglog;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.CatalogsDAO;
+import com.mobileobservinglog.support.database.DatabaseHelper;
 
 import android.content.Context;
 import android.content.Intent;
@@ -103,7 +104,7 @@ public class CatalogsScreen extends ActivityBase{
 	{
 		catalogList = new ArrayList<Catalog>();
 		//Get the list of saved telescopes and populate the list
-		DatabaseHelper db = new DatabaseHelper(this);
+		CatalogsDAO db = new CatalogsDAO(this);
 		Cursor catalogs = db.getAvailableCatalogs();
 		
 		catalogs.moveToFirst();

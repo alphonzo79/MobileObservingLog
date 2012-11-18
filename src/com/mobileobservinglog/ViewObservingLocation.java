@@ -10,7 +10,7 @@
 
 package com.mobileobservinglog;
 
-import com.mobileobservinglog.support.DatabaseHelper;
+import com.mobileobservinglog.support.database.LocationsDAO;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -92,7 +92,7 @@ public class ViewObservingLocation extends ActivityBase{
 	
 	private void populateFields(){
 		if(locationId >= 0){ //Only populate these from the db if we have not saved state after pausing. Otherwise use what onPause set
-			DatabaseHelper db = new DatabaseHelper(this);
+			LocationsDAO db = new LocationsDAO(this);
 			Cursor locationData = db.getSavedLocation(locationId);
 			locationNameText = locationData.getString(1);
 			locationCoordinatesText = locationData.getString(2);
@@ -215,7 +215,7 @@ public class ViewObservingLocation extends ActivityBase{
     
     protected final Button.OnClickListener confirmDelete = new Button.OnClickListener(){
     	public void onClick(View view){
-    		DatabaseHelper db = new DatabaseHelper(ViewObservingLocation.this);
+    		LocationsDAO db = new LocationsDAO(ViewObservingLocation.this);
     		db.deleteLocationData(locationId);
     		db.close();
     		onBackPressed();
