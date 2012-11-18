@@ -140,7 +140,7 @@ public class ObjectDetailScreen extends ActivityBase{
         
         setObjectData();
         findDisplayElements();
-        setUpListButton();
+        setUpListButtonAndFavorite();
         populateInfoDisplayElements();
         
         if(logged) {
@@ -257,9 +257,11 @@ public class ObjectDetailScreen extends ActivityBase{
 		//TODO set listener		
 	}
 	
-	private void setUpListButton() {
+	private void setUpListButtonAndFavorite() {
 		addToList = (Button)findViewById(R.id.add_to_list_button);
 		//TODO add listener
+		
+		//TODO set listener on star
 	}
 	
 	private void setUpSaveCancelButtonsEditable() {
@@ -283,17 +285,17 @@ public class ObjectDetailScreen extends ActivityBase{
 	}
 	
 	private void populateInfoDisplayElements() {
-		if(headerText != null & !headerText.equals("NULL")) {
+		if(headerText != null && !headerText.equals("NULL")) {
 			headerText.setText(String.format("%s: %s", catalog, objectName));
 		}
 		
-		if(commonName != null & !commonName.equals("NULL")) {
+		if(commonName != null && !commonName.equals("NULL")) {
 			commonNameDisplay.setText(commonName);
 			commonNameDisplay.setVisibility(View.VISIBLE);
 			TextView commonNameLabel = (TextView)findViewById(R.id.common_name_label);
 			commonNameLabel.setVisibility(View.VISIBLE);
 		}
-		if(otherCats != null & !otherCats.equals("NULL")) {
+		if(otherCats != null && !otherCats.equals("NULL")) {
 			otherCatalogsDisplay.setText(otherCats);
 			otherCatalogsDisplay.setVisibility(View.VISIBLE);
 			TextView otherCatalogsLabel = (TextView)findViewById(R.id.other_catalogs_label);
@@ -309,34 +311,33 @@ public class ObjectDetailScreen extends ActivityBase{
 		}
 		
 		
-		if(rightAscension != null & !rightAscension.equals("NULL")) {
+		if(rightAscension != null && !rightAscension.equals("NULL")) {
 			rightAscDisplay.setText(rightAscension);
 		}
-		if(declination != null & !declination.equals("NULL")) {
+		if(declination != null && !declination.equals("NULL")) {
 			decDisplay.setText(declination);
 		}
-		if(magnitude != null & !magnitude.equals("NULL")) {
+		if(magnitude != null && !magnitude.equals("NULL")) {
 			magDisplay.setText(magnitude);
 		}
-		if(size != null & !size.equals("NULL")) {
+		if(size != null && !size.equals("NULL")) {
 			sizeDisplay.setText(size);
 		}
-		if(type != null & !type.equals("NULL")) {
+		if(type != null && !type.equals("NULL")) {
 			typeDisplay.setText(type);
 		}
-		if(distance != null & !distance.equals("NULL")) {
+		if(distance != null && !distance.equals("NULL")) {
 			distanceDisplay.setText(distance);
 		}
-		if(constellation != null & !constellation.equals("NULL")) {
+		if(constellation != null && !constellation.equals("NULL")) {
 			constellationDisplay.setText(constellation);
 		}
-		if(season != null & !season.equals("NULL")) {
+		if(season != null && !season.equals("NULL")) {
 			seasonDisplay.setText(season);
 		}
 	}
 	
 	private void setStarChartImage() {
-		Log.i("SetChart", "Entering Set Chart Image method");
 		String fileLocationString = settingsRef.getPersistentSetting(SettingsContainer.STAR_CHART_DIRECTORY, ObjectDetailScreen.this);
 		Log.i("SetChart", "File Location String: " + fileLocationString);
 		File starChartRoot = null;
@@ -344,45 +345,91 @@ public class ObjectDetailScreen extends ActivityBase{
 		//Now actually get the file location
 		if (fileLocationString.equals(SettingsContainer.EXTERNAL)){
 			starChartRoot = getExternalFilesDir(null);
-			Log.i("SetChart", "Found External. Star Chart Root: " + starChartRoot);
 		}
 		else{
 			starChartRoot = getFilesDir();
-			Log.i("SetChart", "Found Internal. Star Chart Root: " + starChartRoot);
 		}
 		
 		//Build up the path to the actual file
 		File chartPath = new File(starChartRoot.toString() + imagePath);
-		Log.i("SetChart", "Full path to the chart: " + chartPath);
 		
 		Bitmap image = null;
 		if (chartPath.exists()){
-			Log.i("SetChart", "Setting the Bitmap");
 			image = BitmapFactory.decodeFile(chartPath.toString());
 		}
 		if(image != null) {
-			Log.i("SetChart", "Bitmap was not null");
 			chart.setImageBitmap(image);
 		} else {
-			Log.i("SetChart", "Bitmap was null");
 			//TODO default image
 		}
 	}
 	
 	private void populateLogDisplayElements() {
-		
+		if(logDate != null && !logDate.equals("NULL")) {
+			dateDisplay.setText(logDate);
+		}
+		if(logTime != null && !logTime.equals("NULL")) {
+			timeDisplay.setText(logTime);
+		}
+		if(logLocation != null && !logLocation.equals("NULL")) {
+			locationDisplay.setText(logLocation);
+		}
+		if(telescope != null && !telescope.equals("NULL")) {
+			equipmentDisplay.setText(telescope);
+		}
+		if(seeing > 0) {
+			seeingDisplay.setText(String.format("%d/%d", seeing, 5));
+		}
+		if(transparency > 0) {
+			transDisplay.setText(String.format("%d/%d", transparency, 5));
+		}
+		if(viewingNotes != null && !viewingNotes.equals("NULL")) {
+			notesDisplay.setText(viewingNotes);
+		}
 	}
 	
 	private void populateLogEditElements() {
-		
+		if(logDate != null && !logDate.equals("NULL")) {
+			dateInput.setText(logDate);
+		}
+		if(logTime != null && !logTime.equals("NULL")) {
+			timeInput.setText(logTime);
+		}
+		if(logLocation != null && !logLocation.equals("NULL")) {
+			locationInput.setText(logLocation);
+		}
+		if(telescope != null && !telescope.equals("NULL")) {
+			equipmentInput.setText(telescope);
+		}
+		if(seeing > 0) {
+			seeingInput.setText(String.format("%d/%d", seeing, 5));
+		}
+		if(transparency > 0) {
+			transInput.setText(String.format("%d/%d", transparency, 5));
+		}
+		if(viewingNotes != null && !viewingNotes.equals("NULL")) {
+			notesInput.setText(viewingNotes);
+		}
 	}
 	
 	private void logDisplayElementsGone() {
-		
+		dateDisplay.setVisibility(View.GONE);
+		timeDisplay.setVisibility(View.GONE);
+		locationDisplay.setVisibility(View.GONE);
+		equipmentDisplay.setVisibility(View.GONE);
+		seeingDisplay.setVisibility(View.GONE);
+		transDisplay.setVisibility(View.GONE);
+		notesDisplay.setVisibility(View.GONE);
 	}
 	
 	private void logEditElementsGone() {
-		
+		dateInput.setVisibility(View.GONE);
+		timeInput.setVisibility(View.GONE);
+		locationInput.setVisibility(View.GONE);
+		equipmentInput.setVisibility(View.GONE);
+		seeingInput.setVisibility(View.GONE);
+		transInput.setVisibility(View.GONE);
+		notesInput.setVisibility(View.GONE);
 	}
 	
 	private void setEditableMode() {
