@@ -20,8 +20,12 @@ import android.util.Log;
 
 import com.mobileobservinglog.HomeScreen;
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.database.DatabaseHelperner;
+import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.EquipmentDAO;
+import com.mobileobservinglog.support.database.LocationsDAO;
+import com.mobileobservinglog.support.database.SettingsDAO;
 
 /**
  * @author Joe Rowley
@@ -205,9 +209,9 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	public void testGetPersistentSettings() 
 	{
 		Log.d("JoeDebug", "testGetPersistentSettings");
-		
+		SettingsDAO settingsDb = new SettingsDAO(mAut);
 		//Call the method, then check for the correct number of rows and columns
-		Cursor dbCursor = mCut.getPersistentSettings();
+		Cursor dbCursor = settingsDb.getPersistentSettings();
 		assertEquals("We got the wrong number of rows", 9, dbCursor.getCount());
 		assertEquals("We got the wrong number of columns", 3, dbCursor.getColumnCount());
 		dbCursor.close();
@@ -221,9 +225,10 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	public void testGetPersistentSettingsOverride() 
 	{
 		Log.d("JoeDebug", "testGetPersistentSettingsOverride");
-		
+
+		SettingsDAO settingsDb = new SettingsDAO(mAut);
 		//Call the method, then check for the correct number of rows and columns
-		String value = mCut.getPersistentSettings("Search/Filter Type");
+		String value = settingsDb.getPersistentSettings("Search/Filter Type");
 		assertEquals("We got the wrong value", "Simple", value);
 	}
 
@@ -241,16 +246,17 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Get access to the settings container singleton
 		SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
+		SettingsDAO settingsDb = new SettingsDAO(mAut);
+
+		settingsDb.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, "8");
 		
-		mCut.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, "8");
-		
-		String value = mCut.getPersistentSettings(SettingsContainer.NM_BACKLIGHT);
+		String value = settingsDb.getPersistentSettings(SettingsContainer.NM_BACKLIGHT);
 		assertEquals("We got the wrong value", "8", value);
 		String scValue = settingsRef.getPersistentSetting(SettingsContainer.NM_BACKLIGHT, mAut);
 		assertEquals("We got the wrong value", "8", scValue);
 		
 		//Return the setting back to what it was
-		mCut.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, "5");
+		settingsDb.setPersistentSetting(SettingsContainer.NM_BACKLIGHT, "5");
 	}
 	
 	/**
@@ -260,8 +266,8 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testGetAvailableCatalogs(){
 		Log.d("JoeDebug", "testGetAvailableCatalogs");
-		
-		Cursor catalogs = mCut.getAvailableCatalogs();
+		CatalogsDAO catalogsDb = new CatalogsDAO(mAut);
+		Cursor catalogs = catalogsDb.getAvailableCatalogs();
 		assertEquals("We found the wrong number of available catalogs", 1, catalogs.getCount());
 		assertEquals("Messier was not included in the list", "Messier Catalog", catalogs.getString(0));
 	}
@@ -275,21 +281,22 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		Log.d("JoeDebug", "testUpdateAvailableCatalogsInstalled");
 		
 		String catalogName = "Messier Catalog";
+
+		CatalogsDAO catalogsDb = new CatalogsDAO(mAut);
+		catalogsDb.updateAvailableCatalogsInstalled(catalogName, "Yes");
 		
-		mCut.updateAvailableCatalogsInstalled(catalogName, "Yes");
-		
-		Cursor catalogs = mCut.getAvailableCatalogs();
+		Cursor catalogs = catalogsDb.getAvailableCatalogs();
 		assertEquals("Messier did not show as installed", "Yes", catalogs.getString(1));
 		
-		mCut.updateAvailableCatalogsInstalled(catalogName, "No");
+		catalogsDb.updateAvailableCatalogsInstalled(catalogName, "No");
 		
-		catalogs = mCut.getAvailableCatalogs();
+		catalogs = catalogsDb.getAvailableCatalogs();
 		assertEquals("Messier did not show as installed", "No", catalogs.getString(1));
 		
 		//Try giving it a bad value
-		mCut.updateAvailableCatalogsInstalled("Fake Catalog Name", "Yes");
+		catalogsDb.updateAvailableCatalogsInstalled("Fake Catalog Name", "Yes");
 		
-		catalogs = mCut.getAvailableCatalogs();
+		catalogs = catalogsDb.getAvailableCatalogs();
 		assertEquals("We found the wrong number of available catalogs", 1, catalogs.getCount());
 		assertEquals("Messier did not show as installed", "No", catalogs.getString(1));
 	}
@@ -304,8 +311,9 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		ArrayList<String> catalogs = new ArrayList<String>();
 		catalogs.add("Messier Catalog");
-		
-		Cursor paths = mCut.getImagePaths(catalogs);
+		CatalogsDAO catalogsDb = new CatalogsDAO(mAut);
+
+		Cursor paths = catalogsDb.getImagePaths(catalogs);
 		assertEquals("We found the wrong imageResource", "/messier/normal/M1.gif", paths.getString(0));
 		assertEquals("We found the wrong imageResource", "/messier/night/M1.gif", paths.getString(1));
 		
@@ -322,11 +330,11 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testGetSavedTelescopes(){
 		Log.d("JoeDebug", "testGetSavedTelescopes");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		equipDb.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
 		
-		Cursor telescopes = mCut.getSavedTelescopes();
+		Cursor telescopes = equipDb.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
 		assertEquals("We found the wrong data", "Reflector", telescopes.getString(1));
 		assertEquals("We found the wrong data", "10\"", telescopes.getString(2));
@@ -335,7 +343,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Clean up by deleting our seed data
 		int id = telescopes.getInt(0);
-		mCut.deleteTelescopeData(id);
+		equipDb.deleteTelescopeData(id);
 	}
 	
 	/**
@@ -346,22 +354,23 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testGetSavedTelescope(){
 		Log.d("JoeDebug", "testGetSavedTelescope");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		equipDb.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
 		
-		Cursor telescopes = mCut.getSavedTelescopes();
+		Cursor telescopes = equipDb.getSavedTelescopes();
 		telescopes.moveToLast();
 		int id = telescopes.getInt(0);
 		
-		Cursor myTelescope = mCut.getSavedTelescope(id);
+		Cursor myTelescope = equipDb.getSavedTelescope(id);
 		assertEquals("We found the wrong data", "Reflector", myTelescope.getString(1));
 		assertEquals("We found the wrong data", "10\"", myTelescope.getString(2));
 		assertEquals("We found the wrong data", "f/7", myTelescope.getString(3));
 		assertEquals("We found the wrong data", "1787 mm", myTelescope.getString(4));
 		
 		//Clean up by deleting our seed data
-		mCut.deleteTelescopeData(id);
+		equipDb.deleteTelescopeData(id);
 	}
 	
 	/**
@@ -371,12 +380,13 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testUpdateTelescopeData(){
 		Log.d("JoeDebug", "testUpdateTelescopeData");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first stock it with some info
-		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		equipDb.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
 		
 		//Check the first data
-		Cursor telescopes = mCut.getSavedTelescopes();
+		Cursor telescopes = equipDb.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
 		assertEquals("We found the wrong data", "Reflector", telescopes.getString(1));
 		assertEquals("We found the wrong data", "10\"", telescopes.getString(2));
@@ -385,10 +395,10 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//change the data
 		int id = telescopes.getInt(0);
-		mCut.updateTelescopeData(id, "Refractor", "45 mm", "f/4", "180 mm");
+		equipDb.updateTelescopeData(id, "Refractor", "45 mm", "f/4", "180 mm");
 		
 		//check the changed data
-		telescopes = mCut.getSavedTelescopes();
+		telescopes = equipDb.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
 		assertEquals("We found the wrong data", "Refractor", telescopes.getString(1));
 		assertEquals("We found the wrong data", "45 mm", telescopes.getString(2));
@@ -397,7 +407,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Clean up by deleting our seed data
 		id = telescopes.getInt(0);
-		mCut.deleteTelescopeData(id);
+		equipDb.deleteTelescopeData(id);
 	}
 	
 	/**
@@ -408,17 +418,18 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testDeleteTelescopeData(){
 		Log.d("JoeDebug", "testDeleteTelescopeData");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
+		equipDb.addTelescopeData("Reflector", "10\"", "f/7", "1787 mm");
 		
-		Cursor telescopes = mCut.getSavedTelescopes();
+		Cursor telescopes = equipDb.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 1, telescopes.getCount());
 		
 		int id = telescopes.getInt(0);
-		mCut.deleteTelescopeData(id);
+		equipDb.deleteTelescopeData(id);
 		
-		telescopes = mCut.getSavedTelescopes();
+		telescopes = equipDb.getSavedTelescopes();
 		assertEquals("We found the wrong number of rows", 0, telescopes.getCount());
 	}
 	
@@ -430,18 +441,19 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testGetSavedEyepieces(){
 		Log.d("JoeDebug", "testGetSavedEyepieces");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addEyepieceData("Plossl", "29 mm");
+		equipDb.addEyepieceData("Plossl", "29 mm");
 		
-		Cursor eyepieces = mCut.getSavedEyepieces();
+		Cursor eyepieces = equipDb.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
 		assertEquals("We found the wrong data", "29 mm", eyepieces.getString(1));
 		assertEquals("We found the wrong data", "Plossl", eyepieces.getString(2));
 		
 		//Clean up by deleting our seed data
 		int id = eyepieces.getInt(0);
-		mCut.deleteEyepieceData(id);
+		equipDb.deleteEyepieceData(id);
 	}
 	
 	/**
@@ -452,20 +464,21 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testGetSavedEyepiece(){
 		Log.d("JoeDebug", "testGetSavedEyepiece");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addEyepieceData("Plossl", "29 mm");
+		equipDb.addEyepieceData("Plossl", "29 mm");
 		
-		Cursor eyepieces = mCut.getSavedEyepieces();
+		Cursor eyepieces = equipDb.getSavedEyepieces();
 		eyepieces.moveToLast();
 		int id = eyepieces.getInt(0);
 		
-		Cursor myEyepieceCursor = mCut.getSavedEyepiece(id);
+		Cursor myEyepieceCursor = equipDb.getSavedEyepiece(id);
 		assertEquals("We found the wrong data", "29 mm", myEyepieceCursor.getString(1));
 		assertEquals("We found the wrong data", "Plossl", myEyepieceCursor.getString(2));
 		
 		//Clean up by deleting our seed data
-		mCut.deleteEyepieceData(id);
+		equipDb.deleteEyepieceData(id);
 	}
 	
 	/**
@@ -475,28 +488,29 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testUpdateEyepieceData(){
 		Log.d("JoeDebug", "testUpdateEyepieceData");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first stock it with some info
-		mCut.addEyepieceData("Plossl", "29 mm");
+		equipDb.addEyepieceData("Plossl", "29 mm");
 		
-		Cursor eyepieces = mCut.getSavedEyepieces();
+		Cursor eyepieces = equipDb.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
 		assertEquals("We found the wrong data", "29 mm", eyepieces.getString(1));
 		assertEquals("We found the wrong data", "Plossl", eyepieces.getString(2));
 		
 		//change the data
 		int id = eyepieces.getInt(0);
-		mCut.updateEyepieceData(id, "Nagler", "45 mm");
+		equipDb.updateEyepieceData(id, "Nagler", "45 mm");
 		
 		//check the changed data
-		eyepieces = mCut.getSavedEyepieces();
+		eyepieces = equipDb.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
 		assertEquals("We found the wrong data", "45 mm", eyepieces.getString(1));
 		assertEquals("We found the wrong data", "Nagler", eyepieces.getString(2));
 		
 		//Clean up by deleting our seed data
 		id = eyepieces.getInt(0);
-		mCut.deleteEyepieceData(id);
+		equipDb.deleteEyepieceData(id);
 	}
 	
 	/**
@@ -507,17 +521,18 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testDeleteEyepieceData(){
 		Log.d("JoeDebug", "testDeleteEyepieceData");
-		
+		EquipmentDAO equipDb = new EquipmentDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addEyepieceData("Plossl", "29 mm");
+		equipDb.addEyepieceData("Plossl", "29 mm");
 		
-		Cursor eyepieces = mCut.getSavedEyepieces();
+		Cursor eyepieces = equipDb.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 1, eyepieces.getCount());
 		
 		int id = eyepieces.getInt(0);
-		mCut.deleteEyepieceData(id);
+		equipDb.deleteEyepieceData(id);
 		
-		eyepieces = mCut.getSavedEyepieces();
+		eyepieces = equipDb.getSavedEyepieces();
 		assertEquals("We found the wrong number of rows", 0, eyepieces.getCount());
 	}
 	
@@ -529,11 +544,11 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testGetSavedLocations(){
 		Log.d("JoeDebug", "testGetSavedLocations");
-		
+		LocationsDAO locDb = new LocationsDAO(mAut);
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		locDb.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
 		
-		Cursor locations = mCut.getSavedLocations();
+		Cursor locations = locDb.getSavedLocations();
 		assertEquals("We found the wrong number of rows", 1, locations.getCount());
 		assertEquals("We found the wrong data", "Reynolds Creek", locations.getString(1));
 		assertEquals("We found the wrong data", "45°28'55\" N, 114°33'01\" W", locations.getString(2));
@@ -541,7 +556,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Clean up by deleting our seed data
 		int id = locations.getInt(0);
-		mCut.deleteLocationData(id);
+		locDb.deleteLocationData(id);
 	}
 	
 	/**
@@ -552,21 +567,22 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testGetSavedLocation(){
 		Log.d("JoeDebug", "testGetSavedLocation");
-		
+		LocationsDAO locDb = new LocationsDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		locDb.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
 		
-		Cursor locations = mCut.getSavedLocations();
+		Cursor locations = locDb.getSavedLocations();
 		locations.moveToLast();
 		int id = locations.getInt(0);
 		
-		Cursor myLocationsCursor = mCut.getSavedLocation(id);
+		Cursor myLocationsCursor = locDb.getSavedLocation(id);
 		assertEquals("We found the wrong data", "Reynolds Creek", myLocationsCursor.getString(1));
 		assertEquals("We found the wrong data", "45°28'55\" N, 114°33'01\" W", myLocationsCursor.getString(2));
 		assertEquals("We found the wrong data", "Out by Reynold's Creek.", myLocationsCursor.getString(3));
 		
 		//Clean up by deleting our seed data
-		mCut.deleteLocationData(id);
+		locDb.deleteLocationData(id);
 	}
 	
 	/**
@@ -576,11 +592,12 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testUpdateLocationData(){
 		Log.d("JoeDebug", "testUpdateLocationData");
-		
+		LocationsDAO locDb = new LocationsDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first stock it with some info
-		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		locDb.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
 		
-		Cursor locations = mCut.getSavedLocations();
+		Cursor locations = locDb.getSavedLocations();
 		assertEquals("We found the wrong number of rows", 1, locations.getCount());
 		assertEquals("We found the wrong data", "Reynolds Creek", locations.getString(1));
 		assertEquals("We found the wrong data", "45°28'55\" N, 114°33'01\" W", locations.getString(2));
@@ -588,10 +605,10 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//change the data
 		int id = locations.getInt(0);
-		mCut.updateLocationData(id, "My Back Yard", "35°28'55\" N, 114°33'01\" E", "Behind my house");
+		locDb.updateLocationData(id, "My Back Yard", "35°28'55\" N, 114°33'01\" E", "Behind my house");
 		
 		//check the changed data
-		locations = mCut.getSavedEyepieces();
+		locations = locDb.getSavedLocations();
 		assertEquals("We found the wrong number of rows", 1, locations.getCount());
 		assertEquals("We found the wrong data", "My Back Yard", locations.getString(1));
 		assertEquals("We found the wrong data", "35°28'55\" N, 114°33'01\" E", locations.getString(2));
@@ -599,7 +616,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		
 		//Clean up by deleting our seed data
 		id = locations.getInt(0);
-		mCut.deleteLocationData(id);
+		locDb.deleteLocationData(id);
 	}
 	
 	/**
@@ -610,17 +627,18 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 	 */
 	public void testDeleteLocationData(){
 		Log.d("JoeDebug", "testDeleteLocationData");
-		
+		LocationsDAO locDb = new LocationsDAO(mAut);
+
 		//Since this table has nothing in it to start with we need to first seed it with some info
-		mCut.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
+		locDb.addLocationData("Reynolds Creek", "45°28'55\" N, 114°33'01\" W", "Out by Reynold's Creek.");
 		
-		Cursor locations = mCut.getSavedLocations();
+		Cursor locations = locDb.getSavedLocations();
 		assertEquals("We found the wrong number of rows", 1, locations.getCount());
 		
 		int id = locations.getInt(0);
-		mCut.deleteLocationData(id);
+		locDb.deleteLocationData(id);
 		
-		locations = mCut.getSavedLocations();
+		locations = locDb.getSavedLocations();
 		assertEquals("We found the wrong number of rows", 0, locations.getCount());
 	}
 }

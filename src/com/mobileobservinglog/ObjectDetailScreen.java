@@ -17,10 +17,13 @@ import java.io.InputStream;
 import java.util.Currency;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.softkeyboard.SoftKeyboard;
+import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.support.database.DatabaseHelper;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,17 +32,26 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class ObjectDetailScreen extends ActivityBase{
 
 	//gather resources
 	FrameLayout body;
+	
+	FrameLayout keyboardRoot;
+	SoftKeyboard keyboardDriver;
+	
+	int firstFocus; //used to control the keyboard showing on first load
+	int firstClick;
 	
 	//ObjectData
 	int id;
@@ -68,6 +80,18 @@ public class ObjectDetailScreen extends ActivityBase{
 	boolean favorite;
 	//String findingMethod;
 	String viewingNotes;
+	
+	boolean newLogged;
+	String newLogDate;
+	String newLogTime;
+	String newLogLocation;
+	String newLogTelescope;
+	String newLogEyepiece;
+	int newSeeing;
+	int newTransparency;
+	//boolean newFavorite; (Unneeded since favorite changes are saved to the DB immediately. No need for roll back
+	//String newFinidingMethod;
+	String newViewingNotes;
 	
 	//LayoutElements
 	TextView headerText;
@@ -110,6 +134,9 @@ public class ObjectDetailScreen extends ActivityBase{
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		
+		firstFocus = -1;
+        firstClick = 1;
+		
         //setup the layout
         setContentView(settingsRef.getObjectDetailLayout());
         body = (FrameLayout)findViewById(R.id.object_detail_root); 
@@ -130,6 +157,8 @@ public class ObjectDetailScreen extends ActivityBase{
     public void onResume() {
 		Log.d("JoeDebug", "ObjectDetails onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
+        firstFocus = -1;
+        firstClick = 1;
         setLayout();
     }
 	
@@ -149,7 +178,8 @@ public class ObjectDetailScreen extends ActivityBase{
         } else {
         	setEditableMode();
         }
-        
+
+		setMargins_noKeyboard();
 		body.postInvalidate();
 	}
 	
@@ -262,7 +292,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		addToList = (Button)findViewById(R.id.add_to_list_button);
 		//TODO add listener
 		
-		//TODO set listener on star
+		favoriteStar.setOnClickListener(changeFavorite);
 	}
 	
 	private void setUpSaveCancelButtonsEditable() {
@@ -444,6 +474,136 @@ public class ObjectDetailScreen extends ActivityBase{
 		populateLogDisplayElements();
 		setUpSaveCancelButtonsDisplay();
 		logEditElementsGone();
+	}
+	
+	protected final View.OnClickListener changeFavorite = new View.OnClickListener() {
+		public void onClick(View arg0) {
+			favorite = !favorite;
+			ObservableObjectDAO db = new ObservableObjectDAO(ObjectDetailScreen.this);
+			boolean success = db.setFavorite(id, favorite);
+			if(favorite && success) {
+				favoriteStar.setImageResource(settingsRef.getFavoriteStar());
+			} else if(!favorite && success) { //Only update the image if we successfully hit the db
+				favoriteStar.setImageResource(settingsRef.getNotFavoriteStar());
+			}
+			db.close();
+		}
+	};
+	
+	protected final Button.OnClickListener showLetters_click = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		if(firstClick > 0){
+    			showKeyboardLetters(view);
+    		}
+    		firstClick = -1;
+    	}
+    };
+    
+    protected final EditText.OnFocusChangeListener showLetters_focus = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View view, boolean hasFocus) {
+			if(firstFocus > 0 && hasFocus){
+				showKeyboardLetters(view);
+			}
+			else{
+				tearDownKeyboard();
+			}
+			firstFocus = 1;
+		}
+    };
+    
+    protected final Button.OnClickListener showNumbers_click = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		if(firstClick > 0){
+    			showKeyboardNumbers(view);
+    		}
+    		firstClick = -1;
+    	}
+    };
+    
+    protected final EditText.OnFocusChangeListener showNumbers_focus = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View view, boolean hasFocus) {
+			if(firstFocus > 0 && hasFocus){
+				showKeyboardNumbers(view);
+			}
+			else{
+				tearDownKeyboard();
+			}
+			firstFocus = 1;
+		}
+    };
+
+	private void showKeyboardLetters(View view) {
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+		if(keyboardDriver != null)
+			keyboardDriver = null;
+		keyboardRoot.setVisibility(View.VISIBLE);
+		keyboardDriver = new SoftKeyboard(this, (EditText) view, TargetInputType.LETTERS);
+		setMargins_keyboard();
+	}
+
+	private void showKeyboardNumbers(View view) {
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		keyboardRoot = (FrameLayout)findViewById(R.id.keyboard_root);
+		if(keyboardDriver != null)
+			keyboardDriver = null;
+		keyboardRoot.setVisibility(View.VISIBLE);
+		keyboardDriver = new SoftKeyboard(this, (EditText) view, TargetInputType.NUMBER_DECIMAL);
+		setMargins_keyboard();
+	}
+    
+    private void tearDownKeyboard(){
+    	if(keyboardDriver != null){
+    		keyboardDriver.hideAll();
+	    	keyboardRoot.setVisibility(View.INVISIBLE);
+	    	keyboardDriver = null;
+			setMargins_noKeyboard();
+    	}
+    }
+
+    //We killed the ManageEquipment screen when launching this activity, otherwise we would go back to it in a stale state. We need to kill this activity and relaunch
+    //that one when the back button is pressed.
+    @Override
+    public void onBackPressed() {
+		if(keyboardDriver != null){
+			tearDownKeyboard();
+		}
+		else{
+	    	super.onBackPressed();
+		}
+    }
+	
+	private void setMargins_noKeyboard()
+	{
+		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.object_detail_scroll_view);
+		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
+		int buttonsKeyboardSize = keyboardFrame.getHeight();
 		
+		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
+		frameParams.setMargins(0, 0, 0, 0);
+		
+		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
+		scrollParams.setMargins(0, 0, 0, 0);
+		
+		keyboardFrame.setLayoutParams(frameParams);
+		fieldsScroller.setLayoutParams(scrollParams);
+	}
+	
+	private void setMargins_keyboard()
+	{
+		ScrollView fieldsScroller = (ScrollView)findViewById(R.id.object_detail_scroll_view);
+		FrameLayout keyboardFrame = (FrameLayout)findViewById(R.id.keyboard_root);
+		int buttonsKeyboardSize = keyboardFrame.getHeight();
+		
+		MarginLayoutParams frameParams = (MarginLayoutParams)keyboardFrame.getLayoutParams();
+		frameParams.setMargins(0, -buttonsKeyboardSize, 0, 0);
+		
+		MarginLayoutParams scrollParams = (MarginLayoutParams)fieldsScroller.getLayoutParams();
+		scrollParams.setMargins(0, 0, 0, buttonsKeyboardSize);
+		
+		keyboardFrame.setLayoutParams(frameParams);
+		fieldsScroller.setLayoutParams(scrollParams);
 	}
 }
