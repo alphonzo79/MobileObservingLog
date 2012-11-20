@@ -11,26 +11,14 @@
 package com.mobileobservinglog;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Currency;
+import java.util.Set;
 import java.util.TreeMap;
-
-import com.mobileobservinglog.R;
-import com.mobileobservinglog.objectSearch.ObjectFilterInformation;
-import com.mobileobservinglog.softkeyboard.SoftKeyboard;
-import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
-import com.mobileobservinglog.support.SettingsContainer;
-import com.mobileobservinglog.support.database.DatabaseHelper;
-import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -45,6 +33,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.mobileobservinglog.softkeyboard.SoftKeyboard;
+import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
+import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 public class ObjectDetailScreen extends ActivityBase{
 
@@ -86,18 +79,6 @@ public class ObjectDetailScreen extends ActivityBase{
 	boolean favorite;
 	//String findingMethod;
 	String viewingNotes;
-	
-	boolean newLogged;
-	String newLogDate;
-	String newLogTime;
-	String newLogLocation;
-	String newLogTelescope;
-	String newLogEyepiece;
-	int newSeeing;
-	int newTransparency;
-	//boolean newFavorite; (Unneeded since favorite changes are saved to the DB immediately. No need for roll back
-	//String newFinidingMethod;
-	String newViewingNotes;
 	
 	//LayoutElements
 	TextView headerText;
@@ -321,11 +302,11 @@ public class ObjectDetailScreen extends ActivityBase{
 	private void setUpSaveCancelButtonsEditable() {
 		saveButton = (Button)findViewById(R.id.save_edit_log_button);
 		saveButton.setText(R.string.save_log);
-		//TODO add listener
+		saveButton.setOnClickListener(saveLog);
 		
 		clearButton = (Button)findViewById(R.id.cancel_button);
 		clearButton.setText(R.string.clear_log);
-		//TODO add listener
+		clearButton.setOnClickListener(clearLogData);
 	}
 	
 	private void setUpSaveCancelButtonsDisplay() {
@@ -335,7 +316,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		
 		clearButton = (Button)findViewById(R.id.cancel_button);
 		clearButton.setText(R.string.delete_log);
-		//TODO add listener
+		clearButton.setOnClickListener(deleteLogData);
 	}
 	
 	private void populateInfoDisplayElements() {
@@ -414,7 +395,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(image != null) {
 			chart.setImageBitmap(image);
 		} else {
-			//TODO default image
+			chart.setImageResource(settingsRef.getDefaultChartImage());
 		}
 	}
 	
@@ -429,6 +410,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			locationDisplay.setText(logLocation);
 		}
 		if(telescope != null && !telescope.equals("NULL")) {
+			//TODO add eyepiece
 			equipmentDisplay.setText(telescope);
 		}
 		if(seeing > 0) {
@@ -445,7 +427,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	private void populateLogEditElements() {
 		if(logDate != null && !logDate.equals("NULL")) {
 			dateInput.setText(logDate);
-		}
+		}//TODO populate empty strings
 		if(logTime != null && !logTime.equals("NULL")) {
 			timeInput.setText(logTime);
 		}
@@ -453,6 +435,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			locationInput.setText(logLocation);
 		}
 		if(telescope != null && !telescope.equals("NULL")) {
+			//TODO add eyepiece
 			equipmentInput.setText(telescope);
 		}
 		if(seeing > 0) {
@@ -474,6 +457,14 @@ public class ObjectDetailScreen extends ActivityBase{
 		seeingDisplay.setVisibility(View.GONE);
 		transDisplay.setVisibility(View.GONE);
 		notesDisplay.setVisibility(View.GONE);
+		
+		dateInput.setVisibility(View.VISIBLE);
+		timeInput.setVisibility(View.VISIBLE);
+		locationInput.setVisibility(View.VISIBLE);
+		equipmentInput.setVisibility(View.VISIBLE);
+		seeingInput.setVisibility(View.VISIBLE);
+		transInput.setVisibility(View.VISIBLE);
+		notesInput.setVisibility(View.VISIBLE);
 	}
 	
 	private void logEditElementsGone() {
@@ -484,6 +475,14 @@ public class ObjectDetailScreen extends ActivityBase{
 		seeingInput.setVisibility(View.GONE);
 		transInput.setVisibility(View.GONE);
 		notesInput.setVisibility(View.GONE);
+
+		dateDisplay.setVisibility(View.VISIBLE);
+		timeDisplay.setVisibility(View.VISIBLE);
+		locationDisplay.setVisibility(View.VISIBLE);
+		equipmentDisplay.setVisibility(View.VISIBLE);
+		seeingDisplay.setVisibility(View.VISIBLE);
+		transDisplay.setVisibility(View.VISIBLE);
+		notesDisplay.setVisibility(View.VISIBLE);
 	}
 	
 	private void setEditableMode() {
@@ -526,6 +525,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	protected final Button.OnClickListener saveLog = new Button.OnClickListener() {
 		public void onClick(View arg0) {
 			TreeMap<String, String> updateArgs = gatherUpdateArgs();
+			
 			ObservableObjectDAO db = new ObservableObjectDAO(ObjectDetailScreen.this);
 			boolean success = db.updateLogData(id, updateArgs);
 			
@@ -536,13 +536,47 @@ public class ObjectDetailScreen extends ActivityBase{
 				ObjectDetailScreen.this.finish();
 			} else {
 				prepForModal();
-				modalHeader.setText("There was an error saving. Please Try Again");
+				modalHeader.setText("There was an error saving. Please Try Again.");
 				modalCancel.setText(R.string.ok);
 				modalCancel.setVisibility(View.VISIBLE);
 				modalSave.setVisibility(View.GONE);
 				modalClear.setVisibility(View.GONE);
 				modalCancel.setOnClickListener(dismissModal);
 			}
+		}
+	};
+	
+	protected final Button.OnClickListener deleteLogData = new Button.OnClickListener() {
+		public void onClick(View view) {
+			prepForModal();
+			modalHeader.setText("Are you sure you want to delete the log data?");
+			modalCancel.setText(R.string.cancel);
+			modalCancel.setVisibility(View.VISIBLE);
+			modalSave.setText(R.string.ok);
+			modalSave.setVisibility(View.VISIBLE);
+			modalClear.setVisibility(View.GONE);
+			modalCancel.setOnClickListener(dismissModal);
+			modalSave.setOnClickListener(confirmDeleteLog);
+		}
+	};
+	
+	protected final Button.OnClickListener confirmDeleteLog = new Button.OnClickListener() {
+		public void onClick(View view) {
+			ObservableObjectDAO db = new ObservableObjectDAO(ObjectDetailScreen.this);
+			db.clearLogData(id);
+			tearDownModal();
+			Intent restartActivity = new Intent(ObjectDetailScreen.this, ObjectDetailScreen.class);
+			restartActivity.putExtra("com.mobileobservationlog.objectName", objectName);
+			restartActivity.putExtra("com.mobileobservationlog.editIntent", "true");
+			startActivity(restartActivity);
+			ObjectDetailScreen.this.finish();
+		}
+	};
+	
+	protected final Button.OnClickListener clearLogData = new Button.OnClickListener() {
+		public void onClick(View view) {
+			populateLogEditElements();
+			body.postInvalidate(); //TODO Do I need this?
 		}
 	};
 	
@@ -671,33 +705,33 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	private TreeMap<String, String> gatherUpdateArgs() {
 		TreeMap<String, String> retVal = new TreeMap<String, String>();
-		if(newLogged) {
+		if(dateInput.getText() != null && dateInput.getText().length() > 0) {
+			retVal.put("logDate", dateInput.getText().toString());
+		}
+		if(timeInput.getText() != null && timeInput.getText().length() > 0) {
+			retVal.put("logTime", timeInput.getText().toString());
+		}
+		if(locationInput.getText() != null && locationInput.getText().length() > 0) {
+			retVal.put("logLocation", locationInput.getText().toString());
+		}
+		if(equipmentInput.getText() != null && equipmentInput.getText().length() > 0) {
+			// TODO retVal.put("telescope", equipmentInput.getText().toString());
+			//TODO eyepiece
+		}
+		if(seeingInput.getText().length() > 0 && Integer.parseInt(seeingInput.getText().toString()) > 0) {
+			retVal.put("seeing", seeingInput.getText().toString());
+		}
+		if(transInput.getText().length() > 0 && Integer.parseInt(transInput.getText().toString()) > 0) {
+			retVal.put("transparency", transInput.getText().toString());
+		}
+		//findingMethod not currently used
+		if(notesInput.getText() != null && notesInput.getText().length() > 0) {
+			retVal.put("viewingNotes", notesInput.getText().toString());
+		}
+		if(retVal.size() > 0) {
 			retVal.put("logged", "true");
-			if(newLogDate != null && newLogDate.length() > 0) {
-				retVal.put("logDate", newLogDate);
-			}
-			if(newLogTime != null && newLogTime.length() > 0) {
-				retVal.put("logTime", newLogTime);
-			}
-			if(newLogLocation != null && newLogLocation.length() > 0) {
-				retVal.put("logLocation", newLogLocation);
-			}
-			if(newLogTelescope != null && newLogTelescope.length() > 0) {
-				retVal.put("telescope", newLogTelescope);
-			}
-			if(newLogEyepiece != null && newLogEyepiece.length() > 0) {
-				retVal.put("eyepiece", newLogEyepiece);
-			}
-			if(newSeeing > 0) {
-				retVal.put("seeing", Integer.toString(newSeeing));
-			}
-			if(newTransparency > 0) {
-				retVal.put("transparency", Integer.toString(newTransparency));
-			}
-			//findingMethod not currently used
-			if(newViewingNotes != null && newViewingNotes.length() > 0) {
-				retVal.put("viewingNotes", newViewingNotes);
-			}
+		} else {
+			retVal.put("logged", "false");
 		}
 		return retVal;
 	}

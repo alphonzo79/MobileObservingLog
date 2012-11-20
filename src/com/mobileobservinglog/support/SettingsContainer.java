@@ -402,7 +402,7 @@ public final class SettingsContainer {
 	public int getFavoriteStar() {
 		return favoriteStar;
 	}
-	public void setFavoriteStar(int imageResource) {
+	private void setFavoriteStar(int imageResource) {
 		favoriteStar = imageResource;
 	}
 	
@@ -410,8 +410,16 @@ public final class SettingsContainer {
 	public int getNotFavoriteStar() {
 		return notFavoriteStar;
 	}
-	public void setNotFavoriteStar(int imageResource) {
+	private void setNotFavoriteStar(int imageResource) {
 		notFavoriteStar = imageResource;
+	}
+	
+	private int defaultChartImage;
+	public int getDefaultChartImage() {
+		return defaultChartImage;
+	}
+	private void setDefaultChartImage(int imageResource) {
+		defaultChartImage = imageResource;
 	}
 	
 	//Helper Methods
@@ -454,8 +462,9 @@ public final class SettingsContainer {
 		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setCheckbox_Selected(R.drawable.checked_night);
 		setCheckbox_Unselected(R.drawable.unchecked_night);
-		setFavoriteStar(R.drawable.checked_night);
-		setNotFavoriteStar(R.drawable.unchecked_night);
+		setFavoriteStar(R.drawable.favorite_night);
+		setNotFavoriteStar(R.drawable.not_favorite_night);
+		setDefaultChartImage(R.drawable.default_star_chart_night);
 		setButtonBrightness(0.0F);
 		setCatalogIconsNight();
 	}
@@ -497,8 +506,9 @@ public final class SettingsContainer {
 		setTabIndicator(R.layout.tab_indicator_layout);
 		setCheckbox_Selected(R.drawable.checked_normal);
 		setCheckbox_Unselected(R.drawable.unchecked_normal);
-		setFavoriteStar(R.drawable.checked_normal);
-		setNotFavoriteStar(R.drawable.unchecked_normal);
+		setFavoriteStar(R.drawable.favorite_normal);
+		setNotFavoriteStar(R.drawable.not_favorite_normal);
+		setDefaultChartImage(R.drawable.default_star_chart_normal);
 		setButtonBrightness(getOriginalButtonBrightness());
 		setCatalogIconsNormal();
 	}

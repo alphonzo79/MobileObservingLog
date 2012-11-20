@@ -162,7 +162,7 @@ public class ObjectIndexScreen extends ActivityBase {
     	db.close();
     	
     	double countDouble = Double.parseDouble(count);
-		double percentFloor = Math.floor(numLogged/countDouble);
+		double percentFloor = Math.floor((numLogged/countDouble) * 100);
 		String retVal = String.format("%d of %s logged - (%d%%)", numLogged, count, (int)percentFloor);
 		return retVal;
     }
@@ -201,7 +201,7 @@ public class ObjectIndexScreen extends ActivityBase {
 				String magnitude = objects.getString(3);
 				boolean logged = false;
 				try{
-					logged = objects.getString(4).equals("Yes");
+					logged = objects.getString(4).equals("true");
 				}
 				catch(NullPointerException e){/*leave it false*/}
 	

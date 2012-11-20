@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
 public class ObservableObjectDAO extends DatabaseHelper {
 
@@ -112,46 +113,48 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		String updateStatement = "UPDATE objects SET ";
 		String innerSet = "";
 		for(int i = 0; i < possibleValues.length; i++) {
-			if(innerSet.length() > 0) {
-				innerSet = innerSet.concat(", ");
-			}
 			if(values.get(possibleValues[i]) != null) {
+				if(innerSet.length() > 0) {
+					innerSet = innerSet.concat(", ");
+				}
 				innerSet = innerSet.concat(possibleValues[i] + " = ?");
 			}
 		}		
 		updateStatement = updateStatement.concat(innerSet + " WHERE _id = ?;");
 		
-		SQLiteDatabase db = getWritableDatabase();
-		SQLiteStatement stmt = db.compileStatement(updateStatement);
-		int bindCounter = 1;
-		for(int i = 0; i < possibleValues.length; i++) {
-			String thisValue = possibleValues[i];
-			if(values.get(thisValue) != null) {
-				if(thisValue.equals("seeing") || thisValue.equals("transparency")){
-					stmt.bindLong(bindCounter, Long.parseLong(values.get(thisValue)));
-				} else {
-					stmt.bindString(bindCounter, values.get(thisValue));
+		if(innerSet.length() > 0) {
+			SQLiteDatabase db = getWritableDatabase();
+			SQLiteStatement stmt = db.compileStatement(updateStatement);
+			int bindCounter = 1;
+			for(int i = 0; i < possibleValues.length; i++) {
+				String thisValue = possibleValues[i];
+				if(values.get(thisValue) != null) {
+					if(thisValue.equals("seeing") || thisValue.equals("transparency")){
+						stmt.bindLong(bindCounter, Long.parseLong(values.get(thisValue)));
+					} else {
+						stmt.bindString(bindCounter, values.get(thisValue));
+					}
+					bindCounter++;
 				}
-				bindCounter++;
 			}
-		}
-		stmt.bindLong(bindCounter, id);
-		
-		db.beginTransaction();
-		try
-		{
-			stmt.execute();
-			db.setTransactionSuccessful();
-			success = true;
-		}
-		catch (SQLException ex)
-		{
-			ex.printStackTrace();
-		}
-		finally
-		{
-			db.endTransaction();
-			db.close();
+			stmt.bindLong(bindCounter, id);
+			
+			db.beginTransaction();
+			try
+			{
+				stmt.execute();
+				db.setTransactionSuccessful();
+				success = true;
+			}
+			catch (SQLException ex)
+			{
+				ex.printStackTrace();
+			}
+			finally
+			{
+				db.endTransaction();
+				db.close();
+			}
 		}
 		
 		return success;

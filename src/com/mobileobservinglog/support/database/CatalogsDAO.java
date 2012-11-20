@@ -134,7 +134,7 @@ public class CatalogsDAO extends DatabaseHelper {
 	public int getNumLogged(String catalogName){
 		int retVal = 0;
 		SQLiteDatabase db = getReadableDatabase();
-		String sql = "SELECT count(*) AS count FROM objects WHERE logged = 'Yes' AND catalog = ?;";
+		String sql = "SELECT count(*) AS count FROM objects WHERE logged = 'true' AND catalog = ?;";
 		
 		Cursor rs = db.rawQuery(sql, new String[]{catalogName});
 		rs.moveToFirst();

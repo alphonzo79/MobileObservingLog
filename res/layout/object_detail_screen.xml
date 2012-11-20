@@ -119,6 +119,7 @@
 				    android:scaleType="fitCenter"
 				    android:adjustViewBounds="true"
 				    android:contentDescription="@string/star_chart_alt"
+				    android:background="@drawable/image_border_normal"
 				    android:layout_margin="5dp"
 				    android:layout_below="@id/other_catalogs_layout"
 				    />

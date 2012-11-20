@@ -90,7 +90,7 @@
     <string name="clear">Clear</string>
     <string name="save_log">Save Log</string>
     <string name="edit_log">Edit Log</string>
-    <string name="clear_log">Clear Info</string>
+    <string name="clear_log">Reset Info</string>
     <string name="delete_log">Delete Log</string>
     <string name="star_chart_alt">Star Chart</string>
     <string name="common_name_label">Common Name: </string>

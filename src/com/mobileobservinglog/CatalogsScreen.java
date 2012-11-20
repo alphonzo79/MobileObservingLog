@@ -250,7 +250,7 @@ public class CatalogsScreen extends ActivityBase{
 		
 		private String formatStats(Catalog catalog){
 			double countDouble = Double.parseDouble(catalog.count);
-			double percentFloor = Math.floor(catalog.logged/countDouble);
+			double percentFloor = Math.floor((catalog.logged/countDouble) * 100);
 			String retVal = String.format("%d of %s logged - (%d%%)", catalog.logged, catalog.count, (int)percentFloor);
 			return retVal;
 		}
