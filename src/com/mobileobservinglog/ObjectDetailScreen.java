@@ -18,6 +18,7 @@ import java.util.Currency;
 import java.util.TreeMap;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.objectSearch.ObjectFilterInformation;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 import com.mobileobservinglog.support.SettingsContainer;
@@ -41,6 +42,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -131,6 +133,12 @@ public class ObjectDetailScreen extends ActivityBase{
 	Button saveButton;
 	Button clearButton;
 	
+	TextView modalHeader;
+	LinearLayout modalButtonContainer;
+	Button modalSave;
+	Button modalCancel;
+	Button modalClear;
+	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "ObjectDetails onCreate. Current session mode is " + settingsRef.getSessionMode());
@@ -182,6 +190,8 @@ public class ObjectDetailScreen extends ActivityBase{
         } else {
         	setDisplayMode();
         }
+        
+        findModalElements();
 
 		setMargins_noKeyboard();
 		body.postInvalidate();
@@ -525,14 +535,20 @@ public class ObjectDetailScreen extends ActivityBase{
 				startActivity(intent);
 				ObjectDetailScreen.this.finish();
 			} else {
-				//TODO handle failure
+				prepForModal();
+				modalHeader.setText("There was an error saving. Please Try Again");
+				modalCancel.setText(R.string.ok);
+				modalCancel.setVisibility(View.VISIBLE);
+				modalSave.setVisibility(View.GONE);
+				modalClear.setVisibility(View.GONE);
+				modalCancel.setOnClickListener(dismissModal);
 			}
 		}
 	};
 	
 	protected final Button.OnClickListener dismissModal = new Button.OnClickListener() {
 		public void onClick(View view) {
-			
+			tearDownModal();
 		}
 	};
 	
@@ -684,5 +700,59 @@ public class ObjectDetailScreen extends ActivityBase{
 			}
 		}
 		return retVal;
+	}
+	
+	private void findModalElements() {
+		modalHeader = (TextView)findViewById(R.id.alert_main_text);
+		modalButtonContainer = (LinearLayout)findViewById(R.id.save_cancel_container);
+		modalSave = (Button)findViewById(R.id.alert_ok_button);
+		modalCancel = (Button)findViewById(R.id.alert_cancel_button);
+		modalClear = (Button)findViewById(R.id.alert_extra_button);
+	}
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	private void prepForModal() {
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_detail_main);
+		
+		mainBackLayer.setEnabled(false);
+		addToList.setEnabled(false);
+		favoriteStar.setEnabled(false);
+		saveButton.setEnabled(false);
+		clearButton.setEnabled(false);
+		dateInput.setEnabled(false);
+		timeInput.setEnabled(false);
+		locationInput.setEnabled(false);
+		equipmentInput.setEnabled(false);
+		seeingInput.setEnabled(false);
+		transInput.setEnabled(false);
+		notesInput.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+		
+		RelativeLayout alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+		alertModal.setVisibility(View.VISIBLE);
+	}
+	
+	private void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_detail_main);
+		
+		mainBackLayer.setEnabled(true);
+		addToList.setEnabled(true);
+		favoriteStar.setEnabled(true);
+		saveButton.setEnabled(true);
+		clearButton.setEnabled(true);
+		dateInput.setEnabled(true);
+		timeInput.setEnabled(true);
+		locationInput.setEnabled(true);
+		equipmentInput.setEnabled(true);
+		seeingInput.setEnabled(true);
+		transInput.setEnabled(true);
+		notesInput.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		RelativeLayout alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+		alertModal.setVisibility(View.INVISIBLE);
 	}
 }
