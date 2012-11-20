@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Currency;
+import java.util.TreeMap;
 
 import com.mobileobservinglog.R;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
@@ -24,6 +25,7 @@ import com.mobileobservinglog.support.database.DatabaseHelper;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -52,6 +54,8 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	int firstFocus; //used to control the keyboard showing on first load
 	int firstClick;
+	
+	boolean intentEdit;
 	
 	//ObjectData
 	int id;
@@ -173,10 +177,10 @@ public class ObjectDetailScreen extends ActivityBase{
         setUpListButtonAndFavorite();
         populateInfoDisplayElements();
         
-        if(logged) {
-        	setDisplayMode();
-        } else {
+        if(!logged || intentEdit) {
         	setEditableMode();
+        } else {
+        	setDisplayMode();
         }
 
 		setMargins_noKeyboard();
@@ -186,6 +190,14 @@ public class ObjectDetailScreen extends ActivityBase{
 	private void setObjectData() {
 		//Gather data on object
         objectName = getIntent().getStringExtra("com.mobileobservationlog.objectName");
+        
+        String intentEditString = getIntent().getStringExtra("com.mobileobservationlog.editIntent");
+        if(intentEditString != null && intentEditString.equals("true")) {
+        	intentEdit = true;
+        } else {
+        	intentEdit = false;
+        }
+        
         ObservableObjectDAO db = new ObservableObjectDAO(this);
         Cursor objectInfo = db.getObjectData(objectName);
         objectInfo.moveToFirst();
@@ -285,7 +297,8 @@ public class ObjectDetailScreen extends ActivityBase{
 		//TODO set listener
 		
 		notesInput.setInputType(InputType.TYPE_NULL);
-		//TODO set listener		
+		notesInput.setOnFocusChangeListener(showLetters_focus);
+		notesInput.setOnClickListener(showLetters_click);
 	}
 	
 	private void setUpListButtonAndFavorite() {
@@ -308,7 +321,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	private void setUpSaveCancelButtonsDisplay() {
 		saveButton = (Button)findViewById(R.id.save_edit_log_button);
 		saveButton.setText(R.string.edit_log);
-		//TODO add listener
+		saveButton.setOnClickListener(editLog);
 		
 		clearButton = (Button)findViewById(R.id.cancel_button);
 		clearButton.setText(R.string.delete_log);
@@ -490,6 +503,39 @@ public class ObjectDetailScreen extends ActivityBase{
 		}
 	};
 	
+	protected final Button.OnClickListener editLog = new Button.OnClickListener() {
+		public void onClick(View arg0) {
+			Intent intent = new Intent(ObjectDetailScreen.this, ObjectDetailScreen.class);
+			intent.putExtra("com.mobileobservationlog.objectName", objectName);
+			intent.putExtra("com.mobileobservationlog.editIntent", "true");
+			startActivity(intent);
+			ObjectDetailScreen.this.finish();
+		}
+	};
+	
+	protected final Button.OnClickListener saveLog = new Button.OnClickListener() {
+		public void onClick(View arg0) {
+			TreeMap<String, String> updateArgs = gatherUpdateArgs();
+			ObservableObjectDAO db = new ObservableObjectDAO(ObjectDetailScreen.this);
+			boolean success = db.updateLogData(id, updateArgs);
+			
+			if(success) {
+				Intent intent = new Intent(ObjectDetailScreen.this, ObjectDetailScreen.class);
+				intent.putExtra("com.mobileobservationlog.objectName", objectName);
+				startActivity(intent);
+				ObjectDetailScreen.this.finish();
+			} else {
+				//TODO handle failure
+			}
+		}
+	};
+	
+	protected final Button.OnClickListener dismissModal = new Button.OnClickListener() {
+		public void onClick(View view) {
+			
+		}
+	};
+	
 	protected final Button.OnClickListener showLetters_click = new Button.OnClickListener(){
     	public void onClick(View view){
     		if(firstClick > 0){
@@ -605,5 +651,38 @@ public class ObjectDetailScreen extends ActivityBase{
 		
 		keyboardFrame.setLayoutParams(frameParams);
 		fieldsScroller.setLayoutParams(scrollParams);
+	}
+	
+	private TreeMap<String, String> gatherUpdateArgs() {
+		TreeMap<String, String> retVal = new TreeMap<String, String>();
+		if(newLogged) {
+			retVal.put("logged", "true");
+			if(newLogDate != null && newLogDate.length() > 0) {
+				retVal.put("logDate", newLogDate);
+			}
+			if(newLogTime != null && newLogTime.length() > 0) {
+				retVal.put("logTime", newLogTime);
+			}
+			if(newLogLocation != null && newLogLocation.length() > 0) {
+				retVal.put("logLocation", newLogLocation);
+			}
+			if(newLogTelescope != null && newLogTelescope.length() > 0) {
+				retVal.put("telescope", newLogTelescope);
+			}
+			if(newLogEyepiece != null && newLogEyepiece.length() > 0) {
+				retVal.put("eyepiece", newLogEyepiece);
+			}
+			if(newSeeing > 0) {
+				retVal.put("seeing", Integer.toString(newSeeing));
+			}
+			if(newTransparency > 0) {
+				retVal.put("transparency", Integer.toString(newTransparency));
+			}
+			//findingMethod not currently used
+			if(newViewingNotes != null && newViewingNotes.length() > 0) {
+				retVal.put("viewingNotes", newViewingNotes);
+			}
+		}
+		return retVal;
 	}
 }

@@ -23,7 +23,7 @@ public class ObjectIndexFilter implements ObjectFilter, TextSearch{
 	Context context;
 	
 	private ObjectIndexFilter(Context context){
-		filters = new ObjectFilter[]{new LoggedObjectFilter(), new TypeObjectFilter(), new FavoriteObjectFilter(), new CatalogObjectFilter(context), 
+		filters = new ObjectFilter[]{new LoggedObjectFilter(), new TypeObjectFilter(context), new FavoriteObjectFilter(), new CatalogObjectFilter(context), 
 				new MagnitudeObjectFilter(), new SeasonObjectFilter(), new ConstellationObjectFilter()
 		};
 		searchFilter = new StringSearchFilter(context);

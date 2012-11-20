@@ -621,7 +621,7 @@
     	/>
     
     <include android:id="@+id/alert_modal"
-        layout="@layout/alert_modal_search"
+        layout="@layout/alert_modal"
         android:layout_gravity="center|center"
         />
     

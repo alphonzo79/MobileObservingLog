@@ -10,16 +10,37 @@
 
 package com.mobileobservinglog.objectSearch;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import com.mobileobservinglog.objectSearch.LoggedObjectFilter.LoggedFilterTypes;
+import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 public class TypeObjectFilter extends AbstractObjectFilter {
-	public TypeObjectFilter() {
+	ArrayList<String> distinctTypes;
+	Context context;
+	
+	public TypeObjectFilter(Context context) {
+		super();
+		this.context = context;
+		
 		title = "Object Type";
 		multiSelect = true;
+		
+		ObservableObjectDAO db = new ObservableObjectDAO(context);
+		Cursor types = db.getDistinctTypes();
+		types.moveToFirst();
+		
+		distinctTypes = new ArrayList<String>();
+		for(int i = 0; i < types.getCount(); i++) {
+			distinctTypes.add(types.getString(0));
+			types.moveToNext();
+		}
+		types.close();
+		db.close();
 	}
 	
 	@Override
@@ -48,23 +69,8 @@ public class TypeObjectFilter extends AbstractObjectFilter {
 
 	@Override
 	protected void resetValues() {
-		for(TypeFilterTypes type : TypeFilterTypes.values()) {
-			filters.put(type.toString(), false);
-		}
-	}
-
-	public enum TypeFilterTypes {
-		GLOB("Globular Cluster"), OPEN_CLUST("Open Cluster"), GALAXY("Galaxy"), REFLECTION("Reflection Nebula"), EMMISSION("Emmission Nebula"), PLANETARY("Planetary Nebula"), 
-		DARK_NEB("Dark Nebula"), BINARY("Binary Star"), MILKY_WAY_PATCH("Milky Way Patch"), SUPERNOVA_REM("Supernova Remnant"), ASTERISM("Asterism"); 
-		
-		private String filterText;
-		
-		TypeFilterTypes(String text) {
-			this.filterText = text;
-		}
-		
-		public String toString() {
-			return filterText;
+		for(String type : distinctTypes) {
+			filters.put(type, false);
 		}
 	}
 }

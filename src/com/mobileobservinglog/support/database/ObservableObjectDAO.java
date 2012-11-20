@@ -125,8 +125,13 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		SQLiteStatement stmt = db.compileStatement(updateStatement);
 		int bindCounter = 1;
 		for(int i = 0; i < possibleValues.length; i++) {
-			if(values.get(possibleValues[i]) != null) {
-				stmt.bindString(bindCounter, values.get(possibleValues[i]));
+			String thisValue = possibleValues[i];
+			if(values.get(thisValue) != null) {
+				if(thisValue.equals("seeing") || thisValue.equals("transparency")){
+					stmt.bindLong(bindCounter, Long.parseLong(values.get(thisValue)));
+				} else {
+					stmt.bindString(bindCounter, values.get(thisValue));
+				}
 				bindCounter++;
 			}
 		}
@@ -178,5 +183,16 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		}
 		
 		return success;
+	}
+	
+	public Cursor getDistinctTypes() {
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT DISTINCT type FROM objects;";
+		
+		Cursor rs = db.rawQuery(sql, null);
+		rs.moveToFirst();
+		
+		db.close();
+		return rs;
 	}
 }

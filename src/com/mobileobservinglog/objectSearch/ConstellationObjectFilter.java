@@ -12,10 +12,6 @@ package com.mobileobservinglog.objectSearch;
 
 import java.util.Set;
 
-import android.content.Context;
-
-import com.mobileobservinglog.objectSearch.TypeObjectFilter.TypeFilterTypes;
-
 public class ConstellationObjectFilter extends AbstractObjectFilter {
 	public ConstellationObjectFilter() {
 		title = "Constellation";
