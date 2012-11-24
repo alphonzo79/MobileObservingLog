@@ -12,14 +12,13 @@ package com.mobileobservinglog;
 
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
+import com.mobileobservinglog.support.GpsUtility;
 import com.mobileobservinglog.support.database.LocationsDAO;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -61,7 +60,7 @@ public class AddEditObservingLocation extends ActivityBase{
 	
 	boolean paused;
 	
-	LocationManager locationManager;
+	GpsUtility gpsHelper;
 	Location lastKnownLocation;
 	
 	@Override
@@ -80,6 +79,7 @@ public class AddEditObservingLocation extends ActivityBase{
     	
     	paused = false;
 		
+    	gpsHelper = new GpsUtility(this);
         locationId = this.getIntent().getIntExtra("com.mobileobservinglog.LocationID", -1);
 		
         //setup the layout
@@ -173,28 +173,7 @@ public class AddEditObservingLocation extends ActivityBase{
 		populateFields();
 		body.postInvalidate();
 		setMargins_noKeyboard();
-		setUpLocationService();
-	}
-	
-	private void setUpLocationService(){
-		// Acquire a reference to the system Location Manager
-		locationManager = (LocationManager)AddEditObservingLocation.this.getSystemService(Context.LOCATION_SERVICE);
-
-		// Define a listener that responds to location updates
-		LocationListener locationListener = new LocationListener() {
-		    public void onLocationChanged(Location location) {
-		    	lastKnownLocation = location;
-		    }
-
-		    public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-		    public void onProviderEnabled(String provider) {}
-
-		    public void onProviderDisabled(String provider) {}
-		  };
-
-		// Register the listener with the Location Manager to receive location updates
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+		gpsHelper.setUpLocationService();
 	}
 	
 	private void setMargins_noKeyboard()
@@ -318,49 +297,13 @@ public class AddEditObservingLocation extends ActivityBase{
     	public void onClick(View view) {
     		tearDownModal();
     		
-    		try{
-	    		lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-	    		if(lastKnownLocation == null){
-	    			tryCourseLocation();
-	    		}
-    		}
-    		catch(SecurityException e){
-    			tryCourseLocation();
-    		}
-    		catch(IllegalArgumentException e){
-    			tryCourseLocation();
-    		}
+    		lastKnownLocation = gpsHelper.getLocation();
     		
     		if(lastKnownLocation != null){
-	    		double longitude = lastKnownLocation.getLongitude();
-	    		double latitude = lastKnownLocation.getLatitude();
-	    		String northSouth = "";
-	    		String eastWest = "";
-	    		
-	    		if(longitude > 0){
-	    			eastWest = "E";
-	    		}
-	    		else{
-	    			eastWest = "W";
-	    		}
-	    		
-	    		if(latitude > 0){
-	    			northSouth = "N";
-	    		}
-	    		else{
-	    			northSouth = "S";
-	    		}
-	    		
-	    		try{
-		    		String longitudeString = formatCoordinate(Location.convert(longitude, Location.FORMAT_SECONDS));
-		    		String lattitudeString = formatCoordinate(Location.convert(latitude, Location.FORMAT_SECONDS));
-		    		String formatedLocation = String.format("%s %s, %s %s", lattitudeString, northSouth, longitudeString, eastWest);
+	    		String formatedLocation = gpsHelper.getString(lastKnownLocation);
+	    		if(formatedLocation.length() > 0) {
 		    		locationCoordinates.setText(formatedLocation);
-	    		}
-	    		catch(SecurityException e){
-	    			locationErrorModal();
-	    		}
-	    		catch(IllegalArgumentException e){
+	    		} else {
 	    			locationErrorModal();
 	    		}
     		}
@@ -369,42 +312,6 @@ public class AddEditObservingLocation extends ActivityBase{
     		}
 		}
     };
-    
-    public String formatCoordinate(String rawString){
-    	//The coordinate may be given in the format DD:DD:DD.DDDD
-    	//We want to convert it into DD°DD'DD.DD"
-    	String retVal;
-    	String[] parsed = rawString.split(":");
-    	if(parsed.length == 3){
-    		String[] thirdParsed = parsed[2].split("\\.");
-    		if(thirdParsed.length > 1 && thirdParsed[1].length() > 2){
-    			thirdParsed[1] = thirdParsed[1].substring(0, 2);
-    			parsed[2] = String.format("%s.%s", thirdParsed[0], thirdParsed[1]);
-    		}
-    		
-    		if(parsed[0].charAt(0) == '-'){
-    			parsed[0] = parsed[0].substring(1);
-    		}
-    		
-    		retVal = String.format("%s° %s' %s\"", parsed[0], parsed[1], parsed[2]);
-    	}
-    	else{
-    		retVal = rawString;
-    	}
-    	return retVal;
-    }
-    
-    private void tryCourseLocation(){
-    	try{
-    		lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		}
-		catch(SecurityException e){
-			locationErrorModal();
-		}
-		catch(IllegalArgumentException e){
-			locationErrorModal();
-		}
-    }
     
     protected final Button.OnClickListener typeManually = new Button.OnClickListener(){
     	public void onClick(View view) {

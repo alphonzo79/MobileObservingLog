@@ -16,6 +16,7 @@ import android.app.Instrumentation;
 import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
 import com.mobileobservinglog.AddEditObservingLocation;
+import com.mobileobservinglog.support.GpsUtility;
 
 public class AddEditObservingLocationTests extends SingleLaunchActivityTestCase<AddEditObservingLocation>{
 	AddEditObservingLocation mAut = null;
@@ -51,7 +52,8 @@ public class AddEditObservingLocationTests extends SingleLaunchActivityTestCase<
 	public void testFormatCoordinate() throws Throwable
 	{
 		Log.d("JoeTest", "Starting testSelectNormalMode");
-		String formatted = mAut.formatCoordinate("-116:35:8.16432");
+		GpsUtility gpsHelper = new GpsUtility(mAut);
+		String formatted = gpsHelper.formatCoordinate("-116:35:8.16432");
 		Assert.assertEquals("The method did not format the string properly", "116°35'8.16\"", formatted);
 	}
 }

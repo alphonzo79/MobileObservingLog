@@ -143,10 +143,9 @@
             />
 	    
 	    <ListView  
-	        android:id="@android:id/list"
+	        android:id="@+id/modal_list_one"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
-	        android:layout_below="@id/selectors_container"
 	        android:layout_margin="5dp"
 	        />   
         
@@ -177,10 +176,9 @@
             />
 	    
 	    <ListView  
-	        android:id="@+id/modal_list"
+	        android:id="@+id/modal_list_two"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
-	        android:layout_below="@id/selectors_container"
 	        android:layout_margin="5dp"
 	        />   
         

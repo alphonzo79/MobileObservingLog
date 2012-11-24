@@ -303,9 +303,6 @@ public class SettingsScreen extends ActivityBase{
 		backlightModal.setVisibility(View.VISIBLE);
 	}
 
-	/**
-	 * Unused in the current version. In future update will be used to set the preference as to whether to use the device GPS for locations
-	 */
 	private void setUseGps(String itemText)
 	{
 		String currentValue = stripValue(itemText);

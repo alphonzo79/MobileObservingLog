@@ -23,30 +23,40 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.mobileobservinglog.SearchScreen.IndividualFilter;
+import com.mobileobservinglog.SearchScreen.IndividualFilterWrapper;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 import com.mobileobservinglog.strategies.DatePicker;
 import com.mobileobservinglog.strategies.NumberPickerDriver;
 import com.mobileobservinglog.strategies.TimePicker;
+import com.mobileobservinglog.support.GpsUtility;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 import com.mobileobservinglog.support.database.EquipmentDAO;
+import com.mobileobservinglog.support.database.LocationsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 public class ObjectDetailScreen extends ActivityBase{
@@ -91,8 +101,13 @@ public class ObjectDetailScreen extends ActivityBase{
 	//String findingMethod;
 	String viewingNotes;
 	
+	TreeMap<String, Integer> telescopes;
+	TreeMap<String, Integer> eyepieces;
 	int newTelescopeId;
 	int newEyepieceId;
+	String selectedEyepiece;
+	String selectedTelescope;
+	String selectedLocation;
 	
 	//LayoutElements
 	TextView headerText;
@@ -147,8 +162,10 @@ public class ObjectDetailScreen extends ActivityBase{
 	TextView modalSelectorTextTwo;
 	TextView modalSelectorTextThree;
 	LinearLayout modalListOneContainer;
+	ListView modalListOne;
 	TextView modalListHeaderOne;
 	LinearLayout modalListTwoContainer;
+	ListView modalListTwo;
 	TextView modalListHeaderTwo;
 	
 	DatePicker datePicker;
@@ -157,12 +174,16 @@ public class ObjectDetailScreen extends ActivityBase{
 	NumberPickerDriver numPickerTwo;
 	NumberPickerDriver numPickerThree;
 	
+	GpsUtility gpsHelper;
+	Location locationFromDevice;
+	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "ObjectDetails onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
+        gpsHelper = new GpsUtility(this);
 		
 		firstFocus = -1;
         firstClick = 1;
@@ -210,6 +231,7 @@ public class ObjectDetailScreen extends ActivityBase{
         }
          
         findModalElements();
+		gpsHelper.setUpLocationService();
 
 		setMargins_noKeyboard();
 		body.postInvalidate();
@@ -371,7 +393,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		timeInput.setOnClickListener(timeModal);
 		
 		locationInput.setInputType(InputType.TYPE_NULL);
-		//TODO set listener
+		locationInput.setOnClickListener(locationModal);
 		
 		equipmentInput.setInputType(InputType.TYPE_NULL);
 		//TODO set listener
@@ -534,7 +556,14 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(logLocation != null && !logLocation.equals("NULL")) {
 			locationInput.setText(logLocation);
 		} else {
-			locationInput.setText("");
+			if(settingsRef.getPersistentSetting(SettingsContainer.USE_GPS, this).equals(R.string.use_gps_yes)) {
+				locationFromDevice = gpsHelper.getLocation();
+				if(locationFromDevice != null) {
+					locationInput.setText(gpsHelper.getString(locationFromDevice));
+				}
+			} else {
+				locationInput.setText("");
+			}
 		}
 		if(equipmentString != null && equipmentString.length() > 0) {
 			equipmentInput.setText(equipmentString);
@@ -785,6 +814,64 @@ public class ObjectDetailScreen extends ActivityBase{
 		}
 	};
 	
+	protected final View.OnClickListener locationModal = new View.OnClickListener() {
+		public void onClick(View view) {
+			prepForModal();
+			
+			ArrayList<IndividualItem> options = new ArrayList<IndividualItem>();
+			
+			LocationsDAO db = new LocationsDAO(ObjectDetailScreen.this);
+			Cursor locations = db.getSavedLocations();
+			int count = locations.getCount();
+			if(count > 0) {
+				locations.moveToFirst();
+				for(int i = 0; i < count; i++) {
+					String name = locations.getString(1);
+					String coords = locations.getString(2);
+					String compiled = "";
+					if(name != null) {
+						compiled = compiled.concat(name);
+					}
+					if(coords != null) {
+						if(compiled.length() > 0) {
+							compiled = compiled.concat(": ");
+						}
+						compiled = compiled.concat(coords);
+					}
+					options.add(new IndividualItem(compiled, false));
+					locations.moveToNext();
+				}
+			}
+			locations.close();
+			db.close();
+
+			String currentValue = locationInput.getText().toString();
+			if(!options.contains(currentValue)) {
+				options.add(new IndividualItem(currentValue, false));
+			} else {
+				int index = options.indexOf(currentValue);
+				options.set(index, new IndividualItem(currentValue, false));
+			}
+			
+			modalHeader.setText("Observing Location");
+			
+			modalListOneContainer.setVisibility(View.VISIBLE);
+	        modalListOne.setAdapter(new ArrayAdapter<IndividualItem>(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
+	        modalListOne.setOnItemClickListener(locationSelected);
+			
+			modalSelectorSetOne.setVisibility(View.GONE);
+			modalSelectorSetTwo.setVisibility(View.GONE);
+			modalSelectorSetThree.setVisibility(View.GONE);
+			modalListTwoContainer.setVisibility(View.GONE);
+			
+			modalSave.setOnClickListener(saveLocation);
+			modalSave.setVisibility(View.VISIBLE);
+			modalCancel.setOnClickListener(dismissModal);
+			modalCancel.setVisibility(View.VISIBLE);
+			modalClear.setVisibility(View.GONE);
+		}
+	};
+	
 	protected final View.OnClickListener seeingModal = new View.OnClickListener() {
 		public void onClick(View view) {
 			prepForModal();
@@ -930,6 +1017,34 @@ public class ObjectDetailScreen extends ActivityBase{
 			tearDownModal();
 			String time = String.format("%s:%s %s", numPickerOne.getCurrentValue(), numPickerTwo.getCurrentValue(), numPickerThree.getCurrentValue());
 			timeInput.setText(time);
+		}
+	};
+	
+	protected final AdapterView.OnItemClickListener locationSelected = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+			IndividualItem option = (IndividualItem)adapter.getItemAtPosition(position);
+			ArrayList<IndividualItem> options = new ArrayList<IndividualItem>();
+			boolean newValue = !option.getSelected();
+			//reset all the true items to false (Should only be one)
+			selectedLocation = ""; //Reset it in case the user has deselected all, leaving the location blank;
+			for(int i = 0; i < adapter.getCount(); i++) {
+				IndividualItem currentOption = (IndividualItem)adapter.getItemAtPosition(i);
+				if(!currentOption.getName().equals(option.getName())) {
+					options.add(new IndividualItem(currentOption.getName(), false));
+				}
+			}
+			options.add(new IndividualItem(option.getName(), newValue));
+	        modalListOne.setAdapter(new ArrayAdapter<IndividualItem>(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
+	        if(newValue) {
+	        	selectedLocation = option.getName();
+	        }
+		}
+	};
+	
+	protected final Button.OnClickListener saveLocation = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			locationInput.setText(selectedLocation);
 		}
 	};
 	
@@ -1121,8 +1236,10 @@ public class ObjectDetailScreen extends ActivityBase{
 		modalSelectorTextTwo = (TextView)findViewById(R.id.number_picker_input_field_two);
 		modalSelectorTextThree = (TextView)findViewById(R.id.number_picker_input_field_three);
 		modalListOneContainer = (LinearLayout)findViewById(R.id.object_selector_modal_list_layout_one);
+		modalListOne = (ListView)findViewById(R.id.modal_list_one);
 		modalListHeaderOne = (TextView)findViewById(R.id.object_selector_modal_list_one_header);
 		modalListTwoContainer = (LinearLayout)findViewById(R.id.object_selector_modal_list_layout_two);
+		modalListTwo = (ListView)findViewById(R.id.modal_list_two);
 		modalListHeaderTwo = (TextView)findViewById(R.id.object_selector_modal_list_two_header);
 	}
 
@@ -1186,5 +1303,95 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	public void updateModalTextThree(String text) {
 		modalSelectorTextThree.setText(text);
+	}
+    
+	////////////////////////////////////
+	// Modal List Inflation Utilities //
+	////////////////////////////////////
+	
+	static class IndividualItem {
+		String optionText;
+		boolean selected;
+		
+		IndividualItem(String text, boolean selected) {
+			optionText = text;
+			this.selected = selected;
+		}
+		
+		String getName() {
+			return optionText;
+		}
+		
+		boolean getSelected() {
+			return selected;
+		}
+	}
+	
+	class IndividualItemAdapter extends ArrayAdapter<IndividualItem>{
+		
+		int listLayout;
+		ArrayList<IndividualItem> list;
+		
+		IndividualItemAdapter(Context context, int listLayout, ArrayList<IndividualItem> list){
+			super(context, listLayout, R.id.filter_option, list);
+			this.listLayout = listLayout;
+			this.list = list;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent){
+			IndividualItemWrapper wrapper = null;
+			
+			if (convertView == null){
+				convertView = getLayoutInflater().inflate(listLayout, null);
+				wrapper = new IndividualItemWrapper(convertView);
+				convertView.setTag(wrapper);
+			}
+			else{
+				wrapper = (IndividualItemWrapper)convertView.getTag();
+			}
+			
+			wrapper.populateFrom(getItem(position));
+			
+			return convertView;
+		}
+		
+		public ArrayList<IndividualItem> getList() {
+			return list;
+		}
+	}
+	
+	class IndividualItemWrapper{
+		
+		private TextView filterOption = null;
+		private ImageView icon = null;
+		private View row = null;
+		
+		IndividualItemWrapper(View row){
+			this.row = row;
+		}
+		
+		TextView getFilterOption(){
+			if (filterOption == null){
+				filterOption = (TextView)row.findViewById(R.id.filter_option);
+			}
+			return filterOption;
+		}
+		
+		ImageView getIcon(){
+			if (icon == null){
+				icon = (ImageView)row.findViewById(R.id.checkbox);
+			}
+			return icon;
+		}
+		
+		void populateFrom(IndividualItem item){
+			getFilterOption().setText(item.getName());
+			if(item.getSelected()) {
+				getIcon().setImageResource(settingsRef.getCheckbox_Selected());
+			} else {
+				getIcon().setImageResource(settingsRef.getCheckbox_Unselected());
+			}
+		}
 	}
 }
