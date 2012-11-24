@@ -11,6 +11,9 @@
 package com.mobileobservinglog;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -19,6 +22,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -31,12 +35,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
+import com.mobileobservinglog.strategies.DatePicker;
+import com.mobileobservinglog.strategies.NumberPickerDriver;
+import com.mobileobservinglog.strategies.TimePicker;
 import com.mobileobservinglog.support.SettingsContainer;
+import com.mobileobservinglog.support.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.database.EquipmentDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 public class ObjectDetailScreen extends ActivityBase{
@@ -72,13 +82,17 @@ public class ObjectDetailScreen extends ActivityBase{
 	String logDate;
 	String logTime;
 	String logLocation;
-	String telescope;
-	String eyepiece;
+	int telescopeId;
+	int eyepieceId;
+	String equipmentString;
 	int seeing;
 	int transparency;
 	boolean favorite;
 	//String findingMethod;
 	String viewingNotes;
+	
+	int newTelescopeId;
+	int newEyepieceId;
 	
 	//LayoutElements
 	TextView headerText;
@@ -119,6 +133,29 @@ public class ObjectDetailScreen extends ActivityBase{
 	Button modalSave;
 	Button modalCancel;
 	Button modalClear;
+	LinearLayout modalSelectorsLayout;
+	LinearLayout modalSelectorSetOne;
+	LinearLayout modalSelectorSetTwo;
+	LinearLayout modalSelectorSetThree;
+	Button modalSelectorOneUpButton;
+	Button modalSelectorOneDownButton;
+	Button modalSelectorTwoUpButton;
+	Button modalSelectorTwoDownButton;
+	Button modalSelectorThreeUpButton;
+	Button modalSelectorThreeDownButton;
+	TextView modalSelectorTextOne;
+	TextView modalSelectorTextTwo;
+	TextView modalSelectorTextThree;
+	LinearLayout modalListOneContainer;
+	TextView modalListHeaderOne;
+	LinearLayout modalListTwoContainer;
+	TextView modalListHeaderTwo;
+	
+	DatePicker datePicker;
+	TimePicker timePicker;
+	NumberPickerDriver numPickerOne;
+	NumberPickerDriver numPickerTwo;
+	NumberPickerDriver numPickerThree;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -171,7 +208,7 @@ public class ObjectDetailScreen extends ActivityBase{
         } else {
         	setDisplayMode();
         }
-        
+         
         findModalElements();
 
 		setMargins_noKeyboard();
@@ -216,8 +253,8 @@ public class ObjectDetailScreen extends ActivityBase{
     	logDate = objectInfo.getString(16);
     	logTime = objectInfo.getString(17);
     	logLocation = objectInfo.getString(18);
-    	telescope = objectInfo.getString(19);
-    	eyepiece = objectInfo.getString(20);
+    	telescopeId = objectInfo.getInt(19);
+    	eyepieceId = objectInfo.getInt(20);
     	seeing = objectInfo.getInt(21);
     	transparency = objectInfo.getInt(22);
     	String favoriteString = objectInfo.getString(23);
@@ -231,6 +268,64 @@ public class ObjectDetailScreen extends ActivityBase{
     	
     	objectInfo.close();
     	db.close();
+    	
+    	newTelescopeId = telescopeId;
+    	newEyepieceId = eyepieceId; //Initialize these to match because when we save we are just going to grab the new values. This way the data is maintained if the value is not changed
+    	equipmentString = formatEquipmentString(telescopeId, eyepieceId);
+	}
+	
+	private String formatEquipmentString(int telescopeId, int eyepieceId) {
+		String retVal = "";
+		EquipmentDAO db = new EquipmentDAO(this);
+		Cursor equip = db.getSavedTelescope(telescopeId);
+		if(equip.getCount() > 0) {
+			equip.moveToFirst();
+			String telescopeType = equip.getString(1);
+			String telescopeDiam = equip.getString(2);
+			String telescopeRatio = equip.getString(3);
+			String telescopeLength = equip.getString(4);
+			equip.close();
+
+			String eyepieceLength = "";
+			String eyepieceType = "";
+			equip = db.getSavedEyepiece(eyepieceId);
+			if(equip.getCount() > 0) {
+				equip.moveToFirst();
+				eyepieceLength = equip.getString(1);
+				eyepieceType = equip.getString(2);
+				equip.close();
+				db.close();
+			}
+			
+			float telLengthInMm = 0;
+			float eyeLengthInMm = 0;
+			if(telescopeType != null && telescopeDiam != null && telescopeRatio != null && telescopeLength != null && eyepieceLength != null && eyepieceType != null) {
+				try {
+					if(telescopeLength.contains("in")) {
+						telLengthInMm = Float.parseFloat(telescopeLength.split(" in")[0]) * 25.4f;
+					} else {
+						telLengthInMm = Float.parseFloat(telescopeLength.split(" mm")[0]);
+					}
+					if(eyepieceLength.contains("in")) {
+						eyeLengthInMm = Float.parseFloat(eyepieceLength.split(" in")[0]) * 25.4f;
+					} else {
+						eyeLengthInMm = Float.parseFloat(eyepieceLength.split(" mm")[0]);
+					}
+				} catch (NumberFormatException e) {
+					//Do nothing with it. We'll just have some garbage data
+				} catch (NullPointerException e) {
+					
+				}
+				int magnification = (int) (telLengthInMm / eyeLengthInMm);
+				
+				retVal = String.format("%s %s %s %s with %s %s eyepiece - %dx magnification", telescopeDiam, telescopeRatio, 
+						telescopeLength, telescopeType, eyepieceLength, eyepieceType, magnification);
+			}
+		}
+			
+		equip.close();
+		db.close();
+		return retVal;
 	}
 	
 	//finds all the display text views, the input edit texts, the images and the regular layout buttons. It also adds a listener to the Add To List 
@@ -270,10 +365,10 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	private void setUpLogEditElements() {
 		dateInput.setInputType(InputType.TYPE_NULL);
-		//TODO set listener
+		dateInput.setOnClickListener(dateModal);
 		
 		timeInput.setInputType(InputType.TYPE_NULL);
-		//TODO set listener
+		timeInput.setOnClickListener(timeModal);
 		
 		locationInput.setInputType(InputType.TYPE_NULL);
 		//TODO set listener
@@ -282,10 +377,10 @@ public class ObjectDetailScreen extends ActivityBase{
 		//TODO set listener
 		
 		seeingInput.setInputType(InputType.TYPE_NULL);
-		//TODO set listener
+		seeingInput.setOnClickListener(seeingModal);
 		
 		transInput.setInputType(InputType.TYPE_NULL);
-		//TODO set listener
+		transInput.setOnClickListener(transpModal);
 		
 		notesInput.setInputType(InputType.TYPE_NULL);
 		notesInput.setOnFocusChangeListener(showLetters_focus);
@@ -409,9 +504,8 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(logLocation != null && !logLocation.equals("NULL")) {
 			locationDisplay.setText(logLocation);
 		}
-		if(telescope != null && !telescope.equals("NULL")) {
-			//TODO add eyepiece
-			equipmentDisplay.setText(telescope);
+		if(equipmentString != null && equipmentString.length() > 0) {
+			equipmentDisplay.setText(equipmentString);
 		}
 		if(seeing > 0) {
 			seeingDisplay.setText(String.format("%d/%d", seeing, 5));
@@ -427,25 +521,40 @@ public class ObjectDetailScreen extends ActivityBase{
 	private void populateLogEditElements() {
 		if(logDate != null && !logDate.equals("NULL")) {
 			dateInput.setText(logDate);
-		}//TODO populate empty strings
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+			dateInput.setText(sdf.format(Calendar.getInstance().getTime()));
+		}
 		if(logTime != null && !logTime.equals("NULL")) {
 			timeInput.setText(logTime);
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+			timeInput.setText(sdf.format(Calendar.getInstance().getTime()));
 		}
 		if(logLocation != null && !logLocation.equals("NULL")) {
 			locationInput.setText(logLocation);
+		} else {
+			locationInput.setText("");
 		}
-		if(telescope != null && !telescope.equals("NULL")) {
-			//TODO add eyepiece
-			equipmentInput.setText(telescope);
+		if(equipmentString != null && equipmentString.length() > 0) {
+			equipmentInput.setText(equipmentString);
+		} else {
+			equipmentInput.setText("");
 		}
 		if(seeing > 0) {
 			seeingInput.setText(String.format("%d/%d", seeing, 5));
+		} else {
+			seeingInput.setText("");
 		}
 		if(transparency > 0) {
 			transInput.setText(String.format("%d/%d", transparency, 5));
+		} else {
+			transInput.setText("");
 		}
 		if(viewingNotes != null && !viewingNotes.equals("NULL")) {
 			notesInput.setText(viewingNotes);
+		} else {
+			notesInput.setText("");
 		}
 	}
 	
@@ -541,6 +650,9 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalCancel.setVisibility(View.VISIBLE);
 				modalSave.setVisibility(View.GONE);
 				modalClear.setVisibility(View.GONE);
+				modalSelectorsLayout.setVisibility(View.GONE);
+				modalListOneContainer.setVisibility(View.GONE);
+				modalListTwoContainer.setVisibility(View.GONE);
 				modalCancel.setOnClickListener(dismissModal);
 			}
 		}
@@ -555,6 +667,9 @@ public class ObjectDetailScreen extends ActivityBase{
 			modalSave.setText(R.string.ok);
 			modalSave.setVisibility(View.VISIBLE);
 			modalClear.setVisibility(View.GONE);
+			modalSelectorsLayout.setVisibility(View.GONE);
+			modalListOneContainer.setVisibility(View.GONE);
+			modalListTwoContainer.setVisibility(View.GONE);
 			modalCancel.setOnClickListener(dismissModal);
 			modalSave.setOnClickListener(confirmDeleteLog);
 		}
@@ -576,13 +691,259 @@ public class ObjectDetailScreen extends ActivityBase{
 	protected final Button.OnClickListener clearLogData = new Button.OnClickListener() {
 		public void onClick(View view) {
 			populateLogEditElements();
-			body.postInvalidate(); //TODO Do I need this?
 		}
 	};
 	
 	protected final Button.OnClickListener dismissModal = new Button.OnClickListener() {
 		public void onClick(View view) {
 			tearDownModal();
+		}
+	};
+	
+	protected final View.OnClickListener dateModal = new View.OnClickListener() {
+		public void onClick(View view) {
+			//Date will be in format MMM dd, yyyy
+			String fullDate = dateInput.getText().toString();
+			String[] split = fullDate.split(" ");
+			String month = split[0];
+			String day = split[1].split(",")[0];
+			String year = split[2];
+			
+			prepForModal();
+			datePicker = new DatePicker(month, day, year, ObjectDetailScreen.this);
+			
+			numPickerOne = datePicker.month;
+			numPickerTwo = datePicker.day;
+			numPickerThree = datePicker.year;
+			
+			modalHeader.setText("Object Log Date");
+			modalSelectorTextOne.setText(numPickerOne.getCurrentValue());
+			modalSelectorTextTwo.setText(numPickerTwo.getCurrentValue());
+			modalSelectorTextThree.setText(numPickerThree.getCurrentValue());
+			
+			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
+			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
+			modalSelectorTwoUpButton.setOnClickListener(incrementButtonTwo);
+			modalSelectorTwoDownButton.setOnClickListener(decrementButtonTwo);
+			modalSelectorThreeUpButton.setOnClickListener(incrementButtonThree);
+			modalSelectorThreeDownButton.setOnClickListener(decrementButtonThree);
+			
+			modalSelectorSetOne.setVisibility(View.VISIBLE);
+			modalSelectorSetTwo.setVisibility(View.VISIBLE);
+			modalSelectorSetThree.setVisibility(View.VISIBLE);
+			modalListOneContainer.setVisibility(View.GONE);
+			modalListTwoContainer.setVisibility(View.GONE);
+			
+			modalSave.setOnClickListener(saveDate);
+			modalSave.setVisibility(View.VISIBLE);
+			modalCancel.setOnClickListener(dismissModal);
+			modalCancel.setVisibility(View.VISIBLE);
+			modalClear.setVisibility(View.GONE);
+		}
+	};
+	
+	protected final View.OnClickListener timeModal = new View.OnClickListener() {
+		public void onClick(View v) {
+			//Time will be in format h:mm a
+			String fullTime = timeInput.getText().toString();
+			String[] firstSplit = fullTime.split(":");
+			String[] secondSplit = firstSplit[1].split(" ");
+			String hour = firstSplit[0];
+			String minute = secondSplit[0];
+			String amPm = secondSplit[1];
+			
+			prepForModal();
+			timePicker = new TimePicker(hour, minute, amPm, ObjectDetailScreen.this);
+			
+			numPickerOne = timePicker.hourPicker;
+			numPickerTwo = timePicker.minutePicker;
+			numPickerThree = timePicker.amPmPicker;
+			
+			modalHeader.setText("Object Log Time");
+			modalSelectorTextOne.setText(numPickerOne.getCurrentValue());
+			modalSelectorTextTwo.setText(numPickerTwo.getCurrentValue());
+			modalSelectorTextThree.setText(numPickerThree.getCurrentValue());
+			
+			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
+			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
+			modalSelectorTwoUpButton.setOnClickListener(incrementButtonTwo);
+			modalSelectorTwoDownButton.setOnClickListener(decrementButtonTwo);
+			modalSelectorThreeUpButton.setOnClickListener(incrementButtonThree);
+			modalSelectorThreeDownButton.setOnClickListener(decrementButtonThree);
+			
+			modalSelectorSetOne.setVisibility(View.VISIBLE);
+			modalSelectorSetTwo.setVisibility(View.VISIBLE);
+			modalSelectorSetThree.setVisibility(View.VISIBLE);
+			modalListOneContainer.setVisibility(View.GONE);
+			modalListTwoContainer.setVisibility(View.GONE);
+			
+			modalSave.setOnClickListener(saveTime);
+			modalSave.setVisibility(View.VISIBLE);
+			modalCancel.setOnClickListener(dismissModal);
+			modalCancel.setVisibility(View.VISIBLE);
+			modalClear.setVisibility(View.GONE);
+		}
+	};
+	
+	protected final View.OnClickListener seeingModal = new View.OnClickListener() {
+		public void onClick(View view) {
+			prepForModal();
+			
+			ArrayList<String> options = new ArrayList<String>();
+			options.add("1");
+			options.add("2");
+			options.add("3");
+			options.add("4");
+			options.add("5");
+			
+			String currentValue = seeingInput.getText().toString();
+			if(currentValue == null || currentValue.equals("")) {
+				currentValue = "1";
+			} else {
+				if(currentValue.contains("/")) {
+					currentValue = currentValue.split("/")[0];
+				}
+			}
+			numPickerOne = new NumberPickerDriver(options, currentValue, ObjectDetailScreen.this) {
+				@Override
+				public boolean save() {
+					return false;
+				}
+			};
+			
+			modalHeader.setText("Seeing Conditions (1 - 5)");
+			modalSelectorTextOne.setText(numPickerOne.getCurrentValue());
+			
+			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
+			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
+			
+			modalSelectorSetTwo.setVisibility(View.GONE);
+			modalSelectorSetThree.setVisibility(View.GONE);
+			modalListOneContainer.setVisibility(View.GONE);
+			modalListTwoContainer.setVisibility(View.GONE);
+			
+			modalSave.setOnClickListener(saveSeeing);
+			modalSave.setVisibility(View.VISIBLE);
+			modalCancel.setOnClickListener(dismissModal);
+			modalCancel.setVisibility(View.VISIBLE);
+			modalClear.setVisibility(View.GONE);
+		}
+	};
+	
+	protected final View.OnClickListener transpModal = new View.OnClickListener() {
+		public void onClick(View view) {
+			prepForModal();
+			
+			ArrayList<String> options = new ArrayList<String>();
+			options.add("1");
+			options.add("2");
+			options.add("3");
+			options.add("4");
+			options.add("5");
+			
+			String currentValue = transInput.getText().toString();
+			if(currentValue == null || currentValue.equals("")) {
+				currentValue = "1";
+			} else {
+				if(currentValue.contains("/")) {
+					currentValue = currentValue.split("/")[0];
+				}
+			}
+			numPickerOne = new NumberPickerDriver(options, currentValue, ObjectDetailScreen.this) {
+				@Override
+				public boolean save() {
+					return false;
+				}
+			};
+			
+			modalHeader.setText("Transparency Conditions (1 - 5)");
+			modalSelectorTextOne.setText(numPickerOne.getCurrentValue());
+			
+			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
+			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
+			
+			modalSelectorSetTwo.setVisibility(View.GONE);
+			modalSelectorSetThree.setVisibility(View.GONE);
+			modalListOneContainer.setVisibility(View.GONE);
+			modalListTwoContainer.setVisibility(View.GONE);
+			
+			modalSave.setOnClickListener(saveTrans);
+			modalSave.setVisibility(View.VISIBLE);
+			modalCancel.setOnClickListener(dismissModal);
+			modalCancel.setVisibility(View.VISIBLE);
+			modalClear.setVisibility(View.GONE);
+		}
+	};
+	
+	protected final Button.OnClickListener incrementButtonOne = new Button.OnClickListener() {
+		public void onClick(View view) {
+			numPickerOne.upButton();
+			modalSelectorTextOne.setText(numPickerOne.getCurrentValue());
+		}
+	};
+	
+	protected final Button.OnClickListener decrementButtonOne = new Button.OnClickListener() {
+		public void onClick(View view) {
+			numPickerOne.downButton();
+			modalSelectorTextOne.setText(numPickerOne.getCurrentValue());
+		}
+	};
+	
+	protected final Button.OnClickListener incrementButtonTwo = new Button.OnClickListener() {
+		public void onClick(View view) {
+			numPickerTwo.upButton();
+			modalSelectorTextTwo.setText(numPickerTwo.getCurrentValue());
+		}
+	};
+	
+	protected final Button.OnClickListener decrementButtonTwo = new Button.OnClickListener() {
+		public void onClick(View view) {
+			numPickerTwo.downButton();
+			modalSelectorTextTwo.setText(numPickerTwo.getCurrentValue());
+		}
+	};
+	
+	protected final Button.OnClickListener incrementButtonThree = new Button.OnClickListener() {
+		public void onClick(View view) {
+			numPickerThree.upButton();
+			modalSelectorTextThree.setText(numPickerThree.getCurrentValue());
+		}
+	};
+	
+	protected final Button.OnClickListener decrementButtonThree = new Button.OnClickListener() {
+		public void onClick(View view) {
+			numPickerThree.downButton();
+			modalSelectorTextThree.setText(numPickerThree.getCurrentValue());
+		}
+	};
+	
+	protected final Button.OnClickListener saveDate = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			String date = String.format("%s %s, %s", numPickerOne.getCurrentValue(), numPickerTwo.getCurrentValue(), numPickerThree.getCurrentValue());
+			dateInput.setText(date);
+		}
+	};
+	
+	protected final Button.OnClickListener saveTime = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			String time = String.format("%s:%s %s", numPickerOne.getCurrentValue(), numPickerTwo.getCurrentValue(), numPickerThree.getCurrentValue());
+			timeInput.setText(time);
+		}
+	};
+	
+	protected final Button.OnClickListener saveSeeing = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			seeingInput.setText(numPickerOne.getCurrentValue() + "/5");
+		}
+	};
+	
+	protected final Button.OnClickListener saveTrans = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			transInput.setText(numPickerOne.getCurrentValue() + "/5");
 		}
 	};
 	
@@ -597,7 +958,7 @@ public class ObjectDetailScreen extends ActivityBase{
     
     protected final EditText.OnFocusChangeListener showLetters_focus = new EditText.OnFocusChangeListener(){
     	public void onFocusChange(View view, boolean hasFocus) {
-			if(firstFocus > 0 && hasFocus){
+			if(hasFocus){
 				showKeyboardLetters(view);
 			}
 			else{
@@ -618,7 +979,7 @@ public class ObjectDetailScreen extends ActivityBase{
     
     protected final EditText.OnFocusChangeListener showNumbers_focus = new EditText.OnFocusChangeListener(){
     	public void onFocusChange(View view, boolean hasFocus) {
-			if(firstFocus > 0 && hasFocus){
+			if(hasFocus){
 				showKeyboardNumbers(view);
 			}
 			else{
@@ -714,15 +1075,19 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(locationInput.getText() != null && locationInput.getText().length() > 0) {
 			retVal.put("logLocation", locationInput.getText().toString());
 		}
-		if(equipmentInput.getText() != null && equipmentInput.getText().length() > 0) {
-			// TODO retVal.put("telescope", equipmentInput.getText().toString());
-			//TODO eyepiece
+		retVal.put("telescope", Integer.toString(newTelescopeId));
+		retVal.put("eyepiece", Integer.toString(newEyepieceId));
+		if(seeingInput.getText().length() > 0 && !seeingInput.getText().equals("")) {
+			String seeing = seeingInput.getText().toString().split("/")[0];
+			if(Integer.parseInt(seeing) > 0) {
+				retVal.put("seeing", seeing);
+			}
 		}
-		if(seeingInput.getText().length() > 0 && Integer.parseInt(seeingInput.getText().toString()) > 0) {
-			retVal.put("seeing", seeingInput.getText().toString());
-		}
-		if(transInput.getText().length() > 0 && Integer.parseInt(transInput.getText().toString()) > 0) {
-			retVal.put("transparency", transInput.getText().toString());
+		if(transInput.getText().length() > 0 && !transInput.getText().equals("")) {
+			String trans = transInput.getText().toString().split("/")[0];
+			if(Integer.parseInt(trans) > 0); {
+				retVal.put("transparency", trans);
+			}
 		}
 		//findingMethod not currently used
 		if(notesInput.getText() != null && notesInput.getText().length() > 0) {
@@ -737,21 +1102,40 @@ public class ObjectDetailScreen extends ActivityBase{
 	}
 	
 	private void findModalElements() {
-		modalHeader = (TextView)findViewById(R.id.alert_main_text);
+		modalHeader = (TextView)findViewById(R.id.modal_header);
 		modalButtonContainer = (LinearLayout)findViewById(R.id.save_cancel_container);
 		modalSave = (Button)findViewById(R.id.alert_ok_button);
 		modalCancel = (Button)findViewById(R.id.alert_cancel_button);
 		modalClear = (Button)findViewById(R.id.alert_extra_button);
+		modalSelectorsLayout = (LinearLayout)findViewById(R.id.selectors_container);
+		modalSelectorSetOne = (LinearLayout)findViewById(R.id.selector_set_one);
+		modalSelectorSetTwo = (LinearLayout)findViewById(R.id.selector_set_two);
+		modalSelectorSetThree = (LinearLayout)findViewById(R.id.selector_set_three);
+		modalSelectorOneUpButton = (Button)findViewById(R.id.number_picker_up_button_one);
+		modalSelectorOneDownButton = (Button)findViewById(R.id.number_picker_down_button_one);
+		modalSelectorTwoUpButton = (Button)findViewById(R.id.number_picker_up_button_two);
+		modalSelectorTwoDownButton = (Button)findViewById(R.id.number_picker_down_button_two);
+		modalSelectorThreeUpButton = (Button)findViewById(R.id.number_picker_up_button_three);
+		modalSelectorThreeDownButton = (Button)findViewById(R.id.number_picker_down_button_three);
+		modalSelectorTextOne = (TextView)findViewById(R.id.number_picker_input_field_one);
+		modalSelectorTextTwo = (TextView)findViewById(R.id.number_picker_input_field_two);
+		modalSelectorTextThree = (TextView)findViewById(R.id.number_picker_input_field_three);
+		modalListOneContainer = (LinearLayout)findViewById(R.id.object_selector_modal_list_layout_one);
+		modalListHeaderOne = (TextView)findViewById(R.id.object_selector_modal_list_one_header);
+		modalListTwoContainer = (LinearLayout)findViewById(R.id.object_selector_modal_list_layout_two);
+		modalListHeaderTwo = (TextView)findViewById(R.id.object_selector_modal_list_two_header);
 	}
 
 	/**
 	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
 	 */
-	private void prepForModal() {
+	public void prepForModal() {
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
 		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_detail_main);
+		ScrollView scroller = (ScrollView)findViewById(R.id.object_detail_scroll_view);
 		
 		mainBackLayer.setEnabled(false);
+		scroller.setEnabled(false);
 		addToList.setEnabled(false);
 		favoriteStar.setEnabled(false);
 		saveButton.setEnabled(false);
@@ -772,8 +1156,10 @@ public class ObjectDetailScreen extends ActivityBase{
 	private void tearDownModal(){
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
 		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_detail_main);
+		ScrollView scroller = (ScrollView)findViewById(R.id.object_detail_scroll_view);
 		
 		mainBackLayer.setEnabled(true);
+		scroller.setEnabled(true);
 		addToList.setEnabled(true);
 		favoriteStar.setEnabled(true);
 		saveButton.setEnabled(true);
@@ -788,5 +1174,17 @@ public class ObjectDetailScreen extends ActivityBase{
 		blackOutLayer.setVisibility(View.INVISIBLE);
 		RelativeLayout alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
 		alertModal.setVisibility(View.INVISIBLE);
+	}
+	
+	public void updateModalTextOne(String text) {
+		modalSelectorTextOne.setText(text);
+	}
+	
+	public void updateModalTextTwo(String text) {
+		modalSelectorTextTwo.setText(text);
+	}
+	
+	public void updateModalTextThree(String text) {
+		modalSelectorTextThree.setText(text);
 	}
 }

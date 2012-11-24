@@ -194,7 +194,6 @@ public class ObjectIndexScreen extends ActivityBase {
 			
 			for (int i = 0; i < objects.getCount(); i++)
 	        {
-				Log.d("JoeDebug", "cursor size is " + objects.getCount());
 				String name = objects.getString(0);
 				String constellation = objects.getString(1);
 				String type = objects.getString(2);

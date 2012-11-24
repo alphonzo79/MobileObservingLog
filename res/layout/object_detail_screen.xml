@@ -398,10 +398,12 @@
 				        <EditText 
 				            style="@style/formScreenTextFieldNormal"
 				            android:id="@+id/date_input"
-				            android:layout_width="fill_parent"
-				            android:minWidth="75dp"
+				            android:layout_width="wrap_content"
+				            android:minWidth="125dp"
 				            android:gravity="left"
 				            android:inputType="none"
+				            android:layout_marginLeft="7dp"
+				            android:layout_marginRight="7dp"
 				            />
 		                
 		            </LinearLayout>
@@ -409,6 +411,7 @@
 		            <LinearLayout
 		                android:id="@+id/time_block"
 		                style="@style/object_detail_inner_block"
+		                android:layout_marginLeft="5dp"
 		                >
 		                
 		                <TextView 
@@ -430,6 +433,8 @@
 				            android:layout_width="fill_parent"
 				            android:minWidth="75dp"
 				            android:gravity="left"
+				            android:layout_marginLeft="7dp"
+				            android:layout_marginRight="7dp"
 				            />
 		                
 		            </LinearLayout>
@@ -462,6 +467,7 @@
 			            android:layout_width="fill_parent"
 			            android:minWidth="175dp"
 			            android:gravity="left"
+			            android:layout_marginLeft="7dp"
 			            />
 	                
 	            </LinearLayout>
@@ -492,6 +498,7 @@
 			            android:layout_width="fill_parent"
 			            android:minWidth="175dp"
 			            android:gravity="left"
+			            android:layout_marginLeft="7dp"
 			            />
 	                
 	            </LinearLayout>
@@ -525,7 +532,7 @@
 				            style="@style/formScreenTextFieldNormal"
 				            android:id="@+id/seeing_input"
 				            android:layout_width="fill_parent"
-				            android:minWidth="75dp"
+				            android:minWidth="50dp"
 				            android:gravity="left"
 			                android:layout_marginLeft="5dp"
 			                android:layout_marginRight="5dp"
@@ -556,7 +563,7 @@
 				            style="@style/formScreenTextFieldNormal"
 				            android:id="@+id/trans_input"
 				            android:layout_width="fill_parent"
-				            android:minWidth="75dp"
+				            android:minWidth="50dp"
 				            android:gravity="left"
 			                android:layout_marginLeft="5dp"
 			                android:layout_marginRight="5dp"
@@ -622,7 +629,7 @@
     	/>
     
     <include android:id="@+id/alert_modal"
-        layout="@layout/alert_modal"
+        layout="@layout/object_detail_selector_modal"
         android:layout_gravity="center|center"
         />
     

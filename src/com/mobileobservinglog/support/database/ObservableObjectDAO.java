@@ -129,7 +129,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 			for(int i = 0; i < possibleValues.length; i++) {
 				String thisValue = possibleValues[i];
 				if(values.get(thisValue) != null) {
-					if(thisValue.equals("seeing") || thisValue.equals("transparency")){
+					if(thisValue.equals("seeing") || thisValue.equals("transparency") || thisValue.equals("telescope") || thisValue.equals("eyepiece")){
 						stmt.bindLong(bindCounter, Long.parseLong(values.get(thisValue)));
 					} else {
 						stmt.bindString(bindCounter, values.get(thisValue));
