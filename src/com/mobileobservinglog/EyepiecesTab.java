@@ -214,7 +214,11 @@ public class EyepiecesTab extends ManageEquipmentTabParent {
 		EyepieceData(int id, String type, String focalLength){
 			this.id = id;
 			this.type = type;
-			this.focalLength = "FL: " + focalLength;
+			if(focalLength.split(" ")[0].length() > 0) {
+				this.focalLength = focalLength;
+			} else {
+				this.focalLength = "";
+			}
 		}		
 	}
 	

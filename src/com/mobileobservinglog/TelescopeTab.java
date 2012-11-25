@@ -218,9 +218,21 @@ public class TelescopeTab extends ManageEquipmentTabParent {
 		TelescopeData(int id, String type, String primaryDiameter, String focalRatio, String focalLength){
 			this.id = id;
 			this.type = type;
-			this.primaryDiameter = primaryDiameter;
-			this.focalRatio = "f/" + focalRatio;
-			this.focalLength = "FL: " + focalLength;
+			if(primaryDiameter.split(" ")[0].length() > 0) {
+				this.primaryDiameter = primaryDiameter;
+			} else {
+				this.primaryDiameter = "";
+			}
+			if(focalRatio.length() > 0) {
+				this.focalRatio = "f/" + focalRatio;
+			} else {
+				this.focalRatio = "";
+			}
+			if(focalLength.split(" ")[0].length() > 0) {
+				this.focalLength = "FL: " + focalLength;
+			} else {
+				this.focalLength = "";
+			}
 		}		
 	}
 	

@@ -356,9 +356,11 @@ public class ObjectDetailScreen extends ActivityBase{
 			String telescopeDescription = formatTelescopeDescription(telescopeType, telescopeRatio, telescopeDiam, telescopeLength);
 			String eyepieceDescription = formatEyepieceDescription(eyepieceType, eyepieceLength);
 			
-			retVal = String.format("%s Telescope with %s Eyepiece", telescopeDescription, eyepieceDescription);
-			if(magnification > 0) {
-				retVal = retVal.concat(String.format(" - %dx Magnification", magnification));
+			if(!telescopeDescription.equals("(No Telescope Selected)") && !eyepieceDescription.equals("(No Eyepiece Selected)")) {
+				retVal = String.format("%s Telescope with %s Eyepiece", telescopeDescription, eyepieceDescription);
+				if(magnification > 0) {
+					retVal = retVal.concat(String.format(" - %dx Magnification", magnification));
+				}
 			}
 		}
 		return retVal;
@@ -367,7 +369,9 @@ public class ObjectDetailScreen extends ActivityBase{
 	private String formatTelescopeDescription(String type, String ratio, String diameter, String length) {
 		String retVal = "";
 		if(diameter != null && diameter.length() > 0) {
-			retVal = retVal.concat(diameter);
+			if(diameter.split(" ")[0].length() > 0) {
+				retVal = retVal.concat(diameter);
+			}
 		}
 		if(ratio != null && ratio.length() > 0) {
 			if(retVal.length() > 0){
@@ -376,10 +380,12 @@ public class ObjectDetailScreen extends ActivityBase{
 			retVal = retVal.concat("f/" + ratio);
 		}
 		if(length != null && length.length() > 0) {
-			if(retVal.length() > 0){
-				retVal = retVal.concat(" ");
+			if(length.split(" ")[0].length() > 0) {
+				if(retVal.length() > 0){
+					retVal = retVal.concat(" ");
+				}
+				retVal = retVal.concat("FL: " + length);
 			}
-			retVal = retVal.concat("FL: " + length);
 		}
 		if(type != null && type.length() > 0) {
 			if(retVal.length() > 0){
@@ -395,14 +401,16 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	private String formatEyepieceDescription(String type, String length) {
 		String retVal = "";
-		if(type != null && type.length() > 0) {
-			retVal = retVal.concat(type);
-		}
 		if(length != null && length.length() > 0) {
+			if(length.split(" ")[0].length() > 0) {
+				retVal = retVal.concat(length);
+			}
+		}
+		if(type != null && type.length() > 0) {
 			if(retVal.length() > 0) {
 				retVal = retVal.concat(" ");
 			}
-			retVal = retVal.concat(length);
+			retVal = retVal.concat(type);
 		}
 		if(retVal.length() < 1) {
 			retVal = "(No Eyepiece Selected)";
@@ -613,7 +621,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
 			timeInput.setText(sdf.format(Calendar.getInstance().getTime()));
 		}
-		if(logLocation != null && !logLocation.equals("NULL")) {
+		if(logLocation != null && !logLocation.equals("NULL") && !logLocation.equals("")) {
 			locationInput.setText(logLocation);
 		} else {
 			if(settingsRef.getPersistentSetting(SettingsContainer.USE_GPS, this).equals(R.string.use_gps_yes)) {
