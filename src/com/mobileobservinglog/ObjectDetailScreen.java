@@ -27,10 +27,12 @@ import android.location.Location;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -300,53 +302,111 @@ public class ObjectDetailScreen extends ActivityBase{
 		String retVal = "";
 		EquipmentDAO db = new EquipmentDAO(this);
 		Cursor equip = db.getSavedTelescope(telescopeId);
+		String telescopeType = "";
+		String telescopeDiam = "";
+		String telescopeRatio = "";
+		String telescopeLength = "";
 		if(equip.getCount() > 0) {
 			equip.moveToFirst();
-			String telescopeType = equip.getString(1);
-			String telescopeDiam = equip.getString(2);
-			String telescopeRatio = equip.getString(3);
-			String telescopeLength = equip.getString(4);
-			equip.close();
-
-			String eyepieceLength = "";
-			String eyepieceType = "";
-			equip = db.getSavedEyepiece(eyepieceId);
-			if(equip.getCount() > 0) {
-				equip.moveToFirst();
-				eyepieceLength = equip.getString(1);
-				eyepieceType = equip.getString(2);
-				equip.close();
-				db.close();
-			}
-			
-			float telLengthInMm = 0;
-			float eyeLengthInMm = 0;
-			if(telescopeType != null && telescopeDiam != null && telescopeRatio != null && telescopeLength != null && eyepieceLength != null && eyepieceType != null) {
-				try {
-					if(telescopeLength.contains("in")) {
-						telLengthInMm = Float.parseFloat(telescopeLength.split(" in")[0]) * 25.4f;
-					} else {
-						telLengthInMm = Float.parseFloat(telescopeLength.split(" mm")[0]);
-					}
-					if(eyepieceLength.contains("in")) {
-						eyeLengthInMm = Float.parseFloat(eyepieceLength.split(" in")[0]) * 25.4f;
-					} else {
-						eyeLengthInMm = Float.parseFloat(eyepieceLength.split(" mm")[0]);
-					}
-				} catch (NumberFormatException e) {
-					//Do nothing with it. We'll just have some garbage data
-				} catch (NullPointerException e) {
-					
-				}
-				int magnification = (int) (telLengthInMm / eyeLengthInMm);
-				
-				retVal = String.format("%s %s %s %s with %s %s eyepiece - %dx magnification", telescopeDiam, telescopeRatio, 
-						telescopeLength, telescopeType, eyepieceLength, eyepieceType, magnification);
-			}
+			telescopeType = equip.getString(1);
+			telescopeDiam = equip.getString(2);
+			telescopeRatio = equip.getString(3);
+			telescopeLength = equip.getString(4);
 		}
-			
+		equip.close();
+
+		String eyepieceLength = "";
+		String eyepieceType = "";
+		equip = db.getSavedEyepiece(eyepieceId);
+		if(equip.getCount() > 0) {
+			equip.moveToFirst();
+			eyepieceLength = equip.getString(1);
+			eyepieceType = equip.getString(2);
+		}
 		equip.close();
 		db.close();
+			
+		float telLengthInMm = 0;
+		float eyeLengthInMm = 0;
+		int magnification = 0;
+		if(telescopeLength != null && eyepieceLength != null) {
+			try {
+				if(telescopeLength.contains("in")) {
+					telLengthInMm = Float.parseFloat(telescopeLength.split(" in")[0]) * 25.4f;
+				} else if(telescopeLength.contains("mm")) {
+					telLengthInMm = Float.parseFloat(telescopeLength.split(" mm")[0]);
+				}
+				if(eyepieceLength.contains("in")) {
+					eyeLengthInMm = Float.parseFloat(eyepieceLength.split(" in")[0]) * 25.4f;
+				} else if(eyepieceLength.contains("mm")) {
+					eyeLengthInMm = Float.parseFloat(eyepieceLength.split(" mm")[0]);
+				}
+			} catch (NumberFormatException e) {
+				//Do nothing with it. We'll just have some garbage data
+			} catch (NullPointerException e) {
+				
+			} catch (IndexOutOfBoundsException e) {
+				
+			}
+				
+			if(telLengthInMm > 0 && eyeLengthInMm > 0) {
+				magnification = (int) (telLengthInMm / eyeLengthInMm);
+			}
+			
+			String telescopeDescription = formatTelescopeDescription(telescopeType, telescopeRatio, telescopeDiam, telescopeLength);
+			String eyepieceDescription = formatEyepieceDescription(eyepieceType, eyepieceLength);
+			
+			retVal = String.format("%s Telescope with %s Eyepiece", telescopeDescription, eyepieceDescription);
+			if(magnification > 0) {
+				retVal = retVal.concat(String.format(" - %dx Magnification", magnification));
+			}
+		}
+		return retVal;
+	}
+	
+	private String formatTelescopeDescription(String type, String ratio, String diameter, String length) {
+		String retVal = "";
+		if(diameter != null && diameter.length() > 0) {
+			retVal = retVal.concat(diameter);
+		}
+		if(ratio != null && ratio.length() > 0) {
+			if(retVal.length() > 0){
+				retVal = retVal.concat(" ");
+			}
+			retVal = retVal.concat("f/" + ratio);
+		}
+		if(length != null && length.length() > 0) {
+			if(retVal.length() > 0){
+				retVal = retVal.concat(" ");
+			}
+			retVal = retVal.concat("FL: " + length);
+		}
+		if(type != null && type.length() > 0) {
+			if(retVal.length() > 0){
+				retVal = retVal.concat(" ");
+			}
+			retVal = retVal.concat(type);
+		}
+		if(retVal.length() < 1) {
+			retVal = "(No Telescope Selected)";
+		}
+		return retVal;
+	}
+	
+	private String formatEyepieceDescription(String type, String length) {
+		String retVal = "";
+		if(type != null && type.length() > 0) {
+			retVal = retVal.concat(type);
+		}
+		if(length != null && length.length() > 0) {
+			if(retVal.length() > 0) {
+				retVal = retVal.concat(" ");
+			}
+			retVal = retVal.concat(length);
+		}
+		if(retVal.length() < 1) {
+			retVal = "(No Eyepiece Selected)";
+		}
 		return retVal;
 	}
 	
@@ -396,7 +456,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		locationInput.setOnClickListener(locationModal);
 		
 		equipmentInput.setInputType(InputType.TYPE_NULL);
-		//TODO set listener
+		equipmentInput.setOnClickListener(equipmentModal);
 		
 		seeingInput.setInputType(InputType.TYPE_NULL);
 		seeingInput.setOnClickListener(seeingModal);
@@ -757,6 +817,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			modalSelectorThreeUpButton.setOnClickListener(incrementButtonThree);
 			modalSelectorThreeDownButton.setOnClickListener(decrementButtonThree);
 			
+			modalSelectorsLayout.setVisibility(View.VISIBLE);
 			modalSelectorSetOne.setVisibility(View.VISIBLE);
 			modalSelectorSetTwo.setVisibility(View.VISIBLE);
 			modalSelectorSetThree.setVisibility(View.VISIBLE);
@@ -800,6 +861,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			modalSelectorThreeUpButton.setOnClickListener(incrementButtonThree);
 			modalSelectorThreeDownButton.setOnClickListener(decrementButtonThree);
 			
+			modalSelectorsLayout.setVisibility(View.VISIBLE);
 			modalSelectorSetOne.setVisibility(View.VISIBLE);
 			modalSelectorSetTwo.setVisibility(View.VISIBLE);
 			modalSelectorSetThree.setVisibility(View.VISIBLE);
@@ -847,30 +909,191 @@ public class ObjectDetailScreen extends ActivityBase{
 
 			String currentValue = locationInput.getText().toString();
 			if(currentValue.length() > 0) {
-				if(!options.contains(currentValue)) {
+				boolean found = false;
+				int index = -1;
+				for(int i = 0; i < options.size(); i++) {
+					if(options.get(i).getName().equals(currentValue)) {
+						found = true;
+						index = i;
+						break;
+					}
+				}
+				if(!found) {
 					options.add(new IndividualItem(currentValue, false));
 				} else {
-					int index = options.indexOf(currentValue);
-					options.set(index, new IndividualItem(currentValue, false));
+					options.set(index, new IndividualItem(currentValue, true));
 				}
 			}
 			
-			modalHeader.setText("Observing Location");
+			if(options.size() > 0) {
+				modalHeader.setText("Observing Location");
+				modalListOneContainer.setVisibility(View.VISIBLE);
+				modalListHeaderOne.setVisibility(View.GONE);
+		        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
+		        modalListOne.setOnItemClickListener(locationSelected);
+				
+				modalSelectorsLayout.setVisibility(View.GONE);
+				modalListTwoContainer.setVisibility(View.GONE);
+				
+				modalSave.setOnClickListener(saveLocation);
+				modalSave.setVisibility(View.VISIBLE);
+				modalCancel.setOnClickListener(dismissModal);
+				modalCancel.setVisibility(View.VISIBLE);
+				modalClear.setVisibility(View.GONE);
+			} else {
+				modalHeader.setText("There are no saved locations. Observing Locations can be managed trough the settings screen");
+				modalListOneContainer.setVisibility(View.GONE);
+				modalSelectorsLayout.setVisibility(View.GONE);
+				modalListTwoContainer.setVisibility(View.GONE);
+				
+				modalSave.setOnClickListener(dismissModal);
+				modalSave.setVisibility(View.VISIBLE);
+				modalCancel.setVisibility(View.GONE);
+				modalClear.setVisibility(View.GONE);
+			}
+		}
+	};
+	
+	protected final View.OnClickListener equipmentModal = new View.OnClickListener() {
+		public void onClick(View view) {
+			prepForModal();
 			
-			modalListOneContainer.setVisibility(View.VISIBLE);
-	        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
-	        modalListOne.setOnItemClickListener(locationSelected);
+			ArrayList<IndividualItem> eyepieceOptions = new ArrayList<IndividualItem>();
+			ArrayList<IndividualItem> telescopeOptions = new ArrayList<IndividualItem>();
+			eyepieces = new TreeMap<String, Integer>();
+			telescopes = new TreeMap<String, Integer>();
 			
-			modalSelectorSetOne.setVisibility(View.GONE);
-			modalSelectorSetTwo.setVisibility(View.GONE);
-			modalSelectorSetThree.setVisibility(View.GONE);
-			modalListTwoContainer.setVisibility(View.GONE);
+			EquipmentDAO db = new EquipmentDAO(ObjectDetailScreen.this);
+			Cursor eyepiecesCursor = db.getSavedEyepieces();
+			int count = eyepiecesCursor.getCount();
+			if(count > 0) {
+				eyepiecesCursor.moveToFirst();
+				for(int i = 0; i < count; i++) {
+					int id = eyepiecesCursor.getInt(0);
+					String focalLength = eyepiecesCursor.getString(1);
+					String type = eyepiecesCursor.getString(2);
+					String compiled = formatEyepieceDescription(type, focalLength);
+					eyepieces.put(compiled, id);
+					eyepieceOptions.add(new IndividualItem(compiled, false));
+					eyepiecesCursor.moveToNext();
+				}
+			}
+			eyepiecesCursor.close();
 			
-			modalSave.setOnClickListener(saveLocation);
-			modalSave.setVisibility(View.VISIBLE);
-			modalCancel.setOnClickListener(dismissModal);
-			modalCancel.setVisibility(View.VISIBLE);
-			modalClear.setVisibility(View.GONE);
+			Cursor telescopeCursor = db.getSavedTelescopes();
+			count = telescopeCursor.getCount();
+			if(count > 0) {
+				telescopeCursor.moveToFirst();
+				for(int i = 0; i < count; i++) {
+					int id = telescopeCursor.getInt(0);
+					String type = telescopeCursor.getString(1);
+					String diameter = telescopeCursor.getString(2);
+					String ratio = telescopeCursor.getString(3);
+					String length = telescopeCursor.getString(4);
+					String compiled = formatTelescopeDescription(type, ratio, diameter, length);
+					telescopes.put(compiled, id);
+					telescopeOptions.add(new IndividualItem(compiled, false));
+					telescopeCursor.moveToNext();
+				}
+			}
+			telescopeCursor.close();
+			db.close();
+
+			String currentValueFull = equipmentInput.getText().toString();
+			if(currentValueFull.length() > 0) {
+				String[] splitOne = currentValueFull.split(" Telescope with ");
+				String currentTelescope = splitOne[0];
+				String[] splitTwo = splitOne[1].split(" Eyepiece");
+				String currentEyepiece = splitTwo[0];
+				boolean found = false;
+				int index = -1;
+				if(!currentEyepiece.contains("(No")){
+					for(int i = 0; i < eyepieceOptions.size(); i++) {
+						if(eyepieceOptions.get(i).getName().equals(currentEyepiece)) {
+							found = true;
+							index = i;
+							break;
+						}
+					}
+					if(!found) {
+						eyepieceOptions.add(new IndividualItem(currentEyepiece, false));
+					} else {
+						eyepieceOptions.set(index, new IndividualItem(currentEyepiece, true));
+					}
+				}
+				
+				found = false;
+				index = -1;
+				if(!currentTelescope.contains("(No Telescope Selected)")) {
+					for(int i = 0; i < telescopeOptions.size(); i++) {
+						if(telescopeOptions.get(i).getName().equals(currentTelescope)) {
+							found = true;
+							index = i;
+							break;
+						}
+					}
+					if(!found) {
+						telescopeOptions.add(new IndividualItem(currentTelescope, false));
+					} else {
+						telescopeOptions.set(index, new IndividualItem(currentTelescope, true));
+					}
+				}
+			}
+			
+			if(eyepieceOptions.size() > 0 || telescopeOptions.size() > 0) {
+				modalHeader.setText("Observing Equipment");
+				
+				if(telescopeOptions.size() > 0) {
+					modalListOneContainer.setVisibility(View.VISIBLE);
+					modalListHeaderOne.setText("Telescopes");
+					modalListHeaderOne.setVisibility(View.VISIBLE);
+			        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), telescopeOptions));
+			        modalListOne.setOnItemClickListener(telescopeSelected);
+				} else {
+					modalListOneContainer.setVisibility(View.VISIBLE);
+					modalListHeaderOne.setText("There are no saved telescopes. Equipment can be managed through the settings screen");
+					modalListOne.setVisibility(View.GONE);
+				}
+	
+				if(eyepieceOptions.size() > 0) {
+					modalListTwoContainer.setVisibility(View.VISIBLE);
+					modalListHeaderTwo.setText("Eyepieces");
+					modalListTwo.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), eyepieceOptions));
+					modalListTwo.setOnItemClickListener(eyepieceSelected);
+				} else {
+					modalListTwoContainer.setVisibility(View.VISIBLE);
+					modalListHeaderTwo.setText("There are no saved eyepieces. Equipment can be managed through the settings screen");
+					modalListTwo.setVisibility(View.GONE);
+				}
+				
+				modalSelectorSetOne.setVisibility(View.GONE);
+				modalSelectorSetTwo.setVisibility(View.GONE);
+				modalSelectorSetThree.setVisibility(View.GONE);
+				
+				modalSave.setOnClickListener(saveEquipment);
+				modalSave.setVisibility(View.VISIBLE);
+				modalCancel.setOnClickListener(dismissModal);
+				modalCancel.setVisibility(View.VISIBLE);
+				modalClear.setVisibility(View.GONE);
+			} else {
+				modalHeader.setText("There are no saved telescope or eyepiece options. Equipment can be managed through the settings screen");
+				modalListOneContainer.setVisibility(View.GONE);
+				modalSelectorsLayout.setVisibility(View.GONE);
+				modalListTwoContainer.setVisibility(View.GONE);
+				
+				modalSave.setOnClickListener(dismissModal);
+				modalSave.setVisibility(View.VISIBLE);
+				modalCancel.setVisibility(View.GONE);
+				modalClear.setVisibility(View.GONE);
+			}
+			Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+			int windowHeight = display.getHeight(); 
+			RelativeLayout.LayoutParams listOneParams = (RelativeLayout.LayoutParams)modalListOneContainer.getLayoutParams();
+			listOneParams.height = (int) (windowHeight * 0.4f);
+			modalListOneContainer.setLayoutParams(listOneParams);
+			RelativeLayout.LayoutParams listTwoParams = (RelativeLayout.LayoutParams)modalListTwoContainer.getLayoutParams();
+			listTwoParams.height = (int) (windowHeight * 0.4f);
+			modalListTwoContainer.setLayoutParams(listTwoParams);
 		}
 	};
 	
@@ -906,6 +1129,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
 			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
 			
+			modalSelectorsLayout.setVisibility(View.VISIBLE);
 			modalSelectorSetOne.setVisibility(View.VISIBLE);
 			modalSelectorSetTwo.setVisibility(View.GONE);
 			modalSelectorSetThree.setVisibility(View.GONE);
@@ -952,6 +1176,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
 			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
 			
+			modalSelectorsLayout.setVisibility(View.VISIBLE);
 			modalSelectorSetOne.setVisibility(View.VISIBLE);
 			modalSelectorSetTwo.setVisibility(View.GONE);
 			modalSelectorSetThree.setVisibility(View.GONE);
@@ -1050,6 +1275,57 @@ public class ObjectDetailScreen extends ActivityBase{
 		public void onClick(View view) {
 			tearDownModal();
 			locationInput.setText(selectedLocation);
+		}
+	};
+	
+	protected final AdapterView.OnItemClickListener telescopeSelected = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+			IndividualItem option = (IndividualItem)adapter.getItemAtPosition(position);
+			ArrayList<IndividualItem> options = new ArrayList<IndividualItem>();
+			boolean newValue = !option.getSelected();
+			//reset all the true items to false (Should only be one)
+			newTelescopeId = 0; //Reset it in case the user has deselected all, leaving the location blank;
+			for(int i = 0; i < adapter.getCount(); i++) {
+				IndividualItem currentOption = (IndividualItem)adapter.getItemAtPosition(i);
+				if(!currentOption.getName().equals(option.getName())) {
+					options.add(new IndividualItem(currentOption.getName(), false));
+				} else {
+					options.add(new IndividualItem(currentOption.getName(), newValue));
+				}
+			}
+	        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
+	        if(newValue) {
+	        	newTelescopeId = telescopes.get(option.getName());
+	        }
+		}
+	};
+	
+	protected final AdapterView.OnItemClickListener eyepieceSelected = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+			IndividualItem option = (IndividualItem)adapter.getItemAtPosition(position);
+			ArrayList<IndividualItem> options = new ArrayList<IndividualItem>();
+			boolean newValue = !option.getSelected();
+			//reset all the true items to false (Should only be one)
+			newEyepieceId = 0; //Reset it in case the user has deselected all, leaving the location blank;
+			for(int i = 0; i < adapter.getCount(); i++) {
+				IndividualItem currentOption = (IndividualItem)adapter.getItemAtPosition(i);
+				if(!currentOption.getName().equals(option.getName())) {
+					options.add(new IndividualItem(currentOption.getName(), false));
+				} else {
+					options.add(new IndividualItem(currentOption.getName(), newValue));
+				}
+			}
+	        modalListTwo.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
+	        if(newValue) {
+	        	newEyepieceId = eyepieces.get(option.getName());
+	        }
+		}
+	};
+	
+	protected final Button.OnClickListener saveEquipment = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			equipmentInput.setText(formatEquipmentString(newTelescopeId, newEyepieceId));
 		}
 	};
 	
@@ -1270,6 +1546,10 @@ public class ObjectDetailScreen extends ActivityBase{
 		transInput.setEnabled(false);
 		notesInput.setEnabled(false);
 		blackOutLayer.setVisibility(View.VISIBLE);
+		
+		if(keyboardDriver != null) {
+			tearDownKeyboard();
+		}
 		
 		RelativeLayout alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
 		alertModal.setVisibility(View.VISIBLE);

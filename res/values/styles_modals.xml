@@ -7,7 +7,7 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="modalContainerNormal">
     	<item name="android:background">@drawable/empty_rounded_button_day</item>
     	<item name="android:visibility">invisible</item>
@@ -17,6 +17,8 @@
     	<item name="android:layout_marginLeft">15dp</item>
     	<item name="android:layout_marginRight">15dp</item>
     	<item name="android:paddingBottom">10dp</item>
+    	<item name="android:paddingRight">3dp</item>
+    	<item name="android:paddingLeft">3dp</item>
     	<item name="android:gravity">center|center</item>
     </style>
     
