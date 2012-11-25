@@ -340,10 +340,17 @@ public class ManageLocationsScreen extends ActivityBase {
 			return coordinates;
 		}
 		
+		TextView getDash() {
+			return (TextView)row.findViewById(R.id.dash);
+		}
+		
 		void populateFrom(LocationData location){
 			getName().setText(location.name);
 			getCoordinates().setText(location.coordinates);
 			//getDescription().setText(location.description);
+			if(location.name.length() < 1 || location.coordinates.length() < 1) {
+				getDash().setVisibility(View.GONE);
+			}
 			id = location.id;
 			Log.d("JoeDebug", "location id " + id);
 		}

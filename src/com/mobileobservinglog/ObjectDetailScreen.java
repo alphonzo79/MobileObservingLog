@@ -832,9 +832,9 @@ public class ObjectDetailScreen extends ActivityBase{
 					if(name != null) {
 						compiled = compiled.concat(name);
 					}
-					if(coords != null) {
+					if(coords != null && coords.length() > 0) {
 						if(compiled.length() > 0) {
-							compiled = compiled.concat(": ");
+							compiled = compiled.concat(" - ");
 						}
 						compiled = compiled.concat(coords);
 					}
@@ -846,17 +846,19 @@ public class ObjectDetailScreen extends ActivityBase{
 			db.close();
 
 			String currentValue = locationInput.getText().toString();
-			if(!options.contains(currentValue)) {
-				options.add(new IndividualItem(currentValue, false));
-			} else {
-				int index = options.indexOf(currentValue);
-				options.set(index, new IndividualItem(currentValue, false));
+			if(currentValue.length() > 0) {
+				if(!options.contains(currentValue)) {
+					options.add(new IndividualItem(currentValue, false));
+				} else {
+					int index = options.indexOf(currentValue);
+					options.set(index, new IndividualItem(currentValue, false));
+				}
 			}
 			
 			modalHeader.setText("Observing Location");
 			
 			modalListOneContainer.setVisibility(View.VISIBLE);
-	        modalListOne.setAdapter(new ArrayAdapter<IndividualItem>(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
+	        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
 	        modalListOne.setOnItemClickListener(locationSelected);
 			
 			modalSelectorSetOne.setVisibility(View.GONE);
@@ -904,6 +906,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
 			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
 			
+			modalSelectorSetOne.setVisibility(View.VISIBLE);
 			modalSelectorSetTwo.setVisibility(View.GONE);
 			modalSelectorSetThree.setVisibility(View.GONE);
 			modalListOneContainer.setVisibility(View.GONE);
@@ -949,6 +952,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			modalSelectorOneUpButton.setOnClickListener(incrementButtonOne);
 			modalSelectorOneDownButton.setOnClickListener(decrementButtonOne);
 			
+			modalSelectorSetOne.setVisibility(View.VISIBLE);
 			modalSelectorSetTwo.setVisibility(View.GONE);
 			modalSelectorSetThree.setVisibility(View.GONE);
 			modalListOneContainer.setVisibility(View.GONE);
@@ -1031,10 +1035,11 @@ public class ObjectDetailScreen extends ActivityBase{
 				IndividualItem currentOption = (IndividualItem)adapter.getItemAtPosition(i);
 				if(!currentOption.getName().equals(option.getName())) {
 					options.add(new IndividualItem(currentOption.getName(), false));
+				} else {
+					options.add(new IndividualItem(currentOption.getName(), newValue));
 				}
 			}
-			options.add(new IndividualItem(option.getName(), newValue));
-	        modalListOne.setAdapter(new ArrayAdapter<IndividualItem>(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
+	        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
 	        if(newValue) {
 	        	selectedLocation = option.getName();
 	        }
@@ -1371,7 +1376,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			this.row = row;
 		}
 		
-		TextView getFilterOption(){
+		TextView getItemOption(){
 			if (filterOption == null){
 				filterOption = (TextView)row.findViewById(R.id.filter_option);
 			}
@@ -1386,7 +1391,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		}
 		
 		void populateFrom(IndividualItem item){
-			getFilterOption().setText(item.getName());
+			getItemOption().setText(item.getName());
 			if(item.getSelected()) {
 				getIcon().setImageResource(settingsRef.getCheckbox_Selected());
 			} else {

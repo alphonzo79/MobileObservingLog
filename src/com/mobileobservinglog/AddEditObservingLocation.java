@@ -403,6 +403,10 @@ public class AddEditObservingLocation extends ActivityBase{
 		save.setEnabled(false);
 		cancel.setEnabled(false);
 		blackOutLayer.setVisibility(View.VISIBLE);
+		
+		if(keyboardDriver != null) {
+			tearDownKeyboard();
+		}
 		Log.d("JoeTest", "PrepForModal done in AddEditObservingLocation");
 	}
 	
