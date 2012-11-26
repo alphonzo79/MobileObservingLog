@@ -158,15 +158,6 @@
         android:orientation="vertical"
         android:layout_below="@id/object_selector_modal_list_layout_one"
         >
-  
-	    <View
-	        android:id="@+id/coords_line"
-	        android:layout_width="fill_parent"
-	        android:layout_height="1dip"
-	        android:layout_marginTop="3dip"
-	        android:layout_marginBottom="2dip"
-	        android:background="@color/black"
-	        />
         
         <TextView
             android:id="@+id/object_selector_modal_list_two_header"

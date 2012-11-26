@@ -40,6 +40,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -110,6 +111,8 @@ public class ObjectDetailScreen extends ActivityBase{
 	String selectedEyepiece;
 	String selectedTelescope;
 	String selectedLocation;
+	
+	boolean imageZoomed;
 	
 	//LayoutElements
 	TextView headerText;
@@ -234,6 +237,7 @@ public class ObjectDetailScreen extends ActivityBase{
          
         findModalElements();
 		gpsHelper.setUpLocationService();
+        imageZoomed = false;
 
 		setMargins_noKeyboard();
 		body.postInvalidate();
@@ -478,6 +482,8 @@ public class ObjectDetailScreen extends ActivityBase{
 	}
 	
 	private void setUpListButtonAndFavorite() {
+		chart.setOnClickListener(zoomOnChart);
+		
 		addToList = (Button)findViewById(R.id.add_to_list_button);
 		//TODO add listener
 		
@@ -571,7 +577,12 @@ public class ObjectDetailScreen extends ActivityBase{
 		}
 		
 		//Build up the path to the actual file
-		File chartPath = new File(starChartRoot.toString() + imagePath);
+		File chartPath = null;
+		if(settingsRef.getSessionMode().equals(SettingsContainer.SessionMode.normal)){
+			chartPath = new File(starChartRoot.toString() + imagePath);
+		} else {
+			chartPath = new File(starChartRoot.toString() + nightImagePath);
+		}
 		
 		Bitmap image = null;
 		if (chartPath.exists()){
@@ -703,6 +714,18 @@ public class ObjectDetailScreen extends ActivityBase{
 		setUpSaveCancelButtonsDisplay();
 		logEditElementsGone();
 	}
+	
+	protected final View.OnClickListener zoomOnChart = new View.OnClickListener() {
+		public void onClick(View view) {
+			if(!imageZoomed) {
+				chart.setScaleType(ScaleType.CENTER);
+				imageZoomed = true;
+			} else {
+				chart.setScaleType(ScaleType.FIT_CENTER);
+				imageZoomed = false;
+			}
+		}
+	};
 	
 	protected final View.OnClickListener changeFavorite = new View.OnClickListener() {
 		public void onClick(View arg0) {

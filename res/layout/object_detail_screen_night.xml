@@ -121,7 +121,7 @@
 				    android:scaleType="fitCenter"
 				    android:adjustViewBounds="true"
 				    android:contentDescription="@string/star_chart_alt"
-				    android:background="@drawable/image_border_normal"
+				    android:background="@drawable/image_border_night"
 				    android:layout_margin="5dp"
 				    android:layout_below="@id/other_catalogs_layout"
 				    />
@@ -140,11 +140,15 @@
 	    
 				    <Button 
 				        android:id="@+id/add_to_list_button"
+						style="@style/modalSaveCancelButtonNight"
 				        android:layout_width="wrap_content" 
 				        android:layout_height="wrap_content" 
 				        android:layout_weight="50"
 				        android:layout_marginRight="3dp"
 				        android:layout_marginLeft="10dp"
+				        android:paddingLeft="5dp"
+				        android:paddingRight="5dp"
+				        android:textSize="14dp"
 				        android:text="@string/add_to_list"
 				        />
 				    
@@ -153,7 +157,7 @@
 				        android:layout_width="wrap_content"
 				        android:layout_height="wrap_content"
 				        android:orientation="horizontal"
-				        android:layout_weight="40"
+				        android:layout_weight="50"
 				        android:gravity="center"
 				        >
 	    
@@ -169,7 +173,7 @@
 						    />				
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/fav_label"
 				            android:textSize="14dp"
 				            android:text="@string/fav_label"
@@ -191,13 +195,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/ra_label"
 			            	android:text="@string/right_ascen_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/ra_data"
 			            	android:text="@string/n_a"
 				            />
@@ -210,13 +214,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/dec_label"
 			            	android:text="@string/dec_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/dec_data"
 				            android:text="@string/n_a"
 				            />
@@ -237,13 +241,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/mag_label"
 				            android:text="@string/mag_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/mag_data"
 			            	android:text="@string/n_a"
 				            />
@@ -256,13 +260,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/size_label"
 				            android:text="@string/size_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/size_data"
 			            	android:text="@string/n_a"
 				            />
@@ -283,13 +287,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/type_label"
 				            android:text="@string/type_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/type_data"
 			            	android:text="@string/n_a"
 				            />
@@ -302,13 +306,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/dist_label"
 				            android:text="@string/dist_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/dist_data"
 			            	android:text="@string/n_a"
 				            />
@@ -329,13 +333,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/const_label"
 				            android:text="@string/const_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/const_data"
 			            	android:text="@string/n_a"
 				            />
@@ -348,13 +352,13 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/season_label"
 				            android:text="@string/season_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/season_data"
 			            	android:text="@string/n_a"
 				            />
@@ -385,20 +389,20 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/date_label"
 				            android:text="@string/date_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/date_data"
 			            	android:text="@string/n_a"
 				            android:visibility="gone"
 				            />
         
 				        <EditText 
-				            style="@style/formScreenTextFieldNormal"
+				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/date_input"
 				            android:layout_width="wrap_content"
 				            android:minWidth="125dp"
@@ -417,20 +421,20 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/time_label"
 				            android:text="@string/time_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/time_data"
 			            	android:text="@string/n_a"
 				            android:visibility="gone"
 				            />
         
 				        <EditText 
-				            style="@style/formScreenTextFieldNormal"
+				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/time_input"
 				            android:layout_width="fill_parent"
 				            android:minWidth="75dp"
@@ -451,20 +455,20 @@
 	                >
 	                
 	                <TextView 
-			            style="@style/object_detail_data_label_normal"
+			            style="@style/object_detail_data_label_night"
 			            android:id="@+id/location_label"
 			            android:text="@string/location_label"
 			            />
 	            
 	            	<TextView 
-			            style="@style/object_detail_data_normal"
+			            style="@style/object_detail_data_night"
 			            android:id="@+id/location_data"
 		            	android:text="@string/n_a"
 			            android:visibility="gone"
 			            />
        
 			        <EditText 
-			            style="@style/formScreenTextFieldNormal"
+			            style="@style/formScreenTextFieldNight"
 			            android:id="@+id/location_input"
 			            android:layout_width="fill_parent"
 			            android:minWidth="175dp"
@@ -482,20 +486,20 @@
 	                >
 	                
 	                <TextView 
-			            style="@style/object_detail_data_label_normal"
+			            style="@style/object_detail_data_label_night"
 			            android:id="@+id/equipment_label"
 			            android:text="@string/equip_label"
 			            />
 	            
 	            	<TextView 
-			            style="@style/object_detail_data_normal"
+			            style="@style/object_detail_data_night"
 			            android:id="@+id/equipment_data"
 		            	android:text="@string/n_a"
 			            android:visibility="gone"
 			            />
        
 			        <EditText 
-			            style="@style/formScreenTextFieldNormal"
+			            style="@style/formScreenTextFieldNight"
 			            android:id="@+id/equipment_input"
 			            android:layout_width="fill_parent"
 			            android:minWidth="175dp"
@@ -518,20 +522,20 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/seeing_label"
 				            android:text="@string/see_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/seeing_data"
 			            	android:text="@string/n_a"
 				            android:visibility="gone"
 				            />
         
 				        <EditText 
-				            style="@style/formScreenTextFieldNormal"
+				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/seeing_input"
 				            android:layout_width="fill_parent"
 				            android:minWidth="50dp"
@@ -549,20 +553,20 @@
 		                >
 		                
 		                <TextView 
-				            style="@style/object_detail_data_label_normal"
+				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/trans_label"
 				            android:text="@string/trans_label"
 				            />
 		            
 		            	<TextView 
-				            style="@style/object_detail_data_normal"
+				            style="@style/object_detail_data_night"
 				            android:id="@+id/trans_data"
 			            	android:text="@string/n_a"
 				            android:visibility="gone"
 				            />
         
 				        <EditText 
-				            style="@style/formScreenTextFieldNormal"
+				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/trans_input"
 				            android:layout_width="fill_parent"
 				            android:minWidth="50dp"
@@ -583,7 +587,7 @@
 	                >
 	                
 	                <TextView 
-			            style="@style/object_detail_data_label_normal"
+			            style="@style/object_detail_data_label_night"
 			            android:id="@+id/notes_label"
 			            android:layout_marginLeft="8dp"
 			            android:gravity="left"
@@ -592,7 +596,7 @@
 			            />
 	            
 	            	<TextView 
-			            style="@style/object_detail_data_normal"
+			            style="@style/object_detail_data_night"
 			            android:id="@+id/notes_data"
 			            android:layout_marginLeft="10dp"
 			            android:layout_marginRight="10dp"
@@ -601,7 +605,7 @@
 			            />
        
 			        <EditText 
-			            style="@style/formScreenTextFieldNormal"
+			            style="@style/formScreenTextFieldNight"
 			            android:id="@+id/notes_input"
 			            android:layout_width="fill_parent"
 			            android:minWidth="75dp"

@@ -9,13 +9,13 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
    	android:id="@+id/object_detail_modal_main"
-   	style="@style/modalContainerNormal"
+   	style="@style/modalContainerNight"
    	>
    
     <TextView  
 	    android:id="@+id/modal_header"
 	    android:text="@string/set_backlight_intensity"
-	    style="@style/modalHeaderDay"
+	    style="@style/modalHeaderNight"
 	    />
     
     <LinearLayout
@@ -36,7 +36,7 @@
             
             <Button 
 		    	android:id="@+id/number_picker_up_button_one"
-		    	style="@style/modalUpButtonNormal"
+		    	style="@style/modalUpButtonNight"
 		    	android:text="@string/num_picker_up_button"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
@@ -44,14 +44,14 @@
 		   
 		    <TextView  
 			    android:id="@+id/number_picker_input_field_one"
-		    	style="@style/modalTextFieldNormal"
+		    	style="@style/modalTextFieldNight"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
 			    />
 			    
 		    <Button 
 		    	android:id="@+id/number_picker_down_button_one"
-		    	style="@style/modalDownButtonNormal"
+		    	style="@style/modalDownButtonNight"
 		    	android:text="@string/num_picker_down_button"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
@@ -69,7 +69,7 @@
             
             <Button 
 		    	android:id="@+id/number_picker_up_button_two"
-		    	style="@style/modalUpButtonNormal"
+		    	style="@style/modalUpButtonNight"
 		    	android:text="@string/num_picker_up_button"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
@@ -77,14 +77,14 @@
 		   
 		    <TextView  
 			    android:id="@+id/number_picker_input_field_two"
-		    	style="@style/modalTextFieldNormal"
+		    	style="@style/modalTextFieldNight"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
 			    />
 			    
 		    <Button 
 		    	android:id="@+id/number_picker_down_button_two"
-		    	style="@style/modalDownButtonNormal"
+		    	style="@style/modalDownButtonNight"
 		    	android:text="@string/num_picker_down_button"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
@@ -102,7 +102,7 @@
             
             <Button 
 		    	android:id="@+id/number_picker_up_button_three"
-		    	style="@style/modalUpButtonNormal"
+		    	style="@style/modalUpButtonNight"
 		    	android:text="@string/num_picker_up_button"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
@@ -110,14 +110,14 @@
 		   
 		    <TextView  
 			    android:id="@+id/number_picker_input_field_three"
-		    	style="@style/modalTextFieldNormal"
+		    	style="@style/modalTextFieldNight"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
 			    />
 			    
 		    <Button 
 		    	android:id="@+id/number_picker_down_button_three"
-		    	style="@style/modalDownButtonNormal"
+		    	style="@style/modalDownButtonNight"
 		    	android:text="@string/num_picker_down_button"
 		    	android:layout_marginLeft="10dp"
 		    	android:layout_marginRight="10dp"
@@ -137,7 +137,7 @@
         
         <TextView
             android:id="@+id/object_selector_modal_list_one_header"
-            style="@style/alertMainTextNormal"
+            style="@style/alertMainTextNight"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             />
@@ -147,6 +147,7 @@
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_margin="5dp"
+	        android:listSelector="@drawable/list_item_back_state"
 	        />   
         
     </LinearLayout>
@@ -158,19 +159,10 @@
         android:orientation="vertical"
         android:layout_below="@id/object_selector_modal_list_layout_one"
         >
-  
-	    <View
-	        android:id="@+id/coords_line"
-	        android:layout_width="fill_parent"
-	        android:layout_height="1dip"
-	        android:layout_marginTop="3dip"
-	        android:layout_marginBottom="2dip"
-	        android:background="@color/black"
-	        />
         
         <TextView
             android:id="@+id/object_selector_modal_list_two_header"
-            style="@style/alertMainTextNormal"
+            style="@style/alertMainTextNight"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             />
@@ -180,6 +172,7 @@
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_margin="5dp"
+	        android:listSelector="@drawable/list_item_back_state"
 	        />   
         
     </LinearLayout>
@@ -197,21 +190,21 @@
 	    
 	    <Button 
 	    	android:id="@+id/alert_ok_button"
-	    	style="@style/modalSaveCancelButtonNormal"
+	    	style="@style/modalSaveCancelButtonNight"
 	    	android:text="@string/ok"
 	    	android:layout_weight="30"
 	    	/>
 	    
 	    <Button 
 	    	android:id="@+id/alert_cancel_button"
-	    	style="@style/modalSaveCancelButtonNormal"
+	    	style="@style/modalSaveCancelButtonNight"
 	    	android:text="@string/num_picker_cancel_button"
 	    	android:layout_weight="30"
 	    	/>
 	    
 	    <Button 
 	    	android:id="@+id/alert_extra_button"
-	    	style="@style/modalSaveCancelButtonNormal"
+	    	style="@style/modalSaveCancelButtonNight"
 	    	android:layout_weight="30"
 	    	android:visibility="gone"
 	    	/>
