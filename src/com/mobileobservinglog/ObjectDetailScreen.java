@@ -95,9 +95,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	String logDate;
 	String logTime;
 	String logLocation;
-	int telescopeId;
-	int eyepieceId;
-	String equipmentString;
+	String equipment;
 	int seeing;
 	int transparency;
 	boolean favorite;
@@ -106,10 +104,8 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	TreeMap<String, Integer> telescopes;
 	TreeMap<String, Integer> eyepieces;
-	int newTelescopeId;
 	int newEyepieceId;
-	String selectedEyepiece;
-	String selectedTelescope;
+	int newTelescopeId;
 	String selectedLocation;
 	
 	boolean imageZoomed;
@@ -281,25 +277,20 @@ public class ObjectDetailScreen extends ActivityBase{
     	logDate = objectInfo.getString(16);
     	logTime = objectInfo.getString(17);
     	logLocation = objectInfo.getString(18);
-    	telescopeId = objectInfo.getInt(19);
-    	eyepieceId = objectInfo.getInt(20);
-    	seeing = objectInfo.getInt(21);
-    	transparency = objectInfo.getInt(22);
-    	String favoriteString = objectInfo.getString(23);
+    	equipment = objectInfo.getString(19);
+    	seeing = objectInfo.getInt(20);
+    	transparency = objectInfo.getInt(21);
+    	String favoriteString = objectInfo.getString(22);
     	if(favoriteString != null) {
     		favorite = favoriteString.toLowerCase().equals("true");
     	} else {
     		favorite = false;
     	}
-    	//findingMethod = objectInfo.getString(24);
-    	viewingNotes = objectInfo.getString(25);
+    	//findingMethod = objectInfo.getString(23);
+    	viewingNotes = objectInfo.getString(24);
     	
     	objectInfo.close();
     	db.close();
-    	
-    	newTelescopeId = telescopeId;
-    	newEyepieceId = eyepieceId; //Initialize these to match because when we save we are just going to grab the new values. This way the data is maintained if the value is not changed
-    	equipmentString = formatEquipmentString(telescopeId, eyepieceId);
 	}
 	
 	private String formatEquipmentString(int telescopeId, int eyepieceId) {
@@ -466,9 +457,11 @@ public class ObjectDetailScreen extends ActivityBase{
 		
 		locationInput.setInputType(InputType.TYPE_NULL);
 		locationInput.setOnClickListener(locationModal);
+		locationInput.setOnFocusChangeListener(showLetters_focus_LoseFocusOnly);
 		
 		equipmentInput.setInputType(InputType.TYPE_NULL);
 		equipmentInput.setOnClickListener(equipmentModal);
+		equipmentInput.setOnFocusChangeListener(showLetters_focus_LoseFocusOnly);
 		
 		seeingInput.setInputType(InputType.TYPE_NULL);
 		seeingInput.setOnClickListener(seeingModal);
@@ -605,8 +598,8 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(logLocation != null && !logLocation.equals("NULL")) {
 			locationDisplay.setText(logLocation);
 		}
-		if(equipmentString != null && equipmentString.length() > 0) {
-			equipmentDisplay.setText(equipmentString);
+		if(equipment != null && equipment.length() > 0) {
+			equipmentDisplay.setText(equipment);
 		}
 		if(seeing > 0) {
 			seeingDisplay.setText(String.format("%d/%d", seeing, 5));
@@ -644,8 +637,8 @@ public class ObjectDetailScreen extends ActivityBase{
 				locationInput.setText("");
 			}
 		}
-		if(equipmentString != null && equipmentString.length() > 0) {
-			equipmentInput.setText(equipmentString);
+		if(equipment != null && equipment.length() > 0) {
+			equipmentInput.setText(equipment);
 		} else {
 			equipmentInput.setText("");
 		}
@@ -949,9 +942,7 @@ public class ObjectDetailScreen extends ActivityBase{
 						break;
 					}
 				}
-				if(!found) {
-					options.add(new IndividualItem(currentValue, false));
-				} else {
+				if(found) {
 					options.set(index, new IndividualItem(currentValue, true));
 				}
 			}
@@ -970,7 +961,9 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalSave.setVisibility(View.VISIBLE);
 				modalCancel.setOnClickListener(dismissModal);
 				modalCancel.setVisibility(View.VISIBLE);
-				modalClear.setVisibility(View.GONE);
+				modalClear.setOnClickListener(locationTypeManually);
+				modalClear.setText(R.string.type_manually);
+				modalClear.setVisibility(View.VISIBLE);
 			} else {
 				modalHeader.setText("There are no saved locations. Observing Locations can be managed trough the settings screen");
 				modalListOneContainer.setVisibility(View.GONE);
@@ -1029,47 +1022,6 @@ public class ObjectDetailScreen extends ActivityBase{
 			}
 			telescopeCursor.close();
 			db.close();
-
-			String currentValueFull = equipmentInput.getText().toString();
-			if(currentValueFull.length() > 0) {
-				String[] splitOne = currentValueFull.split(" Telescope with ");
-				String currentTelescope = splitOne[0];
-				String[] splitTwo = splitOne[1].split(" Eyepiece");
-				String currentEyepiece = splitTwo[0];
-				boolean found = false;
-				int index = -1;
-				if(!currentEyepiece.contains("(No")){
-					for(int i = 0; i < eyepieceOptions.size(); i++) {
-						if(eyepieceOptions.get(i).getName().equals(currentEyepiece)) {
-							found = true;
-							index = i;
-							break;
-						}
-					}
-					if(!found) {
-						eyepieceOptions.add(new IndividualItem(currentEyepiece, false));
-					} else {
-						eyepieceOptions.set(index, new IndividualItem(currentEyepiece, true));
-					}
-				}
-				
-				found = false;
-				index = -1;
-				if(!currentTelescope.contains("(No Telescope Selected)")) {
-					for(int i = 0; i < telescopeOptions.size(); i++) {
-						if(telescopeOptions.get(i).getName().equals(currentTelescope)) {
-							found = true;
-							index = i;
-							break;
-						}
-					}
-					if(!found) {
-						telescopeOptions.add(new IndividualItem(currentTelescope, false));
-					} else {
-						telescopeOptions.set(index, new IndividualItem(currentTelescope, true));
-					}
-				}
-			}
 			
 			if(eyepieceOptions.size() > 0 || telescopeOptions.size() > 0) {
 				modalHeader.setText("Observing Equipment");
@@ -1105,7 +1057,9 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalSave.setVisibility(View.VISIBLE);
 				modalCancel.setOnClickListener(dismissModal);
 				modalCancel.setVisibility(View.VISIBLE);
-				modalClear.setVisibility(View.GONE);
+				modalClear.setOnClickListener(equipmentTypeManually);
+				modalClear.setText(R.string.type_manually);
+				modalClear.setVisibility(View.VISIBLE);
 			} else {
 				modalHeader.setText("There are no saved telescope or eyepiece options. Equipment can be managed through the settings screen");
 				modalListOneContainer.setVisibility(View.GONE);
@@ -1302,6 +1256,13 @@ public class ObjectDetailScreen extends ActivityBase{
 		}
 	};
 	
+	protected final  Button.OnClickListener locationTypeManually = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			showKeyboardLetters(locationInput);
+		}
+	};
+	
 	protected final Button.OnClickListener saveLocation = new Button.OnClickListener() {
 		public void onClick(View view) {
 			tearDownModal();
@@ -1353,6 +1314,13 @@ public class ObjectDetailScreen extends ActivityBase{
 		}
 	};
 	
+	protected final  Button.OnClickListener equipmentTypeManually = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			showKeyboardLetters(equipmentInput);
+		}
+	};
+	
 	protected final Button.OnClickListener saveEquipment = new Button.OnClickListener() {
 		public void onClick(View view) {
 			tearDownModal();
@@ -1392,6 +1360,14 @@ public class ObjectDetailScreen extends ActivityBase{
 				tearDownKeyboard();
 			}
 			firstFocus = 1;
+		}
+    };
+    
+    protected final EditText.OnFocusChangeListener showLetters_focus_LoseFocusOnly = new EditText.OnFocusChangeListener(){
+    	public void onFocusChange(View view, boolean hasFocus) {
+			if(!hasFocus){
+				tearDownKeyboard();
+			}
 		}
     };
     
@@ -1502,8 +1478,9 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(locationInput.getText() != null && locationInput.getText().length() > 0) {
 			retVal.put("logLocation", locationInput.getText().toString());
 		}
-		retVal.put("telescope", Integer.toString(newTelescopeId));
-		retVal.put("eyepiece", Integer.toString(newEyepieceId));
+		if(equipmentInput.getText() != null && equipmentInput.getText().length() > 0) {
+			retVal.put("equipment", equipmentInput.getText().toString());
+		}
 		if(seeingInput.getText().length() > 0 && !seeingInput.getText().equals("")) {
 			String seeing = seeingInput.getText().toString().split("/")[0];
 			if(Integer.parseInt(seeing) > 0) {

@@ -63,7 +63,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		boolean success = false;
 		
 		SQLiteDatabase db = getWritableDatabase();
-		SQLiteStatement stmt = db.compileStatement("UPDATE objects SET logged = ?, logDate = ?, logTime = ?, logLocation = ?, telescope = ?, eyepiece = ?, " +
+		SQLiteStatement stmt = db.compileStatement("UPDATE objects SET logged = ?, logDate = ?, logTime = ?, logLocation = ?, equipment = ?, " +
 				"seeing = ?, transparency = ?, findingMethod = ?, viewingNotes = ? WHERE _id = ?");
 		stmt.bindString(1, "false");
 		stmt.bindNull(2);
@@ -74,8 +74,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		stmt.bindNull(7);
 		stmt.bindNull(8);
 		stmt.bindNull(9);
-		stmt.bindNull(10);
-		stmt.bindLong(11, id);
+		stmt.bindLong(10, id);
 		
 		db.beginTransaction();
 		try
@@ -108,8 +107,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 	public boolean updateLogData(int id, TreeMap<String, String> values) {
 		//We go to all the work of two for loops so we can only update the data that has been changed.
 		boolean success = false;
-		String[] possibleValues = new String[]{"logged", "logDate", "logTime", "logLocation", "telescope", "eyepiece", 
-				"seeing", "transparency", "findingMethod", "viewingNotes"};				
+		String[] possibleValues = new String[]{"logged", "logDate", "logTime", "logLocation", "equipment", "seeing", "transparency", "findingMethod", "viewingNotes"};				
 		String updateStatement = "UPDATE objects SET ";
 		String innerSet = "";
 		for(int i = 0; i < possibleValues.length; i++) {
@@ -129,7 +127,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 			for(int i = 0; i < possibleValues.length; i++) {
 				String thisValue = possibleValues[i];
 				if(values.get(thisValue) != null) {
-					if(thisValue.equals("seeing") || thisValue.equals("transparency") || thisValue.equals("telescope") || thisValue.equals("eyepiece")){
+					if(thisValue.equals("seeing") || thisValue.equals("transparency")){
 						stmt.bindLong(bindCounter, Long.parseLong(values.get(thisValue)));
 					} else {
 						stmt.bindString(bindCounter, values.get(thisValue));

@@ -161,14 +161,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		{
 			//First, get the values and parse them into individual lines, then parse the values, 
 			//create the sql statement, then execute it
-			String[] settingsLines = parseResourceByLine(availableCatalogs[i]);
+			String[] objectsLines = parseResourceByLine(availableCatalogs[i]);
 			
-			for (int j = 0; j < settingsLines.length; j++)
+			for (int j = 0; j < objectsLines.length; j++)
 			{
-				String[] rowData = parseResourceByDelimiter(settingsLines[j]);
+				String[] rowData = parseResourceByDelimiter(objectsLines[j]);
 				
-				//There are three columns to fill in this table
-				if (rowData.length == 26)
+				if (rowData.length == 25)
 				{
 					Log.d("JoeDebug", "In Loop. rowData.length passed the test");
 					

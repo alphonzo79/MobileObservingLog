@@ -191,6 +191,9 @@
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/ok"
 	    	android:layout_weight="30"
+	        android:paddingLeft="5dp"
+	        android:paddingRight="5dp"
+	    	android:textSize="14dp"
 	    	/>
 	    
 	    <Button 
@@ -198,12 +201,19 @@
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/num_picker_cancel_button"
 	    	android:layout_weight="30"
+	        android:paddingLeft="5dp"
+	        android:paddingRight="5dp"
+	    	android:textSize="14dp"
 	    	/>
 	    
 	    <Button 
 	    	android:id="@+id/alert_extra_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:layout_weight="30"
+	        android:paddingLeft="2dp"
+	        android:paddingRight="2dp"
+	    	android:textSize="14dp"
+	    	android:textScaleX="0.85"
 	    	android:visibility="gone"
 	    	/>
    		
