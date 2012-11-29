@@ -206,11 +206,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		sqlStatement = db.compileStatement("INSERT INTO personalInfo (_id, fullName, address, phone, eMail, localClub) VALUES (?, ?, ?, ?, ?, ?)");
 		sqlStatement.bindString(1, "1");
-		sqlStatement.bindString(2, "Press \"Edit Information\" to change");
-		sqlStatement.bindString(3, "Press \"Edit Information\" to change");
-		sqlStatement.bindString(4, "Press \"Edit Information\" to change");
-		sqlStatement.bindString(5, "Press \"Edit Information\" to change");
-		sqlStatement.bindString(6, "Press \"Edit Information\" to change");
+		sqlStatement.bindString(2, "");
+		sqlStatement.bindString(3, "");
+		sqlStatement.bindString(4, "");
+		sqlStatement.bindString(5, "");
+		sqlStatement.bindString(6, "");
 		
 		sqlStatement.execute();
 		sqlStatement.clearBindings();

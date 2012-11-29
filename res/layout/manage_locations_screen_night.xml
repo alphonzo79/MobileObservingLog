@@ -75,11 +75,11 @@
 		    
 	    <ListView  
 	         android:id="@android:id/list"
+        	 style="@style/listNight"
 	         android:layout_width="fill_parent" 
 	         android:layout_height="fill_parent"
 	         android:layout_below="@id/line"
 	         android:layout_above="@id/add_location_button" 
-	         android:listSelector="@drawable/list_item_back_state"
 	         />
     
     </RelativeLayout>

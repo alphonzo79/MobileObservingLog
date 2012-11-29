@@ -124,11 +124,11 @@
 	    
 	    <ListView  
 	        android:id="@android:id/list"
+	        style="@style/listNight"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_above="@id/buttons_container"
 	        android:layout_below="@id/division"
-        	android:listSelector="@drawable/list_item_back_state"
 	        />
 		    
 	</RelativeLayout>

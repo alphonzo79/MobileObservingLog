@@ -184,7 +184,7 @@ public class ObjectDetailScreen extends ActivityBase{
         super.onCreate(icicle);
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
-        gpsHelper = new GpsUtility(this);
+        gpsHelper = new GpsUtility(getApplicationContext());
 		
 		firstFocus = -1;
         firstClick = 1;
@@ -219,6 +219,8 @@ public class ObjectDetailScreen extends ActivityBase{
 	public void setLayout(){
 		setContentView(settingsRef.getObjectDetailLayout());
 		super.setLayout();
+		
+		gpsHelper.setUpLocationService();
         
         setObjectData();
         findDisplayElements();
@@ -232,7 +234,6 @@ public class ObjectDetailScreen extends ActivityBase{
         }
          
         findModalElements();
-		gpsHelper.setUpLocationService();
         imageZoomed = false;
 
 		setMargins_noKeyboard();
@@ -628,7 +629,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(logLocation != null && !logLocation.equals("NULL") && !logLocation.equals("")) {
 			locationInput.setText(logLocation);
 		} else {
-			if(settingsRef.getPersistentSetting(SettingsContainer.USE_GPS, this).equals(R.string.use_gps_yes)) {
+			if(settingsRef.getPersistentSetting(SettingsContainer.USE_GPS, this).equals(getString(R.string.use_gps_yes))) {
 				locationFromDevice = gpsHelper.getLocation();
 				if(locationFromDevice != null) {
 					locationInput.setText(gpsHelper.getString(locationFromDevice));
@@ -1259,6 +1260,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	protected final  Button.OnClickListener locationTypeManually = new Button.OnClickListener() {
 		public void onClick(View view) {
 			tearDownModal();
+			locationInput.setText("");
 			showKeyboardLetters(locationInput);
 		}
 	};
@@ -1317,6 +1319,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	protected final  Button.OnClickListener equipmentTypeManually = new Button.OnClickListener() {
 		public void onClick(View view) {
 			tearDownModal();
+			equipmentInput.setText("");
 			showKeyboardLetters(equipmentInput);
 		}
 	};

@@ -114,5 +114,5 @@
     <string name="view_notes_label">Viewing Notes: </string>
     <string name="n_a">N/A</string>
     <string name="press_to_enter">Press To Enter</string>
-    <string name="type_manually">Type Manually</string>
+    <string name="type_manually">Custom</string>
 </resources>

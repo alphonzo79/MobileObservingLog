@@ -640,7 +640,7 @@
         />
     
     <include android:id="@+id/keyboard_root" 
-        layout="@layout/keyboard_layout_normal"
+        layout="@layout/keyboard_layout_night"
         android:layout_gravity="bottom"
         />
 	

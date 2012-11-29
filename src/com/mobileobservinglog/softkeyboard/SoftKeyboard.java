@@ -643,156 +643,182 @@ public class SoftKeyboard{
 	protected final Button.OnClickListener inputUpperQ = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('Q');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperW = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('W');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperE = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('E');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperR = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('R');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperT = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('T');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperY = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('Y');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperU = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('U');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperI = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('I');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperO = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('O');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperP = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('P');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperA = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('A');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperS = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('S');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperD = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('D');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperF = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('F');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperG = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('G');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperH = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('H');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperJ = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('J');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperK = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('K');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperL = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('L');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperZ = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('Z');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperX = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('X');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperC = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('C');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperV = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('V');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperB = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('B');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperN = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('N');
+    	    ucShift.performClick();
     	}
     };
 	
 	protected final Button.OnClickListener inputUpperM = new Button.OnClickListener(){
     	public void onClick(View view){
     		insertText('M');
+    	    ucShift.performClick();
     	}
     };
 	

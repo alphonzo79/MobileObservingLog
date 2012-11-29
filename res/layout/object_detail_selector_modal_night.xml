@@ -144,10 +144,10 @@
 	    
 	    <ListView  
 	        android:id="@+id/modal_list_one"
+	        style="@style/listNight"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_margin="5dp"
-	        android:listSelector="@drawable/list_item_back_state"
 	        />   
         
     </LinearLayout>
@@ -169,10 +169,10 @@
 	    
 	    <ListView  
 	        android:id="@+id/modal_list_two"
+	        style="@style/listNight"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_margin="5dp"
-	        android:listSelector="@drawable/list_item_back_state"
 	        />   
         
     </LinearLayout>

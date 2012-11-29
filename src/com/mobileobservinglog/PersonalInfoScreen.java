@@ -106,11 +106,31 @@ public class PersonalInfoScreen extends ActivityBase {
 		emailText = personalInfo.getString(4);
 		clubText = personalInfo.getString(5);
 		
-		fullNameField.setText(nameText);
-		addressField.setText(addressText);
-		phoneField.setText(phoneText);
-		emailField.setText(emailText);
-		clubField.setText(clubText);
+		if(!nameText.equals("")) {
+			fullNameField.setText(nameText);
+		} else {
+			fullNameField.setText("Press \"Edit Information\" to change");
+		}
+		if(!addressText.equals("")) {
+			addressField.setText(addressText);
+		} else {
+			addressField.setText("Press \"Edit Information\" to change");
+		}
+		if(!phoneText.equals("")) {
+			phoneField.setText(phoneText);
+		} else {
+			phoneField.setText("Press \"Edit Information\" to change");
+		}
+		if(!emailText.equals("")) {
+			emailField.setText(emailText);
+		} else {
+			emailField.setText("Press \"Edit Information\" to change");
+		}
+		if(!clubText.equals("")) {
+			clubField.setText(clubText);
+		} else {
+			clubField.setText("Press \"Edit Information\" to change");
+		}
 	}
     
     protected final Button.OnClickListener editPersonalInfo = new Button.OnClickListener() {

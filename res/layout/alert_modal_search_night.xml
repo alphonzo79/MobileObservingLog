@@ -62,12 +62,12 @@
 	    
     <ListView  
         android:id="@+id/modal_list"
+        style="@style/listNight"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:layout_above="@id/save_cancel_container"
         android:layout_below="@id/alert_main_text"
         android:layout_margin="5dp"
-       	android:listSelector="@drawable/list_item_back_state"
         />
     
 </RelativeLayout>
