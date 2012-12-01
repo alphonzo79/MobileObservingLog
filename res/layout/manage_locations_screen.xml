@@ -61,14 +61,7 @@
 	    
 	    <TextView 
 	        android:id="@+id/nothing_here"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:visibility="gone"
-	        android:textSize="14dp"
-	        android:paddingTop="25dp"
-	        android:paddingLeft="15dp"
-	        android:paddingRight="15dp"
-	        android:textColor="@color/black"
+	        style="@style/nothing_here_text_normal"
 	        android:layout_below="@id/line"
 	        />
 		    

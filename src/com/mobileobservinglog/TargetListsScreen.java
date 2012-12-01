@@ -10,16 +10,22 @@
 
 package com.mobileobservinglog;
 
+import java.util.ArrayList;
+
 import com.mobileobservinglog.R;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class TargetListsScreen extends ActivityBase{
 
 	//gather resources
-	LinearLayout body;
+	FrameLayout body;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -30,7 +36,7 @@ public class TargetListsScreen extends ActivityBase{
 		
         //setup the layout
         setContentView(settingsRef.getTargetListsLayout());
-        body = (LinearLayout)findViewById(R.id.targets_root); 
+        body = (FrameLayout)findViewById(R.id.targets_root); 
 	}
 	
 	@Override
@@ -53,10 +59,29 @@ public class TargetListsScreen extends ActivityBase{
 	
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
-	public void setLayout(){
+	public void setLayout() {
 		Log.d("JoeDebug", "TargetLists onCreate. Layout is " + settingsRef.getTargetListsLayout());
 		setContentView(settingsRef.getTargetListsLayout());
 		super.setLayout();
+		
+		prepareListView();
+		
 		body.postInvalidate();
+	}
+	
+	private void prepareListView() {
+		String newLine = System.getProperty("line.separator");
+		ArrayList<String> listValues = new ArrayList<String>();
+		for(int i = 0; i < 15; i++) {
+			listValues.add("List Name Title " + i + " -- 10 Objects" + newLine + "This is a description and should be on the second line");
+		}
+		
+		if(listValues.size() > 0) {
+			
+			setListAdapter(new ArrayAdapter<String>(this, settingsRef.getSettingsListLayout(), listValues));
+		} else { 
+			TextView nothingHere = (TextView)findViewById(R.id.nothing_here);
+			nothingHere.setVisibility(View.VISIBLE);
+		}
 	}
 }

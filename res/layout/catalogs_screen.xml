@@ -35,8 +35,7 @@
 	        android:layout_gravity="bottom|center_horizontal"
 	        android:paddingLeft="20dp"
 	        android:paddingRight="20dp"
-	        android:text="Search Objects"
-	        android:layout_alignParentBottom="true"	      
+	        android:text="Search Objects"      
 	        />
 	    
     </LinearLayout>
@@ -51,16 +50,8 @@
     
     <TextView 
 	    android:id="@+id/nothing_here"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
 	    android:text="@string/no_installed_catalogs"
-	    android:gravity="center_horizontal"
-	    android:layout_below="@id/catalogs_header"
-        android:textSize="14dp"
-        android:paddingTop="25dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/black"
+        style="@style/nothing_here_text_normal"
         android:visibility="gone"
 	    />
 	    

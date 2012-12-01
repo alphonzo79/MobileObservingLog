@@ -115,4 +115,6 @@
     <string name="n_a">N/A</string>
     <string name="press_to_enter">Press To Enter</string>
     <string name="type_manually">Custom</string>
+    <string name="add_target_list">Add Target List</string>
+    <string name="no_target_lists_saved">No target lists have been created. Press the button below to create one.</string>
 </resources>
