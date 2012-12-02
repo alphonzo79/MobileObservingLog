@@ -222,9 +222,6 @@ public class ObjectIndexScreen extends ActivityBase {
 		}
 	}
 	
-	/**
-	 * Take action on each of the list items when clicked. We need to let the user edit or remove their equipment profile
-	 */
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id)
 	{

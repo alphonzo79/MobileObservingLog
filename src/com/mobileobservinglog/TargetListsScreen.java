@@ -13,19 +13,30 @@ package com.mobileobservinglog;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.ObjectIndexScreen.ObjectWrapper;
+import com.mobileobservinglog.ObjectIndexScreen.ObservableObject;
+import com.mobileobservinglog.support.database.TargetListsDAO;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class TargetListsScreen extends ActivityBase{
 
 	//gather resources
 	FrameLayout body;
+	ArrayList<TargetListContainer> listValues;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -70,18 +81,132 @@ public class TargetListsScreen extends ActivityBase{
 	}
 	
 	private void prepareListView() {
-		String newLine = System.getProperty("line.separator");
-		ArrayList<String> listValues = new ArrayList<String>();
-		for(int i = 0; i < 15; i++) {
-			listValues.add("List Name Title " + i + " -- 10 Objects" + newLine + "This is a description and should be on the second line");
+		listValues = new ArrayList<TargetListContainer>();
+		TargetListsDAO db = new TargetListsDAO(getApplicationContext());
+		Cursor lists = db.getAllTargetLists();
+		lists.moveToFirst();
+		if(lists.getCount() > 0) {
+			do{
+				int id = lists.getInt(0);
+				String listName = lists.getString(1);
+				String description = lists.getString(2);
+				Cursor count = db.getTargetListCount(listName);
+				count.moveToFirst();
+				int itemCount = count.getInt(0);
+				count.close();
+				listValues.add(new TargetListContainer(listName, description, itemCount, id));
+			} while (lists.moveToNext());
 		}
+		lists.close();
+		db.close();
 		
 		if(listValues.size() > 0) {
-			
-			setListAdapter(new ArrayAdapter<String>(this, settingsRef.getSettingsListLayout(), listValues));
+			setListAdapter(new TargetListAdapter(this, settingsRef.getTargetListsIndexList(), listValues));
 		} else { 
 			TextView nothingHere = (TextView)findViewById(R.id.nothing_here);
 			nothingHere.setVisibility(View.VISIBLE);
+		}
+	}
+    
+//    private final Button.OnClickListener clearFilter = new Button.OnClickListener() {
+//    	public void onClick(View view){
+//    		filter.resetFilter();
+//    		setLayout();
+//        }
+//    };
+	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id)
+	{
+		String listName = listValues.get(position).name;
+		Intent intent = new Intent(this.getApplication(), ObjectIndexScreen.class);
+		intent.putExtra("com.mobileobservationlog.indexType", "targetList");
+		intent.putExtra("com.mobileobservationlog.listName", listName);
+        startActivity(intent);
+	}
+    
+    ///////////////////////////////////////////
+    // Target Lists List Inflation Utilities //
+    ///////////////////////////////////////////
+	
+	static class TargetListContainer{
+		String name;
+		int count;
+		String description;
+		int id;
+		
+		TargetListContainer(String listName, String description, int count, int id){
+			name = listName;
+			this.description = description;
+			this.count = count;
+			this.id = id;
+		}		
+	}
+	
+	class TargetListAdapter extends ArrayAdapter<TargetListContainer>{
+		
+		int listLayout;
+		
+		TargetListAdapter(Context context, int listLayout, ArrayList<TargetListContainer> list){
+			super(context, listLayout, R.id.target_list_name, list);
+			this.listLayout = listLayout;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent){
+			TargetListWrapper wrapper = null;
+			
+			if (convertView == null){
+				convertView = getLayoutInflater().inflate(listLayout, null);
+				wrapper = new TargetListWrapper(convertView);
+				convertView.setTag(wrapper);
+			}
+			else{
+				wrapper = (TargetListWrapper)convertView.getTag();
+			}
+			
+			wrapper.populateFrom(getItem(position));
+			
+			return convertView;
+		}
+	}
+	
+	class TargetListWrapper{
+		
+		private TextView name = null;
+		private TextView specs = null;
+		private TextView description = null;
+		private View row = null;
+		
+		TargetListWrapper(View row){
+			this.row = row;
+		}
+		
+		TextView getName(){
+			if (name == null){
+				name = (TextView)row.findViewById(R.id.target_list_name);
+			}
+			return name;
+		}
+		
+		TextView getSpecs(){
+			if (specs == null){
+				specs = (TextView)row.findViewById(R.id.target_list_item_count);
+			}
+			return specs;
+		}
+		
+		TextView getDescription(){
+			if (description == null){
+				description = (TextView)row.findViewById(R.id.target_list_description);
+			}
+			return description;
+		}
+		
+		void populateFrom(TargetListContainer list){
+			getName().setText(list.name);
+			getSpecs().setText(String.format("%d Objects", list.count));
+			getDescription().setText(list.description);
 		}
 	}
 }
