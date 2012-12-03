@@ -42,6 +42,15 @@ public class TargetListsDAO extends DatabaseHelper {
 		return rs;
 	}
 	
+	public Cursor getListsByObject(String objectDesignation) {
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT list FROM targetListItems WHERE objectDesignation = ?";
+		Cursor rs = db.rawQuery(sql, new String[]{objectDesignation});
+		rs.moveToFirst();
+		db.close();
+		return rs;
+	}
+	
 	public Cursor getTargetListCount(String listName) {
 		SQLiteDatabase db = getReadableDatabase();
 		String stmt = "SELECT count(*) FROM targetListItems WHERE list = ?";

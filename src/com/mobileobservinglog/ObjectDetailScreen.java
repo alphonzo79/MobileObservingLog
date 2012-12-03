@@ -61,6 +61,7 @@ import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 import com.mobileobservinglog.support.database.EquipmentDAO;
 import com.mobileobservinglog.support.database.LocationsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
+import com.mobileobservinglog.support.database.TargetListsDAO;
 
 public class ObjectDetailScreen extends ActivityBase{
 
@@ -177,6 +178,9 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	GpsUtility gpsHelper;
 	Location locationFromDevice;
+	
+	ArrayList<IndividualItem> targetLists; 
+	ArrayList<String> originalLists;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -479,7 +483,7 @@ public class ObjectDetailScreen extends ActivityBase{
 		chart.setOnClickListener(zoomOnChart);
 		
 		addToList = (Button)findViewById(R.id.add_to_list_button);
-		//TODO add listener
+		addToList.setOnClickListener(listsModal);
 		
 		favoriteStar.setOnClickListener(changeFavorite);
 	}
@@ -811,6 +815,103 @@ public class ObjectDetailScreen extends ActivityBase{
 	protected final Button.OnClickListener dismissModal = new Button.OnClickListener() {
 		public void onClick(View view) {
 			tearDownModal();
+		}
+	};
+	
+	protected final View.OnClickListener listsModal = new View.OnClickListener() {
+		public void onClick(View view) {
+			prepForModal();
+			
+			targetLists = new ArrayList<IndividualItem>();
+			
+			TargetListsDAO db = new TargetListsDAO(ObjectDetailScreen.this);
+			Cursor lists = db.getAllTargetLists();
+			Cursor alreadySet = db.getListsByObject(objectName);
+			alreadySet.moveToFirst();
+			originalLists = new ArrayList<String>();
+			if(alreadySet.getCount() > 0) {
+				do {
+					originalLists.add(alreadySet.getString(0));
+				} 
+				while(alreadySet.moveToNext());
+			}
+			int count = lists.getCount();
+			if(count > 0) {
+				lists.moveToFirst();
+				for(int i = 0; i < count; i++) {
+					String name = lists.getString(1);
+					boolean set = originalLists.contains(name);
+					targetLists.add(new IndividualItem(name, set));
+					lists.moveToNext();
+				}
+			}
+			lists.close();
+			db.close();
+			
+			if(targetLists.size() > 0) {
+				modalHeader.setText("TargetLists");
+				modalListOneContainer.setVisibility(View.VISIBLE);
+				modalListHeaderOne.setVisibility(View.GONE);
+		        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), targetLists));
+		        modalListOne.setOnItemClickListener(listSelected);
+				
+				modalSelectorsLayout.setVisibility(View.GONE);
+				modalListTwoContainer.setVisibility(View.GONE);
+				
+				modalSave.setOnClickListener(saveToList);
+				modalSave.setVisibility(View.VISIBLE);
+				modalCancel.setOnClickListener(dismissModal);
+				modalCancel.setVisibility(View.VISIBLE);
+				modalClear.setVisibility(View.GONE);
+			} else {
+				modalHeader.setText("There are no target lists created yet. Target lists may be managed through the home screen");
+				modalListOneContainer.setVisibility(View.GONE);
+				modalSelectorsLayout.setVisibility(View.GONE);
+				modalListTwoContainer.setVisibility(View.GONE);
+				
+				modalSave.setOnClickListener(dismissModal);
+				modalSave.setVisibility(View.VISIBLE);
+				modalCancel.setVisibility(View.GONE);
+				modalClear.setVisibility(View.GONE);
+			}
+		}
+	};
+	
+	protected final AdapterView.OnItemClickListener listSelected = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+			IndividualItem option = (IndividualItem)adapter.getItemAtPosition(position);
+			boolean newValue = !option.getSelected();
+			String name = option.getName();
+			int index = targetLists.indexOf(name); //TODO This needs to be fixed
+			targetLists.get(index).selected = newValue;
+			
+			ImageView checked = (ImageView) view.findViewById(R.id.checkbox);
+			if(newValue) {
+				checked.setImageResource(settingsRef.getCheckbox_Selected());
+			} else {
+				checked.setImageResource(settingsRef.getCheckbox_Unselected());
+			}
+		}
+	};
+	
+	private final Button.OnClickListener saveToList = new Button.OnClickListener() {
+		public void onClick(View view) {
+			TargetListsDAO db = new TargetListsDAO(getApplicationContext());
+			boolean success = false;
+			for(IndividualItem item : targetLists) {
+				if(item.selected && !originalLists.contains(item.optionText)) {
+					if(db.addItemToList(item.optionText, objectName)) {
+						success = true;
+					}
+				}
+			}
+			if(!success) {
+				modalHeader.setText("There was an error saving the object to the selected list(s)");
+				modalSave.setVisibility(View.GONE);
+				modalCancel.setOnClickListener(dismissModal);
+				modalCancel.setVisibility(View.VISIBLE);
+				modalClear.setVisibility(View.GONE);
+			}
 		}
 	};
 	
