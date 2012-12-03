@@ -19,12 +19,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mobileobservinglog.objectSearch.FilterBasicStrategy;
@@ -48,6 +50,14 @@ public class ObjectIndexScreen extends ActivityBase {
 	String catalogName;
 	String listName;
 	ObjectIndexFilter filter;
+	
+	RelativeLayout modalMain;
+	TextView modalHeader;
+	Button modalSave;
+	Button modalCancel;
+	Button modalExtra;
+	
+	String selectedItemName;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -91,6 +101,7 @@ public class ObjectIndexScreen extends ActivityBase {
 		listName = this.getIntent().getStringExtra("com.mobileobservationlog.listName");
 		findButtonsAddListener();
 		setHeader();
+		findModalElements();
 		prepareListView();
 		body.postInvalidate();
 	}
@@ -100,6 +111,14 @@ public class ObjectIndexScreen extends ActivityBase {
 		clearButton.setOnClickListener(clearFilter);
 		refineButton = (Button)findViewById(R.id.refine_filter);
 		refineButton.setOnClickListener(refineFilter);
+	}
+	
+	private void findModalElements() {
+		modalMain = (RelativeLayout)findViewById(R.id.alert_modal);
+		modalHeader = (TextView)findViewById(R.id.alert_main_text);
+		modalSave = (Button)findViewById(R.id.alert_ok_button);
+		modalCancel = (Button)findViewById(R.id.alert_cancel_button);
+		modalExtra = (Button)findViewById(R.id.alert_extra_button);
 	}
     
     private final Button.OnClickListener clearFilter = new Button.OnClickListener() {
@@ -231,6 +250,9 @@ public class ObjectIndexScreen extends ActivityBase {
 		else{
 			Log.d("JoeTest", "List size is " + objectList.size());
 			setListAdapter(new ObjectAdapter(this, settingsRef.getObjectIndexListLayout(), objectList));
+			if(indexType != null && indexType.equals("targetList")) {
+				getListView().setOnItemLongClickListener(removeItemFromList);
+			}
 		}
 	}
 	
@@ -241,6 +263,76 @@ public class ObjectIndexScreen extends ActivityBase {
 		Intent intent = new Intent(this.getApplication(), ObjectDetailScreen.class);
 		intent.putExtra("com.mobileobservationlog.objectName", objectName);
         startActivity(intent);
+	}
+	
+	private final AdapterView.OnItemLongClickListener removeItemFromList = new AdapterView.OnItemLongClickListener() {
+		public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+			prepForModal();
+			selectedItemName = objectList.get(position).name;
+			modalHeader.setText(String.format("Remove %s from target list %s?", selectedItemName, listName));
+			modalHeader.setVisibility(View.VISIBLE);
+			modalMain.setVisibility(View.VISIBLE);
+			modalSave.setText("Remove");
+			modalSave.setOnClickListener(removeFromList);
+			modalSave.setVisibility(View.VISIBLE);
+			modalSave.setTextSize(14);
+			modalCancel.setText("Cancel");
+			modalCancel.setOnClickListener(cancelRemove);
+			modalCancel.setVisibility(View.VISIBLE);
+			modalCancel.setTextSize(14);
+			modalExtra.setVisibility(View.GONE);
+			return false;
+		}
+	};
+	
+	private final Button.OnClickListener removeFromList = new Button.OnClickListener() {
+		public void onClick(View view) {
+			TargetListsDAO db = new TargetListsDAO(getApplicationContext());
+			if(db.removeObjectFromList(listName, selectedItemName)) {
+				tearDownModal();
+				setLayout();
+			} else {
+				modalHeader.setText("There was a problem removing the object. Please try again.");
+				modalSave.setText("Ok");
+				modalSave.setOnClickListener(cancelRemove);
+				modalCancel.setVisibility(View.GONE);
+				modalExtra.setVisibility(View.GONE);
+			}
+		}
+	};
+	
+	private final Button.OnClickListener cancelRemove = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+		}
+	};
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	private void prepForModal() {
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_index_main);
+		ListView list = getListView();
+		
+		mainBackLayer.setEnabled(false);
+		list.setEnabled(false);
+		clearButton.setEnabled(false);
+		refineButton.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);		
+	}
+	
+	private void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.object_index_main);
+		ListView list = getListView();
+		
+		mainBackLayer.setEnabled(true);
+		list.setEnabled(true);
+		clearButton.setEnabled(true);
+		refineButton.setEnabled(true);
+		blackOutLayer.setVisibility(View.GONE);
+		modalMain.setVisibility(View.GONE);
 	}
     
     //////////////////////////////////////

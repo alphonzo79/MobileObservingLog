@@ -112,7 +112,7 @@
     	/>
     
     <include android:id="@+id/alert_modal"
-        layout="@layout/alert_modal"
+        layout="@layout/alert_modal_night"
         android:layout_gravity="center|center"
         />
 	

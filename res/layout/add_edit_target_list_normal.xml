@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/layoutRootNormal"
+    android:id="@+id/edit_location_root"
+    >
+    
+    <ScrollView 
+        android:id="@+id/scroll_fields_view"
+        android:fillViewport="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbarStyle="insideOverlay"
+        >
+    
+	    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    	android:id="@+id/add_location_main"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	>
+	    
+			<TextView  
+			    style="@style/headerBarNormal" 
+			    android:id="@+id/add_location_header"
+			    android:text="@string/app_name"
+			    />
+			    
+		    <ListView  
+		         android:id="@android:id/list"
+		         android:layout_width="fill_parent" 
+		         android:layout_height="wrap_content" 
+		         android:layout_below="@id/add_location_header"
+		         />
+		    
+		    <TextView
+		        style="@style/formScreenHeaderNormal"
+		        android:id="@+id/edit_header"
+		        android:text="@string/add_edit_location"
+		        android:layout_below="@id/add_location_header"
+		        />
+		    
+		    <LinearLayout
+		        android:id="@+id/name_layout"
+		        android:orientation="vertical"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/edit_header"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNormal"
+			        android:text="@string/location_title_label"
+			        android:layout_gravity="left"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNormal"
+			        android:id="@+id/location_title"
+			        android:maxLines="1"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="3dp"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/coordinates_layout"
+		        android:orientation="vertical"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/name_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNormal"
+			        android:text="@string/location_coordinates_label"
+			        android:layout_gravity="left"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNormal"
+			        android:id="@+id/location_coordinates"
+			        android:maxLines="1"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="3dp"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/description_layout"
+		        android:orientation="vertical"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingTop="5dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dp"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/coordinates_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNormal"
+			        android:text="@string/location_description_label"
+			        android:layout_gravity="left"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNormal"
+			        android:id="@+id/location_description_text_field"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="3dp"
+			        android:gravity="top|left"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:orientation="horizontal"
+		        android:paddingLeft="14dp"
+		        android:paddingRight="14dp"
+		        android:paddingBottom="14dp"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="fill_parent" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="5dp"
+		        android:layout_below="@id/description_layout"
+		        android:gravity="bottom"
+		        >
+			    
+			    <Button 
+			        android:id="@+id/location_save"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginRight="6dp"
+			        android:text="Save"	      
+			        />
+			    
+			    <Button 
+			        android:id="@+id/location_cancel"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginLeft="6dp"
+			        android:text="Cancel"	       
+			        />
+			        
+		    </LinearLayout>
+		    
+	    </RelativeLayout>
+	    
+    </ScrollView>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal"
+        android:layout_gravity="center|center"
+        />
+    
+    <include android:id="@+id/keyboard_root" 
+        layout="@layout/keyboard_layout_normal"
+        android:layout_gravity="bottom"
+        />
+	    
+</FrameLayout>
