@@ -61,6 +61,7 @@
 	        android:id="@+id/nothing_here"
 	    	style="@style/nothing_here_text_night"
 	        android:text="@string/no_target_lists_saved"
+	        android:layout_margin="25dp"
 	        />
         
     </RelativeLayout>

@@ -131,11 +131,6 @@ public class TargetListsScreen extends ActivityBase{
 		lists.close();
 		db.close();
 		
-		listValues = new ArrayList<TargetListContainer>();
-		for(int i = 0; i < 5; i++) {
-			listValues.add(new TargetListContainer("List Number " + i, "Description", i * 3, i));
-		}
-		
 		if(listValues.size() > 0) {
 			setListAdapter(new TargetListAdapter(this, settingsRef.getTargetListsIndexList(), listValues));
 			getListView().setOnItemLongClickListener(editDeleteList);
@@ -184,8 +179,9 @@ public class TargetListsScreen extends ActivityBase{
     	public void onClick(View view) {
     		TargetListsDAO db = new TargetListsDAO(getApplicationContext());
     		if(db.deleteList(selectedListId, selectedListName)) {
-        		tearDownModal();
-    			setLayout();
+        		Intent intent = new Intent(TargetListsScreen.this, TargetListsScreen.class);
+        		startActivity(intent);
+        		TargetListsScreen.this.finish();
     		} else {
     			modalHeaderText.setText("There was a problem deleting the list. Please try again");
     			modalSave.setVisibility(View.GONE);

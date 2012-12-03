@@ -164,6 +164,14 @@ public final class SettingsContainer {
 		mTargetListsIndexList = layout;
 	}
 	
+	private int mAddEditTargetListLayout;
+	public int getAddEditTargetListLayout() {
+		return mAddEditTargetListLayout;
+	}
+	private void setAddEditTargetListLayout(int layout) {
+		mAddEditTargetListLayout = layout;
+	}
+	
 	private int mBackupRestoreLayout;
 	public int getBackupRestoreLayout(){
 		return mBackupRestoreLayout;
@@ -449,6 +457,7 @@ public final class SettingsContainer {
 		setSettingsListLayout(R.layout.settings_list_night);
 		setTargetListsLayout(R.layout.target_lists_screen_night);
 		setTargetListsIndexList(R.layout.target_list_index_list_night);
+		setAddEditTargetListLayout(R.layout.add_edit_target_list_night);
 		setBackupRestoreLayout(R.layout.backup_restore_screen_night);
 		setManageEquipmentLayout(R.layout.manage_equipment_screen_night);
 		setTelescopeTabLayout(R.layout.telescope_tab_night);
@@ -494,6 +503,7 @@ public final class SettingsContainer {
 		setSettingsListLayout(R.layout.settings_list_normal);
 		setTargetListsLayout(R.layout.target_lists_screen);
 		setTargetListsIndexList(R.layout.target_list_index_list_normal);
+		setAddEditTargetListLayout(R.layout.add_edit_target_list_normal);
 		setBackupRestoreLayout(R.layout.backup_restore_screen);
 		setManageEquipmentLayout(R.layout.manage_equipment_screen);
 		setTelescopeTabLayout(R.layout.telescope_tab_normal);

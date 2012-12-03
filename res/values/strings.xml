@@ -117,4 +117,8 @@
     <string name="type_manually">Custom</string>
     <string name="add_target_list">Add Target List</string>
     <string name="no_target_lists_saved">No target lists have been created. Press the button below to create one.</string>
+    <string name="add_edit_list_header">Add/Edit Target List</string>
+    <string name="list_title_label">Target List Name:</string>
+    <string name="list_description_label">Target List Brief Description:</string>
+    <string name="save">Save</string>
 </resources>

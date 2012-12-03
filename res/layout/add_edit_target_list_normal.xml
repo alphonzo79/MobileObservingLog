@@ -9,7 +9,7 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/layoutRootNormal"
-    android:id="@+id/edit_location_root"
+    android:id="@+id/edit_target_list_root"
     >
     
     <ScrollView 
@@ -21,14 +21,14 @@
         >
     
 	    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    	android:id="@+id/add_location_main"
+	    	android:id="@+id/add_list_main"
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="wrap_content"
 	    	>
 	    
 			<TextView  
 			    style="@style/headerBarNormal" 
-			    android:id="@+id/add_location_header"
+			    android:id="@+id/add_list_header"
 			    android:text="@string/app_name"
 			    />
 			    
@@ -36,14 +36,14 @@
 		         android:id="@android:id/list"
 		         android:layout_width="fill_parent" 
 		         android:layout_height="wrap_content" 
-		         android:layout_below="@id/add_location_header"
+		         android:layout_below="@id/add_list_header"
 		         />
 		    
 		    <TextView
 		        style="@style/formScreenHeaderNormal"
 		        android:id="@+id/edit_header"
-		        android:text="@string/add_edit_location"
-		        android:layout_below="@id/add_location_header"
+		        android:text="@string/add_edit_list_header"
+		        android:layout_below="@id/add_list_header"
 		        />
 		    
 		    <LinearLayout
@@ -62,44 +62,13 @@
 		    
 			    <TextView
 			        style="@style/formScreenLabelNormal"
-			        android:text="@string/location_title_label"
+			        android:text="@string/list_title_label"
 			        android:layout_gravity="left"
 			        />
 			    
 			    <EditText 
 			        style="@style/formScreenTextFieldNormal"
-			        android:id="@+id/location_title"
-			        android:maxLines="1"
-			        android:layout_width="fill_parent" 
-			        android:layout_height="wrap_content"
-			        android:layout_marginTop="3dp"
-			        />
-		        
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:id="@+id/coordinates_layout"
-		        android:orientation="vertical"
-		        android:paddingLeft="14dp"
-		        android:paddingRight="14dp"
-		        android:paddingTop="5dp"
-		        android:layout_width="fill_parent" 
-		        android:layout_height="wrap_content" 
-		        android:layout_gravity="center"
-		        android:layout_marginTop="10dp"
-		        android:gravity="center_horizontal"
-		        android:layout_below="@id/name_layout"
-		        >
-		    
-			    <TextView
-			        style="@style/formScreenLabelNormal"
-			        android:text="@string/location_coordinates_label"
-			        android:layout_gravity="left"
-			        />
-			    
-			    <EditText 
-			        style="@style/formScreenTextFieldNormal"
-			        android:id="@+id/location_coordinates"
+			        android:id="@+id/list_title"
 			        android:maxLines="1"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content"
@@ -119,18 +88,18 @@
 		        android:layout_gravity="center"
 		        android:layout_marginTop="10dp"
 		        android:gravity="center_horizontal"
-		        android:layout_below="@id/coordinates_layout"
+		        android:layout_below="@id/name_layout"
 		        >
 		    
 			    <TextView
 			        style="@style/formScreenLabelNormal"
-			        android:text="@string/location_description_label"
+			        android:text="@string/list_description_label"
 			        android:layout_gravity="left"
 			        />
 			    
 			    <EditText 
 			        style="@style/formScreenTextFieldNormal"
-			        android:id="@+id/location_description_text_field"
+			        android:id="@+id/list_description_text_field"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content"
 			        android:layout_marginTop="3dp"
@@ -153,21 +122,21 @@
 		        >
 			    
 			    <Button 
-			        android:id="@+id/location_save"
+			        android:id="@+id/list_save"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="33"
 			        android:layout_marginRight="6dp"
-			        android:text="Save"	      
+			        android:text="@string/save"	      
 			        />
 			    
 			    <Button 
-			        android:id="@+id/location_cancel"
+			        android:id="@+id/list_cancel"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="33"
 			        android:layout_marginLeft="6dp"
-			        android:text="Cancel"	       
+			        android:text="@string/cancel"	       
 			        />
 			        
 		    </LinearLayout>

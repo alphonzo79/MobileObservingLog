@@ -33,6 +33,15 @@ public class TargetListsDAO extends DatabaseHelper {
 		return rs;
 	}
 	
+	public Cursor getTargetList(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT _id, listName, listDescription FROM targetLists";
+		Cursor rs = db.rawQuery(sql, null);
+		rs.moveToFirst();
+		db.close();
+		return rs;
+	}
+	
 	public Cursor getTargetListCount(String listName) {
 		SQLiteDatabase db = getReadableDatabase();
 		String stmt = "SELECT count(*) FROM targetListItems WHERE list = ?";
