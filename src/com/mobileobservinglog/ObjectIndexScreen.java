@@ -33,6 +33,7 @@ import com.mobileobservinglog.objectSearch.StringSearchFilter;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
+import com.mobileobservinglog.support.database.TargetListsDAO;
 
 public class ObjectIndexScreen extends ActivityBase {
 	//gather resources
@@ -87,6 +88,7 @@ public class ObjectIndexScreen extends ActivityBase {
 		super.setLayout();
 		indexType = this.getIntent().getStringExtra("com.mobileobservationlog.indexType");
 		catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
+		listName = this.getIntent().getStringExtra("com.mobileobservationlog.listName");
 		findButtonsAddListener();
 		setHeader();
 		prepareListView();
@@ -103,6 +105,10 @@ public class ObjectIndexScreen extends ActivityBase {
     private final Button.OnClickListener clearFilter = new Button.OnClickListener() {
     	public void onClick(View view){
     		filter.resetFilter();
+    		if(catalogName != null) {
+    			ObjectIndexScreen.this.getIntent().putExtra("com.mobileobservationlog.indexType", "catalog");
+    			ObjectIndexScreen.this.getIntent().putExtra("com.mobileobservationlog.catalogName", catalogName);//retain the catalog when clearing search
+    		}
     		setLayout();
         }
     };
@@ -183,7 +189,8 @@ public class ObjectIndexScreen extends ActivityBase {
 	    		objects = db.getUnfilteredObjectList_Catalog(catalogName);
 			}
 	    	else if(indexType.equals("targetList")){
-	    		//TODO
+	    		TargetListsDAO targetDb = new TargetListsDAO(getApplicationContext());
+	    		objects = targetDb.getTargetListItems(listName);
 	    	}
 		} else {
     		objects = db.getFilteredObjectList();
@@ -215,6 +222,11 @@ public class ObjectIndexScreen extends ActivityBase {
 		if (objectList.size() == 0){
 			TextView nothingLeft = (TextView)findViewById(R.id.nothing_here);
 			nothingLeft.setVisibility(View.VISIBLE);
+			if(indexType != null && indexType.equals("targetList")) {
+				nothingLeft.setText("No objects in this target list yet");
+			} else {
+				nothingLeft.setText(getResources().getString(R.string.no_objects_match_search));
+			}
 		}
 		else{
 			Log.d("JoeTest", "List size is " + objectList.size());

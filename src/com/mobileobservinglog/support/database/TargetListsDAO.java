@@ -12,7 +12,9 @@ package com.mobileobservinglog.support.database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 public class TargetListsDAO extends DatabaseHelper {
 
@@ -60,6 +62,158 @@ public class TargetListsDAO extends DatabaseHelper {
 			rs = db.rawQuery(objStmt, itemList);
 			rs.moveToFirst();
 		}
+		db.close();
 		return rs;
+	}
+	
+	public boolean addTargetList(String listName, String listDescription) {
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("INSERT INTO targetLists (listName, listDescription) VALUES (?, ?)");
+			sqlStatement.bindString(1, listName);
+			sqlStatement.bindString(2, listDescription);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
+	
+	public boolean updateTargetList(int id, String listName, String listDescription) {
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		String sql = "UPDATE targetLists SET listName = ?, listDescription = ? where _id = ?";
+		
+		SQLiteStatement sqlStatement = db.compileStatement(sql);
+			sqlStatement.bindString(1, listName);
+			sqlStatement.bindString(2, listDescription);
+			sqlStatement.bindLong(3, id);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
+	
+	public boolean deleteList(int id, String listName) {
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatementOne = db.compileStatement("DELETE from targetLists WHERE _id = ?");
+		sqlStatementOne.bindLong(1, id);
+		
+		SQLiteStatement sqlStatementTwo = db.compileStatement("DELETE from targetListItems WHERE list = ?");
+		sqlStatementTwo.bindString(1, listName);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatementOne.execute();
+			sqlStatementTwo.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
+	
+	public boolean addItemToList(String listName, String objectDesignation) {
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("INSERT INTO targetListItems (list, isObject, objectDesignation) VALUES (?, true, ?)");
+			sqlStatement.bindString(1, listName);
+			sqlStatement.bindString(2, objectDesignation);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
+	}
+	
+	public boolean removeObjectFromList(String listName, String objectDesignation) {
+		boolean success = false;
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		SQLiteStatement sqlStatement = db.compileStatement("DELETE from targetListItems WHERE list = ? AND objectDesignation = ?");
+		sqlStatement.bindString(1, listName);
+		sqlStatement.bindString(2, objectDesignation);
+		
+		db.beginTransaction();
+		try
+		{
+			sqlStatement.execute();
+			db.setTransactionSuccessful();
+			success = true;
+		}
+		catch (SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
 	}
 }

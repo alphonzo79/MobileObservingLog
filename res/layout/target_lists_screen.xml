@@ -52,6 +52,7 @@
 	         android:layout_height="wrap_content" 
 	         android:layout_below="@id/target_lists_header"
 	         android:layout_above="@id/targets_button_layout"
+	         android:longClickable="true"
 	         />
 	    
 	    <TextView

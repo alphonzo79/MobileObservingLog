@@ -179,6 +179,9 @@ public class SearchScreen extends ActivityBase {
     		String searchText = textSearchField.getText().toString();
     		textSearch.setStringSearchText(searchText);
     		Intent intent = new Intent(SearchScreen.this.getApplication(), ObjectIndexScreen.class);
+    		if(catalogName != null) {
+    			intent.putExtra("com.mobileobservationlog.catalogName", catalogName);
+    		}
     		startActivity(intent);
     		SearchScreen.this.finish();
         }
