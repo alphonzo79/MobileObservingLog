@@ -58,6 +58,7 @@ import com.mobileobservinglog.strategies.TimePicker;
 import com.mobileobservinglog.support.GpsUtility;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.support.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.EquipmentDAO;
 import com.mobileobservinglog.support.database.LocationsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
@@ -751,28 +752,54 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	protected final Button.OnClickListener saveLog = new Button.OnClickListener() {
 		public void onClick(View arg0) {
-			TreeMap<String, String> updateArgs = gatherUpdateArgs();
-			
-			ObservableObjectDAO db = new ObservableObjectDAO(ObjectDetailScreen.this);
-			boolean success = db.updateLogData(id, updateArgs);
-			
-			if(success) {
-				Intent intent = new Intent(ObjectDetailScreen.this, ObjectDetailScreen.class);
-				intent.putExtra("com.mobileobservationlog.objectName", objectName);
-				startActivity(intent);
-				ObjectDetailScreen.this.finish();
+			if(otherCats.length() > 0) {
+				String[] otherCatsSplit = otherCats.split(",");
+				String otherInstalled = "";
+				ObservableObjectDAO db = new ObservableObjectDAO(getApplicationContext());
+				for(String otherDesignation : otherCatsSplit) {
+					Cursor result = db.getObjectData(otherDesignation);
+					if(result.getCount() > 0) {
+						if(otherInstalled.length() > 0) {
+							otherInstalled = otherInstalled.concat(", ");
+						}
+						otherInstalled = otherInstalled.concat(otherDesignation.trim());
+					}
+				}
+				db.close();
+				
+				if(otherInstalled.length() > 0) {
+					prepForModal();
+					modalHeader.setText(String.format("Update log info for this object in other catalogs as well: %s?", otherInstalled));
+					modalCancel.setText("No");
+					modalCancel.setVisibility(View.VISIBLE);
+					modalSave.setText(ObjectDetailScreen.this.getString(R.string.ok));
+					modalSave.setVisibility(View.VISIBLE);
+					modalClear.setVisibility(View.GONE);
+					modalSelectorsLayout.setVisibility(View.GONE);
+					modalListOneContainer.setVisibility(View.GONE);
+					modalListTwoContainer.setVisibility(View.GONE);
+					modalCancel.setOnClickListener(saveThisOneOnly);
+					modalSave.setOnClickListener(saveOthersAlso);
+				} else {
+					doUpdate(false);
+				}
 			} else {
-				prepForModal();
-				modalHeader.setText("There was an error saving. Please Try Again.");
-				modalCancel.setText(R.string.ok);
-				modalCancel.setVisibility(View.VISIBLE);
-				modalSave.setVisibility(View.GONE);
-				modalClear.setVisibility(View.GONE);
-				modalSelectorsLayout.setVisibility(View.GONE);
-				modalListOneContainer.setVisibility(View.GONE);
-				modalListTwoContainer.setVisibility(View.GONE);
-				modalCancel.setOnClickListener(dismissModal);
+				doUpdate(false);
 			}
+		}
+	};
+	
+	protected final Button.OnClickListener saveOthersAlso = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			doUpdate(true);
+		}
+	};
+	
+	protected final Button.OnClickListener saveThisOneOnly = new Button.OnClickListener() {
+		public void onClick(View view) {
+			tearDownModal();
+			doUpdate(false);
 		}
 	};
 	
@@ -1578,6 +1605,31 @@ public class ObjectDetailScreen extends ActivityBase{
 		
 		keyboardFrame.setLayoutParams(frameParams);
 		fieldsScroller.setLayoutParams(scrollParams);
+	}
+	
+	private void doUpdate(boolean updateOtherCatalogs) {
+		TreeMap<String, String> updateArgs = gatherUpdateArgs();
+		
+		ObservableObjectDAO db = new ObservableObjectDAO(ObjectDetailScreen.this);
+		boolean success = db.updateLogData(id, updateArgs, updateOtherCatalogs);
+		
+		if(success) {
+			Intent intent = new Intent(ObjectDetailScreen.this, ObjectDetailScreen.class);
+			intent.putExtra("com.mobileobservationlog.objectName", objectName);
+			startActivity(intent);
+			ObjectDetailScreen.this.finish();
+		} else {
+			prepForModal();
+			modalHeader.setText("There was an error saving. Please Try Again.");
+			modalCancel.setText(getString(R.string.ok));
+			modalCancel.setVisibility(View.VISIBLE);
+			modalSave.setVisibility(View.GONE);
+			modalClear.setVisibility(View.GONE);
+			modalSelectorsLayout.setVisibility(View.GONE);
+			modalListOneContainer.setVisibility(View.GONE);
+			modalListTwoContainer.setVisibility(View.GONE);
+			modalCancel.setOnClickListener(dismissModal);
+		}
 	}
 	
 	private TreeMap<String, String> gatherUpdateArgs() {

@@ -38,6 +38,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private static final int VERSION = 1;
 	Context mContext;
 	private final int objectTableColumnCount = 25;
+	private final int settingsTableColumnCount = 3;
+	private final int availableCatalogsTableColumnCount = 5;
 	  
 	public DatabaseHelper(Context context) 
 	{
@@ -123,10 +125,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		for (int i = 0; i < settingsLines.length; i++)
 		{
-			String[] rowData = parseResourceByDelimiter(settingsLines[i]);
+			String[] rowData = parseResourceByDelimiter(settingsLines[i], availableCatalogsTableColumnCount);
 			
 			//There are four columns to fill in this table
-			if (rowData.length == 5)
+			if (rowData.length == availableCatalogsTableColumnCount)
 			{
 				sqlStatement = db.compileStatement("INSERT INTO availableCatalogs (catalogName, installed, numberOfObjects, description, size) " + 
 						"VALUES (?, ?, ?, ?, ?)");
@@ -166,7 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			
 			for (int j = 0; j < objectsLines.length; j++)
 			{
-				String[] rowData = parseResourceByDelimiter(objectsLines[j]);
+				String[] rowData = parseResourceByDelimiter(objectsLines[j], objectTableColumnCount);
 				
 				if (rowData.length == objectTableColumnCount)
 				{
@@ -232,10 +234,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		for (int i = 0; i < settingsLines.length; i++)
 		{
-			String[] rowData = parseResourceByDelimiter(settingsLines[i]);
+			String[] rowData = parseResourceByDelimiter(settingsLines[i], settingsTableColumnCount);
 			
 			//There are three columns to fill in this table
-			if (rowData.length == 3)
+			if (rowData.length == settingsTableColumnCount)
 			{
 				sqlStatement = db.compileStatement("INSERT INTO settings (settingName, settingValue, visible) VALUES (?, ?, ?)");
 				for (int j = 0; j < rowData.length; j++)
@@ -278,9 +280,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 * @param resource The String[] that was returned to us from parseResourceByLine
 	 * @return String[][]: Each index represents one line from the resource. Each index then contains a String[] that contains the individual values from that line
 	 */
-	public String[] parseResourceByDelimiter(String resource)
+	public String[] parseResourceByDelimiter(String resource, int limit)
 	{
-		String[] retVal = resource.split(";", objectTableColumnCount); //The limit parameter will ensure that any semicolons included in the log notes will not force unwanted splits
+		String[] retVal = resource.split(";", limit); //The limit parameter will ensure that any semicolons included in the log notes will not force unwanted splits
 		
 		return retVal;
 	}

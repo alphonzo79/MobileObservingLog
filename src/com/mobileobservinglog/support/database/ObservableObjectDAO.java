@@ -59,6 +59,17 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		return rs;
 	}
 	
+	public Cursor getObjectData(int id) {
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT * FROM objects WHERE _id = ?";
+		
+		Cursor rs = db.rawQuery(sql, new String[]{Integer.toString(id)});
+		rs.moveToFirst();
+		
+		db.close();
+		return rs;
+	}
+	
 	public boolean clearLogData(int id) {
 		boolean success = false;
 		
@@ -104,7 +115,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 	 * transparency, findingMethod, viewingNotes. Any other values will be ignored
 	 * @return
 	 */
-	public boolean updateLogData(int id, TreeMap<String, String> values) {
+	public boolean updateLogData(int id, TreeMap<String, String> values, boolean updateOtherCatalogs) {
 		//We go to all the work of two for loops so we can only update the data that has been changed.
 		boolean success = false;
 		String[] possibleValues = new String[]{"logged", "logDate", "logTime", "logLocation", "equipment", "seeing", "transparency", "findingMethod", "viewingNotes"};				
@@ -118,7 +129,37 @@ public class ObservableObjectDAO extends DatabaseHelper {
 				innerSet = innerSet.concat(possibleValues[i] + " = ?");
 			}
 		}		
-		updateStatement = updateStatement.concat(innerSet + " WHERE _id = ?;");
+		
+		if(updateOtherCatalogs) {
+			Cursor objectData = getObjectData(id);
+			objectData.moveToFirst();
+			String otherCats = objectData.getString(12);
+			objectData.close();
+			
+			String[] catsSplit = otherCats.split(",");
+			int[] otherIds = new int[catsSplit.length];
+			
+			for(int i = 0; i < catsSplit.length; i++) {
+				Cursor otherCatalogData = getObjectData(catsSplit[i].trim());
+				otherCatalogData.moveToFirst();
+				if(otherCatalogData.getCount() > 0) {
+					otherIds[i] = otherCatalogData.getInt(0);
+				}
+			}
+			
+			updateStatement = updateStatement.concat(innerSet + " WHERE _id IN (");
+			
+			String inBuilder = Integer.toString(id);
+			for(int thisId : otherIds) {
+				if(thisId > 0) {
+					inBuilder = inBuilder.concat(", " + thisId);
+				}
+			}
+			
+			updateStatement = updateStatement.concat(inBuilder + ");");
+		} else {
+			updateStatement = updateStatement.concat(innerSet + " WHERE _id = " + id + ";");
+		}
 		
 		if(innerSet.length() > 0) {
 			SQLiteDatabase db = getWritableDatabase();
@@ -135,7 +176,6 @@ public class ObservableObjectDAO extends DatabaseHelper {
 					bindCounter++;
 				}
 			}
-			stmt.bindLong(bindCounter, id);
 			
 			db.beginTransaction();
 			try
