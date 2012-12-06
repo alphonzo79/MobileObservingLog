@@ -37,6 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private static final String DATABASE_NAME = "mobileObservingLogDB";
 	private static final int VERSION = 1;
 	Context mContext;
+	private final int objectTableColumnCount = 25;
 	  
 	public DatabaseHelper(Context context) 
 	{
@@ -167,7 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			{
 				String[] rowData = parseResourceByDelimiter(objectsLines[j]);
 				
-				if (rowData.length == 25)
+				if (rowData.length == objectTableColumnCount)
 				{
 					Log.d("JoeDebug", "In Loop. rowData.length passed the test");
 					
@@ -189,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				else
 				{
 					Log.d("JoeDebug", "Error in populateObjects");
-					throw new Exception("There were not 26 values to populate the settings table with. Values were" + rowData.toString());
+					throw new Exception("There were not 25 values to populate the Objects table with. Values were" + rowData.toString());
 				}
 			}
 		}
@@ -279,7 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 */
 	public String[] parseResourceByDelimiter(String resource)
 	{
-		String[] retVal = resource.split(";", -1); //-1 on the limit so the return value will include all empty strings including one after the final delimiter
+		String[] retVal = resource.split(";", objectTableColumnCount); //The limit parameter will ensure that any semicolons included in the log notes will not force unwanted splits
 		
 		return retVal;
 	}

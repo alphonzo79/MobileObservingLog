@@ -24,7 +24,7 @@ public class TargetListsDAO extends DatabaseHelper {
 	
 	public Cursor getAllTargetLists() {
 		SQLiteDatabase db = getReadableDatabase();
-		String sql = "SELECT _id, listName, listDescription FROM targetLists";
+		String sql = "SELECT _id, listName, listDescription FROM targetLists ORDER BY listName ASC";
 		
 		Cursor rs = db.rawQuery(sql, null);
 		rs.moveToFirst();
@@ -76,8 +76,16 @@ public class TargetListsDAO extends DatabaseHelper {
 				itemList[i] = items.getString(0);
 				items.moveToNext();
 			}
-			String objStmt = "SELECT designation, constellation, type, magnitude, logged FROM objects WHERE designation IN ? ORDER BY designation ASC";
-			rs = db.rawQuery(objStmt, itemList);
+			String objStmt = "SELECT designation, constellation, type, magnitude, logged FROM objects WHERE designation IN ";
+			String inner = "";
+			for(String item : itemList) {
+				if(inner.length() > 0) {
+					inner = inner.concat(", ");
+				}
+				inner = inner.concat("'" + item + "'");
+			}
+			objStmt = objStmt.concat("(" + inner + ") ORDER BY designation ASC");
+			rs = db.rawQuery(objStmt, null);
 			rs.moveToFirst();
 		}
 		db.close();
@@ -182,9 +190,10 @@ public class TargetListsDAO extends DatabaseHelper {
 		
 		SQLiteDatabase db = getReadableDatabase();
 		
-		SQLiteStatement sqlStatement = db.compileStatement("INSERT INTO targetListItems (list, isObject, objectDesignation) VALUES (?, true, ?)");
+		SQLiteStatement sqlStatement = db.compileStatement("INSERT INTO targetListItems (list, isObject, objectDesignation) VALUES (?, ?, ?)");
 			sqlStatement.bindString(1, listName);
-			sqlStatement.bindString(2, objectDesignation);
+			sqlStatement.bindString(2, "true");
+			sqlStatement.bindString(3, objectDesignation);
 		
 		db.beginTransaction();
 		try

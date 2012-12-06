@@ -179,7 +179,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	GpsUtility gpsHelper;
 	Location locationFromDevice;
 	
-	ArrayList<IndividualItem> targetLists; 
+	TreeMap<String, Boolean> targetLists; 
 	ArrayList<String> originalLists;
 	
 	@Override
@@ -822,7 +822,8 @@ public class ObjectDetailScreen extends ActivityBase{
 		public void onClick(View view) {
 			prepForModal();
 			
-			targetLists = new ArrayList<IndividualItem>();
+			targetLists = new TreeMap<String, Boolean>();
+			ArrayList<IndividualItem> options = new ArrayList<IndividualItem>();
 			
 			TargetListsDAO db = new TargetListsDAO(ObjectDetailScreen.this);
 			Cursor lists = db.getAllTargetLists();
@@ -841,7 +842,8 @@ public class ObjectDetailScreen extends ActivityBase{
 				for(int i = 0; i < count; i++) {
 					String name = lists.getString(1);
 					boolean set = originalLists.contains(name);
-					targetLists.add(new IndividualItem(name, set));
+					options.add(new IndividualItem(name, set));
+					targetLists.put(name, set);
 					lists.moveToNext();
 				}
 			}
@@ -852,7 +854,7 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalHeader.setText("TargetLists");
 				modalListOneContainer.setVisibility(View.VISIBLE);
 				modalListHeaderOne.setVisibility(View.GONE);
-		        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), targetLists));
+		        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
 		        modalListOne.setOnItemClickListener(listSelected);
 				
 				modalSelectorsLayout.setVisibility(View.GONE);
@@ -882,8 +884,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			IndividualItem option = (IndividualItem)adapter.getItemAtPosition(position);
 			boolean newValue = !option.getSelected();
 			String name = option.getName();
-			int index = targetLists.indexOf(name); //TODO This needs to be fixed
-			targetLists.get(index).selected = newValue;
+			targetLists.put(name, newValue);
 			
 			ImageView checked = (ImageView) view.findViewById(R.id.checkbox);
 			if(newValue) {
@@ -897,11 +898,15 @@ public class ObjectDetailScreen extends ActivityBase{
 	private final Button.OnClickListener saveToList = new Button.OnClickListener() {
 		public void onClick(View view) {
 			TargetListsDAO db = new TargetListsDAO(getApplicationContext());
-			boolean success = false;
-			for(IndividualItem item : targetLists) {
-				if(item.selected && !originalLists.contains(item.optionText)) {
-					if(db.addItemToList(item.optionText, objectName)) {
-						success = true;
+			boolean success = true;
+			for(String listName : targetLists.keySet()) {
+				if(targetLists.get(listName) && !originalLists.contains(listName)) {
+					if(!db.addItemToList(listName, objectName)) {
+						success = false;
+					}
+				} else if(!targetLists.get(listName) && originalLists.contains(listName)) {
+					if(!db.removeObjectFromList(listName, objectName)) {
+						success = false;
 					}
 				}
 			}
@@ -911,6 +916,10 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalCancel.setOnClickListener(dismissModal);
 				modalCancel.setVisibility(View.VISIBLE);
 				modalClear.setVisibility(View.GONE);
+				modalListOneContainer.setVisibility(View.GONE);
+				modalListTwoContainer.setVisibility(View.GONE);
+			} else {
+				tearDownModal();
 			}
 		}
 	};
