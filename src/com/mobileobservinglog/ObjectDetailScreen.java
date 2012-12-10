@@ -89,6 +89,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	String season;
 	String rightAscension;
 	String declination;
+	String catalogDescription;
 	String catalog;
 	String otherCats;
 	String imagePath;
@@ -126,6 +127,8 @@ public class ObjectDetailScreen extends ActivityBase{
 	TextView distanceDisplay;
 	TextView constellationDisplay;
 	TextView seasonDisplay;
+	LinearLayout descriptionLayout;
+	TextView descriptionDisplay;
 	
 	TextView dateDisplay;
 	EditText dateInput;
@@ -270,30 +273,31 @@ public class ObjectDetailScreen extends ActivityBase{
     	season = objectInfo.getString(8);
     	rightAscension = objectInfo.getString(9);
     	declination = objectInfo.getString(10);
-    	catalog = objectInfo.getString(11);
-    	otherCats = objectInfo.getString(12);
-    	imagePath = objectInfo.getString(13);
-    	nightImagePath = objectInfo.getString(14);
-    	String loggedString = objectInfo.getString(15);
+    	catalogDescription = objectInfo.getString(11);
+    	catalog = objectInfo.getString(12);
+    	otherCats = objectInfo.getString(13);
+    	imagePath = objectInfo.getString(14);
+    	nightImagePath = objectInfo.getString(15);
+    	String loggedString = objectInfo.getString(16);
     	if(loggedString != null) {
     		logged = loggedString.toLowerCase().equals("true");
     	} else {
     		logged = false;
     	}
-    	logDate = objectInfo.getString(16);
-    	logTime = objectInfo.getString(17);
-    	logLocation = objectInfo.getString(18);
-    	equipment = objectInfo.getString(19);
-    	seeing = objectInfo.getInt(20);
-    	transparency = objectInfo.getInt(21);
-    	String favoriteString = objectInfo.getString(22);
+    	logDate = objectInfo.getString(17);
+    	logTime = objectInfo.getString(18);
+    	logLocation = objectInfo.getString(19);
+    	equipment = objectInfo.getString(20);
+    	seeing = objectInfo.getInt(21);
+    	transparency = objectInfo.getInt(22);
+    	String favoriteString = objectInfo.getString(23);
     	if(favoriteString != null) {
     		favorite = favoriteString.toLowerCase().equals("true");
     	} else {
     		favorite = false;
     	}
-    	//findingMethod = objectInfo.getString(23);
-    	viewingNotes = objectInfo.getString(24);
+    	//findingMethod = objectInfo.getString(24);
+    	viewingNotes = objectInfo.getString(25);
     	
     	objectInfo.close();
     	db.close();
@@ -437,6 +441,8 @@ public class ObjectDetailScreen extends ActivityBase{
 		distanceDisplay = (TextView)findViewById(R.id.dist_data);
 		constellationDisplay = (TextView)findViewById(R.id.const_data);
 		seasonDisplay = (TextView)findViewById(R.id.season_data);
+		descriptionLayout = (LinearLayout)findViewById(R.id.object_description_layout);
+		descriptionDisplay = (TextView)findViewById(R.id.desc_data);
 		
 		dateDisplay = (TextView)findViewById(R.id.date_data);
 		dateInput = (EditText)findViewById(R.id.date_input);

@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private static final String DATABASE_NAME = "mobileObservingLogDB";
 	private static final int VERSION = 1;
 	Context mContext;
-	private final int objectTableColumnCount = 25;
+	private final int objectTableColumnCount = 26;
 	private final int settingsTableColumnCount = 3;
 	private final int availableCatalogsTableColumnCount = 5;
 	  
@@ -175,14 +175,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
 					Log.d("JoeDebug", "In Loop. rowData.length passed the test");
 					
 					sqlStatement = db.compileStatement("INSERT INTO objects (designation, commonName, type, magnitude, size," +
-							" distance, constellation, season, rightAscension, declination, catalog, otherCatalogs," +
-							" imageResource, nightImageResource) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							" distance, constellation, season, rightAscension, declination, objectDescription, catalog, otherCatalogs," +
+							" imageResource, nightImageResource) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					
 					//We start this array with 1 to make it simple when using the index value. We start the count on our
 					//bound arguments with 1 (it's 1-based), and we want to start with index 1 on the array because the 
-					//first slot [0] is null for the autoincremented _id. We stop at 14 (<=14) because that is the number
+					//first slot [0] is null for the autoincremented _id. We stop at 15 (<=15) because that is the number
 					//of binding args we have
-					for (int k = 1; k <= 14; k++)
+					for (int k = 1; k <= 15; k++)
 					{
 						sqlStatement.bindString(k, rowData[k]);
 					}

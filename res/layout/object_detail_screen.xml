@@ -360,6 +360,33 @@
 		            </LinearLayout>
 		            
 		        </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/object_description_layout"
+	                style="@style/object_detail_outer_block"
+		            android:layout_below="@id/const_season_layout"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/desc_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_normal"
+				            android:id="@+id/desc_label"
+				            android:text="@string/desc_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_normal"
+				            android:id="@+id/desc_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
   
 			    <View
 			        android:id="@+id/coords_line"

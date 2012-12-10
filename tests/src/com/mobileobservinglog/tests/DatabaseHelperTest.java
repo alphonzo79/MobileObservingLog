@@ -183,7 +183,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		Log.d("JoeDebug", "testParseResourceByDelimiter");
 		String lines = "Night Mode Backlight Intensity;5;1";
 		
-		String[] parsedValues = mCut.parseResourceByDelimiter(lines);
+		String[] parsedValues = mCut.parseResourceByDelimiter(lines, 3);
 		
 		assertEquals("Wrong number of entries", 3, parsedValues.length);
 		assertEquals("Wrong string in [0]", "Night Mode Backlight Intensity", parsedValues[0]);
@@ -193,7 +193,7 @@ public class DatabaseHelperTest extends SingleLaunchActivityTestCase<HomeScreen>
 		//test handling of empty columns
 		lines = "Night Mode Backlight Intensity;;";
 		
-		parsedValues = mCut.parseResourceByDelimiter(lines);
+		parsedValues = mCut.parseResourceByDelimiter(lines, 3);
 		
 		assertEquals("Wrong number of entries", 3, parsedValues.length);
 		assertEquals("Wrong string in [0]", "Night Mode Backlight Intensity", parsedValues[0]);

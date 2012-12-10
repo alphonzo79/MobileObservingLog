@@ -60,7 +60,7 @@ public class ConstellationObjectFilter extends AbstractObjectFilter {
 		LYRA("Lyra"), MENSA("Mensa"), MICROSCOPIUM("Microscopium"), MONOCEROS("Monoceros"), MUSCA("Musca"), NORMA("Norma"), OCTANS("Octans"), OPHIUCUS("Ophiucus"), 
 		ORION("Orion"), PAVO("Pavo"), PEGASUS("Pegasus"), PERSEUS("Perseus"), PHOENIX("Phoenix"), PICTOR("Pictor"), PISCES("Pisces"), PISCES_AUS("Pisces Austrinus"), 
 		PUPPIS("Puppis"), PYXIS("Pyxis"), RETICULUM("Reticulum"), SAGITTA("Sagitta"), SAGITTARIUS("Sagittarius"), SCORPIUS("Scorpius"), SCULPTOR("Sculptor"), 
-		SCUTUM("Scutum"), SERPENS("Serpens"), SEXTANS("Sextans"), TAURUS("Taurus"), TELESCOPIUM("Telescopium"), TRIANGULUM("Triangulum"), 
+		SCUTUM("Scutum"), SERPENS("Serpens"), SERPENS_CAPUT("Serpens Caput"), SERPENS_CAUDA("Serpens Cauda"), SEXTANS("Sextans"), TAURUS("Taurus"), TELESCOPIUM("Telescopium"), TRIANGULUM("Triangulum"), 
 		TRIANGULUM_AUS("Triangulum Australe"), TUCANA("Tucana"), URSA_MAJOR("Ursa Major"), URSA_MINOR("Ursa Minor"), VELA("Vela"), VIRGO("Virgo"), VOLANS("Volans"), 
 		VULPECULA("Vulpecula");  
 		

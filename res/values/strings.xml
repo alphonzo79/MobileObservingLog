@@ -103,6 +103,7 @@
     <string name="dist_label">Distance: </string>
     <string name="const_label">Constellation: </string>
     <string name="season_label">Season: </string>
+    <string name="desc_label">Description: </string>
     <string name="date_label">Date: </string>
     <string name="time_label">Time: </string>
     <string name="location_label">Location: </string>
