@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 <resources>
 <!-- We will parse by row, then split on the semicolon. Then we will use those individual values to put together sql statements.
 Columns are _id, designation, commonName, type, magnitude, size, distance, constellation, season, rightAscension, declination, objectDescription, catalog, otherCatalogs, imageResource, nightImageResource, logged, logDate, logTime, logLocation, telescope, eyepiece, seeing, transparency, favorite, findingMethod, viewingNotes -->
-    <string name="ic_4_catalog_database_values.xml">"NULL;IC 3001;NULL;Galaxy;NULL;0.7' X 0.3';N/A;Ursa Major;Spring;12h 06m 12.0s;+33º 31' 00\";NULL;IC 3001-4000;MCG+06-27-007;/ic4/normal/ic3001.gif;/ic4/night/ic3001.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+    <string name="ic_4_catalog_default_values">"NULL;IC 3001;NULL;Galaxy;NULL;0.7' X 0.3';N/A;Ursa Major;Spring;12h 06m 12.0s;+33º 31' 00\";NULL;IC 3001-4000;MCG+06-27-007;/ic4/normal/ic3001.gif;/ic4/night/ic3001.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3002;NULL;Galaxy;NULL;0.5' X 0.5';N/A;Canes Venatici;Spring;12h 07m 06.0s;+33º 22' 00\";NULL;IC 3001-4000;MCG+06-27-010;/ic4/normal/ic3002.gif;/ic4/night/ic3002.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3003;NULL;Galaxy;NULL;0.4' X 0.3';N/A;Coma Berenices;Spring;12h 07m 06.0s;+32º 51' 00\";NULL;IC 3001-4000;MCG+06-27-013;/ic4/normal/ic3003.gif;/ic4/night/ic3003.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3004;NULL;Galaxy;NULL;0.9' X 0.8';N/A;Virgo;Spring;12h 07m 12.0s;+13º 14' 00\";NULL;IC 3001-4000;MCG+02-31-030;/ic4/normal/ic3004.gif;/ic4/night/ic3004.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
@@ -577,7 +577,7 @@ NULL;IC 3564;NULL;Not Found;NULL;NULL;N/A;Coma Berenices;Spring;12h 36m 12.0s;+2
 NULL;IC 3565;NULL;Galaxy;NULL;NULL;N/A;Coma Berenices;Spring;12h 36m 12.0s;+26º 45' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic3565.gif;/ic4/night/ic3565.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3566;NULL;Not Found;NULL;NULL;N/A;Virgo;Spring;12h 36m 18.0s;+11º 9' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic3566.gif;/ic4/night/ic3566.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3567;NULL;Galaxy;NULL;NULL;N/A;Coma Berenices;Spring;12h 36m 24.0s;+13º 36' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic3567.gif;/ic4/night/ic3567.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
-NULL;IC 3568;NULL;Planetary Nebula;10.6;18" X 18";N/A;Camelopardalis;Fall;12h 33m 06.87s;+82º 33' 49.0\";NULL;IC 3001-4000;PK123+34.1;/ic4/normal/ic3568.gif;/ic4/night/ic3568.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
+NULL;IC 3568;NULL;Planetary Nebula;10.6;18\" X 18\";N/A;Camelopardalis;Fall;12h 33m 06.87s;+82º 33' 49.0\";NULL;IC 3001-4000;PK123+34.1;/ic4/normal/ic3568.gif;/ic4/night/ic3568.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3569;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;IC 3001-4000;NULL;NULLNULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3570;NULL;Not Found;NULL;NULL;N/A;Coma Berenices;Spring;12h 36m 18.0s;+24º 5' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic3570.gif;/ic4/night/ic3570.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3571;NULL;Galaxy;NULL;NULL;N/A;Coma Berenices;Spring;12h 36m 18.0s;+26º 5' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic3571.gif;/ic4/night/ic3571.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
@@ -1009,6 +1009,5 @@ NULL;IC 3996;NULL;Not Found;NULL;NULL;N/A;Canes Venatici;Spring;12h 59m 30.0s;+4
 NULL;IC 3997;NULL;Not Found;NULL;NULL;N/A;Canes Venatici;Spring;12h 59m 36.0s;+36º 42' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic3997.gif;/ic4/night/ic3997.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3998;NULL;Galaxy;14.6;0.6' X 0.4';N/A;Coma Berenices;Spring;12h 59m 48.0s;+27º 58' 00\";NULL;IC 3001-4000;CGCG 160.236, PGC 44664;/ic4/normal/ic3998.gif;/ic4/night/ic3998.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
 NULL;IC 3999;NULL;Galaxy;NULL;NULL;N/A;Virgo;Spring;13h 00m 30.0s;-14º 18' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic3999.gif;/ic4/night/ic3999.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
-NULL;IC 4000;NULL;Not Found;NULL;NULL;N/A;Canes Venatici;Spring;12h 59m 36.0s;+39º 35' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic4000.gif;/ic4/night/ic4000.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL
-"</string>
+NULL;IC 4000;NULL;Not Found;NULL;NULL;N/A;Canes Venatici;Spring;12h 59m 36.0s;+39º 35' 00\";NULL;IC 3001-4000;NULL;/ic4/normal/ic4000.gif;/ic4/night/ic4000.gif;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL;NULL"</string>
 </resources>
