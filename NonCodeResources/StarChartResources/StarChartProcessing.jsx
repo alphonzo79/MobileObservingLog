@@ -45,7 +45,8 @@ var outfolderNight = destinationFolder + "/night");
 if (outfolderNight.exists == false) outfolder.create();
 
 //Import the finder targets
-	var telradFileRef = new File("C://Documents and Settings//Joe//My Documents//AndroidProjects//ObservingLog//NonCodeResources//StarChartResources//TelradTarget.psd");
+	var telradRefFolder = Folder.selectDialog("Please select the location of the telrad targets file");
+	var telradFileRef = new File(decodeURI(telradRefFolder) + "/TelradTarget.psd");
     var telradDocRef = app.open(telradFileRef);
     
     var telradLayer = telradDocRef.artLayers.getByName("Telrad");
