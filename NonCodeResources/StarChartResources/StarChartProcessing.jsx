@@ -23,7 +23,7 @@
 
 
 // enable double clicking from the Macintosh Finder or the Windows Explorer
-#target photoshop
+#target photoshop;
 
 // in case we double clicked the file
 app.bringToFront();
@@ -39,9 +39,9 @@ var fileList = inputFolder.getFiles("*.pdf");
 
 //Destination Folder
 var destinationFolder = Folder.selectDialog("Please select the destination folder");
-var outfolderNormal = destinationFolder + "/normal");
+var outfolderNormal = destinationFolder + "/normal";
 if (outfolderNormal.exists == false) outfolder.create();
-var outfolderNight = destinationFolder + "/night");
+var outfolderNight = destinationFolder + "/night";
 if (outfolderNight.exists == false) outfolder.create();
 
 //Import the finder targets
@@ -59,14 +59,14 @@ for (var a in fileList){
 
 	// creat PDF option object
 	var pdfOpenOptions = new PDFOpenOptions;
-	pdfOpenOptions.antiAlias = true
-	pdfOpenOptions.height = 1275
-	pdfOpenOptions.width = 1650
-	pdfOpenOptions.mode = OpenDocumentMode.RGB
-	pdfOpenOptions.bitsPerChannel = BitsPerChannelType.EIGHT
-	pdfOpenOptions.resolution = 150
-	pdfOpenOptions.page = 1
-	pdfOpenOptions.constrainProportions = true
+	pdfOpenOptions.antiAlias = true;
+	pdfOpenOptions.height = 1275;
+	pdfOpenOptions.width = 1650;
+	pdfOpenOptions.mode = OpenDocumentMode.RGB;
+	pdfOpenOptions.bitsPerChannel = BitsPerChannelType.EIGHT;
+	pdfOpenOptions.resolution = 150;
+	pdfOpenOptions.page = 1;
+	pdfOpenOptions.constrainProportions = true;
 
 	open(fileList[a], pdfOpenOptions);
 
