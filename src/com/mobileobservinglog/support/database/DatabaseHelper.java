@@ -22,6 +22,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -70,9 +71,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		{
 			populatePersistentSettings(db);
 			populateAvailableCatalogs(db);
-			populateObjects(db);
 			populatePersonalInfo(db);
 			db.setTransactionSuccessful();
+			populateObjects(db);
 		}
 		catch (SQLException e)
 		{
@@ -138,6 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				}
 				sqlStatement.execute();
 				sqlStatement.clearBindings();
+				sqlStatement.close();
 			}
 			else
 			{
@@ -159,9 +161,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		//I think for mitigation of file size, we should maintain each catalog in an independent resource file. 
 		//So we need to create a string array to hold each of the catalogs that we want to populate and itterate
 		//through that.
-		int[] availableCatalogs = {R.string.messier_catalog_default_values};
+		int[] availableCatalogs = {R.string.messier_catalog_default_values, R.string.ngc_1_catalog_default_values, R.string.ngc_2_catalog_default_values,
+				R.string.ngc_3_catalog_default_values, R.string.ngc_4_catalog_default_values, R.string.ngc_5_catalog_default_values, R.string.ngc_6_catalog_default_values,
+				R.string.ngc_7_catalog_default_values, R.string.ngc_8_catalog_default_values, R.string.ic_1_catalog_default_values, R.string.ic_2_catalog_default_values,
+				R.string.ic_3_catalog_default_values, R.string.ic_4_catalog_default_values, R.string.ic_5_catalog_default_values, R.string.ic_6_catalog_default_values};
 		for (int i = 0; i < availableCatalogs.length; i++)
 		{
+			Log.d("JoeDebug", "Starting population of objects for catalog # " + i);
 			//First, get the values and parse them into individual lines, then parse the values, 
 			//create the sql statement, then execute it
 			String[] objectsLines = parseResourceByLine(availableCatalogs[i]);
@@ -172,7 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				
 				if (rowData.length == objectTableColumnCount)
 				{
-					Log.d("JoeDebug", "In Loop. rowData.length passed the test");
+					//Log.d("JoeDebug", "In Loop. rowData.length passed the test");
 					
 					sqlStatement = db.compileStatement("INSERT INTO objects (designation, commonName, type, magnitude, size," +
 							" distance, constellation, season, rightAscension, declination, objectDescription, catalog, otherCatalogs," +
@@ -188,11 +194,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
 					}
 					sqlStatement.execute();
 					sqlStatement.clearBindings();
+					sqlStatement.close();
 				}
 				else
 				{
-					Log.d("JoeDebug", "Error in populateObjects");
-					throw new Exception("There were not 25 values to populate the Objects table with. Values were" + rowData.toString());
+					Log.w("JoeDebug", "Error in populateObjects");
+					throw new Exception("There were not " + objectTableColumnCount + " values to populate the Objects table with. Object was " + rowData[1]);
 				}
 			}
 		}
@@ -217,6 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		
 		sqlStatement.execute();
 		sqlStatement.clearBindings();
+		sqlStatement.close();
 	}
 
 	/**
@@ -246,6 +254,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				}
 				sqlStatement.execute();
 				sqlStatement.clearBindings();
+				sqlStatement.close();
 			}
 			else
 			{
