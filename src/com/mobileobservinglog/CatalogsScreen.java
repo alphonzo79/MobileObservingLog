@@ -239,10 +239,10 @@ public class CatalogsScreen extends ActivityBase{
 			if(catalogName.equals("Messier Catalog")){
 				retVal = settingsRef.getMessierIcon();
 			}
-			else if (catalogName.equals("NGC Catalog")){
+			else if (catalogName.contains("NGC ")){
 				retVal = settingsRef.getNgcIcon();
 			}
-			else if (catalogName.equals("IC Catalog")){
+			else if (catalogName.contains("IC ")){
 				retVal = settingsRef.getIcIcon();
 			}
 			return retVal;
