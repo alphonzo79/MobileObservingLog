@@ -400,7 +400,7 @@
 			        android:layout_height="1dip"
 			        android:layout_marginTop="7dip"
 			        android:layout_marginBottom="4dip"
-			        android:background="@color/black"
+			        android:background="@color/red"
 			        android:layout_below="@id/object_description_layout"
 			        />
 				    
