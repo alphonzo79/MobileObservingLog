@@ -85,6 +85,7 @@ public class EquipmentDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -127,6 +128,7 @@ public class EquipmentDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -159,6 +161,7 @@ public class EquipmentDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -224,6 +227,7 @@ public class EquipmentDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -262,6 +266,7 @@ public class EquipmentDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -294,6 +299,7 @@ public class EquipmentDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		

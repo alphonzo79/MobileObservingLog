@@ -105,6 +105,7 @@ public class PersonalInfoScreen extends ActivityBase {
 		phoneText = personalInfo.getString(3);
 		emailText = personalInfo.getString(4);
 		clubText = personalInfo.getString(5);
+		personalInfo.close();
 		
 		if(!nameText.equals("")) {
 			fullNameField.setText(nameText);

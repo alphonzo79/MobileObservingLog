@@ -171,6 +171,7 @@ public class AddEditTelescope extends ActivityBase {
 			focalLengthText = removeUnits(telescopeData.getString(4));
 			lengthUnits = getUnits(telescopeData.getString(4));
 			typeText = telescopeData.getString(1);
+			telescopeData.close();
 		}
 		
 		primaryDiameter.setText(primaryDiameterText);

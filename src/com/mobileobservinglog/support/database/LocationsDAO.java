@@ -83,6 +83,7 @@ public class LocationsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -124,6 +125,7 @@ public class LocationsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -157,6 +159,7 @@ public class LocationsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		

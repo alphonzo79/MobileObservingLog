@@ -138,6 +138,7 @@ public class AddEditTargetList extends ActivityBase {
 			listDescription = listData.getString(2);
 			listNameTextField.setText(listName);
 			listDescriptionTextField.setText(listDescription);
+			listData.close();
 		}
 	}
 	

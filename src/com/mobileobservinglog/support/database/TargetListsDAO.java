@@ -115,6 +115,7 @@ public class TargetListsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -147,6 +148,7 @@ public class TargetListsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -179,6 +181,8 @@ public class TargetListsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatementOne.close();
+			sqlStatementTwo.close();
 			db.close();
 		}
 		
@@ -209,6 +213,7 @@ public class TargetListsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
@@ -238,6 +243,7 @@ public class TargetListsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		

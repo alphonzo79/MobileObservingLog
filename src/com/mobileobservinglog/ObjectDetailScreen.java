@@ -773,6 +773,7 @@ public class ObjectDetailScreen extends ActivityBase{
 						}
 						otherInstalled = otherInstalled.concat(otherDesignation.trim());
 					}
+					result.close();
 				}
 				db.close();
 				
@@ -884,6 +885,7 @@ public class ObjectDetailScreen extends ActivityBase{
 				}
 			}
 			lists.close();
+			alreadySet.close();
 			db.close();
 			
 			if(targetLists.size() > 0) {

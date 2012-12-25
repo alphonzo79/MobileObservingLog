@@ -101,6 +101,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			stmt.close();
 			db.close();
 		}
 		
@@ -145,6 +146,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 				if(otherCatalogData.getCount() > 0) {
 					otherIds[i] = otherCatalogData.getInt(0);
 				}
+				otherCatalogData.close();
 			}
 			
 			updateStatement = updateStatement.concat(innerSet + " WHERE _id IN (");
@@ -221,6 +223,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			stmt.close();
 			db.close();
 		}
 		

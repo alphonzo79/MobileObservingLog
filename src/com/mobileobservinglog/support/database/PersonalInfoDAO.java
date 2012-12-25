@@ -75,6 +75,7 @@ public class PersonalInfoDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		

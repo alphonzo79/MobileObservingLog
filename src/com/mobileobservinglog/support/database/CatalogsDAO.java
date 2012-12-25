@@ -33,7 +33,7 @@ public class CatalogsDAO extends DatabaseHelper {
 	{
 		Cursor retVal = null;
 		SQLiteDatabase db = getReadableDatabase();
-		String sqlStatement = "SELECT * FROM availableCatalogs WHERE catalogName IS NOT NULL";
+		String sqlStatement = "SELECT * FROM availableCatalogs WHERE catalogName IS NOT NULL ORDER BY catalogName ASC";
 		
 		retVal = db.rawQuery(sqlStatement, null);
 		retVal.moveToFirst();
@@ -99,6 +99,7 @@ public class CatalogsDAO extends DatabaseHelper {
 		finally
 		{
 			db.endTransaction();
+			sqlStatement.close();
 			db.close();
 		}
 		
