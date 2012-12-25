@@ -133,7 +133,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		if(updateOtherCatalogs) {
 			Cursor objectData = getObjectData(id);
 			objectData.moveToFirst();
-			String otherCats = objectData.getString(12);
+			String otherCats = objectData.getString(13);
 			objectData.close();
 			
 			String[] catsSplit = otherCats.split(",");
@@ -191,6 +191,7 @@ public class ObservableObjectDAO extends DatabaseHelper {
 			finally
 			{
 				db.endTransaction();
+				stmt.close();
 				db.close();
 			}
 		}

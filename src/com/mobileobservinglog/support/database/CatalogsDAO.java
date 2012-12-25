@@ -115,13 +115,17 @@ public class CatalogsDAO extends DatabaseHelper {
 	{
 		Cursor retVal = null;
 		SQLiteDatabase db = getReadableDatabase();
-		String sqlStatement = "SELECT imageResource, nightImageResource FROM objects WHERE catalog ='" + catalogs.get(0);
+		String sqlStatement = "SELECT imageResource, nightImageResource FROM objects WHERE catalog ";
 		
-		for (int i = 1; i < catalogs.size(); i++){
-			sqlStatement = sqlStatement + "' OR '" + catalogs.get(i);
+		if(catalogs.size() == 1) {
+			sqlStatement = sqlStatement.concat("= '" + catalogs.get(0) + "'");
+		} else {
+			sqlStatement = sqlStatement.concat("IN ('" + catalogs.get(0) + "'");
+			for (int i = 1; i < catalogs.size(); i++){
+				sqlStatement = sqlStatement + ", '" + catalogs.get(i) + "'";
+			}
+			sqlStatement = sqlStatement.concat(")");
 		}
-		
-		sqlStatement += "'";
 		
 		retVal = db.rawQuery(sqlStatement, null);
 		retVal.moveToFirst();

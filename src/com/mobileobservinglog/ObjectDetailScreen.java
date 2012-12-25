@@ -566,6 +566,9 @@ public class ObjectDetailScreen extends ActivityBase{
 		if(season != null && !season.equals("NULL")) {
 			seasonDisplay.setText(season);
 		}
+		if(catalogDescription != null && !catalogDescription.equals("NULL")) {
+			descriptionDisplay.setText(catalogDescription);
+		}
 	}
 	
 	private void setStarChartImage() {

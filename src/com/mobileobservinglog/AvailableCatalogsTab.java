@@ -162,8 +162,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				settingsDb.setPersistentSetting(SettingsContainer.STAR_CHART_DIRECTORY, fileLocationString);
 			}
 			
-			addNoMediaFile(starChartRoot);
-			
 			//Now actually get the file location
 			if (fileLocationString.equals(SettingsContainer.EXTERNAL)){
 				starChartRoot = getExternalFilesDir(null);
@@ -172,45 +170,38 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 				starChartRoot = getFilesDir();
 			}
 			
+			addNoMediaFile(starChartRoot);
+			
 			//Get a list of the file paths we need to fetch/save
 			Cursor imagePaths = catalogsDb.getImagePaths(selectedItems);
 			imagePaths.moveToFirst();
 			int rowCount = imagePaths.getCount();
 			Log.d("JoeTest", "imagePaths cursor had " + rowCount + " rows");
 			
-			//create intermediate directory structure
+			//Make directories
 			String tempNormalFilePath = imagePaths.getString(0);
-			
-			//Cut the filename off the end of the path
-			String[] filePathSplit = tempNormalFilePath.split("/");
-			tempNormalFilePath = "";
-			for (int i = 0; i < (filePathSplit.length - 1); i++){
-				tempNormalFilePath += "/" + filePathSplit[i];
-			}
-			File directoryBuilder = new File(starChartRoot.toString() + tempNormalFilePath);
-			directoryBuilder.mkdirs();
+			String currentNormalDirectory = createDirectoryStructure(starChartRoot.toString(), tempNormalFilePath);
 			
 			String tempNightFilePath = imagePaths.getString(1);
-			
-			//Cut the filename off the end of the path
-			filePathSplit = tempNightFilePath.split("/");
-			tempNightFilePath = "";
-			for (int i = 0; i < (filePathSplit.length - 1); i++){
-				tempNightFilePath += "/" + filePathSplit[i];
-			}
-			directoryBuilder = new File(starChartRoot.toString()  + tempNightFilePath);
-			directoryBuilder.mkdirs();
-			//We have left the cursor at the first row, so we can just continue and grab the columns again in the next loop.
+			String currentNightDirectory = createDirectoryStructure(starChartRoot.toString(), tempNightFilePath);
 			
 			//Establish connection and download the files
-			for (int i = 0; i < rowCount; i++){
+			for (int i = 0; i < rowCount; i++){				
 				String normalPathString = imagePaths.getString(0);
 				String nightPathString = imagePaths.getString(1);
+				
 				File normalPath = new File(starChartRoot + normalPathString);
 				File nightPath = new File(starChartRoot + nightPathString);
 				
 				//If the file already exists (maybe from a previous, unsuccessful attempt to install the images) then we will skip this image and move to the next
-				if (!normalPath.exists()){
+				if (normalPathString != null && !normalPathString.equals("NULL") && !normalPath.exists()){
+					if(!normalPathString.contains(currentNormalDirectory)) {
+						currentNormalDirectory = createDirectoryStructure(starChartRoot.toString(), normalPathString);
+					}
+					if(!nightPathString.contains(currentNightDirectory)) {
+						currentNightDirectory = createDirectoryStructure(starChartRoot.toString(), nightPathString);
+					}
+					
 					//Log.d("JoeTest", "NormalPath #" + i + " is " + normalPath.toString());
 					try{
 						//setup input streams
@@ -232,15 +223,17 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					catch(IOException e){
 						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
+						Log.w("JoeDebug", e.getMessage());
 						success = false;
 						if (normalPath.exists()){
-							Log.d("JoeTest", "Deleting the file");
+							Log.w("JoeTest", "Deleting the file " + normalPathString);
 							normalPath.delete();
 						}
 					}
 					finally{
 						//Log.d("JoeTest", "Updating the alert");
 						if(!normalPath.exists()) {
+							Log.w("JoeTest", "Failed to download the file " + normalPathString);
 							success = false;
 						}
 						currentFileNumber++;
@@ -252,7 +245,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 				}
 				
-				if (!nightPath.exists()){
+				if (nightPathString != null && !nightPathString.equals("NULL") && !nightPath.exists()){
 					try{
 						//setup input streams
 						URL imageFile = new URL(SettingsContainer.IMAGE_DOWNLOAD_ROOT + nightPathString);
@@ -273,15 +266,17 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					catch(Exception e){
 						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
+						Log.w("JoeDebug", e.getMessage());
 						success = false;
 						if (nightPath.exists()){
-							Log.d("JoeTest", "Deleting the file");
+							Log.w("JoeTest", "Deleting the file " + nightPathString);
 							nightPath.delete();
 						}
 					}
 					finally{
 						//Log.d("JoeTest", "Updating the alert");
 						if(!normalPath.exists()) {
+							Log.w("JoeTest", "Failed to download the file " + nightPathString);
 							success = false;
 						}
 						currentFileNumber++;
@@ -330,11 +325,22 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 		}
     }
     
+    private String createDirectoryStructure(String root, String filepath) {
+    	//Cut the filename off the end of the path
+    	Log.d("JoeDebug", "Creating directory structure. Filepath passed in: " + filepath);
+    	int index = filepath.lastIndexOf("/");
+    	String directoryPath = filepath.subSequence(0, index).toString();
+		File directoryBuilder = new File(root.toString() + directoryPath);
+		directoryBuilder.mkdirs();
+		Log.d("JoeDebug", "Created directory structure for " + directoryPath);
+		return directoryPath;
+    }
+    
     private void addNoMediaFile(File rootDirectory){
     	try{
     		File noMedia = new File(rootDirectory + ".nomedia");
 			FileOutputStream fos = new FileOutputStream(noMedia);
-			fos.write(null);
+			fos.write(1);
 			fos.close();
 		}
 		catch(IOException e){
