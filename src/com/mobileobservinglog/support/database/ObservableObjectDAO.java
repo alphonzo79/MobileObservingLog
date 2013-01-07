@@ -201,6 +201,24 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		return success;
 	}
 	
+	/**
+	 * Overload to allow us to update based on designation instead of id -- used primarily in restoring data. We don't back up the ID because that is managed by the DB
+	 * and is not guaranteed to be consistent from installation to installation.
+	 * 
+	 * This method will hit the database to get the id, then pass off the work to it's overloaded brother. This may not be the most performant way to do this, but backup
+	 * and restore are uncommon activities, so we don't mind taking the performance hit here.
+	 * @param designation
+	 * @param values
+	 * @param updateOtherCatalogs
+	 * @return
+	 */
+	public boolean updateLogData(String designation, TreeMap<String, String> values) {
+		Cursor fetched = getObjectData(designation);
+		int id = fetched.getInt(0);
+		fetched.close();
+		return updateLogData(id, values, false);
+	}
+	
 	public boolean setFavorite(int id, boolean fav) {
 		boolean success = false;
 		
@@ -233,6 +251,23 @@ public class ObservableObjectDAO extends DatabaseHelper {
 	public Cursor getDistinctTypes() {
 		SQLiteDatabase db = getReadableDatabase();
 		String sql = "SELECT DISTINCT type FROM objects;";
+		
+		Cursor rs = db.rawQuery(sql, null);
+		rs.moveToFirst();
+		
+		db.close();
+		return rs;
+	}
+	
+	/**
+	 * Return the designation and log data for the full object data table. This is meant to be used in backing up the data. We retrieve the designation and not
+	 * the id because this workflow inherently assumes that the user may be restoring to a different installation of the app and IDs, being managed by the DB, may
+	 * not be the same from installation to installation.
+	 * @return
+	 */
+	public Cursor getAllLogData() {
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT designation, logged, logDate, logTime, logLocation, equipment, seeing, transparency, favorite, findingMethod, viewingNotes FROM objects";
 		
 		Cursor rs = db.rawQuery(sql, null);
 		rs.moveToFirst();

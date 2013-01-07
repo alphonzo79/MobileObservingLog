@@ -10,16 +10,55 @@
 
 package com.mobileobservinglog;
 
-import com.mobileobservinglog.R;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
+import com.mobileobservinglog.R;
+import com.mobileobservinglog.support.BackupRestoreUtil;
+import com.mobileobservinglog.support.ProgressSpinner;
+import com.mobileobservinglog.support.SettingsContainer.SessionMode;
+import com.mobileobservinglog.support.database.CatalogsDAO;
+import com.mobileobservinglog.support.database.ObservableObjectDAO;
+import com.mobileobservinglog.support.database.TargetListsDAO;
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class BackupRestoreScreen extends ActivityBase{
 
 	//gather resources
-	LinearLayout body;
+	FrameLayout body;
+	Button export;
+	Button backup;
+	Button restore;
+	List<String> catalogList;
+	List<String> selectedItems;
+
+	RelativeLayout alertModal;
+	TextView alertText;
+	Button alertOk;
+	Button alertCancel;
+	RelativeLayout progressLayout;
+	ImageView progressImage;
+	TextView progressMessage;
+
+	boolean keepRunningProgressUpdate = false;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -27,10 +66,20 @@ public class BackupRestoreScreen extends ActivityBase{
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
+        
+        selectedItems = new ArrayList<String>();
 		
         //setup the layout
         setContentView(settingsRef.getBackupRestoreLayout());
-        body = (LinearLayout)findViewById(R.id.backup_restore_root); 
+        body = (FrameLayout)findViewById(R.id.backup_restore_root); 
+
+        alertText = (TextView)findViewById(R.id.alert_main_text);
+        alertOk = (Button)findViewById(R.id.alert_ok_button);
+        alertCancel = (Button)findViewById(R.id.alert_cancel_button);
+        alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+        progressLayout = (RelativeLayout)findViewById(R.id.progress_modal);
+        progressImage = (ImageView)findViewById(R.id.progress_image);
+        progressMessage = (TextView)findViewById(R.id.progress_text);
 	}
 	
 	@Override
@@ -56,6 +105,235 @@ public class BackupRestoreScreen extends ActivityBase{
 	public void setLayout(){
 		setContentView(settingsRef.getBackupRestoreLayout());
 		super.setLayout();
+		findButtonsAddListeners();
+		prepareListView();
 		body.postInvalidate();
+	}
+	
+	protected void findButtonsAddListeners() {
+		export = (Button)findViewById(R.id.export_pdf_button);
+		backup = (Button)findViewById(R.id.backup_data_button);
+		restore = (Button)findViewById(R.id.restore_data_button);
+		
+		export.setOnClickListener(exportPdfs);
+		backup.setOnClickListener(backupData);
+		restore.setOnClickListener(restoreData);
+	}
+	
+	private final Button.OnClickListener exportPdfs = new Button.OnClickListener() {
+		public void onClick(View view) {
+			//TODO
+		}
+	};
+	
+	private final Button.OnClickListener backupData = new Button.OnClickListener() {
+		public void onClick(View view) {
+			BackupRestoreUtil backup = new BackupRestoreUtil(progressMessage, progressImage, BackupRestoreScreen.this);
+			backup.backupData();
+		}
+	};
+	
+	private final Button.OnClickListener restoreData = new Button.OnClickListener() {
+		public void onClick(View view) {
+			//TODO
+		}
+	};
+	
+	/**
+	 * Internal method to handle preparation of the list view upon creation or to be called by setLayout when session mode changes or onResume.
+	 */
+	protected void prepareListView()
+	{
+		catalogList = new ArrayList<String>();
+		//Get the list of saved telescopes and populate the list
+		CatalogsDAO db = new CatalogsDAO(this);
+		Cursor catalogs = db.getAvailableCatalogs();
+		
+		catalogs.moveToFirst();
+
+		Log.d("JoeDebug", "cursor size is " + catalogs.getCount());
+		for (int i = 0; i < catalogs.getCount(); i++)
+        {
+			String installed = catalogs.getString(1);
+			
+			if (installed.equals("Yes")){
+				String name = catalogs.getString(0);
+				catalogList.add(name);
+			}
+        	
+        	catalogs.moveToNext();
+        }
+		catalogs.close();
+		db.close();
+		
+		if (catalogList.size() == 0){
+			TextView nothingLeft = (TextView)findViewById(R.id.nothing_here);
+			nothingLeft.setVisibility(View.VISIBLE);
+			export.setEnabled(false);
+			backup.setEnabled(false);
+			restore.setEnabled(false);
+		}
+		else{
+			Log.d("JoeTest", "List size is " + catalogList.size());
+			setListAdapter(new CatalogAdapter(this, settingsRef.getBackupRestoreListLayout(), catalogList));
+		}
+	}
+	
+	/**
+	 * Take action on each of the list items when clicked. We need to swap out the image and add/remove it from the selected list
+	 */
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		TextView name = (TextView) v.findViewById(R.id.catalog_name);
+		String catalog = name.getText().toString();
+		
+		ImageView checked = (ImageView) v.findViewById(R.id.checkbox);
+		
+		if (!selectedItems.contains(catalog)){ //This item is not currently checked
+			selectedItems.add(catalog);
+			checked.setImageResource(settingsRef.getCheckbox_Selected());
+		}
+		else{
+			selectedItems.remove(catalog);
+			checked.setImageResource(settingsRef.getCheckbox_Unselected());
+		}
+	}
+
+	/**
+	 * Helper method to dim out the background and make the list view unclickable in preparation to display a modal
+	 */
+	protected void prepForModal()
+	{
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.backup_restore_main);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(false);
+		listView.setEnabled(false);
+		export.setEnabled(false);
+		backup.setEnabled(false);
+		restore.setEnabled(false);
+		blackOutLayer.setVisibility(View.VISIBLE);
+	}
+	
+	protected void tearDownModal(){
+		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
+		RelativeLayout mainBackLayer = (RelativeLayout)findViewById(R.id.backup_restore_main);
+		ListView listView = getListView();
+		
+		mainBackLayer.setEnabled(true);
+		listView.setEnabled(true);
+		export.setEnabled(true);
+		backup.setEnabled(true);
+		restore.setEnabled(true);
+		blackOutLayer.setVisibility(View.INVISIBLE);
+		alertModal.setVisibility(View.INVISIBLE);
+		progressLayout.setVisibility(View.GONE);
+	}
+    
+    protected final Button.OnClickListener dismissAlert = new Button.OnClickListener() {
+		public void onClick(View view){
+			tearDownModal();
+        }
+    };
+    
+    protected final Button.OnClickListener dismissSuccess = new Button.OnClickListener() {
+		public void onClick(View view){
+			tearDownModal();
+        }
+    };
+    
+    /**
+     * Take our existing alert modal and modify the layout to provide a progress indicator
+     */
+    public void prepProgressModal(){
+    	Log.d("JoeTest", "prepProgressModal called");
+    	alertText.setVisibility(View.GONE);
+    	alertOk.setVisibility(View.GONE);
+    	alertCancel.setVisibility(View.GONE);
+    	alertModal.setVisibility(View.GONE);
+    	progressImage.setVisibility(View.VISIBLE);
+    	progressMessage.setVisibility(View.VISIBLE);
+    	progressLayout.setVisibility(View.VISIBLE);
+    }
+    
+    public void showFailureMessage(String message){
+		progressLayout.setVisibility(View.GONE);
+		alertModal.setVisibility(View.VISIBLE);
+		alertText.setText(message);
+		alertOk.setOnClickListener(dismissAlert);
+		alertText.setVisibility(View.VISIBLE);
+		alertOk.setVisibility(View.VISIBLE);
+    }
+    
+    public void showSuccessMessage(String message){
+    	progressLayout.setVisibility(View.GONE);
+		alertModal.setVisibility(View.VISIBLE);
+		alertText.setText(message);
+		alertOk.setOnClickListener(dismissSuccess);
+		alertText.setVisibility(View.VISIBLE);
+		alertOk.setVisibility(View.VISIBLE);
+    }
+    
+    //////////////////////////////////////
+    // Catalog List Inflation Utilities //
+    //////////////////////////////////////
+	
+	class CatalogAdapter extends ArrayAdapter<String>{
+		
+		int listLayout;
+		
+		CatalogAdapter(Context context, int listLayout, List<String> list){
+			super(context, listLayout, list);
+			this.listLayout = listLayout;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent){
+			CatalogWrapper wrapper = null;
+			
+			if (convertView == null){
+				convertView = getLayoutInflater().inflate(listLayout, null);
+				wrapper = new CatalogWrapper(convertView);
+				convertView.setTag(wrapper);
+			}
+			else{
+				wrapper = (CatalogWrapper)convertView.getTag();
+			}
+			
+			wrapper.populateFrom(getItem(position));
+			
+			return convertView;
+		}
+	}
+	
+	class CatalogWrapper{
+		
+		private TextView name = null;
+		private ImageView icon = null;
+		private View row = null;
+		
+		CatalogWrapper(View row){
+			this.row = row;
+		}
+		
+		TextView getName(){
+			if (name == null){
+				name = (TextView)row.findViewById(R.id.catalog_name);
+			}
+			return name;
+		}
+		
+		ImageView getIcon(){
+			if (icon == null){
+				icon = (ImageView)row.findViewById(R.id.checkbox);
+			}
+			return icon;
+		}
+		
+		void populateFrom(String catalog){
+			getName().setText(catalog);
+			getIcon().setImageResource(settingsRef.getCheckbox_Unselected());
+		}
 	}
 }

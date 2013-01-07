@@ -45,6 +45,7 @@
     <string name="install_selected_catalogs">Install Selected Catalogs</string>
     <string name="remove_selected_catalogs">Remove Selected Catalogs</string>
     <string name="no_installed_catalogs">There are no catalogs currently installed. Please press Available Catalogs to install some</string>
+    <string name="no_installed_cats_no_prompt">There are no catalogs currently installed.</string>
     <string name="no_available_catalogs">There are no more catalogs currently available.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -122,4 +123,7 @@
     <string name="list_title_label">Target List Name:</string>
     <string name="list_description_label">Target List Brief Description:</string>
     <string name="save">Save</string>
+    <string name="backup_data">Backup All Data</string>
+    <string name="restore_data">Restore All Data</string>
+    <string name="export_pdf">Export Selected To PDF</string>
 </resources>
