@@ -30,7 +30,7 @@ public class DatePickerDayPicker extends NumberPickerDriver {
 	private static ArrayList<String> setDays() {
 		ArrayList<String> retVal = new ArrayList<String>();
 		for(int i = 1; i <= 31; i++) {
-			retVal.add(Integer.toString(i));
+			retVal.add(String.format("%02d", i));
 		}
 		return retVal;
 	}

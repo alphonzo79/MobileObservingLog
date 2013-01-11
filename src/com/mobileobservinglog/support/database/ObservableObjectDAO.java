@@ -10,6 +10,8 @@
 
 package com.mobileobservinglog.support.database;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
@@ -265,14 +267,61 @@ public class ObservableObjectDAO extends DatabaseHelper {
 	 * not be the same from installation to installation.
 	 * @return
 	 */
-	public Cursor getAllLogData() {
-		SQLiteDatabase db = getReadableDatabase();
-		String sql = "SELECT designation, logged, logDate, logTime, logLocation, equipment, seeing, transparency, favorite, findingMethod, viewingNotes FROM objects";
+	public List<String> getAllLogData() {
 		
-		Cursor rs = db.rawQuery(sql, null);
-		rs.moveToFirst();
+		//A cursor window is limited to 1 MB, so we need to do this in batches. To do that we need to first find out how many rows we have total.
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT count(*) FROM objects";
+		Cursor counter = db.rawQuery(sql, null);
+		counter.moveToFirst();
+		int count = counter.getInt(0);
+		counter.close();
+		
+		Log.i("Joe Info", "Count: " + count);
+		List<String> retVal = new ArrayList<String>(count);
+		
+		//Now, do this in batches of 100 -- generous for space to take into account the possibility that users may type a lot of text into the notes
+		for(int i = 0; i <= count; i += 100) {
+			sql = "SELECT designation, logged, logDate, logTime, logLocation, equipment, seeing, transparency, favorite, " +
+					"findingMethod, viewingNotes FROM objects LIMIT 100 OFFSET " + i;
+			//First query is LIMIT 100 OFFSET 0, last query will be LIMIT 100 OFFSET <some number that is less than or equal to count>
+			//The last query can return less than the limit, then we increment i by 100 which is now greater than our count. We got everything.
+			Cursor rs = db.rawQuery(sql, null);
+			rs.moveToFirst();
+			
+			do {
+				String designation = rs.getString(0);
+				String logged = rs.getString(1);
+				String logDate = rs.getString(2);
+				String logTime = rs.getString(3);
+				String logLocation = rs.getString(4);
+				String equipment = rs.getString(5);
+				int seeing = rs.getInt(6);
+				int transparency = rs.getInt(7);
+				String favorite = rs.getString(8);
+				String findingMethod = rs.getString(9);
+				String viewingNotes = rs.getString(10);
+				
+				//Replace semicolons in user-editable fields so they don't interfere with our string parsing when we restore (It's semicolon-delimited)
+				if(logLocation != null && logLocation.contains(";")) {
+					logLocation = logLocation.replace(";", ".");
+				}
+				if(equipment != null && equipment.contains(";")) {
+					equipment = equipment.replace(";", ".");
+				}
+				
+				String line = designation + ";" + logged + ";" + logDate + ";" + logTime + ";" + logLocation + ";" + equipment + ";" + seeing + ";" + 
+						transparency + ";" + favorite + ";" + findingMethod + ";" + viewingNotes;
+				
+				retVal.add(line);
+			} while (rs.moveToNext());
+			
+			rs.close();
+		}
+		
+		Log.i("JoeInfo", String.format("DB row count: %d, List size: %d", count, retVal.size()));
 		
 		db.close();
-		return rs;
+		return retVal;
 	}
 }

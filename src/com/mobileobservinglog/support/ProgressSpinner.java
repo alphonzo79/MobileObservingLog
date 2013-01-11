@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -29,9 +30,11 @@ public class ProgressSpinner {
 	boolean workComplete = false;
 	SettingsContainer settingsRef;
 	ImageView spinnerDisplay;
+	Context caller;
 	
-	public ProgressSpinner(ImageView imageView) {
+	public ProgressSpinner(ImageView imageView, Context caller) {
 		settingsRef = SettingsContainer.getSettingsContainer();
+		this.caller = caller;
 		prepareImageArray();
 		spinnerDisplay = imageView;
 		advanceProgressImage();
@@ -100,6 +103,6 @@ public class ProgressSpinner {
     	if(!imageIterator.hasNext()){
     		imageIterator = progressImages.listIterator();
     	}
-    	spinnerDisplay.setImageResource(imageIterator.next());
+    	spinnerDisplay.setImageDrawable(caller.getResources().getDrawable(imageIterator.next()));
     }
 }

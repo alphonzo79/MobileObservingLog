@@ -17,14 +17,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import com.mobileobservinglog.BackupRestoreScreen;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 import android.database.Cursor;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,7 +51,7 @@ public class BackupRestoreUtil {
 		this.messageDisplay = messageDisplay;
 		this.spinnerDisplay = spinnerDisplay;
 		this.caller = caller;
-		spinner = new ProgressSpinner(this.spinnerDisplay);
+		spinner = new ProgressSpinner(this.spinnerDisplay, this.caller);
 		errors = 0;
 	}
 	
@@ -56,19 +61,31 @@ public class BackupRestoreUtil {
 	
 	protected class BackupAsynch implements Runnable {
 		public void run() {
-			caller.prepProgressModal();
-			ProgressSpinner spinner = new ProgressSpinner(spinnerDisplay);
+			success = true;
+			
+			PrepProgressModalHandler.sendMessage(new Message());
 			spinner.startSpinner();
 			
+			Bundle data = new Bundle();
+			data.putString("messageString", "Preparing the backup data");
+			Message msg = Message.obtain();
+			msg.setData(data);
+			BackupMessageHandler.sendMessage(msg);
+			
 			ObservableObjectDAO db = new ObservableObjectDAO(caller);
-			Cursor logData = db.getAllLogData();
-			logData.moveToFirst();
-			totalObjects = logData.getCount();
+			List<String> logData = db.getAllLogData();
+			totalObjects = logData.size();
 			if(totalObjects < 1) {
 				failureMessage = "There was a problem getting data from the database. We didn't find any data to backup.";
 				failureMessageHandler.sendMessage(new Message());
 				return;
 			}
+			
+			data.clear();
+			data.putString("messageString", "Preparing the backup file location");
+			msg = Message.obtain();
+			msg.setData(data);
+			BackupMessageHandler.sendMessage(msg);
 			
 			File storageRoot = getDefaultDirectory();
 			if(storageRoot == null) {
@@ -80,59 +97,45 @@ public class BackupRestoreUtil {
 			File backupFile = new File(storageRoot + "/" + filename);
 			
 			try {
+				backupFile.createNewFile();
+				
 				FileWriter fw = new FileWriter(backupFile);
 				BufferedWriter bw = new BufferedWriter(fw);
-				do {
+				
+				for(String row : logData) {
 					completedObjects++;
 					
-					BackupMessageHandler.sendMessage(new Message());
+					data.clear();
+					data.putString("messageString", "Backing up log data for object #" + completedObjects + " out of " + totalObjects);
+					msg = Message.obtain();
+					msg.setData(data);
+					BackupMessageHandler.sendMessage(msg);
 					
-					String designation = logData.getString(0);
-					String logged = logData.getString(1);
-					String logDate = logData.getString(2);
-					String logTime = logData.getString(3);
-					String logLocation = logData.getString(4);
-					String equipment = logData.getString(5);
-					int seeing = logData.getInt(6);
-					int transparency = logData.getInt(7);
-					String favorite = logData.getString(8);
-					String findingMethod = logData.getString(9);
-					String viewingNotes = logData.getString(10);
-					
-					//Replace semicolons in user-editable fields so they don't interfere with our string parsing when we restore (It's semicolon-delimited)
-					if(logLocation.contains(";")) {
-						logLocation = logLocation.replace(";", ".");
-					}
-					if(equipment.contains(";")) {
-						equipment = equipment.replace(";", ".");
-					}
-					
-					String line = designation + ";" + logged + ";" + logDate + ";" + logTime + ";" + logLocation + ";" + equipment + ";" + seeing + transparency + ";" + 
-									favorite + ";" + findingMethod + ";" + viewingNotes + "/n";
-					bw.write(line);
+					bw.write(row);
 					bw.newLine();
-				} while (logData.moveToNext());
+				}
+				
+				bw.close();
+				fw.close();
 			} catch (FileNotFoundException e) {
+				Log.d("JoeDebug", e.getMessage());
+				e.printStackTrace();
 				failureMessage = "There was a problem while creating the file in which to back up your data.";
 				failureMessageHandler.sendMessage(new Message());
 				return;
 			} catch (IOException e) {
+				Log.d("JoeDebug", e.getMessage());
+				e.printStackTrace();
 				success = false;
 				errors++; //Some may succeed. We want to communicate a level of success to the user and leave the file for possible use
-			} finally {
-				logData.close();
 			}
-			
-			//Get the IO stuff
-			//Go through the cursor and format each line, writing it to the file -- get rid of semicolons in any user-editable fields other than notes
-			//close the IO stuff, close the cursor and set the success message to include the location of the file
 			
 			if(success) {
 				successMessage = "Successfully backed up data for " + completedObjects + " objects to the file " + backupFile.toString() + ". Move this file to " +
 						"your computer so you can restore it later";
 				successMessageHandler.sendMessage(new Message());
 			} else {
-				failureMessage = "There was a problem backing up data for " + errors + " out of " + totalObjects + ". A backup file is located in " + backupFile + 
+				failureMessage = "There was a problem backing up data. A backup file may be located in " + backupFile + 
 						" and may still be useable, but successful restore cannot be guaranteed";
 				failureMessageHandler.sendMessage(new Message());
 			}
@@ -142,12 +145,12 @@ public class BackupRestoreUtil {
     Handler BackupMessageHandler = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
-    		updateBackupMessage();
+    		updateBackupMessage(msg.getData().getString("messageString"));
     	}
     };
     
-    private void updateBackupMessage() {
-    	messageDisplay.setText("Backing up log data for object #" + completedObjects + " out of " + totalObjects);
+    private void updateBackupMessage(String message) {
+    	messageDisplay.setText(message);
     }
 	
 	public void restoreData() {
@@ -183,6 +186,13 @@ public class BackupRestoreUtil {
     private void showSuccessMessage() {
     	caller.showSuccessMessage(successMessage);
     }
+    
+    Handler PrepProgressModalHandler = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		caller.prepProgressModal();
+    	}
+    };
     
     private File getDefaultDirectory() {
     	String state = Environment.getExternalStorageState();

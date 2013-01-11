@@ -8,7 +8,7 @@
  -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   	android:id="@+id/alert_modal"
+   	android:id="@+id/progress_modal"
    	style="@style/modalContainerNormal"
    	>
    

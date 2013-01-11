@@ -51,6 +51,9 @@ public class BackupRestoreScreen extends ActivityBase{
 	List<String> selectedItems;
 
 	RelativeLayout alertModal;
+	LinearLayout alertSelectors;
+	LinearLayout alertListOne;
+	LinearLayout alertListTwo;
 	TextView alertText;
 	Button alertOk;
 	Button alertCancel;
@@ -106,6 +109,7 @@ public class BackupRestoreScreen extends ActivityBase{
 		setContentView(settingsRef.getBackupRestoreLayout());
 		super.setLayout();
 		findButtonsAddListeners();
+		findModalElements();
 		prepareListView();
 		body.postInvalidate();
 	}
@@ -118,6 +122,20 @@ public class BackupRestoreScreen extends ActivityBase{
 		export.setOnClickListener(exportPdfs);
 		backup.setOnClickListener(backupData);
 		restore.setOnClickListener(restoreData);
+	}
+	
+	private void findModalElements() {
+		alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
+		alertText = (TextView)findViewById(R.id.modal_header);
+		alertOk = (Button)findViewById(R.id.alert_ok_button);
+		alertCancel = (Button)findViewById(R.id.alert_cancel_button);
+		alertSelectors = (LinearLayout)findViewById(R.id.selectors_container);
+		alertListOne = (LinearLayout)findViewById(R.id.object_selector_modal_list_layout_one);
+		alertListTwo = (LinearLayout)findViewById(R.id.object_selector_modal_list_layout_two);
+		
+		progressLayout = (RelativeLayout)findViewById(R.id.progress_modal);
+		progressImage = (ImageView)findViewById(R.id.progress_image);
+		progressMessage = (TextView)findViewById(R.id.progress_text);
 	}
 	
 	private final Button.OnClickListener exportPdfs = new Button.OnClickListener() {
@@ -259,6 +277,9 @@ public class BackupRestoreScreen extends ActivityBase{
     
     public void showFailureMessage(String message){
 		progressLayout.setVisibility(View.GONE);
+		alertSelectors.setVisibility(View.GONE);
+		alertListOne.setVisibility(View.GONE);
+		alertListTwo.setVisibility(View.GONE);
 		alertModal.setVisibility(View.VISIBLE);
 		alertText.setText(message);
 		alertOk.setOnClickListener(dismissAlert);
@@ -268,7 +289,10 @@ public class BackupRestoreScreen extends ActivityBase{
     
     public void showSuccessMessage(String message){
     	progressLayout.setVisibility(View.GONE);
+		alertListOne.setVisibility(View.GONE);
+		alertListTwo.setVisibility(View.GONE);
 		alertModal.setVisibility(View.VISIBLE);
+		alertSelectors.setVisibility(View.GONE);
 		alertText.setText(message);
 		alertOk.setOnClickListener(dismissSuccess);
 		alertText.setVisibility(View.VISIBLE);
