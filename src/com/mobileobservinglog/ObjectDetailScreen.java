@@ -889,7 +889,7 @@ public class ObjectDetailScreen extends ActivityBase{
 			db.close();
 			
 			if(targetLists.size() > 0) {
-				modalHeader.setText("TargetLists");
+				modalHeader.setText("Target Lists");
 				modalListOneContainer.setVisibility(View.VISIBLE);
 				modalListHeaderOne.setVisibility(View.GONE);
 		        modalListOne.setAdapter(new IndividualItemAdapter(ObjectDetailScreen.this, settingsRef.getSearchModalListLayout(), options));
@@ -903,6 +903,14 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalCancel.setOnClickListener(dismissModal);
 				modalCancel.setVisibility(View.VISIBLE);
 				modalClear.setVisibility(View.GONE);
+				
+				Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+				int windowHeight = display.getHeight(); 
+				RelativeLayout.LayoutParams listOneParams = (RelativeLayout.LayoutParams)modalListOneContainer.getLayoutParams();
+				if(listOneParams.height > (int) windowHeight * 0.7f) {
+					listOneParams.height = (int) (windowHeight * 0.7f);
+					modalListOneContainer.setLayoutParams(listOneParams);
+				}
 			} else {
 				modalHeader.setText("There are no target lists created yet. Target lists may be managed through the home screen");
 				modalListOneContainer.setVisibility(View.GONE);
@@ -1113,6 +1121,14 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalClear.setOnClickListener(locationTypeManually);
 				modalClear.setText(R.string.type_manually);
 				modalClear.setVisibility(View.VISIBLE);
+				
+				Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+				int windowHeight = display.getHeight(); 
+				RelativeLayout.LayoutParams listOneParams = (RelativeLayout.LayoutParams)modalListOneContainer.getLayoutParams();
+				if(listOneParams.height > (int) windowHeight * 0.7f) {
+					listOneParams.height = (int) (windowHeight * 0.7f);
+					modalListOneContainer.setLayoutParams(listOneParams);
+				}
 			} else {
 				modalHeader.setText("There are no saved locations. Observing Locations can be managed trough the settings screen");
 				modalListOneContainer.setVisibility(View.GONE);

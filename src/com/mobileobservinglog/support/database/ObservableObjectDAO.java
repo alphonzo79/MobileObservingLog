@@ -12,6 +12,7 @@ package com.mobileobservinglog.support.database;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
@@ -209,16 +210,74 @@ public class ObservableObjectDAO extends DatabaseHelper {
 	 * 
 	 * This method will hit the database to get the id, then pass off the work to it's overloaded brother. This may not be the most performant way to do this, but backup
 	 * and restore are uncommon activities, so we don't mind taking the performance hit here.
-	 * @param designation
-	 * @param values
-	 * @param updateOtherCatalogs
+	 * @param values A list of maps containing the column name as the key and the value for each row that needs to be restored.
 	 * @return
 	 */
-	public boolean updateLogData(String designation, TreeMap<String, String> values) {
-		Cursor fetched = getObjectData(designation);
-		int id = fetched.getInt(0);
-		fetched.close();
-		return updateLogData(id, values, false);
+	public boolean restoreLogData(List<Map<String, String>> values) {
+		boolean success = false;
+		
+		SQLiteDatabase db = getWritableDatabase();
+		db.beginTransaction();
+		try {
+			SQLiteStatement stmt = db.compileStatement("CREATE INDEX 'designation_index' ON objects ('designation');");
+			stmt.execute();
+			stmt.close();
+			
+			int counter = 0;
+			for(Map<String, String> row : values) {
+				counter++;
+				Log.d("JoeDebug", "Working on item #" + counter);
+				
+				if(!row.containsKey("designation"))
+					continue;
+				
+				String[] possibleValues = new String[]{"logged", "logDate", "logTime", "logLocation", "equipment", "seeing", "transparency", "findingMethod", "viewingNotes"};				
+				String updateStatement = "UPDATE objects SET ";
+				String innerSet = "";
+				for(String column : possibleValues) {
+					if(row.get(column) != null) {
+						if(innerSet.length() > 0) {
+							innerSet = innerSet.concat(", ");
+						}
+						innerSet = innerSet.concat(column + " = ?");
+					}
+				}	
+				
+				updateStatement = updateStatement.concat(innerSet + " WHERE designation = '" + row.get("designation") + "';");
+				
+				if(innerSet.length() > 0) {
+					SQLiteStatement update = db.compileStatement(updateStatement);
+					int bindCounter = 1;
+					for(String column : possibleValues) {
+						String value = row.get(column);
+						if(value != null) { //If our map contains this key
+							if(!value.toLowerCase().equals("null")) { //and the value in our map is not "null"
+								if(column.equals("seeing") || column.equals("transparency")){
+									update.bindLong(bindCounter, Long.parseLong(value));
+								} else {
+									update.bindString(bindCounter, value);
+								} 
+							}else {
+								update.bindNull(bindCounter);
+							}
+							bindCounter++;
+						}
+					}
+					update.execute(); // Execute inside this if so we only execute if there was stuff to update.
+					update.close();
+				}	
+			}
+			
+			db.setTransactionSuccessful();
+			success = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.endTransaction();
+			db.close();
+		}
+		
+		return success;
 	}
 	
 	public boolean setFavorite(int id, boolean fav) {
@@ -323,5 +382,17 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		
 		db.close();
 		return retVal;
+	}
+	
+	public int getRowCount() {
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT count(*) FROM objects";
+		Cursor counter = db.rawQuery(sql, null);
+		counter.moveToFirst();
+		int count = counter.getInt(0);
+		counter.close();
+		db.close();
+		
+		return count;
 	}
 }

@@ -49,6 +49,7 @@ public class ProgressSpinner {
 	}
 	
 	public void startSpinner() {
+		workComplete = false;
 		new Thread(new ProgressIndicator()).start();
 	}
     

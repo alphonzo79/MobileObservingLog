@@ -12,25 +12,20 @@ package com.mobileobservinglog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import com.mobileobservinglog.R;
 import com.mobileobservinglog.support.BackupRestoreUtil;
-import com.mobileobservinglog.support.ProgressSpinner;
-import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 import com.mobileobservinglog.support.database.CatalogsDAO;
-import com.mobileobservinglog.support.database.ObservableObjectDAO;
-import com.mobileobservinglog.support.database.TargetListsDAO;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -60,8 +55,10 @@ public class BackupRestoreScreen extends ActivityBase{
 	RelativeLayout progressLayout;
 	ImageView progressImage;
 	TextView progressMessage;
-
-	boolean keepRunningProgressUpdate = false;
+	
+	List<String> restorableFiles;
+	
+	BackupRestoreUtil util;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -101,6 +98,7 @@ public class BackupRestoreScreen extends ActivityBase{
 		Log.d("JoeDebug", "BackupRestore onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
+        util = new BackupRestoreUtil(progressMessage, progressImage, BackupRestoreScreen.this);
     }
 	
   //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
@@ -146,14 +144,63 @@ public class BackupRestoreScreen extends ActivityBase{
 	
 	private final Button.OnClickListener backupData = new Button.OnClickListener() {
 		public void onClick(View view) {
-			BackupRestoreUtil backup = new BackupRestoreUtil(progressMessage, progressImage, BackupRestoreScreen.this);
-			backup.backupData();
+			util.backupData();
 		}
 	};
 	
 	private final Button.OnClickListener restoreData = new Button.OnClickListener() {
 		public void onClick(View view) {
-			//TODO
+			prepForModal();
+			alertText.setVisibility(View.VISIBLE);
+			alertOk.setVisibility(View.VISIBLE);
+			alertCancel.setVisibility(View.VISIBLE);
+			alertModal.setVisibility(View.VISIBLE);
+			
+			alertText.setText("WARNING: This action will over-write all existing log data.\n\nContinue?\n");
+			alertOk.setOnClickListener(warningAccepted);
+			alertCancel.setOnClickListener(dismissModal);
+		}
+	};
+	
+	private final Button.OnClickListener warningAccepted = new Button.OnClickListener() {
+		public void onClick(View view) {
+			restorableFiles = util.findRestorableFiles();
+			
+			prepForModal();
+			alertText.setVisibility(View.VISIBLE);
+	    	alertModal.setVisibility(View.VISIBLE);
+	    	
+			if(restorableFiles.size() > 0) {
+		    	alertCancel.setVisibility(View.VISIBLE);
+				alertCancel.setOnClickListener(dismissModal);
+				alertText.setText("Which file would you like to backup from?");
+				
+				alertListOne.setVisibility(View.VISIBLE);
+				findViewById(R.id.object_selector_modal_list_one_header).setVisibility(View.GONE);
+				ListView modalList = (ListView)findViewById(R.id.modal_list_one);
+				modalList.setAdapter(new ArrayAdapter<String>(BackupRestoreScreen.this, settingsRef.getSearchModalListLayout(), R.id.filter_option, restorableFiles));
+				modalList.setOnItemClickListener(fileSelected);
+				
+				Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+				int windowHeight = display.getHeight(); 
+				RelativeLayout.LayoutParams listOneParams = (RelativeLayout.LayoutParams)alertListOne.getLayoutParams();
+				if(listOneParams.height > (int) windowHeight * 0.6f) {
+					listOneParams.height = (int) (windowHeight * 0.6f);
+					alertListOne.setLayoutParams(listOneParams);
+				}
+			} else {
+		    	alertOk.setVisibility(View.VISIBLE);
+				String defaultDirectory = util.getDefaultDirectoryPath();
+				alertText.setText("There were no restorable .maol files found in the default directory. \n\n" +
+						"If you have a backup (.maol) file please place it in the directory " + defaultDirectory);
+				alertOk.setOnClickListener(dismissModal);
+			}
+		}
+	};
+	
+	protected final AdapterView.OnItemClickListener fileSelected = new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+			util.restoreData(restorableFiles.get(position));
 		}
 	};
 	
@@ -189,7 +236,6 @@ public class BackupRestoreScreen extends ActivityBase{
 			nothingLeft.setVisibility(View.VISIBLE);
 			export.setEnabled(false);
 			backup.setEnabled(false);
-			restore.setEnabled(false);
 		}
 		else{
 			Log.d("JoeTest", "List size is " + catalogList.size());
@@ -232,6 +278,15 @@ public class BackupRestoreScreen extends ActivityBase{
 		backup.setEnabled(false);
 		restore.setEnabled(false);
 		blackOutLayer.setVisibility(View.VISIBLE);
+
+		progressLayout.setVisibility(View.GONE);
+		alertSelectors.setVisibility(View.GONE);
+		alertListOne.setVisibility(View.GONE);
+		alertListTwo.setVisibility(View.GONE);
+		alertModal.setVisibility(View.GONE);
+		alertText.setVisibility(View.GONE);
+		alertOk.setVisibility(View.GONE);
+		alertCancel.setVisibility(View.GONE);
 	}
 	
 	protected void tearDownModal(){
@@ -246,16 +301,10 @@ public class BackupRestoreScreen extends ActivityBase{
 		restore.setEnabled(true);
 		blackOutLayer.setVisibility(View.INVISIBLE);
 		alertModal.setVisibility(View.INVISIBLE);
-		progressLayout.setVisibility(View.GONE);
+		progressLayout.setVisibility(View.INVISIBLE);
 	}
     
-    protected final Button.OnClickListener dismissAlert = new Button.OnClickListener() {
-		public void onClick(View view){
-			tearDownModal();
-        }
-    };
-    
-    protected final Button.OnClickListener dismissSuccess = new Button.OnClickListener() {
+    protected final Button.OnClickListener dismissModal = new Button.OnClickListener() {
 		public void onClick(View view){
 			tearDownModal();
         }
@@ -266,35 +315,26 @@ public class BackupRestoreScreen extends ActivityBase{
      */
     public void prepProgressModal(){
     	Log.d("JoeTest", "prepProgressModal called");
-    	alertText.setVisibility(View.GONE);
-    	alertOk.setVisibility(View.GONE);
-    	alertCancel.setVisibility(View.GONE);
-    	alertModal.setVisibility(View.GONE);
+    	prepForModal();
     	progressImage.setVisibility(View.VISIBLE);
     	progressMessage.setVisibility(View.VISIBLE);
     	progressLayout.setVisibility(View.VISIBLE);
     }
     
     public void showFailureMessage(String message){
-		progressLayout.setVisibility(View.GONE);
-		alertSelectors.setVisibility(View.GONE);
-		alertListOne.setVisibility(View.GONE);
-		alertListTwo.setVisibility(View.GONE);
+    	prepForModal();
 		alertModal.setVisibility(View.VISIBLE);
 		alertText.setText(message);
-		alertOk.setOnClickListener(dismissAlert);
+		alertOk.setOnClickListener(dismissModal);
 		alertText.setVisibility(View.VISIBLE);
 		alertOk.setVisibility(View.VISIBLE);
     }
     
     public void showSuccessMessage(String message){
-    	progressLayout.setVisibility(View.GONE);
-		alertListOne.setVisibility(View.GONE);
-		alertListTwo.setVisibility(View.GONE);
+    	prepForModal();
 		alertModal.setVisibility(View.VISIBLE);
-		alertSelectors.setVisibility(View.GONE);
 		alertText.setText(message);
-		alertOk.setOnClickListener(dismissSuccess);
+		alertOk.setOnClickListener(dismissModal);
 		alertText.setVisibility(View.VISIBLE);
 		alertOk.setVisibility(View.VISIBLE);
     }

@@ -11,15 +11,20 @@
 package com.mobileobservinglog.support;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.mobileobservinglog.BackupRestoreScreen;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
@@ -45,6 +50,8 @@ public class BackupRestoreUtil {
 	String successMessage;
 	int errors;
 	
+	String restorableFilename;
+	
 	boolean success;
 	
 	public BackupRestoreUtil(TextView messageDisplay, ImageView spinnerDisplay, BackupRestoreScreen caller) {
@@ -55,6 +62,10 @@ public class BackupRestoreUtil {
 		errors = 0;
 	}
 	
+	/////////////////////////////////////////
+	//Backup Section
+	/////////////////////////////////////////
+	
 	public void backupData() {
 		new Thread(new BackupAsynch()).start();
 	}
@@ -62,6 +73,7 @@ public class BackupRestoreUtil {
 	protected class BackupAsynch implements Runnable {
 		public void run() {
 			success = true;
+			completedObjects = 0;
 			
 			PrepProgressModalHandler.sendMessage(new Message());
 			spinner.startSpinner();
@@ -70,7 +82,7 @@ public class BackupRestoreUtil {
 			data.putString("messageString", "Preparing the backup data");
 			Message msg = Message.obtain();
 			msg.setData(data);
-			BackupMessageHandler.sendMessage(msg);
+			ProgressMessageHandler.sendMessage(msg);
 			
 			ObservableObjectDAO db = new ObservableObjectDAO(caller);
 			List<String> logData = db.getAllLogData();
@@ -85,7 +97,7 @@ public class BackupRestoreUtil {
 			data.putString("messageString", "Preparing the backup file location");
 			msg = Message.obtain();
 			msg.setData(data);
-			BackupMessageHandler.sendMessage(msg);
+			ProgressMessageHandler.sendMessage(msg);
 			
 			File storageRoot = getDefaultDirectory();
 			if(storageRoot == null) {
@@ -97,6 +109,7 @@ public class BackupRestoreUtil {
 			File backupFile = new File(storageRoot + "/" + filename);
 			
 			try {
+				backupFile.getParentFile().mkdirs();
 				backupFile.createNewFile();
 				
 				FileWriter fw = new FileWriter(backupFile);
@@ -106,10 +119,10 @@ public class BackupRestoreUtil {
 					completedObjects++;
 					
 					data.clear();
-					data.putString("messageString", "Backing up log data for object #" + completedObjects + " out of " + totalObjects);
+					data.putString("messageString", String.format("Backing up log data for object #%,d out of %,d", completedObjects, totalObjects));
 					msg = Message.obtain();
 					msg.setData(data);
-					BackupMessageHandler.sendMessage(msg);
+					ProgressMessageHandler.sendMessage(msg);
 					
 					bw.write(row);
 					bw.newLine();
@@ -131,8 +144,8 @@ public class BackupRestoreUtil {
 			}
 			
 			if(success) {
-				successMessage = "Successfully backed up data for " + completedObjects + " objects to the file " + backupFile.toString() + ". Move this file to " +
-						"your computer so you can restore it later";
+				successMessage = String.format("Successfully backed up data for %,d objects to the file %s. Move this file to " +
+						"your computer so you can restore it later", totalObjects, backupFile);
 				successMessageHandler.sendMessage(new Message());
 			} else {
 				failureMessage = "There was a problem backing up data. A backup file may be located in " + backupFile + 
@@ -142,26 +155,124 @@ public class BackupRestoreUtil {
 		}
 	}
     
-    Handler BackupMessageHandler = new Handler(){
-    	@Override
-    	public void handleMessage (Message msg){
-    		updateBackupMessage(msg.getData().getString("messageString"));
-    	}
-    };
-    
-    private void updateBackupMessage(String message) {
-    	messageDisplay.setText(message);
-    }
+    //////////////////////////////////////////////
+    //Restore section
+    //////////////////////////////////////////////
 	
-	public void restoreData() {
-		
+	public void restoreData(String filename) {
+		restorableFilename = filename;
+		new Thread(new RestoreAsynch()).start();
 	}
 	
 	protected class RestoreAsynch implements Runnable {
 		public void run() {
+			success = true;
+			completedObjects = 0;
 			
+			PrepProgressModalHandler.sendMessage(new Message());
+			spinner.startSpinner();
+			
+			Bundle data = new Bundle();
+			data.putString("messageString", "Preparing the restore data");
+			Message msg = Message.obtain();
+			msg.setData(data);
+			ProgressMessageHandler.sendMessage(msg);
+			
+			File storageRoot = getDefaultDirectory();
+			File restoreFile = new File(storageRoot + "/" + restorableFilename);
+			
+			ObservableObjectDAO db = new ObservableObjectDAO(caller);
+			totalObjects = db.getRowCount();
+			
+			List<Map<String, String>> updateArgs = new ArrayList<Map<String, String>>();
+			
+			try {
+				FileReader fr = new FileReader(restoreFile);
+				BufferedReader br = new BufferedReader(fr);
+				
+				String line;
+				while((line = br.readLine()) != null) {
+					completedObjects++;
+					
+					data.clear();
+					data.putString("messageString", String.format("Reading in the restore file. Preparing object #%,d out of %,d", completedObjects, totalObjects));
+					msg = Message.obtain();
+					msg.setData(data);
+					ProgressMessageHandler.sendMessage(msg);
+					
+					try {
+						String[] fields = line.split(";", 11);
+						String designation = fields[0];
+						String logged = fields[1];
+						String logDate = fields[2];
+						String logTime = fields[3];
+						String logLocation = fields[4];
+						String equipment = fields[5];
+						int seeing = Integer.parseInt(fields[6]);
+						int transparency = Integer.parseInt(fields[7]);
+						String favorite = fields[8];
+						String findingMethod = fields[9];
+						String viewingNotes = fields[10];
+						
+						Map<String, String> args = new TreeMap<String, String>();
+						args.put("designation", designation);
+						args.put("logged", logged);
+						args.put("logDate", logDate);
+						args.put("logTime", logTime);
+						args.put("logLocation", logLocation);
+						args.put("equipment", equipment);
+						args.put("seeing", Integer.toString(seeing));
+						args.put("transparency", Integer.toString(transparency));
+						args.put("favorite", favorite);
+						args.put("findingMethod", findingMethod);
+						args.put("viewingNotes", viewingNotes);
+						
+						updateArgs.add(args);
+					} catch (ArrayIndexOutOfBoundsException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				br.close();
+				fr.close();
+			} catch (IOException e) {
+				success = false;
+				e.printStackTrace();
+			} 
+			
+			data.clear();
+			data.putString("messageString", "Restoring log data. This may take a minute");
+			msg = Message.obtain();
+			msg.setData(data);
+			ProgressMessageHandler.sendMessage(msg);
+			
+			success = db.restoreLogData(updateArgs);
+			db.close();
+			
+			if(success) {
+				successMessage = String.format("Successfully restored data for %,d objects.", completedObjects);
+				successMessageHandler.sendMessage(new Message());
+			} else {
+				failureMessage = "There was a problem restoring data. Please try again";
+				failureMessageHandler.sendMessage(new Message());
+			}
 		}
 	}
+	
+	//////////////////////////////////////////////////////
+	// Common Section
+	//////////////////////////////////////////////////////
+    
+    Handler ProgressMessageHandler = new Handler(){
+    	@Override
+    	public void handleMessage (Message msg){
+    		updateProgressMessage(msg.getData().getString("messageString"));
+    	}
+    };
+    
+    private void updateProgressMessage(String message) {
+    	messageDisplay.setText(message);
+    }
     
     Handler failureMessageHandler = new Handler(){
     	@Override
@@ -204,5 +315,26 @@ public class BackupRestoreUtil {
 		} else{
 		   return Environment.getDownloadCacheDirectory();
 		}
+    }
+    
+    public List<String> findRestorableFiles() {
+    	List<String> retVal = new ArrayList<String>();
+    	
+    	File storageRoot = getDefaultDirectory();
+    	File[] foundFiles = storageRoot.listFiles();
+    	if(foundFiles != null) {
+	    	for(File file : storageRoot.listFiles()) {
+	    		String filename = file.getName();
+	    		if(filename.endsWith(".maol"))
+	    			retVal.add(filename);
+	    	}
+    	}
+    	
+    	return retVal;
+    }
+    
+    public String getDefaultDirectoryPath() {
+    	File storageRoot = getDefaultDirectory();
+    	return storageRoot.getAbsolutePath();
     }
 }
