@@ -23,12 +23,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import com.mobileobservinglog.BackupRestoreScreen;
 import com.mobileobservinglog.support.BackupRestoreUtil.BackupAsynch;
+import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 import com.mobileobservinglog.support.database.PersonalInfoDAO;
 
@@ -37,8 +42,6 @@ public class HtmlExporter {
 	ImageView spinnerDisplay;
 	ProgressSpinner spinner;
 	BackupRestoreScreen caller;
-	int totalObjects;
-	int completedObjects;
 	
 	String failureMessage;
 	String successMessage;
@@ -64,13 +67,12 @@ public class HtmlExporter {
 	protected class ExportAsynch implements Runnable {
 		public void run() {
 			success = true;
-			completedObjects = 0;
 			
 			PrepProgressModalHandler.sendMessage(new Message());
 			spinner.startSpinner();
 			
 			Bundle data = new Bundle();
-			data.putString("messageString", "Preparing the build the export file");
+			data.putString("messageString", "Building the export file");
 			Message msg = Message.obtain();
 			msg.setData(data);
 			ProgressMessageHandler.sendMessage(msg);
@@ -113,9 +115,11 @@ public class HtmlExporter {
 				bw.newLine();
 				bw.write("			H2 { text-align: center}");
 				bw.newLine();
+				bw.write("			H3 { text-align: center}");
+				bw.newLine();
 				bw.write("			H6 { text-align: center}");
 				bw.newLine();
-				bw.write("			TABLE { margin-left: auto; margin-right: auto; page-break-before: auto; width: 70%}");
+				bw.write("			TABLE { margin-left: auto; margin-right: auto; margin-top: 50px; page-break-before: auto; width: 70%}");
 				bw.newLine();
 				bw.write("			TD { text-align: center }");
 				bw.newLine();
@@ -152,9 +156,26 @@ public class HtmlExporter {
 				info.close();
 				userDb.close();
 				
+				CatalogsDAO catsDb = new CatalogsDAO(caller);
+				int catalogTotalLogged = catsDb.getNumLogged(catalog);
+				catsDb.close();
+				
+				ObservableObjectDAO objectDb = new ObservableObjectDAO(caller);
+				Cursor catalogList = objectDb.getUnfilteredObjectList_Catalog(catalog);
+				catalogList.moveToFirst();
+				List<String> designations = new ArrayList<String>();
+				do {
+					designations.add(catalogList.getString(0));
+				} while (catalogList.moveToNext());
+				catalogList.close();
+				
+				int objectCount = designations.size();
+				int workingOn = 0;
+				
 				try{
 					bw.write(String.format("<h1>%s Observing Log Data</h1>", catalog));
 					bw.newLine();
+					bw.write(String.format("<h3>%d out of %d objects logged.</h3>", catalogTotalLogged, objectCount));
 					bw.write(String.format("<h6>%s<h6>", personalInfo));
 					bw.newLine();
 				} catch (FileNotFoundException e) {
@@ -176,30 +197,27 @@ public class HtmlExporter {
 					errors++; //Some may succeed. We want to communicate a level of success to the user and leave the file for possible use
 				}
 				
-				ObservableObjectDAO objectDb = new ObservableObjectDAO(caller);
-				Cursor catalogList = objectDb.getUnfilteredObjectList_Catalog(catalog);
-				catalogList.moveToFirst();
-				List<String> designations = new ArrayList<String>();
-				do {
-					designations.add(catalogList.getString(0));
-				} while (catalogList.moveToNext());
-				catalogList.close();
-				
 				for(String objectName : designations) {
+					data.clear();
+					data.putString("messageString", String.format("Working on catalog %s. Preparing object #%,d out of %,d", catalog, ++workingOn, objectCount));
+					msg = Message.obtain();
+					msg.setData(data);
+					ProgressMessageHandler.sendMessage(msg);
+					
 					Cursor objectInfo = objectDb.getObjectData(objectName);
 					objectInfo.moveToFirst();
 					
 					String commonName = objectInfo.getString(2);
-					String type = objectInfo.getString(3) != null ? objectInfo.getString(3) : "N/A";
-					String magnitude = objectInfo.getString(4) != null ? objectInfo.getString(4) : "N/A";
-					String size = objectInfo.getString(5) != null ? objectInfo.getString(5) : "N/A";
-					String distance = objectInfo.getString(6) != null ? objectInfo.getString(6) : "N/A";
-					String constellation = objectInfo.getString(7) != null ? objectInfo.getString(7) : "N/A";
-					String season = objectInfo.getString(8) != null ? objectInfo.getString(8) : "N/A";
-					String rightAscension = objectInfo.getString(9) != null ? objectInfo.getString(9) : "N/A";
-					String declination = objectInfo.getString(10) != null ? objectInfo.getString(10) : "N/A";
-					String catalogDescription = objectInfo.getString(11) != null ? objectInfo.getString(11) : "N/A";
-					String otherCats = objectInfo.getString(13);
+					String type = objectInfo.getString(3) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(3)) : "N/A";
+					String magnitude = objectInfo.getString(4) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(4)) : "N/A";
+					String size = objectInfo.getString(5) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(5)) : "N/A";
+					String distance = objectInfo.getString(6) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(6)) : "N/A";
+					String constellation = objectInfo.getString(7) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(7)) : "N/A";
+					String season = objectInfo.getString(8) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(8)) : "N/A";
+					String rightAscension = objectInfo.getString(9) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(9)) : "N/A";
+					String declination = objectInfo.getString(10) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(10)) : "N/A";
+					String catalogDescription = objectInfo.getString(11) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(11)) : "N/A";
+					String otherCats = StringEscapeUtils.escapeHtml4(objectInfo.getString(13));
 			    	String loggedString = objectInfo.getString(16);
 			    	boolean logged;
 			    	if(loggedString != null) {
@@ -207,13 +225,13 @@ public class HtmlExporter {
 			    	} else {
 			    		logged = false;
 			    	}
-			    	String logDate = objectInfo.getString(17) != null ? objectInfo.getString(17) : "N/A";
-			    	String logTime = objectInfo.getString(18) != null ? objectInfo.getString(18) : "N/A";
-			    	String logLocation = objectInfo.getString(19) != null ? objectInfo.getString(19) : "N/A";
-			    	String equipment = objectInfo.getString(20) != null ? objectInfo.getString(20) : "N/A";
+			    	String logDate = objectInfo.getString(17) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(17)) : "N/A";
+			    	String logTime = objectInfo.getString(18) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(18)) : "N/A";
+			    	String logLocation = objectInfo.getString(19) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(19)) : "N/A";
+			    	String equipment = objectInfo.getString(20) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(20)) : "N/A";
 			    	int seeing = objectInfo.getInt(21);
 			    	int transparency = objectInfo.getInt(22);
-			    	String viewingNotes = objectInfo.getString(25) != null ? objectInfo.getString(25) : "";
+			    	String viewingNotes = objectInfo.getString(25) != null ? StringEscapeUtils.escapeHtml4(objectInfo.getString(25)) : "";
 					
 					try{
 						bw.write("						<table>");
@@ -356,8 +374,8 @@ public class HtmlExporter {
 						bw.write("							<td colspan=2>");
 						bw.newLine();
 						bw.write("								<strong>Logged Equipment:</strong> " + equipment);
-								bw.newLine();
-								bw.write("							</td>");
+						bw.newLine();
+						bw.write("							</td>");
 						bw.newLine();
 						bw.write("						</tr>");
 						bw.newLine();
@@ -386,8 +404,6 @@ public class HtmlExporter {
 						bw.write("							<td colspan=2>");
 						bw.newLine();
 						bw.write("								<strong>Log Notes:</strong> " + viewingNotes);
-						bw.newLine();
-						bw.write("");
 						bw.newLine();
 						bw.write("							</td>");
 						bw.newLine();
@@ -442,11 +458,11 @@ public class HtmlExporter {
 			}
 			
 			if(success) {
-				successMessage = String.format("Successfully exported data for %,d objects to the file %s. Move this file to " +
-						"your computer so you can print it out", totalObjects, exportFile);
+				successMessage = String.format("Successfully exported data for %,d catalogs to the printable file %s. Move this file to " +
+						"your computer so you can print it out", catalogs.size(), exportFile);
 				successMessageHandler.sendMessage(new Message());
 			} else {
-				failureMessage = "There was a problem exporting your data. An export file may be located in " + exportFile + 
+				failureMessage = "There was a problem exporting your data. A printable file may be located in " + exportFile + 
 						" and may still be useable";
 				failureMessageHandler.sendMessage(new Message());
 			}

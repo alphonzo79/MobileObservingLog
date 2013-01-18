@@ -20,13 +20,13 @@
     >
     
     <TextView 
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="5dp"
 	    android:layout_marginBottom="5dp"
 	    android:layout_gravity="left|center_vertical"
 	    android:id="@+id/catalog_name"
-	    android:textColor="@color/black"
+	    android:textColor="@color/red"
 	    android:textStyle="bold"
 	    android:typeface="serif"
 	    android:textSize="24dp"
@@ -35,9 +35,9 @@
 	    />
     
     <ImageView 
-        android:src="@drawable/unchecked_normal"
-	    android:layout_width="30dp"
-	    android:layout_height="30dp"
+        android:src="@drawable/unchecked_night"
+	    android:layout_width="45dp"
+	    android:layout_height="45dp"
 	    android:contentDescription="@string/unchecked_normal_image_alt"
 	    android:layout_marginTop="5dp"
 	    android:layout_marginBottom="5dp"

@@ -125,5 +125,5 @@
     <string name="save">Save</string>
     <string name="backup_data">Backup All Data</string>
     <string name="restore_data">Restore All Data</string>
-    <string name="export_pdf">Export Selected To PDF</string>
+    <string name="export_pdf">Export Selected To Print</string>
 </resources>

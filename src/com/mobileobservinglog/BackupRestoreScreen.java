@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.mobileobservinglog.R;
 import com.mobileobservinglog.support.BackupRestoreUtil;
+import com.mobileobservinglog.support.HtmlExporter;
 import com.mobileobservinglog.support.database.CatalogsDAO;
 
 import android.content.Context;
@@ -138,7 +139,8 @@ public class BackupRestoreScreen extends ActivityBase{
 	
 	private final Button.OnClickListener exportPdfs = new Button.OnClickListener() {
 		public void onClick(View view) {
-			//TODO
+			HtmlExporter exporter = new HtmlExporter(progressMessage, progressImage, BackupRestoreScreen.this);
+			exporter.exportData(selectedItems);
 		}
 	};
 	

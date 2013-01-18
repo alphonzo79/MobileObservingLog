@@ -190,7 +190,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
 					//of binding args we have
 					for (int k = 1; k <= 15; k++)
 					{
-						sqlStatement.bindString(k, rowData[k]);
+						if(rowData[k].equals("NULL")){
+							sqlStatement.bindNull(k);
+						} else {
+							sqlStatement.bindString(k, rowData[k]);
+						}
 					}
 					sqlStatement.execute();
 					sqlStatement.clearBindings();
