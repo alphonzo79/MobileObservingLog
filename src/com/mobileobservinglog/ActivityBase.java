@@ -35,6 +35,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.LayoutInflater.Factory;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public abstract class ActivityBase extends ListActivity implements View.OnClickListener{
@@ -43,7 +45,13 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 	CustomizeBrightness customizeBrightness = new CustomizeBrightness(this, this);
 	
 	//Menu
-	MenuItem toggleMenu;
+	Button menuButton;
+	
+	Button menuHomeButton;
+	Button menuModeButton;
+	Button menuSettingsButton;
+	Button menuInfoButton;
+	Button menuDonateButton;
 	
 	//Get access to the settings container singleton
 	SettingsContainer settingsRef = SettingsContainer.getSettingsContainer();
@@ -91,67 +99,6 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 		// TODO Auto-generated method stub		
 	}
 	
-    //prepare the menu. This originally would have changed the mode button text, the icons and the text color according to the 
-	//session mode, but the text color is handled in the inflator, which is only called on onCreateOptionsMenu. It causes problems
-	//with the factory already being created if we do it in this method. That means that I currently do not have a way to change
-	//the text color each time the menu displays. So I have commented out the lines that would have customized anything other
-	//than the mode text.
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-		Log.d("JoeDebug", "ActivityBase preparing the menu");
-		toggleMenu = menu.findItem(R.id.menuItem_toggleMode);
-	    toggleMenu.setTitle(settingsRef.getModeButtonText());
-	    return true;
-    }
-	
-	//create the menu
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.d("JoeDebug", "ActivityBase creating the menu");
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(com.mobileobservinglog.R.menu.global_menu_night, menu);
-	    setMenuBackground(menu);	
-	    return true;
-	}
-
-	
-	//the actions taken by each menu item
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.d("JoeDebug", "ActivityBase Options Menu Item pressed: " + item.getItemId());
-    	Log.d("JoeDebug", "Content: " + this.getComponentName().toShortString());
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	    case R.id.menuItem_returnHome:
-	    	//Check whether we are already on home screen. If not on home screen then navigate
-	    	if (!this.getComponentName().toShortString().contains("HomeScreen"))
-	    	{
-	    		Intent settingsIntent = new Intent(this.getApplication(), HomeScreen.class);
-	            startActivity(settingsIntent);
-	    	}
-	        return true;
-	    case R.id.menuItem_toggleMode:
-	        toggleMode();
-	        return true;
-	    case R.id.menuItem_settings:
-	    	if (!this.getComponentName().toShortString().contains("SettingsScreen"))
-	    	{
-	    		Intent settingsIntent = new Intent(this.getApplication(), SettingsScreen.class);
-	            startActivity(settingsIntent);
-	    	}
-	        return true;
-	    case R.id.menuItem_info:
-	    	if (!this.getComponentName().toShortString().contains("InfoScreen"))
-	    	{
-	    		Intent infoIntent = new Intent(this.getApplication(), InfoScreen.class);
-	            startActivity(infoIntent);
-		    }
-	        return true;
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
-	}
-	
 	//called by the Toggle Mode options menu item. Changes the layout references.
 	protected void toggleMode() {
 		Log.d("JoeDebug", "ActivityBase toggle mode menu. Current session setting: " + settingsRef.getSessionMode());
@@ -176,261 +123,112 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 	public void setLayout(){
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
 		customizeBrightness.setBacklight();
+		setUpMenuButtons();
+	}
+    
+    private void setUpMenuButtons() {
+    	menuButton = (Button)findViewById(R.id.menu_launcher);
+    	if(menuButton != null) {
+    		menuButton.setOnClickListener(launchMenu);
+    	}
+    	
+    	menuHomeButton = (Button)findViewById(R.id.custom_menu_home_button);
+    	menuHomeButton.setOnClickListener(returnHome);
+    	menuModeButton = (Button)findViewById(R.id.custom_menu_mode_button);
+    	menuModeButton.setOnClickListener(toggleMode);
+    	menuSettingsButton = (Button)findViewById(R.id.custom_menu_settings_button);
+    	menuSettingsButton.setOnClickListener(goToSettings);
+    	menuInfoButton = (Button)findViewById(R.id.custom_menu_info_button);
+    	menuInfoButton.setOnClickListener(goToInfoAbout);
+    	menuDonateButton = (Button)findViewById(R.id.custom_menu_donate_button);
+    	menuDonateButton.setOnClickListener(handleDonation);
+    }
+    
+    protected final Button.OnClickListener launchMenu = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		RelativeLayout customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
+    		customMenu.setVisibility(View.VISIBLE);
+    		menuButton.setOnClickListener(dismissMenu);
+    	}
+    };
+    
+    protected final Button.OnClickListener dismissMenu = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		RelativeLayout customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
+    		customMenu.setVisibility(View.GONE);
+    		menuButton.setOnClickListener(launchMenu);
+    	}
+    };
+    
+    protected final Button.OnClickListener returnHome = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		if (!ActivityBase.this.getComponentName().toShortString().contains("HomeScreen"))
+	    	{
+	    		Intent settingsIntent = new Intent(ActivityBase.this.getApplication(), HomeScreen.class);
+	            startActivity(settingsIntent);
+	    	}
+    	}
+    };
+    
+    protected final Button.OnClickListener toggleMode = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		switch (settingsRef.getSessionMode()){
+    		case night:
+    			Log.d("JoeDebug", "ActivityBase setting normal mode");
+    			settingsRef.setNormalMode();
+    			break;
+    		case normal:
+    			settingsRef.setNightMode();
+    			Log.d("JoeDebug", "ActivityBase setting night mode");
+    			break;
+    		default:
+    			Log.d("JoeDebug", "ActivityBase default switch in toggleMode");
+    			break;
+    		}
+
+    		setLayout();
+    	}
+    };
+    
+    protected final Button.OnClickListener goToSettings = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		if (!ActivityBase.this.getComponentName().toShortString().contains("SettingsScreen"))
+	    	{
+	    		Intent settingsIntent = new Intent(ActivityBase.this.getApplication(), SettingsScreen.class);
+	    		startActivity(settingsIntent);
+	    	}
+    	}
+    };
+    
+    protected final Button.OnClickListener goToInfoAbout = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		if (!ActivityBase.this.getComponentName().toShortString().contains("InfoScreen"))
+	    	{
+	    		Intent infoIntent = new Intent(ActivityBase.this.getApplication(), InfoScreen.class);
+	    		startActivity(infoIntent);
+	    	}
+    	}
+    };
+    
+    protected final Button.OnClickListener handleDonation = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		
+    	}
+    };
+	
+    //Eat the menu press on the initial screen
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    return true;
 	}
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+	    return true;
+    }
 	
 	//Hook to allow testing of toggle mode private method
 	public void hookToggleMode(){
 		toggleMode();
-	}
-	
-	//Used to customize the menu display
-	//hacked from http://stackoverflow.com/questions/2944244/change-the-background-color-of-the-options-menu/5647743#5647743
-	protected Boolean setMenuBackground(Menu menu){                     
-	    Log.d("JoeDebug", "Enterting setMenuBackGround");
-		getLayoutInflater().setFactory( new Factory() {  
-	        public View onCreateView(String name, Context context, AttributeSet attrs) {
-	            if ( name.equalsIgnoreCase( "com.android.internal.view.menu.IconMenuItemView" ) ) {
-	                try { // Ask our inflater to create the view  
-	                    LayoutInflater f = getLayoutInflater();  
-	                    final View[] view = new View[1];
-	                    try
-	                    {
-	                    	view[0] = f.createView( name, null, attrs );  
-	                    }
-	                    catch (InflateException e)
-	                    {
-	                    	hackAndroid23(name, attrs, f, view);
-	                    }
-	                    /* The background gets refreshed each time a new item is added the options menu.  
-	                    * So each time Android applies the default background we need to set our own  
-	                    * background. This is done using a thread giving the background change as runnable 
-	                    * object */
-	                    new Handler().post(new Runnable() {  
-	                        public void run () {  
-	                        	Log.d("JoeDebug", "Setting menu background and text color in run()");
-	                            // sets the background color   
-	                            view[0].setBackgroundResource(R.color.black);
-	                            // sets the text color              
-	                            ((TextView) view[0]).setTextColor(0xAAFF0000);
-	                            // sets the text size              
-	                            //((TextView) view[0]).setTextSize(14);
-	                        }
-	                    } );  
-	                    return view[0];
-	                }
-	                catch ( InflateException e ) 
-	                {
-	                	if (e != null)
-	                	{
-		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getMessage());
-		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getStackTrace().toString());
-	                	}
-	                }
-	                catch ( ClassNotFoundException e ) 
-	                {
-	                	if (e != null)
-	                	{
-		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getMessage());
-		                	Log.e("JoeDebug", "JoeExceptionDump: " + e.getStackTrace().toString());
-	                	}
-	                }
-	            } 
-	            return null;
-	        }
-	    }); 
-		
-		return super.onCreateOptionsMenu(menu);
-	}
-	
-	//needed to make the above menu background method work
-	//hacked from http://stackoverflow.com/questions/2944244/change-the-background-color-of-the-options-menu/5647743#5647743
-	static void hackAndroid23(final String name,
-	        final android.util.AttributeSet attrs, final LayoutInflater f,
-	        final View[] view) 
-	{
-	    // mConstructorArgs[0] is only non-null during a running call to inflate()
-	    // so we make a call to inflate() and inside that call our dully XmlPullParser get's called
-	    // and inside that it will work to call "f.createView( name, null, attrs );"!
-	    try 
-	    {
-	    	f.inflate(new XmlPullParser() 
-	    	{
-				public int next() throws XmlPullParserException, IOException 
-				{
-	                try 
-	                {
-	                    view[0] = (TextView) f.createView( name, null, attrs );
-	                } 
-	                catch (InflateException e) 
-	                {
-	                } 
-	                catch (ClassNotFoundException e) 
-	                {
-	                }
-	                throw new XmlPullParserException("exit");
-				}
-
-				//New XmlPullParser require us to implement all abstract methods, so here we go!
-				public void defineEntityReplacementText(String entityName,
-						String replacementText) throws XmlPullParserException {
-					
-				}
-
-				public int getAttributeCount() {
-					return 0;
-				}
-
-				public String getAttributeName(int index) {
-					return null;
-				}
-
-				public String getAttributeNamespace(int index) {
-					return null;
-				}
-
-				public String getAttributePrefix(int index) {
-					return null;
-				}
-
-				public String getAttributeType(int index) {
-					return null;
-				}
-
-				public String getAttributeValue(int index) {
-					return null;
-				}
-
-				public String getAttributeValue(String namespace, String name) {
-					return null;
-				}
-
-				public int getColumnNumber() {
-					return 0;
-				}
-
-				public int getDepth() {
-					return 0;
-				}
-
-				public int getEventType() throws XmlPullParserException {
-					return 0;
-				}
-
-				public boolean getFeature(String name) {
-					return false;
-				}
-
-				public String getInputEncoding() {
-					return null;
-				}
-
-				public int getLineNumber() {
-					return 0;
-				}
-
-				public String getName() {
-					return null;
-				}
-
-				public String getNamespace() {
-					return null;
-				}
-
-				public String getNamespace(String prefix) {
-					return null;
-				}
-
-				public int getNamespaceCount(int depth)
-						throws XmlPullParserException {
-					return 0;
-				}
-
-				public String getNamespacePrefix(int pos)
-						throws XmlPullParserException {
-					return null;
-				}
-
-				public String getNamespaceUri(int pos)
-						throws XmlPullParserException {
-					return null;
-				}
-
-				public String getPositionDescription() {
-					return null;
-				}
-
-				public String getPrefix() {
-					return null;
-				}
-
-				public Object getProperty(String name) {
-					return null;
-				}
-
-				public String getText() {
-					return null;
-				}
-
-				public char[] getTextCharacters(int[] holderForStartAndLength) {
-					return null;
-				}
-
-				public boolean isAttributeDefault(int index) {
-					return false;
-				}
-
-				public boolean isEmptyElementTag()
-						throws XmlPullParserException {
-					return false;
-				}
-
-				public boolean isWhitespace() throws XmlPullParserException {
-					return false;
-				}
-
-				public int nextTag() throws XmlPullParserException, IOException {
-					return 0;
-				}
-
-				public String nextText() throws XmlPullParserException,
-						IOException {
-					return null;
-				}
-
-				public int nextToken() throws XmlPullParserException,
-						IOException {
-					return 0;
-				}
-
-				public void require(int type, String namespace, String name)
-						throws XmlPullParserException, IOException {
-					
-				}
-
-				public void setFeature(String name, boolean state)
-						throws XmlPullParserException {
-					
-				}
-
-				public void setInput(Reader in) throws XmlPullParserException {
-					
-				}
-
-				public void setInput(InputStream inputStream,
-						String inputEncoding) throws XmlPullParserException {
-					
-				}
-
-				public void setProperty(String name, Object value)
-						throws XmlPullParserException {
-					
-				}
-	    	}, null, false);
-	    } 
-	    catch (InflateException e1) 
-	    {
-	        // "exit" ignored
-	    }
 	}
 }

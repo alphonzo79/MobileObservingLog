@@ -17,8 +17,11 @@ import com.mobileobservinglog.R;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -30,6 +33,13 @@ public class AddCatalogsScreen extends TabActivity{
 
 	//gather resources
 	TabHost tabHost;
+	Button menuButton;
+	
+	Button menuHomeButton;
+	Button menuModeButton;
+	Button menuSettingsButton;
+	Button menuInfoButton;
+	Button menuDonateButton;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -87,5 +97,87 @@ public class AddCatalogsScreen extends TabActivity{
         super.onResume();
         customizeBrightness.setBacklight();        
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
+        setUpMenuButtons();
     }
+    
+    private void setUpMenuButtons() {
+    	menuButton = (Button)findViewById(R.id.menu_launcher);
+    	menuButton.setOnClickListener(launchMenu);
+    	
+    	menuHomeButton = (Button)findViewById(R.id.custom_menu_home_button);
+    	menuHomeButton.setOnClickListener(returnHome);
+    	menuModeButton = (Button)findViewById(R.id.custom_menu_mode_button);
+    	menuModeButton.setOnClickListener(toggleMode);
+    	menuSettingsButton = (Button)findViewById(R.id.custom_menu_settings_button);
+    	menuSettingsButton.setOnClickListener(goToSettings);
+    	menuInfoButton = (Button)findViewById(R.id.custom_menu_info_button);
+    	menuInfoButton.setOnClickListener(goToInfoAbout);
+    	menuDonateButton = (Button)findViewById(R.id.custom_menu_donate_button);
+    	menuDonateButton.setOnClickListener(handleDonation);
+    }
+    
+    protected final Button.OnClickListener launchMenu = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		RelativeLayout customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
+    		customMenu.setVisibility(View.VISIBLE);
+    		menuButton.setOnClickListener(dismissMenu);
+    	}
+    };
+    
+    protected final Button.OnClickListener dismissMenu = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		RelativeLayout customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
+    		customMenu.setVisibility(View.GONE);
+    		menuButton.setOnClickListener(launchMenu);
+    	}
+    };
+    
+    protected final Button.OnClickListener returnHome = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		Intent settingsIntent = new Intent(AddCatalogsScreen.this.getApplication(), HomeScreen.class);
+            startActivity(settingsIntent);
+    	}
+    };
+    
+    protected final Button.OnClickListener toggleMode = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		switch (settingsRef.getSessionMode()){
+    		case night:
+    			Log.d("JoeDebug", "ActivityBase setting normal mode");
+    			settingsRef.setNormalMode();
+    			break;
+    		case normal:
+    			settingsRef.setNightMode();
+    			Log.d("JoeDebug", "ActivityBase setting night mode");
+    			break;
+    		default:
+    			Log.d("JoeDebug", "ActivityBase default switch in toggleMode");
+    			break;
+    		}
+    		
+    		Intent relaunch = new Intent(AddCatalogsScreen.this.getApplication(), AddCatalogsScreen.class);
+    		startActivity(relaunch);
+    		AddCatalogsScreen.this.finish();
+    	}
+    };
+    
+    protected final Button.OnClickListener goToSettings = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		Intent settingsIntent = new Intent(AddCatalogsScreen.this.getApplication(), SettingsScreen.class);
+            startActivity(settingsIntent);
+    	}
+    };
+    
+    protected final Button.OnClickListener goToInfoAbout = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		Intent infoIntent = new Intent(AddCatalogsScreen.this.getApplication(), InfoScreen.class);
+            startActivity(infoIntent);
+    	}
+    };
+    
+    protected final Button.OnClickListener handleDonation = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		
+    	}
+    };
 }
