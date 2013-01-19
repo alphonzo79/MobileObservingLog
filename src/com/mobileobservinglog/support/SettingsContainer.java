@@ -48,7 +48,7 @@ public final class SettingsContainer {
 	public static final String STAR_CHART_DIRECTORY = "Star Chart Location";
 	public static final String EXTERNAL = "External";
 	public static final String INTERNAL = "Internal";
-	public static final String IMAGE_DOWNLOAD_ROOT = "http://www.scinvites.com/mobile_observing_log";
+	public static final String IMAGE_DOWNLOAD_ROOT = "http://www.mobileobservinglog.com/star_chart_images";
 	
 	//Persistent Settings Map
 	private Map<String, String> persistentSettingsMap = null;
