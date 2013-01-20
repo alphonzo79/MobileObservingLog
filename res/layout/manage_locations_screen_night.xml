@@ -17,18 +17,34 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	>
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
     
-	    <TextView 
-		    style="@style/headerBarNight" 
-		    android:id="@+id/manage_locations_header"
-		    android:text="@string/app_name"
-		    />
+		    <TextView 
+			    style="@style/headerBarNight" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_night"
+		        android:id="@+id/menu_launcher"
+		        />
+		    
+	    </LinearLayout>
 	    
 	    <TextView 
 	        android:id="@+id/header_text"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/manage_locations_header"
+	        android:layout_below="@id/header_container"
 	        android:textStyle="bold"
 	        android:text="@string/observing_locations_header"
 	        android:textColor="@color/red"
@@ -91,5 +107,12 @@
         android:visibility="invisible"
         android:layout_gravity="center|center"
         />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
 	    
 </FrameLayout>

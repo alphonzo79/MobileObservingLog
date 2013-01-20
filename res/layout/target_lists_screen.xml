@@ -17,13 +17,28 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         >
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
     
-	    <TextView  
-		    style="@style/headerBarNormal"
-		    android:id="@+id/target_lists_header"
-		    android:text="@string/app_name"
-		    android:layout_alignParentTop="true"
-		    />
+		    <TextView 
+			    style="@style/headerBarNormal" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_normal"
+		        android:id="@+id/menu_launcher"
+		        />
+	    
+	    </LinearLayout>
     
 	    <LinearLayout 
 	        android:id="@+id/targets_button_layout"
@@ -50,7 +65,7 @@
 	         android:id="@android:id/list"
 	         android:layout_width="fill_parent" 
 	         android:layout_height="wrap_content" 
-	         android:layout_below="@id/target_lists_header"
+	         android:layout_below="@id/header_container"
 	         android:layout_above="@id/targets_button_layout"
 	         android:longClickable="true"
 	         />
@@ -75,5 +90,12 @@
          style="@style/modalContainerNormal"
          layout="@layout/alert_modal"
          />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_normal"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
 	    
 </FrameLayout>

@@ -17,18 +17,34 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	>
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
     
-	    <TextView  
-		    style="@style/headerBarNormal"
-		    android:id="@+id/settings_header"
-		    android:text="@string/settings_screen_header"
-		    />
+		    <TextView 
+			    style="@style/headerBarNormal" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_normal"
+		        android:id="@+id/menu_launcher"
+		        />
+	    
+	    </LinearLayout>
 	    
 	    <ListView  
 	         android:id="@android:id/list"
 	         android:layout_width="fill_parent" 
 	         android:layout_height="wrap_content" 
-	         android:layout_below="@id/settings_header"
+	         android:layout_below="@id/header_container"
 	         />
          
      </RelativeLayout>
@@ -44,5 +60,12 @@
          style="@style/modalContainerNormal"
          layout="@layout/number_picker"
          />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_normal"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
 	    
 </FrameLayout>

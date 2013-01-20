@@ -25,25 +25,33 @@
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	>
-    
-			<TextView  
-			    style="@style/headerBarNormal" 
-			    android:id="@+id/addEyepieceHeader"
-			    android:text="@string/app_name"
-			    />
+        
+	        <LinearLayout 
+	            android:id="@+id/header_container"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	    	    android:layout_gravity="center"
+	            >
+	    
+			    <TextView 
+				    style="@style/headerBarNormal" 
+				    android:id="@+id/add_catalogs_header"
+				    android:text="@string/app_name"
+				    />
 			    
-		    <ListView  
-		         android:id="@android:id/list"
-		         android:layout_width="fill_parent" 
-		         android:layout_height="wrap_content" 
-		         android:layout_below="@id/addEyepieceHeader"
-		         />
+			    <Button 
+			        style="@style/menu_launcher_button_normal"
+			        android:id="@+id/menu_launcher"
+			        />
+		    
+		    </LinearLayout>
 		    
 		    <TextView
 		        style="@style/formScreenHeaderNormal"
 		        android:id="@+id/edit_header"
 		        android:text="@string/add_edit_eyepiece"
-		        android:layout_below="@id/addEyepieceHeader"
+		        android:layout_below="@id/header_container"
 		        />
 		    
 		    <LinearLayout
@@ -148,6 +156,19 @@
 	    </RelativeLayout>
 	    
     </ScrollView>
+			    
+    <ListView  
+         android:id="@android:id/list"
+         android:layout_width="fill_parent" 
+         android:layout_height="wrap_content" 
+         />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_normal"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
     
     <include android:id="@+id/settings_fog"
         layout="@layout/background_dim_out"

@@ -25,25 +25,33 @@
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	>
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+            >
     
-			<TextView  
+		    <TextView 
 			    style="@style/headerBarNight" 
-			    android:id="@+id/addTelescopeHeader"
+			    android:id="@+id/add_catalogs_header"
 			    android:text="@string/app_name"
 			    />
-			    
-		    <ListView  
-		         android:id="@android:id/list"
-		         android:layout_width="fill_parent" 
-		         android:layout_height="wrap_content" 
-		         android:layout_below="@id/addTelescopeHeader"
-		         />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_night"
+		        android:id="@+id/menu_launcher"
+		        />
+		    
+	    </LinearLayout>
 		    
 		    <TextView
 		        style="@style/formScreenHeaderNight"
 		        android:id="@+id/edit_header"
 		        android:text="@string/add_edit_telescope"
-		        android:layout_below="@id/addTelescopeHeader"
+		        android:layout_below="@id/header_container"
 		        />
 		    
 		    <LinearLayout
@@ -217,6 +225,12 @@
 	    </RelativeLayout>
 	    
     </ScrollView>
+			    
+    <ListView  
+         android:id="@android:id/list"
+         android:layout_width="fill_parent" 
+         android:layout_height="wrap_content" 
+         />
     
     <include android:id="@+id/settings_fog"
         layout="@layout/background_dim_out"
@@ -234,5 +248,12 @@
         layout="@layout/keyboard_layout_night"
         android:layout_gravity="bottom"
         />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
 	    
 </FrameLayout>

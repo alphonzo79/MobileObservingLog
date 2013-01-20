@@ -17,8 +17,12 @@ import com.mobileobservinglog.R;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -30,6 +34,14 @@ public class ManageEquipmentScreen extends TabActivity {
 
 	//gather resources
 	TabHost tabHost;
+	Button menuButton;
+	
+	RelativeLayout customMenu;
+	Button menuHomeButton;
+	Button menuModeButton;
+	Button menuSettingsButton;
+	Button menuInfoButton;
+	Button menuDonateButton;
 	
 	@Override
     public void onCreate(Bundle icicle) {
@@ -95,5 +107,110 @@ public class ManageEquipmentScreen extends TabActivity {
 		super.onResume();
         customizeBrightness.setBacklight();        
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
+        setUpMenuButtons();
+    }
+    
+    private void setUpMenuButtons() {
+    	menuButton = (Button)findViewById(R.id.menu_launcher);
+    	if(menuButton != null) {
+    		menuButton.setOnClickListener(toggleMenu);
+    	}
+    	
+    	customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
+    	
+    	menuHomeButton = (Button)findViewById(R.id.custom_menu_home_button);
+    	if(menuHomeButton != null) {
+    		menuHomeButton.setOnClickListener(returnHome);
+    	}
+    	menuModeButton = (Button)findViewById(R.id.custom_menu_mode_button);
+    	if(menuModeButton != null) {
+    		menuModeButton.setOnClickListener(toggleMode);
+    	}
+    	menuSettingsButton = (Button)findViewById(R.id.custom_menu_settings_button);
+    	if(menuSettingsButton != null) {
+    		menuSettingsButton.setOnClickListener(goToSettings);
+    	}
+    	menuInfoButton = (Button)findViewById(R.id.custom_menu_info_button);
+    	if(menuInfoButton != null) {
+    		menuInfoButton.setOnClickListener(goToInfoAbout);
+    	}
+    	menuDonateButton = (Button)findViewById(R.id.custom_menu_donate_button);
+    	if(menuDonateButton != null) {
+    		menuDonateButton.setOnClickListener(handleDonation);
+    	}
+    }
+    
+    protected final Button.OnClickListener toggleMenu = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		toggleMenu();
+    	}
+    };
+    
+    void toggleMenu() {
+    	if(customMenu != null) {
+    		if(customMenu.getVisibility() == View.VISIBLE) {
+    			customMenu.setVisibility(View.GONE);
+    		} else {
+    			customMenu.setVisibility(View.VISIBLE);
+    		}
+    	}
+    }
+    
+    protected final Button.OnClickListener returnHome = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		Intent settingsIntent = new Intent(ManageEquipmentScreen.this.getApplication(), HomeScreen.class);
+            startActivity(settingsIntent);
+    	}
+    };
+    
+    protected final Button.OnClickListener toggleMode = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		switch (settingsRef.getSessionMode()){
+    		case night:
+    			settingsRef.setNormalMode();
+    			break;
+    		case normal:
+    			settingsRef.setNightMode();
+    			break;
+    		default:
+    			break;
+    		}
+    		
+    		Intent relaunch = new Intent(ManageEquipmentScreen.this.getApplication(), ManageEquipmentScreen.class);
+    		startActivity(relaunch);
+    		ManageEquipmentScreen.this.finish();
+    	}
+    };
+    
+    protected final Button.OnClickListener goToSettings = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		Intent settingsIntent = new Intent(ManageEquipmentScreen.this.getApplication(), SettingsScreen.class);
+            startActivity(settingsIntent);
+    	}
+    };
+    
+    protected final Button.OnClickListener goToInfoAbout = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		Intent infoIntent = new Intent(ManageEquipmentScreen.this.getApplication(), InfoScreen.class);
+            startActivity(infoIntent);
+    	}
+    };
+    
+    protected final Button.OnClickListener handleDonation = new Button.OnClickListener(){
+    	public void onClick(View view){
+    		
+    	}
+    };
+	
+    //Eat the menu press on the initial screen
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    return true;
+	}
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+    	toggleMenu();
+	    return true;
     }
 }

@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -35,6 +36,7 @@ public class AddCatalogsScreen extends TabActivity{
 	TabHost tabHost;
 	Button menuButton;
 	
+	RelativeLayout customMenu;
 	Button menuHomeButton;
 	Button menuModeButton;
 	Button menuSettingsButton;
@@ -102,35 +104,49 @@ public class AddCatalogsScreen extends TabActivity{
     
     private void setUpMenuButtons() {
     	menuButton = (Button)findViewById(R.id.menu_launcher);
-    	menuButton.setOnClickListener(launchMenu);
+    	if(menuButton != null) {
+    		menuButton.setOnClickListener(toggleMenu);
+    	}
+    	
+    	customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
     	
     	menuHomeButton = (Button)findViewById(R.id.custom_menu_home_button);
-    	menuHomeButton.setOnClickListener(returnHome);
+    	if(menuHomeButton != null) {
+    		menuHomeButton.setOnClickListener(returnHome);
+    	}
     	menuModeButton = (Button)findViewById(R.id.custom_menu_mode_button);
-    	menuModeButton.setOnClickListener(toggleMode);
+    	if(menuModeButton != null) {
+    		menuModeButton.setOnClickListener(toggleMode);
+    	}
     	menuSettingsButton = (Button)findViewById(R.id.custom_menu_settings_button);
-    	menuSettingsButton.setOnClickListener(goToSettings);
+    	if(menuSettingsButton != null) {
+    		menuSettingsButton.setOnClickListener(goToSettings);
+    	}
     	menuInfoButton = (Button)findViewById(R.id.custom_menu_info_button);
-    	menuInfoButton.setOnClickListener(goToInfoAbout);
+    	if(menuInfoButton != null) {
+    		menuInfoButton.setOnClickListener(goToInfoAbout);
+    	}
     	menuDonateButton = (Button)findViewById(R.id.custom_menu_donate_button);
-    	menuDonateButton.setOnClickListener(handleDonation);
+    	if(menuDonateButton != null) {
+    		menuDonateButton.setOnClickListener(handleDonation);
+    	}
     }
     
-    protected final Button.OnClickListener launchMenu = new Button.OnClickListener(){
+    protected final Button.OnClickListener toggleMenu = new Button.OnClickListener(){
     	public void onClick(View view){
-    		RelativeLayout customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
-    		customMenu.setVisibility(View.VISIBLE);
-    		menuButton.setOnClickListener(dismissMenu);
+    		toggleMenu();
     	}
     };
     
-    protected final Button.OnClickListener dismissMenu = new Button.OnClickListener(){
-    	public void onClick(View view){
-    		RelativeLayout customMenu = (RelativeLayout)findViewById(R.id.custom_menu);
-    		customMenu.setVisibility(View.GONE);
-    		menuButton.setOnClickListener(launchMenu);
+    void toggleMenu() {
+    	if(customMenu != null) {
+    		if(customMenu.getVisibility() == View.VISIBLE) {
+    			customMenu.setVisibility(View.GONE);
+    		} else {
+    			customMenu.setVisibility(View.VISIBLE);
+    		}
     	}
-    };
+    }
     
     protected final Button.OnClickListener returnHome = new Button.OnClickListener(){
     	public void onClick(View view){
@@ -180,4 +196,16 @@ public class AddCatalogsScreen extends TabActivity{
     		
     	}
     };
+	
+    //Eat the menu press on the initial screen
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    return true;
+	}
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+    	toggleMenu();
+	    return true;
+    }
 }

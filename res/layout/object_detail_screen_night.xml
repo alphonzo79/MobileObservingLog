@@ -16,13 +16,28 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
 	    >
-	   
-	    <TextView  
-		    style="@style/headerBarNight" 
-		    android:id="@+id/object_detail_header"
-		    android:text="@string/n_a"
-		    android:layout_alignParentTop="true"
-		    />
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
+    
+		    <TextView 
+			    style="@style/headerBarNight" 
+			    android:id="@+id/object_detail_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_night"
+		        android:id="@+id/menu_launcher"
+		        />
+		    
+	    </LinearLayout>
 	    
 	    <LinearLayout 
 	        android:id="@+id/bottom_buttons_container"
@@ -60,7 +75,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:fillViewport="true"
-	        android:layout_below="@id/object_detail_header"
+	        android:layout_below="@id/header_container"
 	        android:layout_above="@id/bottom_buttons_container"
 	        >
     
@@ -670,5 +685,12 @@
         layout="@layout/keyboard_layout_night"
         android:layout_gravity="bottom"
         />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
 	
 </FrameLayout>

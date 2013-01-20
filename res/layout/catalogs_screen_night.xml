@@ -7,55 +7,83 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/layoutRootNight"
-    android:id="@+id/catalogs_root"
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     >
+
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		style="@style/layoutRootNight"
+	    android:id="@+id/catalogs_root"
+	    >
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
     
-    <TextView 
-	    style="@style/headerBarNight" 
-	    android:id="@+id/catalogs_header"
-	    android:text="@string/app_name"
-	    android:layout_alignParentTop="true"
-	    />
-    
-    <LinearLayout 
-        android:id="@+id/catalog_button_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom|center_horizontal"
-	    android:padding="16dp"
-	    android:layout_alignParentBottom="true"
-        >
-			    
-	    <Button 
-	        style="@style/modalSaveCancelButtonNight"
-	        android:id="@+id/search_button"
-	        android:layout_width="wrap_content" 
+		    <TextView 
+			    style="@style/headerBarNight" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_night"
+		        android:id="@+id/menu_launcher"
+		        />
+		    
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/catalog_button_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="bottom|center_horizontal"
+		    android:padding="16dp"
+		    android:layout_alignParentBottom="true"
+	        >
+				    
+		    <Button 
+		        style="@style/modalSaveCancelButtonNight"
+		        android:id="@+id/search_button"
+		        android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="bottom|center_horizontal"
+		        android:paddingLeft="20dp"
+		        android:paddingRight="20dp"
+		        android:text="Search Objects"      
+		        />
+		    
+	    </LinearLayout>
+	    
+	    <ListView  
+	        android:id="@android:id/list"
+	        style="@style/listNight"
+	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
-	        android:layout_gravity="bottom|center_horizontal"
-	        android:paddingLeft="20dp"
-	        android:paddingRight="20dp"
-	        android:text="Search Objects"
-	        android:layout_alignParentBottom="true"	      
+		    android:layout_below="@id/header_container"
+		    android:layout_above="@id/catalog_button_layout"
 	        />
 	    
-    </LinearLayout>
+	    <TextView 
+		    android:id="@+id/nothing_here"
+		    android:text="@string/no_installed_catalogs"
+		    style="@style/nothing_here_text_night"
+	        android:visibility="gone"
+		    />
+		    
+	</RelativeLayout>
     
-    <ListView  
-        android:id="@android:id/list"
-        style="@style/listNight"
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content" 
-	    android:layout_below="@id/catalogs_header"
-	    android:layout_above="@id/catalog_button_layout"
-        />
-    
-    <TextView 
-	    android:id="@+id/nothing_here"
-	    android:text="@string/no_installed_catalogs"
-	    style="@style/nothing_here_text_night"
-        android:visibility="gone"
-	    />
-	    
-</RelativeLayout>
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+	
+</FrameLayout>

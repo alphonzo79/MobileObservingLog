@@ -7,63 +7,92 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/layoutRootNight"
-    android:id="@+id/info_root"
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     >
+
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		style="@style/layoutRootNight"
+	    android:id="@+id/info_root"
+	    >
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
     
-    <TextView 
-	    style="@style/headerBarNight" 
-	    android:id="@+id/info_about_header"
-	    android:text="@string/app_name"
-	    android:layout_alignParentTop="true"
-	    />
+		    <TextView 
+			    style="@style/headerBarNight" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_night"
+		        android:id="@+id/menu_launcher"
+		        />
+		    
+	    </LinearLayout>
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:layout_below="@id/header_container"
+	         />
 	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         android:layout_below="@id/info_about_header"
-         />
-    
-    <LinearLayout 
-        android:id="@+id/info_button_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom|center_horizontal"
-	    android:padding="16dp"
-	    android:layout_alignParentBottom="true"
-        >
-    
-	    <Button 
-	        style="@style/modalSaveCancelButtonNight"
-	        android:id="@+id/about_info_close_button"
-	        android:layout_width="wrap_content" 
-	        android:layout_height="wrap_content" 
-	        android:text="Close"	
-	        android:layout_gravity="bottom|center_horizontal"
-	        />
-    
-    </LinearLayout>
-    
-    <ScrollView 
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fillViewport="true"
-        android:layout_below="@id/info_about_header"
-        android:layout_above="@id/info_button_layout"
-        >
-    
-	    <TextView 
-		    android:id="@+id/about_text_field"
-	    	android:layout_width="fill_parent" 
-		    android:layout_height="wrap_content" 
-		    android:text="@string/about_text"
-		    android:textColor="@color/red"
-		    android:gravity="left|center_vertical"
+	    <LinearLayout 
+	        android:id="@+id/info_button_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="bottom|center_horizontal"
 		    android:padding="16dp"
-		    />
+		    android:layout_alignParentBottom="true"
+	        >
 	    
-    </ScrollView>
+		    <Button 
+		        style="@style/modalSaveCancelButtonNight"
+		        android:id="@+id/about_info_close_button"
+		        android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content" 
+		        android:text="Close"	
+		        android:layout_gravity="bottom|center_horizontal"
+		        />
 	    
-</RelativeLayout>
+	    </LinearLayout>
+	    
+	    <ScrollView 
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:fillViewport="true"
+	        android:layout_below="@id/header_container"
+	        android:layout_above="@id/info_button_layout"
+	        >
+	    
+		    <TextView 
+			    android:id="@+id/about_text_field"
+		    	android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content" 
+			    android:text="@string/about_text"
+			    android:textColor="@color/red"
+			    android:gravity="left|center_vertical"
+			    android:padding="16dp"
+			    />
+		    
+	    </ScrollView>
+		    
+	</RelativeLayout>
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+	
+</FrameLayout>
