@@ -73,6 +73,7 @@
 		    android:text="@string/no_installed_catalogs"
 	        style="@style/nothing_here_text_normal"
 	        android:visibility="gone"
+		    android:layout_below="@id/header_container"
 		    />
 		    
 	</RelativeLayout>

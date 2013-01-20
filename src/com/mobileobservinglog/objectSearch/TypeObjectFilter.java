@@ -70,7 +70,9 @@ public class TypeObjectFilter extends AbstractObjectFilter {
 	@Override
 	protected void resetValues() {
 		for(String type : distinctTypes) {
-			filters.put(type, false);
+			if(type != null) {
+				filters.put(type, false);
+			}
 		}
 	}
 }
