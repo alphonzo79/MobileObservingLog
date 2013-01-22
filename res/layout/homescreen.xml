@@ -36,12 +36,6 @@
 		        />
 		    
 	    </LinearLayout>
-		    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content" 
-	         />
 	    
 	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		    android:id="@+id/home_body"
@@ -120,6 +114,12 @@
 			</LinearLayout>
 			
 		</LinearLayout>
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         />
 		    
 	</LinearLayout>
     
