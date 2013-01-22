@@ -22,6 +22,10 @@
 		<item name="android:layout_gravity">center</item>
     </style>
     
+    <style name="homescreenButtonLargeNormalVertical" parent="homescreenButtonLargeNormal">
+        <item name="android:background">@drawable/home_large_button_vert_state</item>
+    </style>
+    
     <style name="homescreenButtonLargeNight" parent="homescreenButtonLargeNormal">
     	<item name="android:background">@drawable/black_button_state</item>
     	<item name="android:textColor">@color/red</item>

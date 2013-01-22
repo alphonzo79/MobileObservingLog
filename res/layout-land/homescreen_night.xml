@@ -37,12 +37,6 @@
 		        />
 		    
 	    </LinearLayout>
-		    
-	    <ListView  
-	         android:id="@android:id/list"
-	         android:layout_width="fill_parent" 
-	         android:layout_height="wrap_content" 
-	         />
 	    
 	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		    android:id="@+id/home_body"
@@ -58,13 +52,13 @@
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_gravity="center"
-		    	android:layout_weight="30"
+		    	android:layout_weight="38"
 			    >
 		
 				<Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonLargeNight"
 					android:id="@+id/navToCatalogsButton"
-					android:drawableTop="@drawable/home_catalogs_button_icon_night"
+					android:drawableTop="@drawable/home_catalogs_button_icon_vert_night"
 					android:text="@string/home_catalogs"
 					/>
 			    
@@ -131,6 +125,12 @@
 			</LinearLayout>
 			
 		</LinearLayout>
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         />
 		    
 	</LinearLayout>
     

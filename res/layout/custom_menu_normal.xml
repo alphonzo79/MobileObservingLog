@@ -14,13 +14,19 @@
        	android:layout_gravity="right|top"
     	>
     	
+	<ScrollView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+        android:fillViewport="true"
+       	android:layout_alignParentRight="true"
+	    >
+    	
     	<LinearLayout
     	    android:background="@drawable/empty_rounded_button_night"
 	    	android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
 	    	android:orientation="vertical"
        		android:layout_marginTop="30dp"
-          	android:layout_alignParentRight="true"
           	android:padding="5dp"
     	    >
     
@@ -55,10 +61,12 @@
 		    <Button 
 		        style="@style/custom_menu_button_night"
 		        android:id="@+id/custom_menu_donate_button"
-		        android:drawableTop="@drawable/info_button_night"
+		        android:drawableTop="@drawable/donate_button"
 	          	android:text="@string/menu_donate"
 		        />
     	    
     	</LinearLayout>
+    	
+   	</ScrollView>
          
 </RelativeLayout>
