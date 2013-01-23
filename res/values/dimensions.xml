@@ -12,4 +12,14 @@
     <dimen name="tab_space_top">4dp</dimen>
     <dimen name="tab_space">2dp</dimen>
     <dimen name="tab_space_plus1">3dp</dimen>
+    
+    <dimen name="three_pix">3dp</dimen>
+    <dimen name="five_pix">5dp</dimen>
+    <dimen name="six_pix">6dp</dimen>
+    <dimen name="ten_pix">10dp</dimen>
+    <dimen name="fourteen_pix">14dp</dimen>
+    <dimen name="forty_pix">40dp</dimen>
+    <dimen name="sixty_pix">60dp</dimen>
+    <dimen name="seventy_five_pix">75dp</dimen>
+    <dimen name="one_hundred_seventy_five_pix">175dp</dimen>
 </resources>

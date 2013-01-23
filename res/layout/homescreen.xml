@@ -53,13 +53,13 @@
 			    android:layout_gravity="center"
 		    	android:layout_weight="38"
 			    >
-		
-				<Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonLargeNormal"
-					android:id="@+id/navToCatalogsButton"
-					android:drawableTop="@drawable/home_catalogs_button_icon"
-					android:text="@string/home_catalogs"
-					/>
+		
+				<Button
+				    xmlns:android="http://schemas.android.com/apk/res/android"
+				    android:id="@+id/navToCatalogsButton"
+				    style="@style/homescreenButtonLargeNormal"
+				    android:drawableTop="@drawable/home_catalogs_button_icon_norm"
+				    android:text="@string/home_catalogs" />
 			    
 			</LinearLayout>
 			
@@ -75,14 +75,14 @@
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToTargetsButton"
-					android:drawableTop="@drawable/home_target_button_icon"
+					android:drawableTop="@drawable/home_target_button_icon_norm"
 					android:text="@string/home_target_lists"
 					/>
 			    
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToAddCatalogsButton"
-					android:drawableTop="@drawable/add_catalogs_icon"
+					android:drawableTop="@drawable/add_catalogs_icon_norm"
 					android:text="@string/home_add_catalogs"
 					/>
 			    
@@ -100,14 +100,14 @@
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToBackupButton"
-					android:drawableTop="@drawable/home_backup_button_icon"
+					android:drawableTop="@drawable/home_backup_button_icon_norm"
 					android:text="@string/home_backup"
 					/>
 			    
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToSettingsButton"
-					android:drawableTop="@drawable/home_settings_button_icon"
+					android:drawableTop="@drawable/home_settings_button_icon_norm"
 					android:text="@string/home_settings"
 					/>
 			    

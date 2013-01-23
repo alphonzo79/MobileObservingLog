@@ -48,7 +48,7 @@
 		    <RelativeLayout
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:padding="5dp">
+		        android:padding="@dimen/five_pix">
 		        
 		        <TabWidget
 		            android:id="@android:id/tabs"
@@ -60,7 +60,7 @@
 		            android:id="@android:id/tabcontent"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
-		            android:padding="5dp"
+		            android:padding="@dimen/five_pix"
 		            android:layout_below="@android:id/tabs" />
 		        
 		    </RelativeLayout>

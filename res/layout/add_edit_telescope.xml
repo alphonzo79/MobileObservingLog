@@ -57,13 +57,13 @@
 		    <LinearLayout
 		        android:id="@+id/diameter_layout"
 		        android:orientation="horizontal"
-		        android:paddingLeft="14dp"
-		        android:paddingRight="14dp"
-		        android:paddingTop="5dp"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_gravity="center"
-		        android:layout_marginTop="10dp"
+		        android:layout_marginTop="@dimen/ten_pix"
 		        android:gravity="center_horizontal"
 		        android:layout_below="@id/edit_header"
 		        >
@@ -78,14 +78,14 @@
 			        android:id="@+id/telescope_primary_diameter"
 			        android:maxLines="1"
 			        android:inputType="numberDecimal"
-			        android:layout_width="75dp" 
+			        android:layout_width="@dimen/seventy_five_pix" 
 			        android:layout_height="wrap_content"
 			        />
 			    
 			    <Button 
 			        style="@style/formItemButtonNormal"
 			        android:id="@+id/primary_diameter_unit"
-			        android:layout_width="40dp" 
+			        android:layout_width="@dimen/forty_pix" 
 			        android:text="mm"	        
 			        />
 		        
@@ -94,13 +94,13 @@
 		    <LinearLayout
 		        android:id="@+id/ratio_layout"
 		        android:orientation="horizontal"
-		        android:paddingLeft="14dp"
-		        android:paddingRight="14dp"
-		        android:paddingTop="5dp"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_gravity="center"
-		        android:layout_marginTop="10dp"
+		        android:layout_marginTop="@dimen/ten_pix"
 		        android:gravity="center_horizontal"
 		        android:layout_below="@id/diameter_layout"
 		        >
@@ -115,7 +115,7 @@
 			        android:id="@+id/telescope_focal_ratio"
 			        android:maxLines="1"
 			        android:inputType="numberDecimal"
-			        android:layout_width="60dp" 
+			        android:layout_width="@dimen/sixty_pix" 
 			        android:layout_height="wrap_content"
 			        />
 		        
@@ -124,13 +124,13 @@
 		    <LinearLayout
 		        android:id="@+id/length_layout"
 		        android:orientation="horizontal"
-		        android:paddingLeft="14dp"
-		        android:paddingRight="14dp"
-		        android:paddingTop="5dp"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_gravity="center"
-		        android:layout_marginTop="10dp"
+		        android:layout_marginTop="@dimen/ten_pix"
 		        android:gravity="center_horizontal"
 		        android:layout_below="@id/ratio_layout"
 		        >
@@ -145,14 +145,14 @@
 			        android:id="@+id/telescope_focal_length"
 			        android:maxLines="1"
 			        android:inputType="numberDecimal"
-			        android:layout_width="75dp" 
+			        android:layout_width="@dimen/seventy_five_pix" 
 			        android:layout_height="wrap_content"
 			        />
 			    
 			    <Button 
 			        style="@style/formItemButtonNormal"
 			        android:id="@+id/focal_length_unit"
-			        android:layout_width="40dp" 
+			        android:layout_width="@dimen/forty_pix" 
 			        android:text="mm"	        
 			        />
 		        
@@ -161,13 +161,13 @@
 		    <LinearLayout
 		        android:id="@+id/type_layout"
 		        android:orientation="horizontal"
-		        android:paddingLeft="14dp"
-		        android:paddingRight="14dp"
-		        android:paddingTop="5dp"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_gravity="center"
-		        android:layout_marginTop="10dp"
+		        android:layout_marginTop="@dimen/ten_pix"
 		        android:gravity="center_horizontal"
 		        android:layout_below="@id/length_layout"
 		        >
@@ -181,7 +181,7 @@
 			        style="@style/formScreenTextFieldNormal"
 			        android:id="@+id/telescope_type"
 			        android:maxLines="1"
-			        android:layout_width="175dp" 
+			        android:layout_width="@dimen/one_hundred_seventy_five_pix" 
 			        android:layout_height="wrap_content"
 			        />
 		        
@@ -189,13 +189,13 @@
 		    
 		    <LinearLayout
 		        android:orientation="horizontal"
-		        android:paddingLeft="14dp"
-		        android:paddingRight="14dp"
-		        android:paddingBottom="14dp"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingBottom="@dimen/fourteen_pix"
 		        android:layout_width="fill_parent" 
 		        android:layout_height="fill_parent" 
 		        android:layout_gravity="center"
-		        android:layout_marginTop="5dp"
+		        android:layout_marginTop="@dimen/five_pix"
 		        android:layout_below="@id/type_layout"
 		        android:gravity="bottom"
 		        >
@@ -205,7 +205,7 @@
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="33"
-			        android:layout_marginRight="6dp"
+			        android:layout_marginRight="@dimen/six_pix"
 			        android:text="Save"	      
 			        />
 			    
@@ -214,7 +214,7 @@
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="33"
-			        android:layout_marginLeft="6dp"
+			        android:layout_marginLeft="@dimen/six_pix"
 			        android:text="Cancel"	       
 			        />
 			        

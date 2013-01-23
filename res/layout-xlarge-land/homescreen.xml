@@ -58,7 +58,7 @@
 				<Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonLargeNormalVertical"
 					android:id="@+id/navToCatalogsButton"
-					android:drawableTop="@drawable/home_catalogs_button_icon_vert_norm"
+					android:drawableTop="@drawable/home_catalogs_button_icon_vert_large"
 					android:text="@string/home_catalogs"
 					/>
 			    
@@ -84,14 +84,14 @@
 				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 						style="@style/homescreenButtonSquareNormal"
 						android:id="@+id/navToTargetsButton"
-						android:drawableTop="@drawable/home_target_button_icon_norm"
+						android:drawableTop="@drawable/home_target_button_icon_large"
 						android:text="@string/home_target_lists"
 						/>
 				    
 				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 						style="@style/homescreenButtonSquareNormal"
 						android:id="@+id/navToAddCatalogsButton"
-						android:drawableTop="@drawable/add_catalogs_icon_norm"
+						android:drawableTop="@drawable/add_catalogs_icon_large"
 						android:text="@string/home_add_catalogs"
 						/>
 				    
@@ -109,14 +109,14 @@
 				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 						style="@style/homescreenButtonSquareNormal"
 						android:id="@+id/navToBackupButton"
-						android:drawableTop="@drawable/home_backup_button_icon_norm"
+						android:drawableTop="@drawable/home_backup_button_icon_large"
 						android:text="@string/home_backup"
 						/>
 				    
 				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 						style="@style/homescreenButtonSquareNormal"
 						android:id="@+id/navToSettingsButton"
-						android:drawableTop="@drawable/home_settings_button_icon_norm"
+						android:drawableTop="@drawable/home_settings_button_icon_large"
 						android:text="@string/home_settings"
 						/>
 				    

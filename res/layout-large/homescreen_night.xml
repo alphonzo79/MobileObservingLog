@@ -57,7 +57,7 @@
 				<Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonLargeNight"
 					android:id="@+id/navToCatalogsButton"
-					android:drawableTop="@drawable/home_catalogs_button_icon_norm_night"
+					android:drawableTop="@drawable/home_catalogs_button_icon_med_night"
 					android:text="@string/home_catalogs"
 					/>
 			    
@@ -75,7 +75,7 @@
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNight"
 					android:id="@+id/navToTargetsButton"
-					android:drawableTop="@drawable/home_target_button_icon_norm_night"
+					android:drawableTop="@drawable/home_target_button_icon_med_night"
 					android:text="@string/home_target_lists"
 					android:layout_marginRight="15dp"
 					/>
@@ -83,7 +83,7 @@
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNight"
 					android:id="@+id/navToAddCatalogsButton"
-					android:drawableTop="@drawable/add_catalogs_icon_norm_night"
+					android:drawableTop="@drawable/add_catalogs_icon_med_night"
 					android:text="@string/home_add_catalogs"
 					/>
 			    
@@ -101,14 +101,14 @@
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNight"
 					android:id="@+id/navToBackupButton"
-					android:drawableTop="@drawable/home_backup_button_icon_norm_night"
+					android:drawableTop="@drawable/home_backup_button_icon_med_night"
 					android:text="@string/home_backup"
 					/>
 			    
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonSquareNight"
 					android:id="@+id/navToSettingsButton"
-					android:drawableTop="@drawable/home_settings_button_icon_norm_night"
+					android:drawableTop="@drawable/home_settings_button_icon_med_night"
 					android:text="@string/home_settings"
 					/>
 			    

@@ -6,27 +6,28 @@
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  -->
- 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent" 
+
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     >
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		style="@style/layoutRootNight"
 	    android:id="@+id/home_root"
 	    >
-	    
-    	<LinearLayout
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:orientation="horizontal"
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
     	    android:layout_gravity="center"
-    	    >
-	    
-			<TextView  
+            >
+    
+		    <TextView 
 			    style="@style/headerBarNight" 
-			    android:id="@+id/homescreenHeader"
+			    android:id="@+id/add_catalogs_header"
 			    android:text="@string/app_name"
 			    />
 		    
@@ -39,7 +40,7 @@
 	    
 	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		    android:id="@+id/home_body"
-		    android:orientation="vertical"
+		    android:orientation="horizontal"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:layout_gravity="center"
@@ -47,9 +48,9 @@
 			
 			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			    android:id="@+id/home_top_row"
-			    android:orientation="vertical"
-			    android:layout_width="fill_parent"
-			    android:layout_height="0dp"
+			    android:orientation="horizontal"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
 			    android:layout_gravity="center"
 		    	android:layout_weight="38"
 			    >
@@ -57,61 +58,70 @@
 				<Button xmlns:android="http://schemas.android.com/apk/res/android"
 					style="@style/homescreenButtonLargeNight"
 					android:id="@+id/navToCatalogsButton"
-					android:drawableTop="@drawable/home_catalogs_button_icon_norm_night"
+					android:drawableTop="@drawable/home_catalogs_button_icon_vert_med_night"
 					android:text="@string/home_catalogs"
 					/>
 			    
 			</LinearLayout>
 			
-			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			    android:id="@+id/home_second_row"
-			    android:orientation="horizontal"
+			<LinearLayout
+			    android:orientation="vertical"
 			    android:layout_width="fill_parent"
-			    android:layout_height="0dp"
+			    android:layout_height="fill_parent"
 			    android:layout_gravity="center"
-		    	android:layout_weight="31"
+			    android:layout_weight="60"
 			    >
-			    
-			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
-					android:id="@+id/navToTargetsButton"
-					android:drawableTop="@drawable/home_target_button_icon_norm_night"
-					android:text="@string/home_target_lists"
-					android:layout_marginRight="15dp"
-					/>
-			    
-			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
-					android:id="@+id/navToAddCatalogsButton"
-					android:drawableTop="@drawable/add_catalogs_icon_norm_night"
-					android:text="@string/home_add_catalogs"
-					/>
-			    
-			</LinearLayout>
 			
-			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			    android:id="@+id/home_third_row"
-			    android:orientation="horizontal"
-			    android:layout_width="fill_parent"
-			    android:layout_height="0dp"
-			    android:layout_gravity="center"
-		    	android:layout_weight="31"
-			    >
-			    
-			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
-					android:id="@+id/navToBackupButton"
-					android:drawableTop="@drawable/home_backup_button_icon_norm_night"
-					android:text="@string/home_backup"
-					/>
-			    
-			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
-					android:id="@+id/navToSettingsButton"
-					android:drawableTop="@drawable/home_settings_button_icon_norm_night"
-					android:text="@string/home_settings"
-					/>
-			    
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				    android:id="@+id/home_second_row"
+				    android:orientation="horizontal"
+				    android:layout_width="fill_parent"
+				    android:layout_height="0dp"
+				    android:layout_gravity="center"
+			    	android:layout_weight="45"
+				    >
+				    
+				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+						style="@style/homescreenButtonSquareNight"
+						android:id="@+id/navToTargetsButton"
+						android:drawableTop="@drawable/home_target_button_icon_med_night"
+						android:text="@string/home_target_lists"
+						/>
+				    
+				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+						style="@style/homescreenButtonSquareNight"
+						android:id="@+id/navToAddCatalogsButton"
+						android:drawableTop="@drawable/add_catalogs_icon_med_night"
+						android:text="@string/home_add_catalogs"
+						/>
+				    
+				</LinearLayout>
+				
+				<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				    android:id="@+id/home_third_row"
+				    android:orientation="horizontal"
+				    android:layout_width="fill_parent"
+				    android:layout_height="0dp"
+				    android:layout_gravity="center"
+			    	android:layout_weight="45"
+				    >
+				    
+				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+						style="@style/homescreenButtonSquareNight"
+						android:id="@+id/navToBackupButton"
+						android:drawableTop="@drawable/home_backup_button_icon_med_night"
+						android:text="@string/home_backup"
+						/>
+				    
+				    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+						style="@style/homescreenButtonSquareNight"
+						android:id="@+id/navToSettingsButton"
+						android:drawableTop="@drawable/home_settings_button_icon_med_night"
+						android:text="@string/home_settings"
+						/>
+				    
+				</LinearLayout>
+				
 			</LinearLayout>
 			
 		</LinearLayout>

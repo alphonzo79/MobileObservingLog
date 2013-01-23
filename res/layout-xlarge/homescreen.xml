@@ -6,14 +6,14 @@
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  -->
- 
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
-    android:layout_height="fill_parent" 
+    android:layout_height="fill_parent"
     >
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		style="@style/layoutRootNight"
+		style="@style/layoutRootNormal"
 	    android:id="@+id/home_root"
 	    >
 	    
@@ -25,13 +25,13 @@
     	    >
 	    
 			<TextView  
-			    style="@style/headerBarNight" 
+			    style="@style/headerBarNormal" 
 			    android:id="@+id/homescreenHeader"
 			    android:text="@string/app_name"
 			    />
 		    
 		    <Button 
-		        style="@style/menu_launcher_button_night"
+		        style="@style/menu_launcher_button_normal"
 		        android:id="@+id/menu_launcher"
 		        />
 		    
@@ -54,12 +54,13 @@
 		    	android:layout_weight="38"
 			    >
 		
-				<Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonLargeNight"
-					android:id="@+id/navToCatalogsButton"
-					android:drawableTop="@drawable/home_catalogs_button_icon_norm_night"
-					android:text="@string/home_catalogs"
-					/>
+
+				<Button
+				    xmlns:android="http://schemas.android.com/apk/res/android"
+				    android:id="@+id/navToCatalogsButton"
+				    style="@style/homescreenButtonLargeNormal"
+				    android:drawableTop="@drawable/home_catalogs_button_icon_large"
+				    android:text="@string/home_catalogs" />
 			    
 			</LinearLayout>
 			
@@ -73,17 +74,16 @@
 			    >
 			    
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
+					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToTargetsButton"
-					android:drawableTop="@drawable/home_target_button_icon_norm_night"
+					android:drawableTop="@drawable/home_target_button_icon_large"
 					android:text="@string/home_target_lists"
-					android:layout_marginRight="15dp"
 					/>
 			    
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
+					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToAddCatalogsButton"
-					android:drawableTop="@drawable/add_catalogs_icon_norm_night"
+					android:drawableTop="@drawable/add_catalogs_icon_large"
 					android:text="@string/home_add_catalogs"
 					/>
 			    
@@ -99,16 +99,16 @@
 			    >
 			    
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
+					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToBackupButton"
-					android:drawableTop="@drawable/home_backup_button_icon_norm_night"
+					android:drawableTop="@drawable/home_backup_button_icon_large"
 					android:text="@string/home_backup"
 					/>
 			    
 			    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-					style="@style/homescreenButtonSquareNight"
+					style="@style/homescreenButtonSquareNormal"
 					android:id="@+id/navToSettingsButton"
-					android:drawableTop="@drawable/home_settings_button_icon_norm_night"
+					android:drawableTop="@drawable/home_settings_button_icon_large"
 					android:text="@string/home_settings"
 					/>
 			    
@@ -125,7 +125,7 @@
 	</LinearLayout>
     
     <include android:id="@+id/custom_menu"
-        layout="@layout/custom_menu_night"
+        layout="@layout/custom_menu_normal"
         android:layout_width="wrap_content"
     	android:layout_height="fill_parent"
     	android:visibility="invisible"
