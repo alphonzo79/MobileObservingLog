@@ -51,7 +51,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="bottom|center_horizontal"
-		    android:padding="16dp"
+		    android:padding="@dimen/sixteen_pix"
 		    android:layout_alignParentBottom="true"
 	        >
 	    
@@ -61,8 +61,8 @@
 		        android:layout_height="wrap_content" 
 		        android:text="Close"	
 		        android:layout_gravity="bottom|center_horizontal"
-		        android:paddingLeft="20dp"
-		        android:paddingRight="20dp"
+		        android:paddingLeft="@dimen/twenty_pix"
+		        android:paddingRight="@dimen/twenty_pix"
 		        />
 	    
 	    </LinearLayout>
@@ -82,7 +82,7 @@
 			    android:text="@string/about_text"
 			    android:textColor="@color/black"
 			    android:gravity="left|center_vertical"
-			    android:padding="16dp"
+			    android:padding="@dimen/sixteen_pix"
 			    />
 	    
 	    </ScrollView>

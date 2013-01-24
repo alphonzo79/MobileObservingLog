@@ -12,10 +12,10 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
+    android:paddingLeft="@dimen/four_pix"
+    android:paddingRight="@dimen/four_pix"
+    android:paddingTop="@dimen/four_pix"
+    android:paddingBottom="@dimen/four_pix"
     >
 
 	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +23,7 @@
 	    android:layout_height="wrap_content"
 	    android:id="@+id/eyepiece_focal_length"
 	    android:layout_gravity="left"
-	    android:textSize="12sp" 
+	    android:textSize="@dimen/twelve_pix" 
 	    android:textColor="@color/red"
 	    android:textStyle="bold"
 	    />

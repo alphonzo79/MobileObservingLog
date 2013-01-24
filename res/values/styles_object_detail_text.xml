@@ -11,11 +11,11 @@
     <style name="object_detail_data_label_normal">
         <item name="android:textColor">@color/black</item>
     	<item name="android:textStyle">bold</item>
-    	<item name="android:textSize">12dp</item>
+    	<item name="android:textSize">@dimen/twelve_pix</item>
     	<item name="android:gravity">right|center_vertical</item>
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>
-    	<item name="android:layout_marginRight">3dp</item>
+    	<item name="android:layout_marginRight">@dimen/three_pix</item>
     </style>
     
     <style name="object_detail_data_label_night" parent="object_detail_data_label_normal">
@@ -25,7 +25,7 @@
     <style name="object_detail_data_normal">
         <item name="android:textColor">@color/black</item>
     	<item name="android:textStyle">normal</item>
-    	<item name="android:textSize">12dp</item>
+    	<item name="android:textSize">@dimen/twelve_pix</item>
     	<item name="android:layout_gravity">left|center_vertical</item>
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>
@@ -38,7 +38,7 @@
     <style name="object_detail_outer_block">
         <item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
-    	<item name="android:layout_marginTop">3dp</item>
+    	<item name="android:layout_marginTop">@dimen/three_pix</item>
     	<item name="android:orientation">horizontal</item>
 		<item name="android:layout_centerHorizontal">true</item>
 		<item name="android:gravity">center_horizontal</item>
@@ -49,7 +49,7 @@
     	<item name="android:layout_height">wrap_content</item>
     	<item name="android:layout_weight">50</item>
     	<item name="android:orientation">horizontal</item>
-		<item name="android:layout_marginLeft">10dp</item>
-		<item name="android:layout_marginRight">10dp</item>
+		<item name="android:layout_marginLeft">@dimen/ten_pix</item>
+		<item name="android:layout_marginRight">@dimen/ten_pix</item>
     </style>
 </resources>

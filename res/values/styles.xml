@@ -12,10 +12,10 @@
 	    <item name="android:layout_width">fill_parent</item>
 	    <item name="android:layout_height">wrap_content</item>
 	    <item name="android:visibility">gone</item>
-	    <item name="android:textSize">14dp</item>
-	    <item name="android:paddingTop">25dp</item>
-	    <item name="android:paddingLeft">15dp</item>
-	    <item name="android:paddingRight">15dp</item>
+	    <item name="android:textSize">@dimen/fourteen_pix</item>
+	    <item name="android:paddingTop">@dimen/twenty_five_pix</item>
+	    <item name="android:paddingLeft">@dimen/fifteen_pix</item>
+	    <item name="android:paddingRight">@dimen/fifteen_pix</item>
 	    <item name="android:textColor">@color/black</item>
 	</style>
     

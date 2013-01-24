@@ -44,7 +44,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="bottom|center_horizontal"
-		    android:padding="16dp"
+		    android:padding="@dimen/sixteen_pix"
 		    android:layout_alignParentBottom="true"
 	        >
 				    
@@ -53,10 +53,11 @@
 		        android:layout_width="wrap_content" 
 		        android:layout_height="wrap_content" 
 		        android:layout_gravity="bottom|center_horizontal"
-		        android:paddingLeft="20dp"
-		        android:paddingRight="20dp"
+		        android:paddingLeft="@dimen/twenty_pix"
+		        android:paddingRight="@dimen/twenty_pix"
 		        android:text="Search Objects"      
 		        />
+		    
 		    
 	    </LinearLayout>
 	    

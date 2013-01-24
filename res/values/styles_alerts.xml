@@ -9,9 +9,9 @@
 
 <resources>
     <style name="alertMainTextNormal">
-        <item name="android:layout_margin">25dp</item>
+        <item name="android:layout_margin">@dimen/twenty_five_pix</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">@dimen/eighteen_pix</item>
     </style>
     
     <style name="alertMainTextNight" parent="alertMainTextNormal">

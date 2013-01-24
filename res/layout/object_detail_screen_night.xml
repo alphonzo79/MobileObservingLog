@@ -44,7 +44,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
-	        android:padding="6dp"
+	        android:padding="@dimen/six_pix"
 	        android:layout_alignParentBottom="true"
 	        >
 		    
@@ -54,7 +54,7 @@
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="50"
-		        android:layout_marginRight="3dp"
+		        android:layout_marginRight="@dimen/three_pix"
 		        android:text="@string/save_log"	      
 		        />
 		    
@@ -64,7 +64,7 @@
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="50"
-		        android:layout_marginLeft="3dp"
+		        android:layout_marginLeft="@dimen/three_pix"
 		        android:text="@string/clear_log"	       
 		        />
 	        
@@ -137,7 +137,7 @@
 				    android:adjustViewBounds="true"
 				    android:contentDescription="@string/star_chart_alt"
 				    android:background="@drawable/image_border_night"
-				    android:layout_margin="5dp"
+				    android:layout_margin="@dimen/five_pix"
 				    android:layout_below="@id/other_catalogs_layout"
 				    />
 				    
@@ -148,8 +148,8 @@
 		            android:orientation="horizontal"
 		            android:gravity="center_horizontal"
 		            android:layout_gravity="center_horizontal"
-		            android:layout_marginLeft="15dp"
-		            android:layout_marginRight="15dp"
+		            android:layout_marginLeft="@dimen/fifteen_pix"
+		            android:layout_marginRight="@dimen/fifteen_pix"
 		            android:layout_below="@id/star_chart"
 		            >
 	    
@@ -159,11 +159,11 @@
 				        android:layout_width="wrap_content" 
 				        android:layout_height="wrap_content" 
 				        android:layout_weight="50"
-				        android:layout_marginRight="3dp"
-				        android:layout_marginLeft="10dp"
-				        android:paddingLeft="5dp"
-				        android:paddingRight="5dp"
-				        android:textSize="14dp"
+				        android:layout_marginRight="@dimen/three_pix"
+				        android:layout_marginLeft="@dimen/ten_pix"
+				        android:paddingLeft="@dimen/five_pix"
+				        android:paddingRight="@dimen/five_pix"
+				        android:textSize="@dimen/fourteen_pix"
 				        android:text="@string/add_to_list"
 				        />
 				    
@@ -178,19 +178,19 @@
 	    
 					    <ImageView 
 						    android:id="@+id/fav_star"
-						    android:layout_width="30dp"
-						    android:layout_height="30dp"
+						    android:layout_width="@dimen/thirty_pix"
+						    android:layout_height="@dimen/thirty_pix"
 						    android:contentDescription="@string/unchecked_normal_image_alt"
-						    android:layout_marginTop="5dp"
-						    android:layout_marginBottom="5dp"
-						    android:layout_marginRight="7dp"
-						    android:layout_marginLeft="25dp"
+						    android:layout_marginTop="@dimen/five_pix"
+						    android:layout_marginBottom="@dimen/five_pix"
+						    android:layout_marginRight="@dimen/seven_pix"
+						    android:layout_marginLeft="@dimen/twenty_five_pix"
 						    />				
 		                
 		                <TextView 
 				            style="@style/object_detail_data_label_night"
 				            android:id="@+id/fav_label"
-				            android:textSize="14dp"
+				            android:textSize="@dimen/fourteen_pix"
 				            android:text="@string/fav_label"
 				            />				        
 				        
@@ -447,11 +447,11 @@
 				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/date_input"
 				            android:layout_width="wrap_content"
-				            android:minWidth="125dp"
+				            android:minWidth="@dimen/one_hundred_twenty_five_pix"
 				            android:gravity="left"
 				            android:inputType="none"
-				            android:layout_marginLeft="7dp"
-				            android:layout_marginRight="7dp"
+				            android:layout_marginLeft="@dimen/seven_pix"
+				            android:layout_marginRight="@dimen/seven_pix"
 				            />
 		                
 		            </LinearLayout>
@@ -459,7 +459,7 @@
 		            <LinearLayout
 		                android:id="@+id/time_block"
 		                style="@style/object_detail_inner_block"
-		                android:layout_marginLeft="5dp"
+		                android:layout_marginLeft="@dimen/five_pix"
 		                >
 		                
 		                <TextView 
@@ -479,10 +479,10 @@
 				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/time_input"
 				            android:layout_width="fill_parent"
-				            android:minWidth="75dp"
+				            android:minWidth="@dimen/seventy_five_pix"
 				            android:gravity="left"
-				            android:layout_marginLeft="7dp"
-				            android:layout_marginRight="7dp"
+				            android:layout_marginLeft="@dimen/seven_pix"
+				            android:layout_marginRight="@dimen/seven_pix"
 				            />
 		                
 		            </LinearLayout>
@@ -492,7 +492,7 @@
 	            <LinearLayout
 	                android:id="@+id/location_block"
 	                style="@style/object_detail_inner_block"
-	                android:layout_marginTop="3dp"
+	                android:layout_marginTop="@dimen/three_pix"
 	                android:layout_below="@id/date_time_layout"
 	                >
 	                
@@ -513,9 +513,9 @@
 			            style="@style/formScreenTextFieldNight"
 			            android:id="@+id/location_input"
 			            android:layout_width="fill_parent"
-			            android:minWidth="175dp"
+			            android:minWidth="@dimen/one_hundred_seventy_five_pix"
 			            android:gravity="left"
-			            android:layout_marginLeft="7dp"
+			            android:layout_marginLeft="@dimen/seven_pix"
 			            />
 	                
 	            </LinearLayout>
@@ -523,7 +523,7 @@
 	            <LinearLayout
 	                android:id="@+id/equipment_block"
 	                style="@style/object_detail_inner_block"
-	                android:layout_marginTop="3dp"
+	                android:layout_marginTop="@dimen/three_pix"
 	                android:layout_below="@id/location_block"
 	                >
 	                
@@ -544,9 +544,9 @@
 			            style="@style/formScreenTextFieldNight"
 			            android:id="@+id/equipment_input"
 			            android:layout_width="fill_parent"
-			            android:minWidth="175dp"
+			            android:minWidth="@dimen/one_hundred_seventy_five_pix"
 			            android:gravity="left"
-			            android:layout_marginLeft="7dp"
+			            android:layout_marginLeft="@dimen/seven_pix"
 			            />
 	                
 	            </LinearLayout>
@@ -560,7 +560,7 @@
 		            <LinearLayout
 		                android:id="@+id/seeing_block"
 		                style="@style/object_detail_inner_block"
-		                android:layout_marginRight="5dp"
+		                android:layout_marginRight="@dimen/five_pix"
 		                >
 		                
 		                <TextView 
@@ -580,10 +580,10 @@
 				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/seeing_input"
 				            android:layout_width="fill_parent"
-				            android:minWidth="50dp"
+				            android:minWidth="@dimen/fifty_pix"
 				            android:gravity="left"
-			                android:layout_marginLeft="5dp"
-			                android:layout_marginRight="5dp"
+			                android:layout_marginLeft="@dimen/five_pix"
+			                android:layout_marginRight="@dimen/five_pix"
 				            />
 		                
 		            </LinearLayout>
@@ -591,7 +591,7 @@
 		            <LinearLayout
 		                android:id="@+id/trans_block"
 		                style="@style/object_detail_inner_block"
-		                android:layout_marginLeft="5dp"
+		                android:layout_marginLeft="@dimen/five_pix"
 		                >
 		                
 		                <TextView 
@@ -611,10 +611,10 @@
 				            style="@style/formScreenTextFieldNight"
 				            android:id="@+id/trans_input"
 				            android:layout_width="fill_parent"
-				            android:minWidth="50dp"
+				            android:minWidth="@dimen/fifty_pix"
 				            android:gravity="left"
-			                android:layout_marginLeft="5dp"
-			                android:layout_marginRight="5dp"
+			                android:layout_marginLeft="@dimen/five_pix"
+			                android:layout_marginRight="@dimen/five_pix"
 				            />
 		                
 		            </LinearLayout>
@@ -631,7 +631,7 @@
 	                <TextView 
 			            style="@style/object_detail_data_label_night"
 			            android:id="@+id/notes_label"
-			            android:layout_marginLeft="8dp"
+			            android:layout_marginLeft="@dimen/eight_pix"
 			            android:gravity="left"
 			            android:layout_gravity="left"
 			            android:text="@string/view_notes_label"
@@ -640,8 +640,8 @@
 	            	<TextView 
 			            style="@style/object_detail_data_night"
 			            android:id="@+id/notes_data"
-			            android:layout_marginLeft="10dp"
-			            android:layout_marginRight="10dp"
+			            android:layout_marginLeft="@dimen/ten_pix"
+			            android:layout_marginRight="@dimen/ten_pix"
 		            	android:text="@string/n_a"
 			            android:visibility="gone"
 			            />
@@ -650,7 +650,7 @@
 			            style="@style/formScreenTextFieldNight"
 			            android:id="@+id/notes_input"
 			            android:layout_width="fill_parent"
-			            android:minWidth="75dp"
+			            android:minWidth="@dimen/seventy_five_pix"
 			            android:gravity="left"
 			            />
 	                

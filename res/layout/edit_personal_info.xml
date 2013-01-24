@@ -65,13 +65,13 @@
 				<LinearLayout
 			        android:id="@+id/edit_personal_info_name_layout"
 			        android:orientation="vertical"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
-			        android:paddingTop="5dp"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
+			        android:paddingTop="@dimen/five_pix"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_gravity="center"
-			        android:layout_marginTop="10dp"
+			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
 			        >
 			    
@@ -86,7 +86,7 @@
 				        android:id="@+id/edit_personal_info_name"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
-				        android:layout_marginTop="3dp"
+				        android:layout_marginTop="@dimen/three_pix"
 				        />
 			        
 			    </LinearLayout>
@@ -94,13 +94,13 @@
 				<LinearLayout
 			        android:id="@+id/edit_personal_info_address_layout"
 			        android:orientation="vertical"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
-			        android:paddingTop="5dp"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
+			        android:paddingTop="@dimen/five_pix"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_gravity="center"
-			        android:layout_marginTop="10dp"
+			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
 			        android:layout_below="@id/edit_personal_info_name_layout"
 			        >
@@ -116,7 +116,7 @@
 				        android:id="@+id/edit_personal_info_address"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
-				        android:layout_marginTop="3dp"
+				        android:layout_marginTop="@dimen/three_pix"
 				        />
 			        
 			    </LinearLayout>
@@ -124,13 +124,13 @@
 			    <LinearLayout
 			        android:id="@+id/edit_personal_info_phone_layout"
 			        android:orientation="vertical"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
-			        android:paddingTop="5dp"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
+			        android:paddingTop="@dimen/five_pix"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_gravity="center"
-			        android:layout_marginTop="10dp"
+			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
 			        android:layout_below="@id/edit_personal_info_address_layout"
 			        >
@@ -146,7 +146,7 @@
 				        android:id="@+id/edit_personal_info_phone"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
-				        android:layout_marginTop="3dp"
+				        android:layout_marginTop="@dimen/three_pix"
 				        android:gravity="top|center"
 				        />
 			        
@@ -155,13 +155,13 @@
 			    <LinearLayout
 			        android:id="@+id/edit_personal_info_email_layout"
 			        android:orientation="vertical"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
-			        android:paddingTop="5dp"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
+			        android:paddingTop="@dimen/five_pix"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_gravity="center"
-			        android:layout_marginTop="10dp"
+			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
 			        android:layout_below="@id/edit_personal_info_phone_layout"
 			        >
@@ -177,7 +177,7 @@
 				        android:id="@+id/edit_personal_info_email"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
-				        android:layout_marginTop="3dp"
+				        android:layout_marginTop="@dimen/three_pix"
 				        android:gravity="top|center"
 				        />
 			        
@@ -186,13 +186,13 @@
 			    <LinearLayout
 			        android:id="@+id/edit_personal_info_club_layout"
 			        android:orientation="vertical"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
-			        android:paddingTop="5dp"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
+			        android:paddingTop="@dimen/five_pix"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_gravity="center"
-			        android:layout_marginTop="10dp"
+			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
 			        android:layout_below="@id/edit_personal_info_email_layout"
 			        >
@@ -208,7 +208,7 @@
 				        android:id="@+id/edit_personal_info_club"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
-				        android:layout_marginTop="3dp"
+				        android:layout_marginTop="@dimen/three_pix"
 				        android:gravity="top|center"
 				        />
 			        
@@ -218,11 +218,11 @@
 			        android:id="@+id/edit_personal_info_buttons_layout"
 			        android:layout_width="fill_parent"
 			        android:layout_height="fill_parent"
-			        android:layout_marginTop="5dp"
+			        android:layout_marginTop="@dimen/five_pix"
 			        android:orientation="horizontal"
-			        android:paddingBottom="14dp"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
+			        android:paddingBottom="@dimen/fourteen_pix"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
 			        android:layout_below="@id/edit_personal_info_club_layout"   
 		        	android:layout_gravity="center"
 		        	android:gravity="bottom"
@@ -233,7 +233,7 @@
 				        android:layout_width="wrap_content" 
 				        android:layout_height="wrap_content" 
 				        android:text="Save"	
-			        	android:layout_marginRight="6dp"
+			        	android:layout_marginRight="@dimen/six_pix"
 				        android:layout_weight="50"  
 				        />
 				    
@@ -242,7 +242,7 @@
 				        android:layout_width="wrap_content" 
 				        android:layout_height="wrap_content" 
 				        android:text="Cancel"	
-			        	android:layout_marginLeft="6dp"
+			        	android:layout_marginLeft="@dimen/six_pix"
 				        android:layout_weight="50" 
 				        />
 				        

@@ -13,13 +13,31 @@
     <dimen name="tab_space">2dp</dimen>
     <dimen name="tab_space_plus1">3dp</dimen>
     
+    <dimen name="zero_pix">0dp</dimen>
+    <dimen name="two_pix">2dp</dimen>
     <dimen name="three_pix">3dp</dimen>
+    <dimen name="four_pix">4dp</dimen>
     <dimen name="five_pix">5dp</dimen>
     <dimen name="six_pix">6dp</dimen>
+    <dimen name="seven_pix">7dp</dimen>
+    <dimen name="eight_pix">8dp</dimen>
     <dimen name="ten_pix">10dp</dimen>
+    <dimen name="twelve_pix">12dp</dimen>
     <dimen name="fourteen_pix">14dp</dimen>
+    <dimen name="fifteen_pix">15dp</dimen>
+    <dimen name="sixteen_pix">16dp</dimen>
+    <dimen name="seventeen_pix">17dp</dimen>
+    <dimen name="eighteen_pix">18dp</dimen>
+    <dimen name="twenty_pix">20dp</dimen>
+    <dimen name="twenty_four_pix">24dp</dimen>
+    <dimen name="twenty_five_pix">25dp</dimen>
+    <dimen name="thirty_pix">30dp</dimen>
     <dimen name="forty_pix">40dp</dimen>
+    <dimen name="forty_five_pix">45dp</dimen>
+    <dimen name="fifty_pix">50dp</dimen>
     <dimen name="sixty_pix">60dp</dimen>
     <dimen name="seventy_five_pix">75dp</dimen>
+    <dimen name="one_hundred_twenty_five_pix">125dp</dimen>
+    <dimen name="one_hundred_fifty_pix">150dp</dimen>
     <dimen name="one_hundred_seventy_five_pix">175dp</dimen>
 </resources>

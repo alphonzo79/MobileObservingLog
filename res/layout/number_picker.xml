@@ -43,8 +43,8 @@
    		android:orientation="horizontal"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
-   		android:layout_marginLeft="15dp"
-   		android:layout_marginRight="15dp"
+   		android:layout_marginLeft="@dimen/fifteen_pix"
+   		android:layout_marginRight="@dimen/fifteen_pix"
    		android:layout_below="@id/number_picker_down_button"
    		android:gravity="center_horizontal"
    		>

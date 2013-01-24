@@ -51,7 +51,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="bottom|center_horizontal"
-		    android:padding="16dp"
+		    android:padding="@dimen/sixteen_pix"
 		    android:layout_alignParentBottom="true"
 	        >
 	    
@@ -81,7 +81,7 @@
 			    android:text="@string/about_text"
 			    android:textColor="@color/red"
 			    android:gravity="left|center_vertical"
-			    android:padding="16dp"
+			    android:padding="@dimen/sixteen_pix"
 			    />
 		    
 	    </ScrollView>

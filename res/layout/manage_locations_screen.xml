@@ -49,18 +49,18 @@
 	        android:text="@string/observing_locations_header"
 	        android:textColor="@color/black"
 	        android:gravity="center_horizontal"
-	        android:textSize="18dp"
-	        android:layout_marginTop="3dip"
+	        android:textSize="@dimen/eighteen_pix"
+	        android:layout_marginTop="@dimen/three_pix"
 	        />
 	    
 	    <View
 	        android:id="@+id/line"
 	        android:layout_width="fill_parent"
 	        android:layout_height="1dip"
-	        android:layout_marginLeft="15dip"
-	        android:layout_marginRight="15dip"
-	        android:layout_marginTop="5dip"
-	        android:layout_marginBottom="5dip"
+	        android:layout_marginLeft="@dimen/fifteen_pix"
+	        android:layout_marginRight="@dimen/fifteen_pix"
+	        android:layout_marginTop="@dimen/five_pix"
+	        android:layout_marginBottom="@dimen/five_pix"
 	        android:background="@color/black"
 	        android:layout_below="@id/header_text"
 	        />
@@ -70,7 +70,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true"
-	        android:layout_margin="10dp"
+	        android:layout_margin="@dimen/ten_pix"
 	        android:text="@string/add_location"
 	        android:layout_alignParentBottom="true"
 	        />

@@ -44,7 +44,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical"
-	        android:padding="6dp"
+	        android:padding="@dimen/six_pix"
 	        android:layout_alignParentBottom="true"
 	        android:gravity="center_horizontal"
 	        >
@@ -54,7 +54,7 @@
 		        android:id="@+id/export_pdf_button"
 		        android:layout_width="wrap_content" 
 		        android:layout_height="wrap_content" 
-		        android:layout_marginRight="3dp"
+		        android:layout_marginRight="@dimen/three_pix"
 		        android:text="@string/export_pdf"	      
 		        />
 		    
@@ -63,7 +63,7 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:orientation="horizontal"
-		        android:padding="6dp"
+		        android:padding="@dimen/six_pix"
 		        >
 		    
 			    <Button 
@@ -72,7 +72,7 @@
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="50"
-			        android:layout_marginRight="3dp"
+			        android:layout_marginRight="@dimen/three_pix"
 			        android:text="@string/backup_data"	      
 			        />
 			    
@@ -82,7 +82,7 @@
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="50"
-			        android:layout_marginLeft="3dp"
+			        android:layout_marginLeft="@dimen/three_pix"
 			        android:text="@string/restore_data"	       
 			        />
 		        

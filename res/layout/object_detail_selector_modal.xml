@@ -38,23 +38,23 @@
 		    	android:id="@+id/number_picker_up_button_one"
 		    	style="@style/modalUpButtonNormal"
 		    	android:text="@string/num_picker_up_button"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 		    	/>
 		   
 		    <TextView  
 			    android:id="@+id/number_picker_input_field_one"
 		    	style="@style/modalTextFieldNormal"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 			    />
 			    
 		    <Button 
 		    	android:id="@+id/number_picker_down_button_one"
 		    	style="@style/modalDownButtonNormal"
 		    	android:text="@string/num_picker_down_button"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 		    	/>
             
         </LinearLayout>
@@ -71,23 +71,23 @@
 		    	android:id="@+id/number_picker_up_button_two"
 		    	style="@style/modalUpButtonNormal"
 		    	android:text="@string/num_picker_up_button"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 		    	/>
 		   
 		    <TextView  
 			    android:id="@+id/number_picker_input_field_two"
 		    	style="@style/modalTextFieldNormal"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 			    />
 			    
 		    <Button 
 		    	android:id="@+id/number_picker_down_button_two"
 		    	style="@style/modalDownButtonNormal"
 		    	android:text="@string/num_picker_down_button"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 		    	/>
             
         </LinearLayout>
@@ -104,23 +104,23 @@
 		    	android:id="@+id/number_picker_up_button_three"
 		    	style="@style/modalUpButtonNormal"
 		    	android:text="@string/num_picker_up_button"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 		    	/>
 		   
 		    <TextView  
 			    android:id="@+id/number_picker_input_field_three"
 		    	style="@style/modalTextFieldNormal"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 			    />
 			    
 		    <Button 
 		    	android:id="@+id/number_picker_down_button_three"
 		    	style="@style/modalDownButtonNormal"
 		    	android:text="@string/num_picker_down_button"
-		    	android:layout_marginLeft="10dp"
-		    	android:layout_marginRight="10dp"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
 		    	/>
             
         </LinearLayout>
@@ -146,7 +146,7 @@
 	        android:id="@+id/modal_list_one"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
-	        android:layout_margin="5dp"
+	        android:layout_margin="@dimen/five_pix"
 	        />   
         
     </LinearLayout>
@@ -170,7 +170,7 @@
 	        android:id="@+id/modal_list_two"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
-	        android:layout_margin="5dp"
+	        android:layout_margin="@dimen/five_pix"
 	        />   
         
     </LinearLayout>
@@ -180,8 +180,8 @@
    		android:orientation="horizontal"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
-   		android:layout_marginLeft="15dp"
-   		android:layout_marginRight="15dp"
+   		android:layout_marginLeft="@dimen/fifteen_pix"
+   		android:layout_marginRight="@dimen/fifteen_pix"
    		android:layout_below="@id/object_selector_modal_list_layout_two"
    		android:gravity="center_horizontal"
    		>
@@ -191,9 +191,9 @@
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/ok"
 	    	android:layout_weight="30"
-	        android:paddingLeft="5dp"
-	        android:paddingRight="5dp"
-	    	android:textSize="14dp"
+	        android:paddingLeft="@dimen/five_pix"
+	        android:paddingRight="@dimen/five_pix"
+	    	android:textSize="@dimen/fourteen_pix"
 	    	/>
 	    
 	    <Button 
@@ -201,18 +201,18 @@
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/num_picker_cancel_button"
 	    	android:layout_weight="30"
-	        android:paddingLeft="5dp"
-	        android:paddingRight="5dp"
-	    	android:textSize="14dp"
+	        android:paddingLeft="@dimen/five_pix"
+	        android:paddingRight="@dimen/five_pix"
+	    	android:textSize="@dimen/fourteen_pix"
 	    	/>
 	    
 	    <Button 
 	    	android:id="@+id/alert_extra_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:layout_weight="30"
-	        android:paddingLeft="2dp"
-	        android:paddingRight="2dp"
-	    	android:textSize="14dp"
+	        android:paddingLeft="@dimen/two_pix"
+	        android:paddingRight="@dimen/two_pix"
+	    	android:textSize="@dimen/fourteen_pix"
 	    	android:textScaleX="0.85"
 	    	android:visibility="gone"
 	    	/>

@@ -104,8 +104,8 @@
 		    android:layout_below="@id/lc_top"
 			android:layout_width="fill_parent"
     		android:layout_height="wrap_content"
-    		android:paddingLeft="10dp"
-    		android:paddingRight="10dp"
+    		android:paddingLeft="@dimen/ten_pix"
+    		android:paddingRight="@dimen/ten_pix"
     		android:orientation="horizontal"
 		    >
 		    
@@ -187,7 +187,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="shift"
 		        android:layout_weight="15"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".60"
 		        />
 		    
@@ -245,7 +245,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="del"
 		        android:layout_weight="15"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".70"
 		        />
 		    
@@ -264,7 +264,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="\?123"
 		        android:layout_weight="20"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".80"
 		        />
 		    
@@ -294,7 +294,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="enter"
 		        android:layout_weight="20"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".80"
 		        />
 		    
@@ -474,7 +474,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="shift"
 		        android:layout_weight="15"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".60"
 		        />
 		    
@@ -532,7 +532,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="del"
 		        android:layout_weight="15"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".70"
 		        />
 		    
@@ -551,7 +551,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="\?123"
 		        android:layout_weight="20"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".80"
 		        />
 		    
@@ -581,7 +581,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="enter"
 		        android:layout_weight="20"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".80"
 		        />
 		    
@@ -726,7 +726,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="shift"
 		        android:layout_weight="15"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".60"
 		        />
 		    
@@ -968,7 +968,7 @@
 		        style="@style/keyboardButtonNormal"
 		        android:text="shift"
 		        android:layout_weight="15"
-		        android:padding="0dp"
+		        android:padding="@dimen/zero_pix"
 		        android:textScaleX=".60"
 		        />
 		    

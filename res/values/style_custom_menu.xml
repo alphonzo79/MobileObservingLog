@@ -9,14 +9,14 @@
 
 <resources>   
     <style name="custom_menu_button_normal">
-    	<item name="android:layout_width">150dp</item>
+    	<item name="android:layout_width">@dimen/one_hundred_fifty_pix</item>
     	<item name="android:layout_height">wrap_content</item>
     	<item name="android:background">@drawable/home_square_button_state</item>
-    	<item name="android:layout_marginLeft">5dp</item>
-    	<item name="android:layout_marginRight">5dp</item>
-    	<item name="android:layout_marginTop">5dp</item>
-    	<item name="android:layout_marginBottom">5dp</item>
-    	<item name="android:padding">10dp</item>
+    	<item name="android:layout_marginLeft">@dimen/five_pix</item>
+    	<item name="android:layout_marginRight">@dimen/five_pix</item>
+    	<item name="android:layout_marginTop">@dimen/five_pix</item>
+    	<item name="android:layout_marginBottom">@dimen/five_pix</item>
+    	<item name="android:padding">@dimen/ten_pix</item>
     	<item name="android:textColor">@color/black</item>
 		<item name="android:layout_gravity">center</item>
     </style>

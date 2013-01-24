@@ -45,7 +45,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@id/header_container"
 	        android:orientation="vertical"
-	        android:padding="3dp"
+	        android:padding="@dimen/three_pix"
 	        >
 	        
 	        <TextView 
@@ -67,7 +67,7 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:orientation="horizontal"
-	            android:padding="6dp"
+	            android:padding="@dimen/six_pix"
 	            >
 		    
 			    <Button 
@@ -75,7 +75,7 @@
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="50"
-			        android:layout_marginRight="3dp"
+			        android:layout_marginRight="@dimen/three_pix"
 			        android:text="@string/clear_filter"	      
 			        />
 			    
@@ -84,7 +84,7 @@
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_weight="50"
-			        android:layout_marginLeft="3dp"
+			        android:layout_marginLeft="@dimen/three_pix"
 			        android:text="@string/refine_filter"	       
 			        />
 	            	            
@@ -99,10 +99,10 @@
 		    android:text="@string/no_objects_match_search"
 		    android:gravity="center_horizontal"
 		    android:layout_below="@id/top_content_layout"
-	        android:textSize="14dp"
-	        android:paddingTop="25dp"
-	        android:paddingLeft="15dp"
-	        android:paddingRight="15dp"
+	        android:textSize="@dimen/fourteen_pix"
+	        android:paddingTop="@dimen/twenty_five_pix"
+	        android:paddingLeft="@dimen/fifteen_pix"
+	        android:paddingRight="@dimen/fifteen_pix"
 	        android:textColor="@color/black"
 	        android:visibility="gone"
 		    />  

@@ -58,12 +58,12 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_horizontal"
-	        android:layout_marginTop="5dp"
+	        android:layout_marginTop="@dimen/five_pix"
 	        android:layout_alignParentBottom="true"
 	        android:orientation="horizontal"
-	        android:paddingBottom="14dp"
-	        android:paddingLeft="14dp"
-	        android:paddingRight="14dp"
+	        android:paddingBottom="@dimen/fourteen_pix"
+	        android:paddingLeft="@dimen/fourteen_pix"
+	        android:paddingRight="@dimen/fourteen_pix"
 	        >
 		    
 		    <Button 
@@ -71,7 +71,7 @@
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="33"
-		        android:layout_marginRight="6dp"
+		        android:layout_marginRight="@dimen/six_pix"
 		        android:text="Edit/Delete"	      
 		        />
 		    
@@ -80,7 +80,7 @@
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="33"
-		        android:layout_marginLeft="6dp"
+		        android:layout_marginLeft="@dimen/six_pix"
 		        android:text="Cancel"	       
 		        />
 		        
@@ -105,13 +105,13 @@
 				<LinearLayout
 			        android:id="@+id/coordinates_layout"
 			        android:orientation="vertical"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
-			        android:paddingTop="5dp"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
+			        android:paddingTop="@dimen/five_pix"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_gravity="center"
-			        android:layout_marginTop="10dp"
+			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
 			        android:layout_below="@id/view_header"
 			        >
@@ -138,7 +138,7 @@
 				        android:id="@+id/location_coordinates"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
-				        android:layout_marginTop="3dp"
+				        android:layout_marginTop="@dimen/three_pix"
 				        />
 			        
 			    </LinearLayout>
@@ -146,13 +146,13 @@
 			    <LinearLayout
 			        android:id="@+id/description_layout"
 			        android:orientation="vertical"
-			        android:paddingLeft="14dp"
-			        android:paddingRight="14dp"
-			        android:paddingTop="5dp"
+			        android:paddingLeft="@dimen/fourteen_pix"
+			        android:paddingRight="@dimen/fourteen_pix"
+			        android:paddingTop="@dimen/five_pix"
 			        android:layout_width="fill_parent" 
 			        android:layout_height="wrap_content" 
 			        android:layout_gravity="center"
-			        android:layout_marginTop="10dp"
+			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
 			        android:layout_below="@id/coordinates_layout"
 			        >
@@ -179,7 +179,7 @@
 				        android:id="@+id/location_description_text_field"
 				        android:layout_width="fill_parent" 
 				        android:layout_height="wrap_content"
-				        android:layout_marginTop="3dp"
+				        android:layout_marginTop="@dimen/three_pix"
 				        android:gravity="top|center"
 				        />
 			        

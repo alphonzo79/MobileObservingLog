@@ -11,7 +11,7 @@
    	android:id="@+id/alert_modal"
    	style="@style/modalContainerNormal"
    	android:layout_height="fill_parent"
-   	android:layout_margin="7dp"
+   	android:layout_margin="@dimen/seven_pix"
    	>
    
     <TextView  
@@ -27,9 +27,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-   		android:layout_marginLeft="15dp"
-   		android:layout_marginRight="15dp"
-   		android:layout_marginBottom="15dp"
+   		android:layout_marginLeft="@dimen/fifteen_pix"
+   		android:layout_marginRight="@dimen/fifteen_pix"
+   		android:layout_marginBottom="@dimen/fifteen_pix"
    		android:gravity="center_horizontal"
         android:layout_alignParentBottom="true" 
         >
@@ -38,7 +38,7 @@
 	    	android:id="@+id/alert_ok_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/ok"
-	    	android:textSize="14dp"
+	    	android:textSize="@dimen/fourteen_pix"
 	    	android:layout_weight="30"
 	    	/>
 	    
@@ -46,7 +46,7 @@
 	    	android:id="@+id/alert_cancel_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/num_picker_cancel_button"
-	    	android:textSize="14dp"
+	    	android:textSize="@dimen/fourteen_pix"
 	    	android:layout_weight="30"
 	    	/>
 	    
@@ -54,7 +54,7 @@
 	    	android:id="@+id/alert_extra_button"
 	    	style="@style/modalSaveCancelButtonNormal"
 	    	android:text="@string/clear"
-	    	android:textSize="14dp"
+	    	android:textSize="@dimen/fourteen_pix"
 	    	android:layout_weight="30"
 	    	/>
     
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content" 
         android:layout_above="@id/save_cancel_container"
         android:layout_below="@id/alert_main_text"
-        android:layout_margin="5dp"
+        android:layout_margin="@dimen/five_pix"
         />
     
 </RelativeLayout>

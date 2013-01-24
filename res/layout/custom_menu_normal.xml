@@ -19,6 +19,7 @@
 	    android:layout_height="wrap_content"
         android:fillViewport="true"
        	android:layout_alignParentRight="true"
+   		android:layout_marginTop="@dimen/thirty_pix"
 	    >
     	
     	<LinearLayout
@@ -26,8 +27,7 @@
 	    	android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
 	    	android:orientation="vertical"
-       		android:layout_marginTop="30dp"
-          	android:padding="5dp"
+          	android:padding="@dimen/five_pix"
     	    >
     
 		    <Button 

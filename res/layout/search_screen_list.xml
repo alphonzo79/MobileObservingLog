@@ -12,10 +12,10 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:paddingTop="2dp"
-    android:paddingBottom="4dp"
+    android:paddingLeft="@dimen/four_pix"
+    android:paddingRight="@dimen/four_pix"
+    android:paddingTop="@dimen/two_pix"
+    android:paddingBottom="@dimen/four_pix"
     >
     
     <LinearLayout
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|center_vertical"
-        android:paddingLeft="4dp"
+        android:paddingLeft="@dimen/four_pix"
 	    android:layout_weight="90"
         >
         
@@ -33,7 +33,7 @@
 		    android:layout_height="wrap_content"
 		    android:id="@+id/filter_label"
 		    android:layout_gravity="left"
-		    android:textSize="12sp" 
+		    android:textSize="@dimen/twelve_pix" 
 		    android:textColor="@color/black"
 		    android:textStyle="bold"
 		    />
@@ -43,21 +43,21 @@
 		    android:layout_height="wrap_content"
 		    android:id="@+id/filter_settings"
 		    android:layout_gravity="left"
-		    android:textSize="12sp" 
+		    android:textSize="@dimen/twelve_pix" 
 		    android:textColor="@color/black"
-		    android:paddingTop="4dp"
+		    android:paddingTop="@dimen/four_pix"
 		    />
         
     </LinearLayout>
     
     <ImageView 
         android:src="@drawable/more_arrow"
-	    android:layout_width="30dp"
-	    android:layout_height="30dp"
+	    android:layout_width="@dimen/thirty_pix"
+	    android:layout_height="@dimen/thirty_pix"
 	    android:contentDescription="@string/more_image_alt"
-	    android:layout_marginTop="5dp"
-	    android:layout_marginBottom="5dp"
-	    android:layout_marginRight="10dp"
+	    android:layout_marginTop="@dimen/five_pix"
+	    android:layout_marginBottom="@dimen/five_pix"
+	    android:layout_marginRight="@dimen/ten_pix"
 	    android:layout_gravity="right|center_vertical"
 	    android:id="@+id/more"
 	    android:layout_weight="10"

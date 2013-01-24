@@ -19,42 +19,42 @@
 	    android:layout_height="wrap_content"
 	    android:layout_weight="0"
 	    />
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="@dimen/twenty_five_pix"
+        >
 	    
-    <ListView  
-         android:id="@android:id/list"
-         android:layout_width="fill_parent" 
-         android:layout_height="wrap_content" 
-         />
-	    
-	<Button xmlns:android="http://schemas.android.com/apk/res/android"
-		android:id="@+id/initialNightButton"
-    	android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/night_mode"
-		android:textStyle="bold"
-		android:textColor="@color/red"
-		android:background="@drawable/black_button_state"
-		android:layout_marginLeft="@dimen/twenty_five_pix"
-		android:layout_marginRight="@dimen/twenty_five_pix"
-		android:layout_marginTop="@dimen/forty_five_pix"
-		android:layout_marginBottom="@dimen/forty_five_pix"
-	    android:layout_weight="45"
-		/>
+		<Button xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/initialNightButton"
+	    	android:layout_width="@dimen/zero_pix"
+			android:layout_height="fill_parent"
+			android:text="@string/night_mode"
+			android:textStyle="bold"
+			android:textColor="@color/red"
+			android:background="@drawable/black_button_state"
+			android:layout_marginLeft="@dimen/forty_five_pix"
+			android:layout_marginRight="@dimen/forty_five_pix"
+		    android:layout_weight="45"
+			/>
+			
+		<Button xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/initialNormalButton"
+	    	android:layout_width="@dimen/zero_pix"
+			android:layout_height="fill_parent"
+			android:text="@string/normal_mode"
+			android:textStyle="bold"
+			android:textColor="@color/black"
+			android:background="@drawable/red_button_state"
+			android:layout_marginLeft="@dimen/forty_five_pix"
+			android:layout_marginRight="@dimen/forty_five_pix"
+		    android:layout_weight="45"
+			/>
 		
-	<Button xmlns:android="http://schemas.android.com/apk/res/android"
-		android:id="@+id/initialNormalButton"
-    	android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/normal_mode"
-		android:textStyle="bold"
-		android:textColor="@color/black"
-		android:background="@drawable/red_button_state"
-		android:layout_marginLeft="@dimen/twenty_five_pix"
-		android:layout_marginRight="@dimen/twenty_five_pix"
-		android:layout_marginTop="@dimen/forty_five_pix"
-		android:layout_marginBottom="@dimen/forty_five_pix"
-	    android:layout_weight="45"
-		/>
+	</LinearLayout>
 		
 	<TextView  
 	    android:id="@+id/initialFooter"
@@ -62,9 +62,15 @@
 	    android:layout_height="wrap_content" 
 	    android:text="@string/initial_text"
 	    android:textColor="@color/red"
-	    android:layout_weight="10"
+	    android:layout_weight="0"
 		android:layout_marginBottom="@dimen/ten_pix"
 	    android:gravity="bottom|center_horizontal"
 	    />
+	    
+    <ListView  
+         android:id="@android:id/list"
+         android:layout_width="fill_parent" 
+         android:layout_height="wrap_content" 
+         />
 	    
 </LinearLayout>

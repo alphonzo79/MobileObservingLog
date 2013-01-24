@@ -44,7 +44,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
-	        android:padding="6dp"
+	        android:padding="@dimen/six_pix"
 	        android:layout_alignParentBottom="true"
 	        >
 		    
@@ -53,7 +53,7 @@
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="50"
-		        android:layout_marginRight="3dp"
+		        android:layout_marginRight="@dimen/three_pix"
 		        android:text="@string/search_show_results"	      
 		        />
 		    
@@ -62,7 +62,7 @@
 		        android:layout_width="fill_parent" 
 		        android:layout_height="wrap_content" 
 		        android:layout_weight="50"
-		        android:layout_marginLeft="3dp"
+		        android:layout_marginLeft="@dimen/three_pix"
 		        android:text="@string/cancel"	       
 		        />
 	        
@@ -74,7 +74,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@id/header_container"
 	        android:orientation="vertical"
-	        android:padding="3dp"
+	        android:padding="@dimen/three_pix"
 	        >
 	        
 	        <TextView 

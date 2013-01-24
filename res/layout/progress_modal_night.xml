@@ -17,21 +17,21 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-   		android:layout_marginLeft="15dp"
-   		android:layout_marginRight="15dp"
+   		android:layout_marginLeft="@dimen/fifteen_pix"
+   		android:layout_marginRight="@dimen/fifteen_pix"
    		android:gravity="center|center"
    		android:layout_gravity="center|center"
         android:layout_below="@id/save_cancel_container"
         >
 	    
         <ImageView
-            android:layout_width="50dp"
-		    android:layout_height="50dp"
+            android:layout_width="@dimen/fifty_pix"
+		    android:layout_height="@dimen/fifty_pix"
 		    android:contentDescription="@string/progress_image_alt"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="5dp"
-		    android:layout_marginRight="15dp"
-		    android:layout_marginLeft="15dp"
+		    android:layout_marginTop="@dimen/five_pix"
+		    android:layout_marginBottom="@dimen/five_pix"
+		    android:layout_marginRight="@dimen/fifteen_pix"
+		    android:layout_marginLeft="@dimen/fifteen_pix"
 		    android:id="@+id/progress_image" />
         
         <TextView 

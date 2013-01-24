@@ -10,9 +10,9 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dp"
+    android:padding="@dimen/ten_pix"
     android:gravity="left|center_vertical"
-    android:textSize="16sp" 
+    android:textSize="@dimen/sixteen_pix" 
     android:textColor="@color/black"
     android:textStyle="bold" >
 </TextView>

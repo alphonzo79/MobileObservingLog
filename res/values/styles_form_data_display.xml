@@ -11,11 +11,11 @@
     <style name="form_data_display_header">
         <item name="android:textColor">@color/black</item>
     	<item name="android:textStyle">bold</item>
-    	<item name="android:textSize">16dp</item>
+    	<item name="android:textSize">@dimen/sixteen_pix</item>
     	<item name="android:gravity">center_horizontal</item>
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
-    	<item name="android:layout_marginTop">6dp</item>
+    	<item name="android:layout_marginTop">@dimen/six_pix</item>
     </style>
     
     <style name="form_data_display_header_night" parent="form_data_display_header">
@@ -25,7 +25,7 @@
     <style name="form_data_display_label" parent="formScreenLabelNormal">
         <item name="android:textColor">@color/black</item>
     	<item name="android:textStyle">bold</item>
-    	<item name="android:textSize">12dp</item>
+    	<item name="android:textSize">@dimen/twelve_pix</item>
     	<item name="android:layout_gravity">center</item>
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>
@@ -38,11 +38,11 @@
     <style name="form_data_display_body">
         <item name="android:textColor">@color/black</item>
     	<item name="android:textStyle">normal</item>
-    	<item name="android:textSize">14dp</item>
+    	<item name="android:textSize">@dimen/fourteen_pix</item>
     	<item name="android:gravity">center_horizontal</item>
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
-    	<item name="android:layout_marginTop">2dp</item>
+    	<item name="android:layout_marginTop">@dimen/two_pix</item>
     </style>
     
     <style name="form_data_display_body_night" parent="form_data_display_body">
