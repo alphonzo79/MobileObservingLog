@@ -332,6 +332,14 @@ public final class SettingsContainer {
 		mSearchModalListLayout = layout;
 	}
 	
+	private int mDonationScreenLayout;
+	public int getDonationScreenLayout(){
+		return mDonationScreenLayout;
+	}
+	private void setDonationScreenLayout(int layout){
+		mDonationScreenLayout = layout;
+	}
+	
 	//Options Menu toggle mode button text changes according to the mode.
 	private int mModeText;
 	public int getModeButtonText(){
@@ -486,6 +494,7 @@ public final class SettingsContainer {
 		setSearchScreenLayout(R.layout.search_screen_nite);
 		setSearchListLayout(R.layout.search_screen_list_night);
 		setSearchModalListLayout(R.layout.search_modal_list_night);
+		setDonationScreenLayout(R.layout.donation_screen_night);
 		setTabIndicator(R.layout.tab_indicator_layout_night);
 		setCheckbox_Selected(R.drawable.checked_night);
 		setCheckbox_Unselected(R.drawable.unchecked_night);
@@ -533,6 +542,7 @@ public final class SettingsContainer {
 		setSearchScreenLayout(R.layout.search_screen);
 		setSearchListLayout(R.layout.search_screen_list);
 		setSearchModalListLayout(R.layout.search_modal_list);
+		setDonationScreenLayout(R.layout.donation_screen_normal);
 		setTabIndicator(R.layout.tab_indicator_layout);
 		setCheckbox_Selected(R.drawable.checked_normal);
 		setCheckbox_Unselected(R.drawable.unchecked_normal);

@@ -198,7 +198,8 @@ public class ManageEquipmentScreen extends TabActivity {
     
     protected final Button.OnClickListener handleDonation = new Button.OnClickListener(){
     	public void onClick(View view){
-    		
+    		Intent donateIntent = new Intent(ManageEquipmentScreen.this.getApplication(), DonationScreen.class);
+            startActivity(donateIntent);
     	}
     };
 	

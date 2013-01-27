@@ -193,7 +193,8 @@ public class AddCatalogsScreen extends TabActivity{
     
     protected final Button.OnClickListener handleDonation = new Button.OnClickListener(){
     	public void onClick(View view){
-    		
+    		Intent donationIntent = new Intent(AddCatalogsScreen.this.getApplication(), DonationScreen.class);
+            startActivity(donationIntent);
     	}
     };
 	
