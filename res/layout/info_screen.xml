@@ -81,8 +81,8 @@
 			    android:layout_height="wrap_content" 
 			    android:text="@string/about_text"
 			    android:textColor="@color/black"
-			    android:gravity="left|center_vertical"
 			    android:padding="@dimen/sixteen_pix"
+			    android:textSize="@dimen/sixteen_pix"
 			    />
 	    
 	    </ScrollView>

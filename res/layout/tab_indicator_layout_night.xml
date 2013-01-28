@@ -9,11 +9,11 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/zero_pix"
-    android:layout_height="@dimen/forty_pix"    
+    android:layout_height="40dp"    
     android:layout_weight="1"
     android:orientation="vertical"
     android:background="@drawable/tab_indicator_drawable_night"
-    android:padding="@dimen/five_pix">
+    android:padding="5dp">
 
     <TextView android:id="@+id/title"
         android:layout_width="wrap_content"

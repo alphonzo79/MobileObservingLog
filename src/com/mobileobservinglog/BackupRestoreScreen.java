@@ -139,8 +139,18 @@ public class BackupRestoreScreen extends ActivityBase{
 	
 	private final Button.OnClickListener exportPdfs = new Button.OnClickListener() {
 		public void onClick(View view) {
-			HtmlExporter exporter = new HtmlExporter(progressMessage, progressImage, BackupRestoreScreen.this);
-			exporter.exportData(selectedItems);
+			if(selectedItems.size() > 0) {
+				HtmlExporter exporter = new HtmlExporter(progressMessage, progressImage, BackupRestoreScreen.this);
+				exporter.exportData(selectedItems);
+			} else {
+				prepForModal();
+				alertText.setVisibility(View.VISIBLE);
+				alertOk.setVisibility(View.VISIBLE);
+				alertModal.setVisibility(View.VISIBLE);
+				
+				alertText.setText("Please select at least one catalog to export.");
+				alertOk.setOnClickListener(dismissModal);;
+			}
 		}
 	};
 	

@@ -41,7 +41,7 @@
 	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		    android:id="@+id/home_body"
 		    android:orientation="horizontal"
-		    android:layout_width="@dimen/zero_pix"
+		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:layout_gravity="center"
 		    >
@@ -49,10 +49,12 @@
 			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			    android:id="@+id/home_top_row"
 			    android:orientation="horizontal"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
+			    android:layout_width="@dimen/zero_pix"
+			    android:layout_height="fill_parent"
 			    android:layout_gravity="center"
 		    	android:layout_weight="38"
+		    	android:layout_marginTop="@dimen/twenty_five_pix"
+		    	android:layout_marginBottom="@dimen/twenty_five_pix"
 			    >
 		
 				<Button xmlns:android="http://schemas.android.com/apk/res/android"

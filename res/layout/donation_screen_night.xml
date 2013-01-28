@@ -50,7 +50,11 @@
 		    <TextView 
 			    android:id="@+id/donation_text"
 			    android:text="@string/donation_text"
-		        style="@style/nothing_here_text_night"
+		    	android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content" 
+			    android:textColor="@color/red"
+			    android:padding="@dimen/sixteen_pix"
+			    android:textSize="@dimen/sixteen_pix"
 			    />
 				    
 		    <Button 
@@ -61,6 +65,7 @@
 		        android:layout_gravity="bottom|center_horizontal"
 		        android:paddingLeft="@dimen/twenty_pix"
 		        android:paddingRight="@dimen/twenty_pix"
+		        android:layout_marginTop="@dimen/five_pix"
 		        android:text="Donate $1"      
 		        />
 				    
@@ -89,7 +94,11 @@
 		    <TextView 
 			    android:id="@+id/night_mode_warning"
 			    android:text="@string/night_mode_warning"
-		        style="@style/nothing_here_text_night"
+		    	android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content"
+			    android:textColor="@color/red"
+			    android:padding="@dimen/sixteen_pix"
+			    android:textSize="@dimen/sixteen_pix"
 			    />
 		    
 	    </LinearLayout>

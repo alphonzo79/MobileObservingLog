@@ -50,7 +50,11 @@
 		    <TextView 
 			    android:id="@+id/donatin_text"
 			    android:text="@string/donation_text"
-		        style="@style/nothing_here_text_normal"
+		    	android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content"
+			    android:textColor="@color/black"
+			    android:padding="@dimen/sixteen_pix"
+			    android:textSize="@dimen/sixteen_pix"
 			    />
 				    
 		    <Button 
@@ -60,6 +64,7 @@
 		        android:layout_gravity="bottom|center_horizontal"
 		        android:paddingLeft="@dimen/twenty_pix"
 		        android:paddingRight="@dimen/twenty_pix"
+		        android:layout_marginTop="@dimen/fifteen_pix"
 		        android:text="Donate $1"      
 		        />
 				    
@@ -70,6 +75,7 @@
 		        android:layout_gravity="bottom|center_horizontal"
 		        android:paddingLeft="@dimen/twenty_pix"
 		        android:paddingRight="@dimen/twenty_pix"
+		        android:layout_marginTop="@dimen/fifteen_pix"
 		        android:text="Donate $2"      
 		        />
 				    
@@ -80,6 +86,7 @@
 		        android:layout_gravity="bottom|center_horizontal"
 		        android:paddingLeft="@dimen/twenty_pix"
 		        android:paddingRight="@dimen/twenty_pix"
+		        android:layout_marginTop="@dimen/fifteen_pix"
 		        android:text="Donate $5"      
 		        />
 		    

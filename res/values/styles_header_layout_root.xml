@@ -16,6 +16,7 @@
     	<item name="android:background">@color/white</item>
     	<item name="android:padding">@dimen/four_pix</item>
     	<item name="android:textStyle">bold</item>
+    	<item name="android:textSize">@dimen/fourteen_pix</item>
     	<item name="android:layout_weight">85</item>
     </style>
     
@@ -40,6 +41,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/four_pix</item>
         <item name="android:text">Menu</item>
+        <item name="android:textSize">@dimen/fourteen_pix</item>
     	<item name="android:layout_weight">15</item>
     	<item name="android:layout_marginLeft">2dp</item>
     	<item name="android:layout_marginRight">1dp</item>

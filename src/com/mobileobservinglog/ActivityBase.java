@@ -231,8 +231,12 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
     
     protected final Button.OnClickListener handleDonation = new Button.OnClickListener(){
     	public void onClick(View view){
-    		Intent donationIntent = new Intent(ActivityBase.this.getApplication(), DonationScreen.class);
-            startActivity(donationIntent);
+    		if(!ActivityBase.this.getComponentName().toShortString().contains("DonationScreen")) {
+	    		Intent donationIntent = new Intent(ActivityBase.this.getApplication(), DonationScreen.class);
+	            startActivity(donationIntent);
+    		} else {
+    			toggleMenu();
+    		}
     	}
     };
 	

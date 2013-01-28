@@ -31,6 +31,10 @@ public class DonationScreen extends ActivityBase {
 	Button twoDollarsButton;
 	Button fiveDollarsButton;
 	
+	boolean setupFinished;
+	boolean purchaseSuccessful;
+	boolean resultHandled;
+	
 	RelativeLayout alertModal;
 	TextView alertText;
 	Button alertOk;
@@ -51,12 +55,19 @@ public class DonationScreen extends ActivityBase {
 		Log.d("JoeDebug", "InfoScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
         
+        setupFinished = false;
+        
         billingKey = this.getApplication().getResources().getString(R.string.base64Key);
         donationHandler = new DonationBillingHandler(this, billingKey);
+		Log.d("InAppPurchase", "Starting Setup from donation screen");
         donationHandler.startSetup(new DonationBillingHandler.OnSetupFinishedListener() {
             public void onSetupFinished(BillingHandlerResult result) {
                 if (!result.isSuccess()) {
+        			Log.d("InAppPurchase", "Setup failed -- donation screen");
                     return;
+                } else {
+        			Log.d("InAppPurchase", "Setup finished -- donation screen");
+                	setupFinished = true;
                 }
             }
         });
@@ -87,6 +98,13 @@ public class DonationScreen extends ActivityBase {
 		Log.d("JoeDebug", "InfoScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
+        if(!resultHandled) {
+        	if(purchaseSuccessful) {
+        		showThankYou();
+        	} else {
+        		showError();
+        	}
+        }
     }
 	
     //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
@@ -153,8 +171,14 @@ public class DonationScreen extends ActivityBase {
     	public void onClick(View view){
     		// launch the purchase UI flow.
             // We will be notified of completion via mPurchaseFinishedListener
-            showInProgress();
-            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_ONE, RC_REQUEST, mPurchaseFinishedListener);
+    		if(setupFinished) {
+    			Log.d("InAppPurchase", "Starting One Dollar Workflow");
+	            showInProgress();
+    			Log.d("InAppPurchase", "Modal shown, calling launch purchase flow");
+	            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_ONE, RC_REQUEST, mPurchaseFinishedListener);
+    		} else {
+    			showError();
+    		}
     	}
     };
 	
@@ -162,8 +186,14 @@ public class DonationScreen extends ActivityBase {
     	public void onClick(View view){
     		// launch the purchase UI flow.
             // We will be notified of completion via mPurchaseFinishedListener
-            showInProgress();
-            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_TWO, RC_REQUEST, mPurchaseFinishedListener);
+    		if(setupFinished) {
+    			Log.d("InAppPurchase", "Starting Two Dollar Workflow");
+	            showInProgress();
+    			Log.d("InAppPurchase", "Modal shown, calling launch purchase flow");
+	            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_TWO, RC_REQUEST, mPurchaseFinishedListener);
+    		} else {
+    			showError();
+    		}
     	}
     };
 	
@@ -171,15 +201,23 @@ public class DonationScreen extends ActivityBase {
     	public void onClick(View view){
     		// launch the purchase UI flow.
             // We will be notified of completion via mPurchaseFinishedListener
-            showInProgress();
-            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_FIVE, RC_REQUEST, mPurchaseFinishedListener);
+    		if(setupFinished) {
+    			Log.d("InAppPurchase", "Starting Three Dollar Workflow");
+	            showInProgress();
+    			Log.d("InAppPurchase", "Modal shown, calling launch purchase flow");
+	            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_FIVE, RC_REQUEST, mPurchaseFinishedListener);
+    		} else {
+    			showError();
+    		}
     	}
     };
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d("InAppPurchase", "onActivityResult called -- Donation Screen");
         // Pass on the activity result to the helper for handling
         if (!donationHandler.handleActivityResult(requestCode, resultCode, data)) {
+    		Log.d("InAppPurchase", "Uh Oh, something went bad. -- Donation Screen");
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...
@@ -196,12 +234,16 @@ public class DonationScreen extends ActivityBase {
             Log.d("JoeDebug", "Purchase finished: " + result + ", purchase: " + purchase);
             if (result.isFailure()) {
                 // Oh noes!
+                purchaseSuccessful = false;
+                resultHandled = false;
             	showError();
                 return;
             }
 
             Log.d("JoeDebug", "Purchase successful.");
-            showThankYou();
+            purchaseSuccessful = true;
+            resultHandled = false;
+            showThankYou(); //Just in case we dont' go through onResume();
         }
     };
     
@@ -227,6 +269,7 @@ public class DonationScreen extends ActivityBase {
     protected final Button.OnClickListener dismissModal = new Button.OnClickListener() {
 		public void onClick(View view){
 			tearDownModal();
+			resultHandled = true;
         }
     };
 }
