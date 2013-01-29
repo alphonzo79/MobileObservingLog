@@ -10,34 +10,17 @@
 
 package com.mobileobservinglog;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import com.mobileobservinglog.support.CustomizeBrightness;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.R;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.InflateException;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.LayoutInflater.Factory;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public abstract class ActivityBase extends ListActivity implements View.OnClickListener{
 
