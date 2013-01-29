@@ -26,7 +26,6 @@ public class InfoScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "InfoScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -49,7 +48,6 @@ public class InfoScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "InfoScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }

@@ -47,7 +47,6 @@ public class SettingsScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "SettingsScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -73,7 +72,6 @@ public class SettingsScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "SettingsScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -216,7 +214,6 @@ public class SettingsScreen extends ActivityBase{
 	//set Listeners for each of the modal buttons
 	private final Button.OnClickListener modalUpOnClick = new Button.OnClickListener() {
 		public void onClick(View view){
-			Log.d("OnClick", "upOnClick called");
 	    	numPickerStrategy.upButton();
         	modalText.setText(numPickerStrategy.getCurrentValue());
         	modalText.postInvalidate();
@@ -226,7 +223,6 @@ public class SettingsScreen extends ActivityBase{
 	//set Listeners for each of the modal buttons
 	private final Button.OnClickListener modalDownOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		Log.d("JoeTest", "downOnClick called");
         	numPickerStrategy.downButton();
         	modalText.setText(numPickerStrategy.getCurrentValue());
         }
@@ -235,7 +231,6 @@ public class SettingsScreen extends ActivityBase{
 	//set Listeners for each of the modal buttons
 	private final Button.OnClickListener modalSaveOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		Log.d("JoeTest", "saveOnClick called");
         	numPickerStrategy.save();
         	tearDownModal();
         	setLayout();
@@ -246,7 +241,6 @@ public class SettingsScreen extends ActivityBase{
 	//set Listeners for each of the modal buttons
 	private final Button.OnClickListener modalCancelOnClick = new Button.OnClickListener() {
     	public void onClick(View view){
-    		Log.d("JoeTest", "cancelOnClick called");
         	tearDownModal();
         	setListeners();
         }

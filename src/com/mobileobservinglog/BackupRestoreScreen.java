@@ -63,7 +63,6 @@ public class BackupRestoreScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "BackupRestore onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -96,7 +95,6 @@ public class BackupRestoreScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "BackupRestore onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
         util = new BackupRestoreUtil(progressMessage, progressImage, BackupRestoreScreen.this);
@@ -228,7 +226,6 @@ public class BackupRestoreScreen extends ActivityBase{
 		
 		catalogs.moveToFirst();
 
-		Log.d("JoeDebug", "cursor size is " + catalogs.getCount());
 		for (int i = 0; i < catalogs.getCount(); i++)
         {
 			String installed = catalogs.getString(1);
@@ -250,7 +247,6 @@ public class BackupRestoreScreen extends ActivityBase{
 			backup.setEnabled(false);
 		}
 		else{
-			Log.d("JoeTest", "List size is " + catalogList.size());
 			setListAdapter(new CatalogAdapter(this, settingsRef.getBackupRestoreListLayout(), catalogList));
 		}
 	}
@@ -326,7 +322,6 @@ public class BackupRestoreScreen extends ActivityBase{
      * Take our existing alert modal and modify the layout to provide a progress indicator
      */
     public void prepProgressModal(){
-    	Log.d("JoeTest", "prepProgressModal called");
     	prepForModal();
     	progressImage.setVisibility(View.VISIBLE);
     	progressMessage.setVisibility(View.VISIBLE);

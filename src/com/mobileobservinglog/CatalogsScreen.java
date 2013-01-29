@@ -40,7 +40,6 @@ public class CatalogsScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "CatalogsScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -63,7 +62,6 @@ public class CatalogsScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "CatalogsScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -111,7 +109,6 @@ public class CatalogsScreen extends ActivityBase{
 		
 		for (int i = 0; i < catalogs.getCount(); i++)
         {
-			Log.d("JoeDebug", "cursor size is " + catalogs.getCount());
 			String name = catalogs.getString(0);
 			String installed = catalogs.getString(1);
 			String count = catalogs.getString(2);
@@ -133,7 +130,6 @@ public class CatalogsScreen extends ActivityBase{
 			searchButton.setOnClickListener(addCatalogs);
 		}
 		else{
-			Log.d("JoeTest", "List size is " + catalogList.size());
 			setListAdapter(new CatalogAdapter(this, settingsRef.getCatalogsList(), catalogList));
 		}
 	}

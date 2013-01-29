@@ -153,14 +153,12 @@ public class ManageCatalogsTabParent extends ActivityBase {
 			selectedItems.add(catalog);
 			size += catalogSizeFloat;
 			numFiles += catalogObjects;
-			Log.d("JoeTest", "numFiles: " + numFiles);
 			checked.setImageResource(settingsRef.getCheckbox_Selected());
 		}
 		else{
 			selectedItems.remove(catalog);
 			size -= catalogSizeFloat;
 			numFiles -= catalogObjects;
-			Log.d("JoeTest", "numFiles: " + numFiles);
 			checked.setImageResource(settingsRef.getCheckbox_Unselected());
 		}
 	}
@@ -234,7 +232,6 @@ public class ManageCatalogsTabParent extends ActivityBase {
      * Take our existing alert modal and modify the layout to provide a progress indicator
      */
     protected void prepProgressModal(){
-    	Log.d("JoeTest", "prepProgressModal called");
     	prepareImageArray();
     	alertText.setVisibility(View.GONE);
     	alertOk.setVisibility(View.GONE);
@@ -348,7 +345,6 @@ public class ManageCatalogsTabParent extends ActivityBase {
     protected class ProgressIndicator implements Runnable{
 
 		public void run() {
-	    	Log.d("JoeTest", "Progress Image Update thread started");
 			while (keepRunningProgressUpdate){
 				ProgressImageHandler.sendMessage(new Message());
 				try{
@@ -358,7 +354,6 @@ public class ManageCatalogsTabParent extends ActivityBase {
 					
 				}
 			}
-	    	Log.d("JoeTest", "Progress Image Update thread ended");
 		}
     }
     

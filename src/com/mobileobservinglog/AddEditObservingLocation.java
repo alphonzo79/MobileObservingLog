@@ -65,7 +65,6 @@ public class AddEditObservingLocation extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "AddEditLocations onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -108,7 +107,6 @@ public class AddEditObservingLocation extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "AddEditLocations onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         firstFocus = -1;
         firstClick = 1;
@@ -213,7 +211,6 @@ public class AddEditObservingLocation extends ActivityBase{
     		if(locationName.getText().length() < 1 || locationDescription.getText().length() < 1){
     			prepForModal();
     			findModalElements();
-    			Log.d("JoeTest", "Setting up alert in AddEditLocation");
     			alertText.setText("At least one of the fields does not have anything in it. Do you want to continue and save or return and make changes?");
     			alertText.setVisibility(View.VISIBLE);
     			alertEdit.setText("Edit");
@@ -392,7 +389,6 @@ public class AddEditObservingLocation extends ActivityBase{
 	 */
 	protected void prepForModal()
 	{
-		Log.d("JoeTest", "PrepForModal Called in AddEditObservingLocation");
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
 		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_location_root);
 		
@@ -407,7 +403,6 @@ public class AddEditObservingLocation extends ActivityBase{
 		if(keyboardDriver != null) {
 			tearDownKeyboard();
 		}
-		Log.d("JoeTest", "PrepForModal done in AddEditObservingLocation");
 	}
 	
 	protected void tearDownModal(){

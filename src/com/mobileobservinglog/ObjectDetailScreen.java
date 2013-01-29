@@ -188,7 +188,6 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "ObjectDetails onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
         customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -215,7 +214,6 @@ public class ObjectDetailScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "ObjectDetails onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         firstFocus = -1;
         firstClick = 1;
@@ -573,7 +571,6 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	private void setStarChartImage() {
 		String fileLocationString = settingsRef.getPersistentSetting(SettingsContainer.STAR_CHART_DIRECTORY, ObjectDetailScreen.this);
-		Log.i("SetChart", "File Location String: " + fileLocationString);
 		File starChartRoot = null;
 		
 		//Now actually get the file location

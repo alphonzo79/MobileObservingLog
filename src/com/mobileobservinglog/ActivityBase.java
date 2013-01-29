@@ -73,21 +73,18 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 	
 	@Override
     public void onPause() {
-		Log.d("JoeDebug", "ActivityBase onPause");
         super.onPause();
         customizeBrightness.setDimButtons(settingsRef.getOriginalButtonBrightness());
     }
 
     @Override
     public void onDestroy() {
-		Log.d("JoeDebug", "ActivityBase onDestroy");
         super.onDestroy();
         customizeBrightness.setDimButtons(settingsRef.getOriginalButtonBrightness());
     }
 
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "ActivityBase onResume");
         super.onResume();
 		
         customizeBrightness.setBacklight();        
@@ -102,18 +99,14 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
 	
 	//called by the Toggle Mode options menu item. Changes the layout references.
 	protected void toggleMode() {
-		Log.d("JoeDebug", "ActivityBase toggle mode menu. Current session setting: " + settingsRef.getSessionMode());
 		switch (settingsRef.getSessionMode()){
 		case night:
-			Log.d("JoeDebug", "ActivityBase setting normal mode");
 			settingsRef.setNormalMode();
 			break;
 		case normal:
 			settingsRef.setNightMode();
-			Log.d("JoeDebug", "ActivityBase setting night mode");
 			break;
 		default:
-			Log.d("JoeDebug", "ActivityBase default switch in toggleMode");
 			break;
 		}
 		
@@ -189,15 +182,12 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
     	public void onClick(View view){
     		switch (settingsRef.getSessionMode()){
     		case night:
-    			Log.d("JoeDebug", "ActivityBase setting normal mode");
     			settingsRef.setNormalMode();
     			break;
     		case normal:
     			settingsRef.setNightMode();
-    			Log.d("JoeDebug", "ActivityBase setting night mode");
     			break;
     		default:
-    			Log.d("JoeDebug", "ActivityBase default switch in toggleMode");
     			break;
     		}
 

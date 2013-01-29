@@ -72,7 +72,6 @@ public class HomeScreen extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "HomeScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
         
         //setup the layout
@@ -96,7 +95,6 @@ public class HomeScreen extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "HomeScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -111,7 +109,6 @@ public class HomeScreen extends ActivityBase{
     	List<RunningTaskInfo> tasks = am.getRunningTasks(3); //3 because we have to give it something. This is an arbitrary number
     	int activityCount = tasks.get(0).numActivities;
     	
-    	Log.d("JoeDebug", "Activity Count is " + activityCount);
     	
     	if (activityCount < 3)
     	{
@@ -145,7 +142,6 @@ public class HomeScreen extends ActivityBase{
 	//Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
 	@Override
 	public void setLayout(){
-		Log.d("JoeDebug", "HomeScreen setLayout. Current session mode is " + settingsRef.getSessionMode());
 		setContentView(settingsRef.getHomeLayout());
 		findButtons();
 		setListeners();

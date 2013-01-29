@@ -101,7 +101,6 @@ public class AddEditEyepiece extends ActivityBase {
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "AddEditEyepiece onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         
         firstFocus = -1;
@@ -230,7 +229,6 @@ public class AddEditEyepiece extends ActivityBase {
     		if(focalLength.getText().length() < 1 || type.getText().length() < 1){
     			prepForModal();
     			findModalElements();
-    			Log.d("JoeTest", "Setting up alert in AddEditEyepiece");
     			alertText.setText("At least one of the fields does not have anything in it. Do you want to continue and save or return and make changes?");
     			alertText.setVisibility(View.VISIBLE);
     			alertEdit.setText("Edit");
@@ -241,9 +239,6 @@ public class AddEditEyepiece extends ActivityBase {
     			alertDelete.setVisibility(View.VISIBLE);
     			alertModal = (RelativeLayout)findViewById(R.id.alert_modal);
     			alertModal.setVisibility(View.VISIBLE);
-    			Log.d("JoeTest", "Done setting up alert in AddEditEyepiece");
-    			Log.d("JoeTest", "alertModal Left and Top are " + alertModal.getLeft() + " and " + alertModal.getTop());
-    			Log.d("JoeTest", "alertModal dimensions are " + alertModal.getWidth() + " by " + alertModal.getHeight());
         		return;
     		}
     		
@@ -374,7 +369,6 @@ public class AddEditEyepiece extends ActivityBase {
 	 */
 	protected void prepForModal()
 	{
-		Log.d("JoeTest", "PrepForModal Called in AddEditEyepiece");
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
 		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.edit_eyepiece_root);
 		
@@ -389,7 +383,6 @@ public class AddEditEyepiece extends ActivityBase {
 		if(keyboardDriver != null) {
 			tearDownKeyboard();
 		}
-		Log.d("JoeTest", "PrepForModal done in AddEditEyepiece");
 	}
 	
 	protected void tearDownModal(){

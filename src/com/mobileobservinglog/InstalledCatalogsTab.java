@@ -103,7 +103,6 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
     
     private final Button.OnClickListener confirmRemove = new Button.OnClickListener() {
 		public void onClick(View view){
-			Log.d("JoeTest", "confirmRemove called");
 			new Thread(new RemoveCatalogsRunnable()).start();
         }
     };
@@ -111,7 +110,6 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
     private class RemoveCatalogsRunnable implements Runnable{
 
 		public void run() {
-			Log.d("JoeTest", "RemoveCatalogsRunnable.run called");
 			boolean success = true;
 			int filesToRemove = numFiles * 2; //double because we have night mode and normal mode
 			int currentFileNumber = 0;
@@ -128,7 +126,6 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 			//Remove the images
 			//check the settings table for the files location
 			String fileLocationString = settingsRef.getPersistentSetting(settingsRef.STAR_CHART_DIRECTORY, InstalledCatalogsTab.this);
-			Log.d("JoeTest", "FileLocationString is " + fileLocationString);
 			File starChartRoot = null;
 			CatalogsDAO db = new CatalogsDAO(InstalledCatalogsTab.this);
 			
@@ -149,7 +146,6 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 			Cursor imagePaths = db.getImagePaths(selectedItems);
 			imagePaths.moveToFirst();
 			int rowCount = imagePaths.getCount();
-			Log.d("JoeTest", "imagePaths cursor had " + rowCount + " rows");
 			
 			//Establish connection and download the files
 			for (int i = 0; i < rowCount; i++){
@@ -188,7 +184,6 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 						success = false;
 					}
 					finally{
-						//Log.d("JoeTest", "Updating the alert");
 						currentFileNumber++;
 						messageData.putInt("current", currentFileNumber);
 						messageData.putInt("filesToDownLoad", filesToRemove);
@@ -204,10 +199,8 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 			}
 			
 			//Update the database regardless of success. This will avoid problems with images not being available.
-			Log.d("JoeTest", "Install Was successfull. Going to update the DB");
 			boolean dbSuccess = false;
 			for (String catalog : selectedItems){
-				Log.d("JoeTest", "Updating catalog " + catalog + " in the database");
 				dbSuccess = db.updateAvailableCatalogsInstalled(catalog, "No");
 			}
 

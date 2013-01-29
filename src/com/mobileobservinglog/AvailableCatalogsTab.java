@@ -112,7 +112,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
     
     private final Button.OnClickListener confirmInstall = new Button.OnClickListener() {
 		public void onClick(View view){
-			Log.d("JoeTest", "confirmInstall called");
 			new Thread(new InstallCatalogsRunnable()).start();
         }
     };
@@ -120,7 +119,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
     private class InstallCatalogsRunnable implements Runnable{
 
 		public void run() {
-			Log.d("JoeTest", "InstallCatalogsRunnable.run called");
 			boolean success = true;
 			int filesToDownload = numFiles * 2; //double because we have night mode and normal mode
 			int currentFileNumber = 1;
@@ -137,7 +135,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			//Download the images
 			//check the settings table for the files location
 			String fileLocationString = settingsRef.getPersistentSetting(settingsRef.STAR_CHART_DIRECTORY, AvailableCatalogsTab.this);
-			Log.d("JoeTest", "FileLocationString is " + fileLocationString);
 			File starChartRoot = null;
 			CatalogsDAO catalogsDb = new CatalogsDAO(AvailableCatalogsTab.this);
 			SettingsDAO settingsDb = new SettingsDAO(AvailableCatalogsTab.this);
@@ -176,7 +173,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			Cursor imagePaths = catalogsDb.getImagePaths(selectedItems);
 			imagePaths.moveToFirst();
 			int rowCount = imagePaths.getCount();
-			Log.d("JoeTest", "imagePaths cursor had " + rowCount + " rows");
 			
 			//Make directories
 			String tempNormalFilePath = imagePaths.getString(0);
@@ -202,7 +198,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 						currentNightDirectory = createDirectoryStructure(starChartRoot.toString(), nightPathString);
 					}
 					
-					//Log.d("JoeTest", "NormalPath #" + i + " is " + normalPath.toString());
 					try{
 						//setup input streams
 						URL imageFile = new URL(SettingsContainer.IMAGE_DOWNLOAD_ROOT + normalPathString);
@@ -223,17 +218,13 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					catch(IOException e){
 						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
-						Log.w("JoeDebug", e.getMessage());
 						success = false;
 						if (normalPath.exists()){
-							Log.w("JoeTest", "Deleting the file " + normalPathString);
 							normalPath.delete();
 						}
 					}
 					finally{
-						//Log.d("JoeTest", "Updating the alert");
 						if(!normalPath.exists()) {
-							Log.w("JoeTest", "Failed to download the file " + normalPathString);
 							success = false;
 						}
 						currentFileNumber++;
@@ -266,17 +257,13 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 					}
 					catch(Exception e){
 						//delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
-						Log.w("JoeDebug", e.getMessage());
 						success = false;
 						if (nightPath.exists()){
-							Log.w("JoeTest", "Deleting the file " + nightPathString);
 							nightPath.delete();
 						}
 					}
 					finally{
-						//Log.d("JoeTest", "Updating the alert");
 						if(!normalPath.exists()) {
-							Log.w("JoeTest", "Failed to download the file " + nightPathString);
 							success = false;
 						}
 						currentFileNumber++;
@@ -296,27 +283,22 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			
 			//Update the database
 			if(success){
-				Log.d("JoeTest", "Install Was successfull. Going to update the DB");
 				boolean dbSuccess = false;
 				for (String catalog : selectedItems){
-					Log.d("JoeTest", "Updating catalog " + catalog + " in the database");
 					dbSuccess = catalogsDb.updateAvailableCatalogsInstalled(catalog, "Yes");
 				}
 				
 				if (dbSuccess){
-					Log.d("JoeTest", "DB Updated successful. Displaying success message");
 					successMessageHandler.sendMessage(new Message());
 				}
 				else{
 					failureMessage = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
-					Log.d("JoeTest", "Db Update unsuccessfull. Displaying failure message");
 					failureMessageHandler.sendMessage(new Message());
 				}
 			}
 			else{
 				failureMessage = "There was a problem downloading at least one of the images. (Others may have been successfully installed) Please try again";
 				//show alert message
-				Log.d("JoeTest", "Install was unsuccessfull. Displaying failure message");
 				failureMessageHandler.sendMessage(new Message());
 			}
 			
@@ -327,12 +309,10 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
     
     private String createDirectoryStructure(String root, String filepath) {
     	//Cut the filename off the end of the path
-    	Log.d("JoeDebug", "Creating directory structure. Filepath passed in: " + filepath);
     	int index = filepath.lastIndexOf("/");
     	String directoryPath = filepath.subSequence(0, index).toString();
 		File directoryBuilder = new File(root.toString() + directoryPath);
 		directoryBuilder.mkdirs();
-		Log.d("JoeDebug", "Created directory structure for " + directoryPath);
 		return directoryPath;
     }
     

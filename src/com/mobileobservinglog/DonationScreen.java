@@ -52,7 +52,6 @@ public class DonationScreen extends ActivityBase {
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "InfoScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
         
         setupFinished = false;
@@ -60,14 +59,11 @@ public class DonationScreen extends ActivityBase {
         
         billingKey = this.getApplication().getResources().getString(R.string.base64Key);
         donationHandler = new DonationBillingHandler(this, billingKey);
-		Log.d("InAppPurchase", "Starting Setup from donation screen");
         donationHandler.startSetup(new DonationBillingHandler.OnSetupFinishedListener() {
             public void onSetupFinished(BillingHandlerResult result) {
                 if (!result.isSuccess()) {
-        			Log.d("InAppPurchase", "Setup failed -- donation screen");
                     return;
                 } else {
-        			Log.d("InAppPurchase", "Setup finished -- donation screen");
                 	setupFinished = true;
                 }
             }
@@ -96,7 +92,6 @@ public class DonationScreen extends ActivityBase {
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "InfoScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
         if(!resultHandled) {
@@ -173,9 +168,7 @@ public class DonationScreen extends ActivityBase {
     		// launch the purchase UI flow.
             // We will be notified of completion via mPurchaseFinishedListener
     		if(setupFinished) {
-    			Log.d("InAppPurchase", "Starting One Dollar Workflow");
 	            showInProgress();
-    			Log.d("InAppPurchase", "Modal shown, calling launch purchase flow");
 	            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_ONE, RC_REQUEST, mPurchaseFinishedListener);
     		} else {
     			showError();
@@ -188,9 +181,7 @@ public class DonationScreen extends ActivityBase {
     		// launch the purchase UI flow.
             // We will be notified of completion via mPurchaseFinishedListener
     		if(setupFinished) {
-    			Log.d("InAppPurchase", "Starting Two Dollar Workflow");
 	            showInProgress();
-    			Log.d("InAppPurchase", "Modal shown, calling launch purchase flow");
 	            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_TWO, RC_REQUEST, mPurchaseFinishedListener);
     		} else {
     			showError();
@@ -203,9 +194,7 @@ public class DonationScreen extends ActivityBase {
     		// launch the purchase UI flow.
             // We will be notified of completion via mPurchaseFinishedListener
     		if(setupFinished) {
-    			Log.d("InAppPurchase", "Starting Three Dollar Workflow");
 	            showInProgress();
-    			Log.d("InAppPurchase", "Modal shown, calling launch purchase flow");
 	            donationHandler.launchPurchaseFlow(DonationScreen.this, SKU_FIVE, RC_REQUEST, mPurchaseFinishedListener);
     		} else {
     			showError();
@@ -215,24 +204,20 @@ public class DonationScreen extends ActivityBase {
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d("InAppPurchase", "onActivityResult called -- Donation Screen");
         // Pass on the activity result to the helper for handling
         if (!donationHandler.handleActivityResult(requestCode, resultCode, data)) {
-    		Log.d("InAppPurchase", "Uh Oh, something went bad. -- Donation Screen");
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...
             super.onActivityResult(requestCode, resultCode, data);
         }
         else {
-            Log.d("JoeDebug", "onActivityResult handled by BillingHandlerResult.");
         }
     }
     
     // Callback for when a purchase is finished
     DonationBillingHandler.OnPurchaseFinishedListener mPurchaseFinishedListener = new DonationBillingHandler.OnPurchaseFinishedListener() {
         public void onPurchaseFinished(BillingHandlerResult result, Purchase purchase) {
-            Log.d("JoeDebug", "Purchase finished: " + result + ", purchase: " + purchase);
             if (result.isFailure()) {
                 // Oh noes!
                 purchaseSuccessful = false;
@@ -241,7 +226,6 @@ public class DonationScreen extends ActivityBase {
                 return;
             }
 
-            Log.d("JoeDebug", "Purchase successful.");
             purchaseSuccessful = true;
             resultHandled = false;
             showThankYou(); //Just in case we dont' go through onResume();

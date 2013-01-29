@@ -47,7 +47,6 @@ public class ViewObservingLocation extends ActivityBase{
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "ViewLocations onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -72,7 +71,6 @@ public class ViewObservingLocation extends ActivityBase{
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "ViewLocations onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -138,7 +136,6 @@ public class ViewObservingLocation extends ActivityBase{
 	 */
 	protected void prepForModal()
 	{
-		Log.d("JoeTest", "PrepForModal Called in AddEditObservingLocation");
 		RelativeLayout blackOutLayer = (RelativeLayout)findViewById(R.id.settings_fog);
 		FrameLayout mainBackLayer = (FrameLayout)findViewById(R.id.view_location_root);
 		
@@ -146,7 +143,6 @@ public class ViewObservingLocation extends ActivityBase{
 		editDelete.setEnabled(false);
 		cancel.setEnabled(false);
 		blackOutLayer.setVisibility(View.VISIBLE);
-		Log.d("JoeTest", "PrepForModal done in ViewObservingLocation");
 	}
 	
 	protected void tearDownModal(){

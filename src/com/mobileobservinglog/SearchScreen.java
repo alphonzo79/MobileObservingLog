@@ -74,7 +74,6 @@ public class SearchScreen extends ActivityBase {
 		
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "SearchScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -100,7 +99,6 @@ public class SearchScreen extends ActivityBase {
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "SearchScreen onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
 		
 		firstFocus = -1;
@@ -400,7 +398,6 @@ public class SearchScreen extends ActivityBase {
 			}
 			
 			boolean newValue = !filter.getOptionValue();
-			Log.i("SingleSelectDebug", "New Value: " + newValue);
 			
 			if(!filter.isMultiSelect()) {
 				//reset all the true items to false (Should only be one)

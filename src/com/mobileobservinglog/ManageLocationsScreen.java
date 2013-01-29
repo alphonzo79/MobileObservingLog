@@ -46,7 +46,6 @@ public class ManageLocationsScreen extends ActivityBase {
 	
 	@Override
     public void onCreate(Bundle icicle) {
-		Log.d("JoeDebug", "ManageLocations onCreate. Current session mode is " + settingsRef.getSessionMode());
         super.onCreate(icicle);
 
 		customizeBrightness.setDimButtons(settingsRef.getButtonBrightness());
@@ -74,7 +73,6 @@ public class ManageLocationsScreen extends ActivityBase {
     //When we resume, we need to make sure we have the right layout set, in case the user has changed the session mode.
     @Override
     public void onResume() {
-		Log.d("JoeDebug", "ManageLocations onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
     }
@@ -113,7 +111,6 @@ public class ManageLocationsScreen extends ActivityBase {
 		
 		for (int i = 0; i < locations.getCount(); i++)
         {
-			Log.d("JoeDebug", "cursor size is " + locations.getCount());
 			int id = locations.getInt(0);
 			String name = locations.getString(1);
 			String coordinates = locations.getString(2);
@@ -133,7 +130,6 @@ public class ManageLocationsScreen extends ActivityBase {
 			nothingLeft.setVisibility(View.VISIBLE);
 		}
 		else{
-			Log.d("JoeTest", "List size is " + locationList.size());
 			setListAdapter(new LocationAdapter(this, settingsRef.getLocationsListLayout(), locationList));
 		}
 	}
@@ -352,7 +348,6 @@ public class ManageLocationsScreen extends ActivityBase {
 				getDash().setVisibility(View.GONE);
 			}
 			id = location.id;
-			Log.d("JoeDebug", "location id " + id);
 		}
 	}
 }
