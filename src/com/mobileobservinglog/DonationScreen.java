@@ -56,6 +56,7 @@ public class DonationScreen extends ActivityBase {
         super.onCreate(icicle);
         
         setupFinished = false;
+        resultHandled = true;
         
         billingKey = this.getApplication().getResources().getString(R.string.base64Key);
         donationHandler = new DonationBillingHandler(this, billingKey);
