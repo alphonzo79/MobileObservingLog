@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import android.content.Context;
-import android.util.Log;
 
 public class ObjectIndexFilter implements ObjectFilter, TextSearch{
 	private boolean filterIsSet;
@@ -109,7 +108,6 @@ public class ObjectIndexFilter implements ObjectFilter, TextSearch{
 		}
 		
 		stmt = stmt.concat(";");
-		Log.d("JoeDebug", "ObjectIndexFilter Sql String: " + stmt);
 		
 		return stmt;
 	}

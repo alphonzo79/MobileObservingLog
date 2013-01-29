@@ -16,7 +16,6 @@ import java.util.Set;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.mobileobservinglog.objectSearch.LoggedObjectFilter.LoggedFilterTypes;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 
 public class TypeObjectFilter extends AbstractObjectFilter {

@@ -10,8 +10,6 @@
 
 package com.mobileobservinglog.objectSearch;
 
-import android.content.Context;
-
 public interface FilterBasicStrategy {
 	public boolean isSet();
 	public String getSearchDescription();

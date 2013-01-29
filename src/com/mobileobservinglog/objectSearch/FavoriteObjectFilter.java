@@ -10,11 +10,6 @@
 
 package com.mobileobservinglog.objectSearch;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-
-import com.mobileobservinglog.objectSearch.LoggedObjectFilter.LoggedFilterTypes;
-
 public class FavoriteObjectFilter extends AbstractObjectFilter {
 	public FavoriteObjectFilter() {
 		title = "Favorite";

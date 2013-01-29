@@ -11,11 +11,8 @@
 package com.mobileobservinglog.objectSearch;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.TreeMap;
 import java.util.Set;
-
-import android.content.Context;
 
 public abstract class AbstractObjectFilter implements ObjectFilter {
 	protected boolean filterIsSet;

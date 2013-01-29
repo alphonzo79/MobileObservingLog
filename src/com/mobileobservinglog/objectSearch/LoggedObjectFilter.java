@@ -10,8 +10,6 @@
 
 package com.mobileobservinglog.objectSearch;
 
-import android.content.Context;
-
 public class LoggedObjectFilter extends AbstractObjectFilter {
 	public LoggedObjectFilter() {
 		title = "Logged State";

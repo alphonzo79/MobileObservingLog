@@ -15,7 +15,6 @@ import java.util.Set;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.mobileobservinglog.support.database.CatalogsDAO;
 
@@ -36,7 +35,6 @@ public class CatalogObjectFilter extends AbstractObjectFilter {
 		installedCatalogs = new ArrayList<String>();
 		for (int i = 0; i < catalogs.getCount(); i++)
         {
-			Log.d("JoeDebug", "cursor size is " + catalogs.getCount());
 			installedCatalogs.add(catalogs.getString(0));
         	
         	catalogs.moveToNext();

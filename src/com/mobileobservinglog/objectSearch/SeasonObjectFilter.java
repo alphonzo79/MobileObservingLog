@@ -12,8 +12,6 @@ package com.mobileobservinglog.objectSearch;
 
 import java.util.Set;
 
-import android.content.Context;
-
 public class SeasonObjectFilter extends AbstractObjectFilter {
 	public SeasonObjectFilter() {
 		title = "Season Object is Visible";
