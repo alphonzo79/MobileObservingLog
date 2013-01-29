@@ -10,8 +10,6 @@
 
 package com.mobileobservinglog.strategies;
 
-import java.util.ArrayList;
-
 import com.mobileobservinglog.ObjectDetailScreen;
 
 import android.app.Activity;

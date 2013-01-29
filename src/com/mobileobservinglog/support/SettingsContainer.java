@@ -14,11 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.support.database.DatabaseHelper;
 import com.mobileobservinglog.support.database.SettingsDAO;
 
 import android.content.Context;
-import android.util.Log;
 
 public final class SettingsContainer {
 	
@@ -457,8 +455,6 @@ public final class SettingsContainer {
 	//Helper Methods
 	//Called to change from normal mode to night mode. This method will set all of the style attributes that are used in setting layouts
 	public void setNightMode(){
-		//Log line get commented out temporarily for testing because they cause a noClassDefFoundError when running the basic Junit TestCase
-		Log.d("JoeDebug", "SettingsContainer.setNightMode. Current session mode is " + getSessionMode());
 		setSessionMode(SessionMode.night);
 		setModeButtonText(R.string.menu_toggle_normal_mode);
 		setHomeLayout(R.layout.homescreen_night);
@@ -506,7 +502,6 @@ public final class SettingsContainer {
 	}
 	
 	public void setNormalMode(){
-		Log.d("JoeDebug", "SettingsContainer.setNormalMode. Current session mode is " + getSessionMode());
 		setSessionMode(SessionMode.normal);
 		setModeButtonText(R.string.menu_toggle_night_mode);
 		setHomeLayout(R.layout.homescreen);

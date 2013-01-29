@@ -29,7 +29,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -126,13 +125,11 @@ public class BackupRestoreUtil {
 				bw.close();
 				fw.close();
 			} catch (FileNotFoundException e) {
-				Log.d("JoeDebug", e.getMessage());
 				e.printStackTrace();
 				failureMessage = "There was a problem while creating the file in which to back up your data.";
 				failureMessageHandler.sendMessage(new Message());
 				return;
 			} catch (IOException e) {
-				Log.d("JoeDebug", e.getMessage());
 				e.printStackTrace();
 				success = false;
 				errors++; //Some may succeed. We want to communicate a level of success to the user and leave the file for possible use

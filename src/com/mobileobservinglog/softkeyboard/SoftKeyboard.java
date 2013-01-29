@@ -13,6 +13,7 @@ package com.mobileobservinglog.softkeyboard;
 import java.nio.CharBuffer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Vibrator;
 import android.text.Editable;
 import android.view.View;
@@ -154,7 +155,7 @@ public class SoftKeyboard{
 	public SoftKeyboard(Activity context, EditText textView, TargetInputType input){
 		this.context = context;
 		targetTextView = textView;
-		vibrator = (Vibrator)context.getSystemService(context.VIBRATOR_SERVICE);
+		vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 		findLayouts();
 		findButtons();
 		setListeners();

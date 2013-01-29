@@ -12,12 +12,9 @@ package com.mobileobservinglog.support;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ListIterator;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.mobileobservinglog.R;
@@ -55,7 +52,6 @@ public class ProgressSpinner {
     
     protected class ProgressIndicator implements Runnable{
 		public void run() {
-	    	Log.d("JoeTest", "Progress Image Update thread started");
 			while (!workComplete){
 				ProgressImageHandler.sendMessage(new Message());
 				try{
@@ -65,7 +61,6 @@ public class ProgressSpinner {
 					
 				}
 			}
-	    	Log.d("JoeTest", "Progress Image Update thread ended");
 		}
     }
     

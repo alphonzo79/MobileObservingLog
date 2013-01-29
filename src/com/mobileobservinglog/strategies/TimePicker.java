@@ -13,7 +13,6 @@ package com.mobileobservinglog.strategies;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 
 public class TimePicker {
 	public NumberPickerDriver hourPicker;
@@ -21,7 +20,6 @@ public class TimePicker {
 	public NumberPickerDriver amPmPicker;
 	
 	public TimePicker(String hour, String minute, String amPm, Context context) {
-		Log.i("JoeDebug", String.format("Hour: %s, Minute: %s, AM/PM: %s", hour, minute, amPm));
 		hourPicker = new NumberPickerDriver(setHours(), hour, context) {
 			@Override
 			public boolean save() {
@@ -53,7 +51,6 @@ public class TimePicker {
 	private static ArrayList<String> setMinutes() {
 		ArrayList<String> retVal = new ArrayList<String>();
 		for(int i = 0; i < 60; i++) {
-			Log.i("JoeDebug", String.format("%02d", i));
 			retVal.add(String.format("%02d", i));
 		}		
 		return retVal;

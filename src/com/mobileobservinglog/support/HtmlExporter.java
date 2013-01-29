@@ -23,16 +23,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import com.mobileobservinglog.BackupRestoreScreen;
-import com.mobileobservinglog.support.BackupRestoreUtil.BackupAsynch;
 import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 import com.mobileobservinglog.support.database.PersonalInfoDAO;
@@ -130,7 +125,6 @@ public class HtmlExporter {
 				bw.write("	<body>");
 				bw.newLine();
 			} catch (FileNotFoundException e) {
-				Log.d("JoeDebug", e.getMessage());
 				e.printStackTrace();
 				failureMessage = "There was a problem exporting your data.";
 				failureMessageHandler.sendMessage(new Message());
@@ -142,7 +136,6 @@ public class HtmlExporter {
 				}
 				return;
 			} catch (IOException e) {
-				Log.d("JoeDebug", e.getMessage());
 				e.printStackTrace();
 				success = false;
 				errors++; //Some may succeed. We want to communicate a level of success to the user and leave the file for possible use
@@ -179,7 +172,6 @@ public class HtmlExporter {
 					bw.write(String.format("<h6>%s<h6>", personalInfo));
 					bw.newLine();
 				} catch (FileNotFoundException e) {
-					Log.d("JoeDebug", e.getMessage());
 					e.printStackTrace();
 					failureMessage = "There was a problem while creating the file in which to back up your data.";
 					failureMessageHandler.sendMessage(new Message());
@@ -191,7 +183,6 @@ public class HtmlExporter {
 					}
 					return;
 				} catch (IOException e) {
-					Log.d("JoeDebug", e.getMessage());
 					e.printStackTrace();
 					success = false;
 					errors++; //Some may succeed. We want to communicate a level of success to the user and leave the file for possible use
@@ -412,13 +403,11 @@ public class HtmlExporter {
 						bw.write("					</table>");
 						bw.newLine();
 					} catch (FileNotFoundException e) {
-						Log.d("JoeDebug", e.getMessage());
 						e.printStackTrace();
 						failureMessage = "There was a problem while creating the file in which to back up your data.";
 						failureMessageHandler.sendMessage(new Message());
 						return;
 					} catch (IOException e) {
-						Log.d("JoeDebug", e.getMessage());
 						e.printStackTrace();
 						success = false;
 						errors++; //Some may succeed. We want to communicate a level of success to the user and leave the file for possible use
@@ -439,7 +428,6 @@ public class HtmlExporter {
 				bw.close();
 				fw.close();
 			} catch (FileNotFoundException e) {
-				Log.d("JoeDebug", e.getMessage());
 				e.printStackTrace();
 				failureMessage = "There was a problem exporting your data.";
 				failureMessageHandler.sendMessage(new Message());
@@ -451,7 +439,6 @@ public class HtmlExporter {
 				}
 				return;
 			} catch (IOException e) {
-				Log.d("JoeDebug", e.getMessage());
 				e.printStackTrace();
 				success = false;
 				errors++; //Some may succeed. We want to communicate a level of success to the user and leave the file for possible use

@@ -14,7 +14,6 @@ import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
@@ -82,18 +81,13 @@ public class CustomizeBrightness {
 	 * @param Float Value. -1.0f for no override, 0.0f to turn lights off 1.0f for full intensity
 	 */
 	public void setDimButtons(float val) {
-		Log.d("JoeTest", "getWindow: " + activity.getWindow());
 		WindowManager.LayoutParams layoutParams = activity.getWindow().getAttributes();
 
 		if (layoutParams.buttonBrightness != val)
 	    {
 	    	try {
-		        Log.d("JoeDebug", "Current button Brightness is " + layoutParams.buttonBrightness);
-		        Log.d("JoeDebug", "Activity Base setDimButtons. Setting to " + val);
-			    //layoutParams.buttonBrightness = val;
 		        new BtnBrightness(layoutParams, val);
 		    } catch (Exception e) {
-		        Log.d("JoeDebug", "Failed to set button brightness");
 		        e.printStackTrace();
 		    }
 	    	activity.getWindow().setAttributes(layoutParams);

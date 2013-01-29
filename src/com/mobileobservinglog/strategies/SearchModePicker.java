@@ -13,7 +13,6 @@ package com.mobileobservinglog.strategies;
 import java.util.ArrayList;
 
 import com.mobileobservinglog.support.SettingsContainer;
-import com.mobileobservinglog.support.database.DatabaseHelper;
 import com.mobileobservinglog.support.database.SettingsDAO;
 
 import android.content.Context;
