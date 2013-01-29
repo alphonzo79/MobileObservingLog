@@ -10,22 +10,12 @@
 
 package com.mobileobservinglog.support.database;
 
-import java.util.ArrayList;
-
 import com.mobileobservinglog.R;
-import com.mobileobservinglog.objectSearch.ObjectFilter;
-import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
-import com.mobileobservinglog.objectSearch.StringSearchFilter;
-import com.mobileobservinglog.support.SettingsContainer;
-
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Helper class to handle all database interaction for the Mobile Observing Log app
@@ -46,13 +36,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	{
 		super(context, DATABASE_NAME, null, VERSION);
 		mContext = context;
-		Log.d("JoeDebug", "DatabaseHelper constructor finish");
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) 
 	{
-		Log.d("JoeDebug", "DatabaseHelper onCreate called from" + mContext.toString());
 		
 		//create tables
 		db.beginTransaction();
@@ -60,7 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			createTables(db);
 			db.setTransactionSuccessful();
 		} catch (SQLException e) {
-            Log.e("Error creating tables and debug data", e.toString());
         } finally {
         	db.endTransaction();
         }
@@ -77,11 +64,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		}
 		catch (SQLException e)
 		{
-			Log.e("Error populating tables", e.toString());
 		}
 		catch (Exception e)
 		{
-			Log.e("Error populating tables", e.toString());
 		}
 		finally
 		{
@@ -117,7 +102,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 */
 	private void populateAvailableCatalogs(SQLiteDatabase db) throws Exception
 	{
-		Log.d("JoeDebug", "Starting populateAvailableCatalogs");
 		SQLiteStatement sqlStatement;
 		
 		//First, get the values and parse them into individual lines, then parse the values, 
@@ -143,7 +127,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			}
 			else
 			{
-				Log.d("JoeDebug", "Error in populateAvailableCatalogs");
 				throw new Exception("There were not 5 values to populate the catalogs table with. Values were" + rowData.toString());
 			}
 		}
@@ -155,7 +138,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 */
 	private void populateObjects(SQLiteDatabase db) throws Exception
 	{
-		Log.d("JoeDebug", "Starting populateObjects");
 		SQLiteStatement sqlStatement;
 		
 		//I think for mitigation of file size, we should maintain each catalog in an independent resource file. 
@@ -167,7 +149,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				R.string.ic_3_catalog_default_values, R.string.ic_4_catalog_default_values, R.string.ic_5_catalog_default_values, R.string.ic_6_catalog_default_values};
 		for (int i = 0; i < availableCatalogs.length; i++)
 		{
-			Log.d("JoeDebug", "Starting population of objects for catalog # " + i);
 			//First, get the values and parse them into individual lines, then parse the values, 
 			//create the sql statement, then execute it
 			String[] objectsLines = parseResourceByLine(availableCatalogs[i]);
@@ -177,9 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				String[] rowData = parseResourceByDelimiter(objectsLines[j], objectTableColumnCount);
 				
 				if (rowData.length == objectTableColumnCount)
-				{
-					//Log.d("JoeDebug", "In Loop. rowData.length passed the test");
-					
+				{					
 					sqlStatement = db.compileStatement("INSERT INTO objects (designation, commonName, type, magnitude, size," +
 							" distance, constellation, season, rightAscension, declination, objectDescription, catalog, otherCatalogs," +
 							" imageResource, nightImageResource) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -202,7 +181,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 				}
 				else
 				{
-					Log.w("JoeDebug", "Error in populateObjects");
 					throw new Exception("There were not " + objectTableColumnCount + " values to populate the Objects table with. Object was " + rowData[1]);
 				}
 			}
@@ -215,7 +193,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 */
 	private void populatePersonalInfo(SQLiteDatabase db) throws Exception
 	{
-		Log.d("JoeDebug", "Starting populatePersonalInfo");
 		SQLiteStatement sqlStatement;
 		
 		sqlStatement = db.compileStatement("INSERT INTO personalInfo (_id, fullName, address, phone, eMail, localClub) VALUES (?, ?, ?, ?, ?, ?)");
@@ -237,7 +214,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	 */
 	private void populatePersistentSettings(SQLiteDatabase db) throws Exception
 	{
-		Log.d("JoeDebug", "Starting populatePersistentSettings");
 		SQLiteStatement sqlStatement;
 		
 		//First, get the values and parse them into individual lines, then parse the values, 
@@ -262,7 +238,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			}
 			else
 			{
-				Log.d("JoeDebug", "Error in populatePersistentSettings");
 				throw new Exception("There were not 3 values to populate the settings table with. Values were" + rowData.toString());
 			}
 		}

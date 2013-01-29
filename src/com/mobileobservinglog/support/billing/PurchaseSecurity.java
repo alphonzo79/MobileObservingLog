@@ -20,11 +20,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 //This class is modeled completely after the TrivialDrive sample provided by Google. Much of the code is used directly out of that sample
 public class PurchaseSecurity {
-	private static final String TAG = "PurchaseSecurity";
 
     private static final String KEY_FACTORY_ALGORITHM = "RSA";
     private static final String SIGNATURE_ALGORITHM = "SHA1withRSA";
@@ -40,7 +38,6 @@ public class PurchaseSecurity {
      */
     public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature) {
         if (signedData == null) {
-            Log.e(TAG, "data is null");
             return false;
         }
 
@@ -49,7 +46,6 @@ public class PurchaseSecurity {
             PublicKey key = PurchaseSecurity.generatePublicKey(base64PublicKey);
             verified = PurchaseSecurity.verify(key, signedData, signature);
             if (!verified) {
-                Log.w(TAG, "signature does not match data.");
                 return false;
             }
         }
@@ -71,10 +67,8 @@ public class PurchaseSecurity {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         } catch (InvalidKeySpecException e) {
-            Log.e(TAG, "Invalid key specification.");
             throw new IllegalArgumentException(e);
         } catch (IllegalStateException e) {
-            Log.e(TAG, "Base64 decoding failed.");
             throw new IllegalArgumentException(e);
         }
     }
@@ -95,18 +89,13 @@ public class PurchaseSecurity {
             sig.initVerify(publicKey);
             sig.update(signedData.getBytes());
             if (!sig.verify(BillingBase64.decode(signature))) {
-                Log.e(TAG, "Signature verification failed.");
                 return false;
             }
             return true;
         } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, "NoSuchAlgorithmException.");
         } catch (InvalidKeyException e) {
-            Log.e(TAG, "Invalid key specification.");
         } catch (SignatureException e) {
-            Log.e(TAG, "Signature exception.");
         } catch (IllegalStateException e) {
-            Log.e(TAG, "Base64 decoding failed.");
         }
         return false;
     }

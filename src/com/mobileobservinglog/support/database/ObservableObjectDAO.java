@@ -22,7 +22,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
 
 public class ObservableObjectDAO extends DatabaseHelper {
 
@@ -226,7 +225,6 @@ public class ObservableObjectDAO extends DatabaseHelper {
 			int counter = 0;
 			for(Map<String, String> row : values) {
 				counter++;
-				Log.d("JoeDebug", "Working on item #" + counter);
 				
 				if(!row.containsKey("designation"))
 					continue;
@@ -336,7 +334,6 @@ public class ObservableObjectDAO extends DatabaseHelper {
 		int count = counter.getInt(0);
 		counter.close();
 		
-		Log.i("Joe Info", "Count: " + count);
 		List<String> retVal = new ArrayList<String>(count);
 		
 		//Now, do this in batches of 100 -- generous for space to take into account the possibility that users may type a lot of text into the notes
@@ -377,8 +374,6 @@ public class ObservableObjectDAO extends DatabaseHelper {
 			
 			rs.close();
 		}
-		
-		Log.i("JoeInfo", String.format("DB row count: %d, List size: %d", count, retVal.size()));
 		
 		db.close();
 		return retVal;

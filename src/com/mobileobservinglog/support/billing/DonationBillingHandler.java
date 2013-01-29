@@ -24,7 +24,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.util.Log;
 
 import com.mobileobservinglog.support.billing.PurchaseSecurity;
 
@@ -96,7 +95,6 @@ public class DonationBillingHandler {
 	public void startSetup(final OnSetupFinishedListener listener) {
 		// If already set up, can't do it again.
         if (setupDone) {
-			Log.d("InAppPurchase", "Setup was already done -- handler");
         	return;
         }
         
@@ -212,13 +210,11 @@ public class DonationBillingHandler {
      *     and will always be returned when the purchase is queried.
      */
     public void launchPurchaseFlow(Activity act, String sku, int requestCode, OnPurchaseFinishedListener listener, String extraData) {
-		Log.d("InAppPurchase", "Purchase Flow started -- handler");
-        BillingHandlerResult result;
+		BillingHandlerResult result;
         purchaseListener = listener;
         try {
         	checkSetupDone("launchPurchaseFlow");
         } catch (IllegalStateException e) {
-			Log.d("InAppPurchase", "Setup was not done -- handler");
         	result = new BillingHandlerResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE, "Setup was not finished yet");
         	if (listener != null) listener.onPurchaseFinished(result, null);
         	return;
@@ -226,11 +222,9 @@ public class DonationBillingHandler {
         flagStartAsync("launchPurchaseFlow");
 
         try {
-			Log.d("InAppPurchase", "Starting the purchase try -- handler");
             Bundle buyIntentBundle = service.getBuyIntent(3, context.getPackageName(), sku, ITEM_TYPE_INAPP, extraData);
             int response = getResponseCodeFromBundle(buyIntentBundle);
             if (response != BILLING_RESPONSE_RESULT_OK) {
-    			Log.d("InAppPurchase", "The response code from the bundle was not OK -- handler");
 
     	        
     	        //In case we have a managed item that needs to be consumed. Bit of a hack. But works for now
@@ -243,27 +237,23 @@ public class DonationBillingHandler {
 
             PendingIntent pendingIntent = buyIntentBundle.getParcelable(RESPONSE_BUY_INTENT);
             this.requestCode = requestCode;
-			Log.d("InAppPurchase", "About to start the intent sender for result -- handler");
 			if(pendingIntent != null) {
 	            act.startIntentSenderForResult(pendingIntent.getIntentSender(),
 	                                           requestCode, new Intent(),
 	                                           Integer.valueOf(0), Integer.valueOf(0),
 	                                           Integer.valueOf(0));
-				Log.d("InAppPurchase", "Done with the intent sender for result -- handler");
 			} else {
 				result = new BillingHandlerResult(BILLINGHELPER_SEND_INTENT_FAILED, "Failed to send intent. We had a null pending intent");
 	            if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, null);
 			}
         }
         catch (SendIntentException e) {
-			Log.d("InAppPurchase", "Caught a SendIntentException -- handler");
             e.printStackTrace();
 
             result = new BillingHandlerResult(BILLINGHELPER_SEND_INTENT_FAILED, "Failed to send intent.");
             if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, null);
         }
         catch (RemoteException e) {
-			Log.d("InAppPurchase", "Caught RemoteException -- handler");
             e.printStackTrace();
 
             result = new BillingHandlerResult(BILLINGHELPER_REMOTE_EXCEPTION, "Remote exception while starting purchase flow");
@@ -285,14 +275,12 @@ public class DonationBillingHandler {
      *     handle it normally.
      */
     public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d("InAppPurchase", "Starting HandleActivityResult -- handler");
         BillingHandlerResult result;
         if (requestCode != this.requestCode) return false;
 
         try {
         	checkSetupDone("handleActivityResult");
         } catch (IllegalStateException e) {
-			Log.d("InAppPurchase", "Setup was not done -- handler");
         	result = new BillingHandlerResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE, "Setup was not finished yet");
         }
 
@@ -300,7 +288,6 @@ public class DonationBillingHandler {
         flagEndAsync();
 
         if (data == null) {
-			Log.d("InAppPurchase", "Data was null -- handler");
             result = new BillingHandlerResult(BILLINGHELPER_BAD_RESPONSE, "Null data in IAB result");
             if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, null);
             return true;
@@ -311,9 +298,7 @@ public class DonationBillingHandler {
         String dataSignature = data.getStringExtra(RESPONSE_INAPP_SIGNATURE);
 
         if (resultCode == Activity.RESULT_OK && responseCode == BILLING_RESPONSE_RESULT_OK) {
-			Log.d("InAppPurchase", "Activity.Result was OK and Billing response result was ok -- handler");
             if (purchaseData == null || dataSignature == null) {
-    			Log.d("InAppPurchase", "But we had null data -- handler");
                 result = new BillingHandlerResult(BILLINGHELPER_UNKNOWN_ERROR, "IAB returned null purchaseData or dataSignature");
                 if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, null);
                 return true;
@@ -321,20 +306,17 @@ public class DonationBillingHandler {
 
             Purchase purchase = null;
             try {
-    			Log.d("InAppPurchase", "Checking the purchase -- handler");
                 purchase = new Purchase(purchaseData, dataSignature);
                 String sku = purchase.getSku();
 
                 // Verify signature
                 if (!PurchaseSecurity.verifyPurchase(billingKey, purchaseData, dataSignature)) {
-        			Log.d("InAppPurchase", "Uh Oh, Verification failed on the purchase -- handler");
                     result = new BillingHandlerResult(BILLINGHELPER_VERIFICATION_FAILED, "Signature verification failed for sku " + sku);
                     if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, purchase);
                     return true;
                 }
             }
             catch (JSONException e) {
-    			Log.d("InAppPurchase", "Caught a JSON exception -- handler");
                 e.printStackTrace();
                 result = new BillingHandlerResult(BILLINGHELPER_BAD_RESPONSE, "Failed to parse purchase data.");
                 if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, null);
@@ -342,25 +324,21 @@ public class DonationBillingHandler {
             }
 
             if (purchaseListener != null) {
-    			Log.d("InAppPurchase", "Setting the purchase listener to OK -- handler");
                 purchaseListener.onPurchaseFinished(new BillingHandlerResult(BILLING_RESPONSE_RESULT_OK, "Success"), purchase);
             }
         }
         else if (resultCode == Activity.RESULT_OK) {
             // result code was OK, but in-app billing response was not OK.
             if (purchaseListener != null) {
-    			Log.d("InAppPurchase", "Problem purchasing the item -- handler");
                 result = new BillingHandlerResult(responseCode, "Problem purchashing item.");
                 purchaseListener.onPurchaseFinished(result, null);
             }
         }
         else if (resultCode == Activity.RESULT_CANCELED) {
-			Log.d("InAppPurchase", "Purchase was canceled -- handler");
             result = new BillingHandlerResult(BILLINGHELPER_USER_CANCELLED, "User canceled.");
             if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, null);
         }
         else {
-			Log.d("InAppPurchase", "this was an unknown purchase -- handler");
             result = new BillingHandlerResult(BILLINGHELPER_UNKNOWN_PURCHASE_RESPONSE, "Unknown purchase response.");
             if (purchaseListener != null) purchaseListener.onPurchaseFinished(result, null);
         }
@@ -378,14 +356,11 @@ public class DonationBillingHandler {
     int getResponseCodeFromBundle(Bundle b) {
         Object o = b.get(RESPONSE_CODE);
         if (o == null) {
-            Log.d("JoeDebug", "Bundle with null response code, assuming OK (known issue)");
             return BILLING_RESPONSE_RESULT_OK;
         }
         else if (o instanceof Integer) return ((Integer)o).intValue();
         else if (o instanceof Long) return (int)((Long)o).longValue();
         else {
-            Log.e("DonationBillingHandler", "Unexpected type for bundle response code.");
-            Log.e("DonationBillingHandler", o.getClass().getName());
             throw new RuntimeException("Unexpected type for bundle response code: " + o.getClass().getName());
         }
     }
@@ -394,14 +369,11 @@ public class DonationBillingHandler {
     int getResponseCodeFromIntent(Intent i) {
         Object o = i.getExtras().get(RESPONSE_CODE);
         if (o == null) {
-        	Log.e("DonationBillingHandler", "Intent with no response code, assuming OK (known issue)");
             return BILLING_RESPONSE_RESULT_OK;
         }
         else if (o instanceof Integer) return ((Integer)o).intValue();
         else if (o instanceof Long) return (int)((Long)o).longValue();
         else {
-        	Log.e("DonationBillingHandler", "Unexpected type for intent response code.");
-        	Log.e("DonationBillingHandler", o.getClass().getName());
             throw new RuntimeException("Unexpected type for intent response code: " + o.getClass().getName());
         }
     }
