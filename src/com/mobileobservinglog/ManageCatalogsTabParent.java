@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import com.mobileobservinglog.objectSearch.ObjectIndexFilter;
 import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.DatabaseHelper;
@@ -341,6 +342,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
     Handler successMessageHandler = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
+    		ObjectIndexFilter.invalidate();
     		showSuccessMessage();
     	}
     };

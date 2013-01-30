@@ -143,4 +143,11 @@ public class ObjectIndexFilter implements ObjectFilter, TextSearch{
 	public void setStringSearchText(String text) {
 		searchFilter.setSearchString(text);
 	}
+	
+	public static void invalidate() {
+		synchronized(ObjectIndexFilter.class) {
+			ref = null;
+		}
+		
+	}
 }
