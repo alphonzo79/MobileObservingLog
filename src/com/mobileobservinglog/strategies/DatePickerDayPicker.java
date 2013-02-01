@@ -46,7 +46,7 @@ public class DatePickerDayPicker extends NumberPickerDriver {
 	public void upButton() {
 		super.upButton();
 		if(Integer.parseInt(currentValue) > Integer.parseInt(parent.month.getMaxDays(parent.month.getCurrentValue()))) {
-			skipToValue("1");
+			skipToValue("01");
 		}
 	}
 	
