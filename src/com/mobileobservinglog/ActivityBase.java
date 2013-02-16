@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 public abstract class ActivityBase extends ListActivity implements View.OnClickListener{
@@ -163,16 +164,7 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
     
     protected final Button.OnClickListener toggleMode = new Button.OnClickListener(){
     	public void onClick(View view){
-    		switch (settingsRef.getSessionMode()){
-    		case night:
-    			settingsRef.setNormalMode();
-    			break;
-    		case normal:
-    			settingsRef.setNightMode();
-    			break;
-    		default:
-    			break;
-    		}
+    		toggleMode();
 
     		setLayout();
     	}

@@ -180,6 +180,7 @@ public class SearchScreen extends ActivityBase {
     		if(catalogName != null) {
     			intent.putExtra("com.mobileobservationlog.catalogName", catalogName);
     		}
+    		intent.putExtra("com.mobileobservinglog.resetList", true);
     		startActivity(intent);
     		SearchScreen.this.finish();
         }
