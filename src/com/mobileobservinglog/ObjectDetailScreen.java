@@ -761,7 +761,7 @@ public class ObjectDetailScreen extends ActivityBase{
 	
 	protected final Button.OnClickListener saveLog = new Button.OnClickListener() {
 		public void onClick(View arg0) {
-			if(otherCats.length() > 0) {
+			if(otherCats != null && otherCats.length() > 0) {
 				String[] otherCatsSplit = otherCats.split(",");
 				String otherInstalled = "";
 				ObservableObjectDAO db = new ObservableObjectDAO(getApplicationContext());
@@ -777,7 +777,7 @@ public class ObjectDetailScreen extends ActivityBase{
 				}
 				db.close();
 				
-				if(otherInstalled.length() > 0) {
+				if(otherInstalled != null && otherInstalled.length() > 0) {
 					prepForModal();
 					modalHeader.setText(String.format("Update log info for this object in other catalogs as well: %s?", otherInstalled));
 					modalCancel.setText("No");
