@@ -38,6 +38,8 @@ public class CatalogsScreen extends ActivityBase{
 	TextView nothingHere;
 	ArrayList<Catalog> catalogList;
 	
+	int listLocation = -1;
+	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "CatalogsScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
@@ -53,6 +55,8 @@ public class CatalogsScreen extends ActivityBase{
 	@Override
     public void onPause() {
         super.onPause();
+        ListView list = getListView();
+        listLocation = list.getFirstVisiblePosition();
     }
 
     @Override
@@ -76,6 +80,12 @@ public class CatalogsScreen extends ActivityBase{
 		findButtonAddListener();
 		prepareListView();
 		body.postInvalidate();
+		if(listLocation > 0) {
+			ListView list = getListView();
+			if(list.getCount() > listLocation) {
+				list.setSelection(listLocation);
+			}
+		}
 	}
 
 	private void findButtonAddListener() {
@@ -150,6 +160,13 @@ public class CatalogsScreen extends ActivityBase{
 		intent.putExtra("com.mobileobservationlog.catalogName", catalog);
 		intent.putExtra("com.mobileobservationlog.listName", "None");
         startActivity(intent);
+	}
+	
+	@Override
+	public void toggleMode() {
+        ListView list = getListView();
+        listLocation = list.getFirstVisiblePosition();
+        super.toggleMode();
 	}
     
     //////////////////////////////////////

@@ -59,6 +59,9 @@ public class ObjectIndexScreen extends ActivityBase {
 	
 	String selectedItemName;
 	
+	int listLocation = -1;
+	boolean resetList = false;
+	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "ObjectIndexScreen onCreate. Current session mode is " + settingsRef.getSessionMode());
@@ -76,6 +79,8 @@ public class ObjectIndexScreen extends ActivityBase {
 	@Override
     public void onPause() {
         super.onPause();
+        ListView list = getListView();
+        listLocation = list.getFirstVisiblePosition();
     }
 
     @Override
@@ -99,11 +104,20 @@ public class ObjectIndexScreen extends ActivityBase {
 		indexType = this.getIntent().getStringExtra("com.mobileobservationlog.indexType");
 		catalogName = this.getIntent().getStringExtra("com.mobileobservationlog.catalogName");
 		listName = this.getIntent().getStringExtra("com.mobileobservationlog.listName");
+		if(this.getIntent().getBooleanExtra("com.mobileobservinglog.resetList", false)) {
+			listLocation = -1;
+		}
 		findButtonsAddListener();
 		setHeader();
 		findModalElements();
 		prepareListView();
 		body.postInvalidate();
+		if(listLocation > 0) {
+			ListView list = getListView();
+			if(list.getCount() > listLocation) {
+				list.setSelection(listLocation);
+			}
+		}
 	}
 
 	private void findButtonsAddListener() {
@@ -333,6 +347,13 @@ public class ObjectIndexScreen extends ActivityBase {
 		refineButton.setEnabled(true);
 		blackOutLayer.setVisibility(View.GONE);
 		modalMain.setVisibility(View.GONE);
+	}
+	
+	@Override
+	public void toggleMode() {
+        ListView list = getListView();
+        listLocation = list.getFirstVisiblePosition();
+        super.toggleMode();
 	}
     
     //////////////////////////////////////

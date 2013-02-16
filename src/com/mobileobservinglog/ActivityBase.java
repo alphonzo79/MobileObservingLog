@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.LayoutInflater.Factory;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -187,19 +188,7 @@ public abstract class ActivityBase extends ListActivity implements View.OnClickL
     
     protected final Button.OnClickListener toggleMode = new Button.OnClickListener(){
     	public void onClick(View view){
-    		switch (settingsRef.getSessionMode()){
-    		case night:
-    			Log.d("JoeDebug", "ActivityBase setting normal mode");
-    			settingsRef.setNormalMode();
-    			break;
-    		case normal:
-    			settingsRef.setNightMode();
-    			Log.d("JoeDebug", "ActivityBase setting night mode");
-    			break;
-    		default:
-    			Log.d("JoeDebug", "ActivityBase default switch in toggleMode");
-    			break;
-    		}
+    		toggleMode();
 
     		setLayout();
     	}
