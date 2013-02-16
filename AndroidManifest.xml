@@ -37,7 +37,8 @@
         
         <activity android:name=".AddCatalogsScreen"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -73,7 +74,8 @@
         
         <activity android:name=".ObjectDetailScreen"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -106,7 +108,8 @@
         
         <activity android:name=".AddEditTargetList"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -128,7 +131,8 @@
         
         <activity android:name=".ManageEquipmentScreen"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -143,7 +147,8 @@
         <activity android:name=".AddEditTelescope"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  android:windowSoftInputMode="stateHidden">
+                  android:windowSoftInputMode="stateHidden"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -155,7 +160,8 @@
         <activity android:name=".AddEditEyepiece"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  android:windowSoftInputMode="stateHidden">
+                  android:windowSoftInputMode="stateHidden"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -178,7 +184,8 @@
         <activity android:name=".AddEditObservingLocation"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  android:windowSoftInputMode="stateHidden">
+                  android:windowSoftInputMode="stateHidden"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -212,7 +219,8 @@
         
         <activity android:name=".EditPersonalInfoScreen"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
