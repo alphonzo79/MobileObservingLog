@@ -61,6 +61,8 @@ public class BackupRestoreScreen extends ActivityBase{
 	
 	BackupRestoreUtil util;
 	
+	boolean asyncTaskRunning = false;
+	
 	@Override
     public void onCreate(Bundle icicle) {
 		Log.d("JoeDebug", "BackupRestore onCreate. Current session mode is " + settingsRef.getSessionMode());
@@ -99,7 +101,9 @@ public class BackupRestoreScreen extends ActivityBase{
 		Log.d("JoeDebug", "BackupRestore onResume. Current session mode is " + settingsRef.getSessionMode());
         super.onResume();
         setLayout();
-        util = new BackupRestoreUtil(progressMessage, progressImage, BackupRestoreScreen.this);
+        if(util == null) {
+        	util = new BackupRestoreUtil(progressMessage, progressImage, BackupRestoreScreen.this);
+        }
     }
 	
   //Used by the Toggle Mode menu item method in ActivityBase. Reset the layout and force the redraw
@@ -111,6 +115,9 @@ public class BackupRestoreScreen extends ActivityBase{
 		findModalElements();
 		prepareListView();
 		body.postInvalidate();
+		if(asyncTaskRunning) {
+			prepProgressModal();
+		}
 	}
 	
 	protected void findButtonsAddListeners() {
@@ -334,6 +341,7 @@ public class BackupRestoreScreen extends ActivityBase{
     }
     
     public void showFailureMessage(String message){
+    	asyncTaskRunning = false;
     	prepForModal();
 		alertModal.setVisibility(View.VISIBLE);
 		alertText.setText(message);
@@ -343,12 +351,17 @@ public class BackupRestoreScreen extends ActivityBase{
     }
     
     public void showSuccessMessage(String message){
+    	asyncTaskRunning = false;
     	prepForModal();
 		alertModal.setVisibility(View.VISIBLE);
 		alertText.setText(message);
 		alertOk.setOnClickListener(dismissModal);
 		alertText.setVisibility(View.VISIBLE);
 		alertOk.setVisibility(View.VISIBLE);
+    }
+    
+    public void setAsyncRunning(boolean running) {
+    	asyncTaskRunning = running;
     }
     
     //////////////////////////////////////
