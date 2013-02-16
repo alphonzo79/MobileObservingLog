@@ -62,6 +62,7 @@
 	    
     <ListView  
         android:id="@+id/modal_list"
+        style="@style/listNormal"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:layout_above="@id/save_cancel_container"

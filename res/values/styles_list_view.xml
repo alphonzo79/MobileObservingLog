@@ -12,5 +12,9 @@
         <item name="android:listSelector">@drawable/list_item_back_state</item>
         <item name="android:divider">@color/red_faint_opaque</item>
         <item name="android:dividerHeight">1dp</item>
+        <item name="android:cacheColorHint">@color/transparent</item>
+    </style>          
+	<style name="listNormal">
+        <item name="android:cacheColorHint">@color/transparent</item>
     </style>    
 </resources>
