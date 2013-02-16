@@ -100,6 +100,7 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
     
     private final Button.OnClickListener confirmRemove = new Button.OnClickListener() {
 		public void onClick(View view){
+			asyncTaskRunning = true;
 			new Thread(new RemoveCatalogsRunnable()).start();
         }
     };

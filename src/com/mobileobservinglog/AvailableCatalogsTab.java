@@ -110,6 +110,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
     
     private final Button.OnClickListener confirmInstall = new Button.OnClickListener() {
 		public void onClick(View view){
+			asyncTaskRunning = true;
 			new Thread(new InstallCatalogsRunnable()).start();
         }
     };

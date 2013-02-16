@@ -55,6 +55,7 @@ public class HtmlExporter {
 	}
 	
 	public void exportData(List<String> catalogs) {
+		caller.setAsyncRunning(true);
 		this.catalogs = catalogs;
 		new Thread(new ExportAsynch()).start();
 	}

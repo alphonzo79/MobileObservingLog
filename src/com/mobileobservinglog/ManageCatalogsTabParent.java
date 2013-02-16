@@ -56,6 +56,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	ListIterator<Integer> imageIterator;
 	String failureMessage;
 	boolean keepRunningProgressUpdate = false;
+	boolean asyncTaskRunning = false;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,9 @@ public class ManageCatalogsTabParent extends ActivityBase {
     @Override
     public void onResume() {
         super.onResume();
+        if(asyncTaskRunning) {
+        	prepProgressModal();
+        }
     }
 	
 	/**
@@ -323,6 +327,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
     Handler failureMessageHandler = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
+    		asyncTaskRunning = false;
     		showFailureMessage();
     	}
     };
@@ -339,6 +344,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
     Handler successMessageHandler = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
+    		asyncTaskRunning = false;
     		ObjectIndexFilter.invalidate();
     		showSuccessMessage();
     	}

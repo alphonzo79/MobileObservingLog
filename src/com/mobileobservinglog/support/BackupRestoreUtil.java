@@ -61,6 +61,7 @@ public class BackupRestoreUtil {
 	/////////////////////////////////////////
 	
 	public void backupData() {
+		caller.setAsyncRunning(true);
 		new Thread(new BackupAsynch()).start();
 	}
 	
@@ -153,6 +154,7 @@ public class BackupRestoreUtil {
 	
 	public void restoreData(String filename) {
 		restorableFilename = filename;
+		caller.setAsyncRunning(true);
 		new Thread(new RestoreAsynch()).start();
 	}
 	
