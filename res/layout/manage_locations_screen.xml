@@ -83,10 +83,11 @@
 		    
 	    <ListView  
 	         android:id="@android:id/list"
+         	 style="@style/listNormal"
 	         android:layout_width="fill_parent" 
 	         android:layout_height="fill_parent"
-	        android:layout_below="@id/line"
-	        android:layout_above="@id/add_location_button"
+	         android:layout_below="@id/line"
+	         android:layout_above="@id/add_location_button"
 	         />
     
     </RelativeLayout>

@@ -52,8 +52,8 @@
 			    android:layout_height="@dimen/zero_pix"
 			    android:layout_gravity="center"
 		    	android:layout_weight="38"
-			    >
-		
+		    	>	
+		    	
 				<Button
 				    xmlns:android="http://schemas.android.com/apk/res/android"
 				    android:id="@+id/navToCatalogsButton"
@@ -117,6 +117,7 @@
 		    
 	    <ListView  
 	         android:id="@android:id/list"
+         	 style="@style/listNormal"
 	         android:layout_width="fill_parent" 
 	         android:layout_height="wrap_content" 
 	         />

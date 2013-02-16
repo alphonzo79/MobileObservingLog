@@ -144,6 +144,7 @@
 	    
 	    <ListView  
 	        android:id="@+id/modal_list_one"
+         	style="@style/listNormal"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_margin="@dimen/five_pix"
@@ -168,6 +169,7 @@
 	    
 	    <ListView  
 	        android:id="@+id/modal_list_two"
+         	style="@style/listNormal"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content" 
 	        android:layout_margin="@dimen/five_pix"

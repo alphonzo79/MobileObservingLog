@@ -25,4 +25,5 @@
     <color name="white30">#66ffffff</color>
     <color name="white40">#aaffffff</color>
     <color name="white70">#ccffffff</color>
+    <color name="transparent">#00000000</color>
 </resources>
