@@ -10,7 +10,9 @@
 
 package com.mobileobservinglog.strategies;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.content.Context;
 
@@ -58,8 +60,12 @@ public class TimePicker {
 	
 	private static ArrayList<String> setAmPm() {
 		ArrayList<String> retVal = new ArrayList<String>();
-		retVal.add("AM");
-		retVal.add("PM");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.AM_PM, Calendar.AM);
+		SimpleDateFormat sdf = new SimpleDateFormat("a");
+		retVal.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.AM_PM, Calendar.PM);
+		retVal.add(sdf.format(cal.getTime()));
 		return retVal;
 	}
 }

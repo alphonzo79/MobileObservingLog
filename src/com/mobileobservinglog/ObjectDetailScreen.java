@@ -10,12 +10,6 @@
 
 package com.mobileobservinglog;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.TreeMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,19 +24,8 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.*;
 import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
 import com.mobileobservinglog.softkeyboard.SoftKeyboard;
 import com.mobileobservinglog.softkeyboard.SoftKeyboard.TargetInputType;
 import com.mobileobservinglog.strategies.DatePicker;
@@ -54,6 +37,13 @@ import com.mobileobservinglog.support.database.EquipmentDAO;
 import com.mobileobservinglog.support.database.LocationsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
 import com.mobileobservinglog.support.database.TargetListsDAO;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TreeMap;
 
 public class ObjectDetailScreen extends ActivityBase{
 

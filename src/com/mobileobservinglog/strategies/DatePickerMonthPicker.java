@@ -10,7 +10,10 @@
 
 package com.mobileobservinglog.strategies;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.TreeMap;
 
 import android.content.Context;
@@ -18,6 +21,7 @@ import android.content.Context;
 public class DatePickerMonthPicker extends NumberPickerDriver {
 	DatePicker parent;
 	TreeMap<String, String> maxDaysInMonth;
+	static ArrayList<String> months;
 	
 	public DatePickerMonthPicker(DatePicker parent, String currentValue, Context context) {
 		super(setMonths(), currentValue, context);
@@ -31,37 +35,51 @@ public class DatePickerMonthPicker extends NumberPickerDriver {
 	}
 
 	private static ArrayList<String> setMonths() {
-		ArrayList<String> retVal = new ArrayList<String>();
-		retVal.add("Jan");
-		retVal.add("Feb");
-		retVal.add("Mar");
-		retVal.add("Apr");
-		retVal.add("May");
-		retVal.add("Jun");
-		retVal.add("Jul");
-		retVal.add("Aug");
-		retVal.add("Sep");
-		retVal.add("Oct");
-		retVal.add("Nov");
-		retVal.add("Dec");
-		return retVal;
+		months = new ArrayList<String>();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM");
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.FEBRUARY);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.MARCH);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.APRIL);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.MAY);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.JUNE);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.JULY);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.AUGUST);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.OCTOBER);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.NOVEMBER);
+		months.add(sdf.format(cal.getTime()));
+		cal.set(Calendar.MONTH, Calendar.DECEMBER);
+		months.add(sdf.format(cal.getTime()));
+		return months;
 	}
 	
 	private void setMaxDays() {
 		maxDaysInMonth = new TreeMap<String, String>();
-		maxDaysInMonth.put("Jan", "31");
+		maxDaysInMonth.put(months.get(0), "31");
 		maxDaysInMonth.put("Feb_Leap", "29");
 		maxDaysInMonth.put("Feb_Norm", "28");
-		maxDaysInMonth.put("Mar", "31");
-		maxDaysInMonth.put("Apr", "30");
-		maxDaysInMonth.put("May", "31");
-		maxDaysInMonth.put("Jun", "30");
-		maxDaysInMonth.put("Jul", "31");
-		maxDaysInMonth.put("Aug", "31");
-		maxDaysInMonth.put("Sep", "30");
-		maxDaysInMonth.put("Oct", "31");
-		maxDaysInMonth.put("Nov", "30");
-		maxDaysInMonth.put("Dec", "31");
+		maxDaysInMonth.put(months.get(2), "31");
+		maxDaysInMonth.put(months.get(3), "30");
+		maxDaysInMonth.put(months.get(4), "31");
+		maxDaysInMonth.put(months.get(5), "30");
+		maxDaysInMonth.put(months.get(6), "31");
+		maxDaysInMonth.put(months.get(7), "31");
+		maxDaysInMonth.put(months.get(8), "30");
+		maxDaysInMonth.put(months.get(9), "31");
+		maxDaysInMonth.put(months.get(10), "30");
+		maxDaysInMonth.put(months.get(11), "31");
 	}
 	
 	public void skipToValue(String value) {
@@ -72,7 +90,7 @@ public class DatePickerMonthPicker extends NumberPickerDriver {
 	}
 	
 	public String getMaxDays(String month) {
-		if(!month.equals("Feb")){
+		if(!month.equals(months.get(1))){
 			return maxDaysInMonth.get(month);
 		} else {
 			if(parent.year.isLeapYear()) {
