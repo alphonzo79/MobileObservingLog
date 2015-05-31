@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:id="@+id/object_detail_modal_main"
+   	style="@style/modalContainerNight"
+   	>
+   
+    <TextView  
+	    android:id="@+id/modal_header"
+	    android:text="@string/set_backlight_intensity"
+	    style="@style/modalHeaderNight"
+	    />
+    
+    <LinearLayout
+        android:id="@+id/selectors_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/modal_header"
+        >
+        
+        <LinearLayout
+            android:id="@+id/selector_set_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            >
+            
+            <Button 
+		    	android:id="@+id/number_picker_up_button_one"
+		    	style="@style/modalUpButtonNight"
+		    	android:text="@string/num_picker_up_button"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+		    	/>
+		   
+		    <TextView  
+			    android:id="@+id/number_picker_input_field_one"
+		    	style="@style/modalTextFieldNight"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+			    />
+			    
+		    <Button 
+		    	android:id="@+id/number_picker_down_button_one"
+		    	style="@style/modalDownButtonNight"
+		    	android:text="@string/num_picker_down_button"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+		    	/>
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/selector_set_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            >
+            
+            <Button 
+		    	android:id="@+id/number_picker_up_button_two"
+		    	style="@style/modalUpButtonNight"
+		    	android:text="@string/num_picker_up_button"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+		    	/>
+		   
+		    <TextView  
+			    android:id="@+id/number_picker_input_field_two"
+		    	style="@style/modalTextFieldNight"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+			    />
+			    
+		    <Button 
+		    	android:id="@+id/number_picker_down_button_two"
+		    	style="@style/modalDownButtonNight"
+		    	android:text="@string/num_picker_down_button"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+		    	/>
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/selector_set_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            >
+            
+            <Button 
+		    	android:id="@+id/number_picker_up_button_three"
+		    	style="@style/modalUpButtonNight"
+		    	android:text="@string/num_picker_up_button"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+		    	/>
+		   
+		    <TextView  
+			    android:id="@+id/number_picker_input_field_three"
+		    	style="@style/modalTextFieldNight"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+			    />
+			    
+		    <Button 
+		    	android:id="@+id/number_picker_down_button_three"
+		    	style="@style/modalDownButtonNight"
+		    	android:text="@string/num_picker_down_button"
+		    	android:layout_marginLeft="@dimen/ten_pix"
+		    	android:layout_marginRight="@dimen/ten_pix"
+		    	/>
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/object_selector_modal_list_layout_one"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/selectors_container"
+        >
+        
+        <TextView
+            android:id="@+id/object_selector_modal_list_one_header"
+            style="@style/alertMainTextNight"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+	    
+	    <ListView  
+	        android:id="@+id/modal_list_one"
+	        style="@style/listNight"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" 
+	        android:layout_margin="@dimen/five_pix"
+	        />   
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/object_selector_modal_list_layout_two"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/object_selector_modal_list_layout_one"
+        >
+        
+        <TextView
+            android:id="@+id/object_selector_modal_list_two_header"
+            style="@style/alertMainTextNight"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+	    
+	    <ListView  
+	        android:id="@+id/modal_list_two"
+	        style="@style/listNight"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" 
+	        android:layout_margin="@dimen/five_pix"
+	        />   
+        
+    </LinearLayout>
+    	
+   	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   		android:id="@+id/save_cancel_container"
+   		android:orientation="horizontal"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+   		android:layout_marginLeft="@dimen/fifteen_pix"
+   		android:layout_marginRight="@dimen/fifteen_pix"
+   		android:layout_below="@id/object_selector_modal_list_layout_two"
+   		android:gravity="center_horizontal"
+   		>
+	    
+	    <Button 
+	    	android:id="@+id/alert_ok_button"
+	    	style="@style/modalSaveCancelButtonNight"
+	    	android:text="@string/ok"
+	        android:paddingLeft="@dimen/five_pix"
+	        android:paddingRight="@dimen/five_pix"
+	        android:textSize="@dimen/fourteen_pix"
+	    	android:layout_weight="30"
+	    	/>
+	    
+	    <Button 
+	    	android:id="@+id/alert_cancel_button"
+	    	style="@style/modalSaveCancelButtonNight"
+	    	android:text="@string/num_picker_cancel_button"
+	        android:paddingLeft="@dimen/five_pix"
+	        android:paddingRight="@dimen/five_pix"
+	        android:textSize="@dimen/fourteen_pix"
+	    	android:layout_weight="30"
+	    	/>
+	    
+	    <Button 
+	    	android:id="@+id/alert_extra_button"
+	    	style="@style/modalSaveCancelButtonNight"
+	        android:paddingLeft="@dimen/two_pix"
+	        android:paddingRight="@dimen/two_pix"
+	    	android:textSize="@dimen/fourteen_pix"
+	    	android:textScaleX="0.85"
+	    	android:layout_weight="30"
+	    	android:visibility="gone"
+	    	/>
+   		
+	</LinearLayout>
+    
+</RelativeLayout>

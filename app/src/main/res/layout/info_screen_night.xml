@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		style="@style/layoutRootNight"
+	    android:id="@+id/info_root"
+	    >
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
+    
+		    <TextView 
+			    style="@style/headerBarNight" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_night"
+		        android:id="@+id/menu_launcher"
+		        />
+		    
+	    </LinearLayout>
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         android:layout_below="@id/header_container"
+	         />
+	    
+	    <LinearLayout 
+	        android:id="@+id/info_button_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="bottom|center_horizontal"
+		    android:padding="@dimen/sixteen_pix"
+		    android:layout_alignParentBottom="true"
+	        >
+	    
+		    <Button 
+		        style="@style/modalSaveCancelButtonNight"
+		        android:id="@+id/about_info_close_button"
+		        android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content" 
+		        android:text="Close"	
+		        android:layout_gravity="bottom|center_horizontal"
+		        />
+	    
+	    </LinearLayout>
+	    
+	    <ScrollView 
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:fillViewport="true"
+	        android:layout_below="@id/header_container"
+	        android:layout_above="@id/info_button_layout"
+	        >
+	    
+		    <TextView 
+			    android:id="@+id/about_text_field"
+		    	android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content" 
+			    android:text="@string/about_text"
+			    android:textColor="@color/red"
+			    android:gravity="left|center_vertical"
+			    android:padding="@dimen/sixteen_pix"
+			    />
+		    
+	    </ScrollView>
+		    
+	</RelativeLayout>
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+	
+</FrameLayout>

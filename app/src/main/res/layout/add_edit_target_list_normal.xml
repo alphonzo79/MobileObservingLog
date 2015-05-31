@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/layoutRootNormal"
+    android:id="@+id/edit_target_list_root"
+    >
+    
+    <ScrollView 
+        android:id="@+id/scroll_fields_view"
+        android:fillViewport="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbarStyle="insideOverlay"
+        >
+    
+	    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    	android:id="@+id/add_list_main"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	>
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+            >
+    
+		    <TextView 
+			    style="@style/headerBarNormal" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_normal"
+		        android:id="@+id/menu_launcher"
+		        />
+	    
+	    </LinearLayout>
+		    
+		    <TextView
+		        style="@style/formScreenHeaderNormal"
+		        android:id="@+id/edit_header"
+		        android:text="@string/add_edit_list_header"
+		        android:layout_below="@id/header_container"
+		        />
+		    
+		    <LinearLayout
+		        android:id="@+id/name_layout"
+		        android:orientation="vertical"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="@dimen/ten_pix"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/edit_header"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNormal"
+			        android:text="@string/list_title_label"
+			        android:layout_gravity="left"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNormal"
+			        android:id="@+id/list_title"
+			        android:maxLines="1"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="@dimen/three_pix"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/description_layout"
+		        android:orientation="vertical"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="@dimen/ten_pix"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/name_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNormal"
+			        android:text="@string/list_description_label"
+			        android:layout_gravity="left"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNormal"
+			        android:id="@+id/list_description_text_field"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="@dimen/three_pix"
+			        android:gravity="top|left"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:orientation="horizontal"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingBottom="@dimen/fourteen_pix"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="fill_parent" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="@dimen/five_pix"
+		        android:layout_below="@id/description_layout"
+		        android:gravity="bottom"
+		        >
+			    
+			    <Button 
+			        android:id="@+id/list_save"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginRight="@dimen/six_pix"
+			        android:text="@string/save"	      
+			        />
+			    
+			    <Button 
+			        android:id="@+id/list_cancel"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginLeft="@dimen/six_pix"
+			        android:text="@string/cancel"	       
+			        />
+			        
+		    </LinearLayout>
+		    
+	    </RelativeLayout>
+	    
+    </ScrollView>
+			    
+    <ListView  
+         android:id="@android:id/list"
+         style="@style/listNormal"
+         android:layout_width="fill_parent" 
+         android:layout_height="wrap_content" 
+         />
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal"
+        android:layout_gravity="center|center"
+        />
+    
+    <include android:id="@+id/keyboard_root" 
+        layout="@layout/keyboard_layout_normal"
+        android:layout_gravity="bottom"
+        />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_normal"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+	    
+</FrameLayout>

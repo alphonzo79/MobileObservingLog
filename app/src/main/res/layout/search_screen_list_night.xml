@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_root"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/four_pix"
+    android:paddingRight="@dimen/four_pix"
+    android:paddingTop="@dimen/two_pix"
+    android:paddingBottom="@dimen/four_pix"
+    >
+    
+    <LinearLayout
+        android:id="@+id/search_list_text_vertical"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:paddingLeft="@dimen/four_pix"
+	    android:layout_weight="90"
+        >
+        
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:id="@+id/filter_label"
+		    android:layout_gravity="left"
+		    android:textSize="@dimen/twelve_pix" 
+		    android:textColor="@color/red"
+		    android:textStyle="bold"
+		    />
+
+		<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:id="@+id/filter_settings"
+		    android:layout_gravity="left"
+		    android:textSize="@dimen/twelve_pix" 
+		    android:textColor="@color/red"
+		    android:paddingTop="@dimen/four_pix"
+		    />
+        
+    </LinearLayout>
+    
+    <ImageView 
+        android:src="@drawable/more_arrow_night"
+	    android:layout_width="@dimen/thirty_pix"
+	    android:layout_height="@dimen/thirty_pix"
+	    android:contentDescription="@string/more_image_alt"
+	    android:layout_marginTop="@dimen/five_pix"
+	    android:layout_marginBottom="@dimen/five_pix"
+	    android:layout_marginRight="@dimen/ten_pix"
+	    android:layout_gravity="right|center_vertical"
+	    android:id="@+id/more"
+	    android:layout_weight="10"
+	    />
+	
+</LinearLayout>

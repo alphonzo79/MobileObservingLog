@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<resources>
+    <string name="about_text">The Mobile Astronomical Observing Log is meant to provide an easy, convenient way to log astronomical observations, even while in the field. The night mode option is customized as much as possible to protect dark adaptation.\n
+\n
+Each object page includes a star chart with 1, 2 and 4 degree circles like those used on some finders. Basic information about the object is given, as well as fields for logging information about the observation.\n
+\n
+The application is open-source and is distributed under the MIT License, which may be viewed at http://www.opensource.org/licenses/MIT\n 
+\n
+Data for objects in the NGC and IC catalogs was compiled from resources made publicly available through the NGC/IC Project LLC and is used with its permission - http://www.ngcic.org\n
+\n
+Source code may be found at https://github.com/alphonzo79/MobileObservingLog.git\n
+\n
+Please send comments and bug reports to jrowley2@msn.com</string>
+</resources>

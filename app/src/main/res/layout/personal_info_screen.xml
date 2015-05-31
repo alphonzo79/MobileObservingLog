@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		style="@style/layoutRootNormal"
+	    android:id="@+id/personal_info_root"
+	    >
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+            >
+    
+		    <TextView 
+			    style="@style/headerBarNormal" 
+			    android:id="@+id/add_catalogs_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_normal"
+		        android:id="@+id/menu_launcher"
+		        />
+	    
+	    </LinearLayout>
+		    
+	    <ListView  
+	         android:id="@android:id/list"
+         	 style="@style/listNormal"
+	         android:layout_width="fill_parent" 
+	         android:layout_height="wrap_content" 
+	         />
+	    
+	    <TextView 
+	        style="@style/form_data_display_header"
+		    android:id="@+id/personal_info_top_label"
+		    />
+		    
+		<LinearLayout
+	        android:id="@+id/view_personal_info_address_layout"
+	        android:orientation="vertical"
+	        android:paddingLeft="@dimen/fourteen_pix"
+	        android:paddingRight="@dimen/fourteen_pix"
+	        android:paddingTop="@dimen/five_pix"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" 
+	        android:layout_gravity="center"
+	        android:layout_marginTop="@dimen/ten_pix"
+	        android:gravity="center_horizontal"
+	        >
+	    
+		    <TextView
+		        style="@style/form_data_display_label"
+		        android:text="@string/personal_info_address_label"
+		        android:layout_gravity="left"
+		        />
+	  
+		    <View
+		        android:id="@+id/coords_line"
+		        android:layout_width="fill_parent"
+		        android:layout_height=".5dip"
+		        android:layout_marginLeft="15dip"
+		        android:layout_marginRight="15dip"
+		        android:layout_marginTop="2dip"
+		        android:layout_marginBottom="2dip"
+		        android:background="@color/black"
+		        />
+		    
+		    <TextView 
+		        style="@style/form_data_display_body"
+		        android:id="@+id/view_personal_info_address"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="@dimen/three_pix"
+		        />
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/view_personal_info_phone_layout"
+	        android:orientation="vertical"
+	        android:paddingLeft="@dimen/fourteen_pix"
+	        android:paddingRight="@dimen/fourteen_pix"
+	        android:paddingTop="@dimen/five_pix"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" 
+	        android:layout_gravity="center"
+	        android:layout_marginTop="@dimen/ten_pix"
+	        android:gravity="center_horizontal"
+	        >
+	    
+		    <TextView
+		        style="@style/form_data_display_label"
+		        android:text="@string/personal_info_phone_label"
+		        android:layout_gravity="left"
+		        />
+	  
+		    <View
+		        android:id="@+id/desc_line"
+		        android:layout_width="fill_parent"
+		        android:layout_height=".5dip"
+		        android:layout_marginLeft="15dip"
+		        android:layout_marginRight="15dip"
+		        android:layout_marginTop="2dip"
+		        android:layout_marginBottom="2dip"
+		        android:background="@color/black"
+		        />
+		    
+		    <TextView 
+		        style="@style/form_data_display_body"
+		        android:id="@+id/view_personal_info_phone"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="@dimen/three_pix"
+		        android:gravity="top|center"
+		        />
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/view_personal_info_email_layout"
+	        android:orientation="vertical"
+	        android:paddingLeft="@dimen/fourteen_pix"
+	        android:paddingRight="@dimen/fourteen_pix"
+	        android:paddingTop="@dimen/five_pix"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" 
+	        android:layout_gravity="center"
+	        android:layout_marginTop="@dimen/ten_pix"
+	        android:gravity="center_horizontal"
+	        >
+	    
+		    <TextView
+		        style="@style/form_data_display_label"
+		        android:text="@string/personal_info_email_label"
+		        android:layout_gravity="left"
+		        />
+	  
+		    <View
+		        android:id="@+id/desc_line"
+		        android:layout_width="fill_parent"
+		        android:layout_height=".5dip"
+		        android:layout_marginLeft="15dip"
+		        android:layout_marginRight="15dip"
+		        android:layout_marginTop="2dip"
+		        android:layout_marginBottom="2dip"
+		        android:background="@color/black"
+		        />
+		    
+		    <TextView 
+		        style="@style/form_data_display_body"
+		        android:id="@+id/view_personal_info_email"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="@dimen/three_pix"
+		        android:gravity="top|center"
+		        />
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/view_personal_info_club_layout"
+	        android:orientation="vertical"
+	        android:paddingLeft="@dimen/fourteen_pix"
+	        android:paddingRight="@dimen/fourteen_pix"
+	        android:paddingTop="@dimen/five_pix"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" 
+	        android:layout_gravity="center"
+	        android:layout_marginTop="@dimen/ten_pix"
+	        android:gravity="center_horizontal"
+	        >
+	    
+		    <TextView
+		        style="@style/form_data_display_label"
+		        android:text="@string/personal_info_club_label"
+		        android:layout_gravity="left"
+		        />
+	  
+		    <View
+		        android:id="@+id/desc_line"
+		        android:layout_width="fill_parent"
+		        android:layout_height=".5dip"
+		        android:layout_marginLeft="15dip"
+		        android:layout_marginRight="15dip"
+		        android:layout_marginTop="2dip"
+		        android:layout_marginBottom="2dip"
+		        android:background="@color/black"
+		        />
+		    
+		    <TextView 
+		        style="@style/form_data_display_body"
+		        android:id="@+id/view_personal_info_club"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="@dimen/three_pix"
+		        android:gravity="top|center"
+		        />
+	        
+	    </LinearLayout>
+		    
+	    <LinearLayout
+	        android:id="@+id/view_personal_info_buttons_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_gravity="bottom|center_horizontal"
+	        android:layout_marginTop="@dimen/five_pix"
+	        android:orientation="horizontal"
+	        android:paddingBottom="@dimen/fourteen_pix"
+	        android:paddingLeft="@dimen/fourteen_pix"
+	        android:paddingRight="@dimen/fourteen_pix"
+	        android:gravity="center_horizontal"     
+	        >
+		    
+		    <Button 
+		        android:id="@+id/view_personal_info_edit"
+		        android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content" 
+		        android:text="Edit Information"	
+		        android:layout_gravity="bottom|center_horizontal" 
+		        android:gravity="center"     
+		        />
+		        
+	    </LinearLayout>
+		    
+	</LinearLayout>
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_normal"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+</FrameLayout>

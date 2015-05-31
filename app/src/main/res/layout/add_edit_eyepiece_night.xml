@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/layoutRootNight"
+    android:id="@+id/edit_eyepiece_root"
+    >
+    
+    <ScrollView 
+        android:id="@+id/scroll_fields_view"
+        android:fillViewport="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbarStyle="insideOverlay"
+        >
+    
+	    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/add_eyepiece_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	>
+        
+	        <LinearLayout 
+	            android:id="@+id/header_container"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	    	    android:layout_gravity="center"
+	            >
+	    
+			    <TextView 
+				    style="@style/headerBarNight" 
+				    android:id="@+id/add_catalogs_header"
+				    android:text="@string/app_name"
+				    />
+			    
+			    <Button 
+			        style="@style/menu_launcher_button_night"
+			        android:id="@+id/menu_launcher"
+			        />
+		    
+		    </LinearLayout>
+		    
+		    <TextView
+		        style="@style/formScreenHeaderNight"
+		        android:id="@+id/edit_header"
+		        android:text="@string/add_edit_eyepiece"
+		        android:layout_below="@id/header_container"
+		        />
+		    
+		    <LinearLayout
+		        android:id="@+id/length_layout"
+		        android:orientation="horizontal"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="@dimen/ten_pix"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/edit_header"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/focal_length"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/eyepiece_focal_length"
+			        android:maxLines="1"
+			        android:inputType="numberDecimal"
+			        android:layout_width="@dimen/seventy_five_pix" 
+			        android:layout_height="wrap_content"
+			        />
+			    
+			    <Button 
+			        style="@style/formItemButtonNight"
+			        android:id="@+id/focal_length_unit"
+			        android:layout_width="@dimen/forty_pix" 
+			        android:text="mm"	        
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:id="@+id/type_layout"
+		        android:orientation="horizontal"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingTop="@dimen/five_pix"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="@dimen/ten_pix"
+		        android:gravity="center_horizontal"
+		        android:layout_below="@id/length_layout"
+		        >
+		    
+			    <TextView
+			        style="@style/formScreenLabelNight"
+			        android:text="@string/type"
+			        />
+			    
+			    <EditText 
+			        style="@style/formScreenTextFieldNight"
+			        android:id="@+id/eyepiece_type"
+			        android:maxLines="1"
+			        android:layout_width="@dimen/one_hundred_seventy_five_pix" 
+			        android:layout_height="wrap_content"
+			        />
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:orientation="horizontal"
+		        android:paddingLeft="@dimen/fourteen_pix"
+		        android:paddingRight="@dimen/fourteen_pix"
+		        android:paddingBottom="@dimen/fourteen_pix"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="fill_parent" 
+		        android:layout_gravity="center"
+		        android:layout_marginTop="@dimen/five_pix"
+		        android:layout_below="@id/type_layout"
+		        android:gravity="bottom"
+		        >
+			    
+			    <Button 
+					style="@style/modalSaveCancelButtonNight"
+			        android:id="@+id/eyepiece_save"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginRight="@dimen/six_pix"
+			        android:text="Save"	      
+			        />
+			    
+			    <Button 
+					style="@style/modalSaveCancelButtonNight"
+			        android:id="@+id/eyepiece_cancel"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="wrap_content" 
+			        android:layout_weight="33"
+			        android:layout_marginLeft="@dimen/six_pix"
+			        android:text="Cancel"	       
+			        />
+		        
+		    </LinearLayout>
+		    
+	    </RelativeLayout>
+	    
+    </ScrollView>
+			    
+    <ListView  
+         android:id="@android:id/list"
+         android:layout_width="fill_parent" 
+         android:layout_height="wrap_content" 
+         />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/alert_modal_night"
+        android:layout_gravity="center|center"
+        />
+    
+    <include android:id="@+id/keyboard_root" 
+        layout="@layout/keyboard_layout_night"
+        android:layout_gravity="bottom"
+        />
+	    
+</FrameLayout>

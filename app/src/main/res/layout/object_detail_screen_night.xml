@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layoutRootNight"
+    android:id="@+id/object_detail_root"
+    >
+    
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/object_detail_main"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+	    >
+        
+        <LinearLayout 
+            android:id="@+id/header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    	    android:layout_gravity="center"
+    	    android:layout_alignParentTop="true"
+            >
+    
+		    <TextView 
+			    style="@style/headerBarNight" 
+			    android:id="@+id/object_detail_header"
+			    android:text="@string/app_name"
+			    />
+		    
+		    <Button 
+		        style="@style/menu_launcher_button_night"
+		        android:id="@+id/menu_launcher"
+		        />
+		    
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:id="@+id/bottom_buttons_container"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:padding="@dimen/six_pix"
+	        android:layout_alignParentBottom="true"
+	        >
+		    
+		    <Button 
+		        android:id="@+id/save_edit_log_button"
+				style="@style/modalSaveCancelButtonNight"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_weight="50"
+		        android:layout_marginRight="@dimen/three_pix"
+		        android:text="@string/save_log"	      
+		        />
+		    
+		    <Button 
+		        android:id="@+id/cancel_button"
+				style="@style/modalSaveCancelButtonNight"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+		        android:layout_weight="50"
+		        android:layout_marginLeft="@dimen/three_pix"
+		        android:text="@string/clear_log"	       
+		        />
+	        
+        </LinearLayout>
+        
+	    <ScrollView 
+	        android:id="@+id/object_detail_scroll_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:fillViewport="true"
+	        android:layout_below="@id/header_container"
+	        android:layout_above="@id/bottom_buttons_container"
+	        >
+    
+			<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/scroll_view_relative"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:gravity="center_horizontal"
+			    >
+				    
+		        <LinearLayout 
+		            android:id="@+id/common_name_layout"
+		            style="@style/object_detail_outer_block"
+		            >
+		            
+	            	<TextView 
+			            style="@style/object_detail_data_label_night"
+			            android:id="@+id/common_name_label"
+			            android:text="@string/common_name_label"
+		            	android:visibility="gone"
+			            />
+	            
+	            	<TextView 
+			            style="@style/object_detail_data_night"
+			            android:id="@+id/common_name_data"
+			            android:text="@string/n_a"
+		            	android:visibility="gone"
+			            />
+		            
+		        </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/other_catalogs_layout"
+		            style="@style/object_detail_outer_block"
+		            android:layout_below="@id/common_name_layout"
+		            >
+		            
+	            	<TextView 
+			            style="@style/object_detail_data_label_night"
+			            android:id="@+id/other_catalogs_label"
+			            android:text="@string/other_catalogs_label"
+		            	android:visibility="gone"
+			            />
+	            
+	            	<TextView 
+			            style="@style/object_detail_data_night"
+			            android:id="@+id/other_catalogs_data"
+			            android:text="@string/n_a"
+		            	android:visibility="gone"
+			            />
+		            
+		        </LinearLayout>
+		    
+			    <ImageView 
+				    android:id="@+id/star_chart"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+				    android:scaleType="fitCenter"
+				    android:adjustViewBounds="true"
+				    android:contentDescription="@string/star_chart_alt"
+				    android:background="@drawable/image_border_night"
+				    android:layout_margin="@dimen/five_pix"
+				    android:layout_below="@id/other_catalogs_layout"
+				    />
+				    
+		        <LinearLayout 
+		            android:id="@+id/mid_buttons_container"
+	                style="@style/object_detail_outer_block"
+	                android:layout_width="fill_parent"
+		            android:orientation="horizontal"
+		            android:gravity="center_horizontal"
+		            android:layout_gravity="center_horizontal"
+		            android:layout_marginLeft="@dimen/fifteen_pix"
+		            android:layout_marginRight="@dimen/fifteen_pix"
+		            android:layout_below="@id/star_chart"
+		            >
+	    
+				    <Button 
+				        android:id="@+id/add_to_list_button"
+						style="@style/modalSaveCancelButtonNight"
+				        android:layout_width="wrap_content" 
+				        android:layout_height="wrap_content" 
+				        android:layout_weight="50"
+				        android:layout_marginRight="@dimen/three_pix"
+				        android:layout_marginLeft="@dimen/ten_pix"
+				        android:paddingLeft="@dimen/five_pix"
+				        android:paddingRight="@dimen/five_pix"
+				        android:textSize="@dimen/fourteen_pix"
+				        android:text="@string/add_to_list"
+				        />
+				    
+				    <LinearLayout
+				        android:id="@+id/fav_layout"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:orientation="horizontal"
+				        android:layout_weight="50"
+				        android:gravity="center"
+				        >
+	    
+					    <ImageView 
+						    android:id="@+id/fav_star"
+						    android:layout_width="@dimen/thirty_pix"
+						    android:layout_height="@dimen/thirty_pix"
+						    android:contentDescription="@string/unchecked_normal_image_alt"
+						    android:layout_marginTop="@dimen/five_pix"
+						    android:layout_marginBottom="@dimen/five_pix"
+						    android:layout_marginRight="@dimen/seven_pix"
+						    android:layout_marginLeft="@dimen/twenty_five_pix"
+						    />				
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/fav_label"
+				            android:textSize="@dimen/fourteen_pix"
+				            android:text="@string/fav_label"
+				            />				        
+				        
+				    </LinearLayout>            
+		            
+	            </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/ra_dec_layout"
+	                style="@style/object_detail_outer_block"
+		            android:layout_below="@id/mid_buttons_container"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/ra_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/ra_label"
+			            	android:text="@string/right_ascen_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/ra_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+	            	
+		            <LinearLayout
+		                android:id="@+id/dec_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/dec_label"
+			            	android:text="@string/dec_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/dec_data"
+				            android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/mag_sz_layout"
+	                style="@style/object_detail_outer_block"
+		            android:layout_below="@id/ra_dec_layout"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/mag_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/mag_label"
+				            android:text="@string/mag_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/mag_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+	            	
+		            <LinearLayout
+		                android:id="@+id/size_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/size_label"
+				            android:text="@string/size_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/size_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/type_dist_layout"
+	                style="@style/object_detail_outer_block"
+		            android:layout_below="@id/mag_sz_layout"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/type_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/type_label"
+				            android:text="@string/type_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/type_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+	            	
+		            <LinearLayout
+		                android:id="@+id/dist_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/dist_label"
+				            android:text="@string/dist_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/dist_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/const_season_layout"
+	                style="@style/object_detail_outer_block"
+		            android:layout_below="@id/type_dist_layout"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/const_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/const_label"
+				            android:text="@string/const_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/const_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+	            	
+		            <LinearLayout
+		                android:id="@+id/season_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/season_label"
+				            android:text="@string/season_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/season_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/object_description_layout"
+	                style="@style/object_detail_outer_block"
+		            android:layout_below="@id/const_season_layout"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/desc_block"
+						style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/desc_label"
+				            android:text="@string/desc_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/desc_data"
+			            	android:text="@string/n_a"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
+  
+			    <View
+			        android:id="@+id/coords_line"
+			        android:layout_width="fill_parent"
+			        android:layout_height="1dip"
+			        android:layout_marginTop="7dip"
+			        android:layout_marginBottom="4dip"
+			        android:background="@color/red"
+			        android:layout_below="@id/object_description_layout"
+			        />
+				    
+		        <LinearLayout 
+		            android:id="@+id/date_time_layout"
+	                style="@style/object_detail_outer_block"
+					android:layout_below="@id/coords_line"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/date_block"
+		                style="@style/object_detail_inner_block"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/date_label"
+				            android:text="@string/date_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/date_data"
+			            	android:text="@string/n_a"
+				            android:visibility="gone"
+				            />
+        
+				        <EditText 
+				            style="@style/formScreenTextFieldNight"
+				            android:id="@+id/date_input"
+				            android:layout_width="wrap_content"
+				            android:minWidth="@dimen/one_hundred_twenty_five_pix"
+				            android:gravity="left"
+				            android:inputType="none"
+				            android:layout_marginLeft="@dimen/seven_pix"
+				            android:layout_marginRight="@dimen/seven_pix"
+				            />
+		                
+		            </LinearLayout>
+	            	
+		            <LinearLayout
+		                android:id="@+id/time_block"
+		                style="@style/object_detail_inner_block"
+		                android:layout_marginLeft="@dimen/five_pix"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/time_label"
+				            android:text="@string/time_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/time_data"
+			            	android:text="@string/n_a"
+				            android:visibility="gone"
+				            />
+        
+				        <EditText 
+				            style="@style/formScreenTextFieldNight"
+				            android:id="@+id/time_input"
+				            android:layout_width="fill_parent"
+				            android:minWidth="@dimen/seventy_five_pix"
+				            android:gravity="left"
+				            android:layout_marginLeft="@dimen/seven_pix"
+				            android:layout_marginRight="@dimen/seven_pix"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
+	            	
+	            <LinearLayout
+	                android:id="@+id/location_block"
+	                style="@style/object_detail_inner_block"
+	                android:layout_marginTop="@dimen/three_pix"
+	                android:layout_below="@id/date_time_layout"
+	                >
+	                
+	                <TextView 
+			            style="@style/object_detail_data_label_night"
+			            android:id="@+id/location_label"
+			            android:text="@string/location_label"
+			            />
+	            
+	            	<TextView 
+			            style="@style/object_detail_data_night"
+			            android:id="@+id/location_data"
+		            	android:text="@string/n_a"
+			            android:visibility="gone"
+			            />
+       
+			        <EditText 
+			            style="@style/formScreenTextFieldNight"
+			            android:id="@+id/location_input"
+			            android:layout_width="fill_parent"
+			            android:minWidth="@dimen/one_hundred_seventy_five_pix"
+			            android:gravity="left"
+			            android:layout_marginLeft="@dimen/seven_pix"
+			            />
+	                
+	            </LinearLayout>
+	            	
+	            <LinearLayout
+	                android:id="@+id/equipment_block"
+	                style="@style/object_detail_inner_block"
+	                android:layout_marginTop="@dimen/three_pix"
+	                android:layout_below="@id/location_block"
+	                >
+	                
+	                <TextView 
+			            style="@style/object_detail_data_label_night"
+			            android:id="@+id/equipment_label"
+			            android:text="@string/equip_label"
+			            />
+	            
+	            	<TextView 
+			            style="@style/object_detail_data_night"
+			            android:id="@+id/equipment_data"
+		            	android:text="@string/n_a"
+			            android:visibility="gone"
+			            />
+       
+			        <EditText 
+			            style="@style/formScreenTextFieldNight"
+			            android:id="@+id/equipment_input"
+			            android:layout_width="fill_parent"
+			            android:minWidth="@dimen/one_hundred_seventy_five_pix"
+			            android:gravity="left"
+			            android:layout_marginLeft="@dimen/seven_pix"
+			            />
+	                
+	            </LinearLayout>
+			    
+		        <LinearLayout 
+		            android:id="@+id/see_trans_layout"
+	                style="@style/object_detail_outer_block"
+					android:layout_below="@id/equipment_block"
+		            >
+	            	
+		            <LinearLayout
+		                android:id="@+id/seeing_block"
+		                style="@style/object_detail_inner_block"
+		                android:layout_marginRight="@dimen/five_pix"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/seeing_label"
+				            android:text="@string/see_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/seeing_data"
+			            	android:text="@string/n_a"
+				            android:visibility="gone"
+				            />
+        
+				        <EditText 
+				            style="@style/formScreenTextFieldNight"
+				            android:id="@+id/seeing_input"
+				            android:layout_width="fill_parent"
+				            android:minWidth="@dimen/fifty_pix"
+				            android:gravity="left"
+			                android:layout_marginLeft="@dimen/five_pix"
+			                android:layout_marginRight="@dimen/five_pix"
+				            />
+		                
+		            </LinearLayout>
+	            	
+		            <LinearLayout
+		                android:id="@+id/trans_block"
+		                style="@style/object_detail_inner_block"
+		                android:layout_marginLeft="@dimen/five_pix"
+		                >
+		                
+		                <TextView 
+				            style="@style/object_detail_data_label_night"
+				            android:id="@+id/trans_label"
+				            android:text="@string/trans_label"
+				            />
+		            
+		            	<TextView 
+				            style="@style/object_detail_data_night"
+				            android:id="@+id/trans_data"
+			            	android:text="@string/n_a"
+				            android:visibility="gone"
+				            />
+        
+				        <EditText 
+				            style="@style/formScreenTextFieldNight"
+				            android:id="@+id/trans_input"
+				            android:layout_width="fill_parent"
+				            android:minWidth="@dimen/fifty_pix"
+				            android:gravity="left"
+			                android:layout_marginLeft="@dimen/five_pix"
+			                android:layout_marginRight="@dimen/five_pix"
+				            />
+		                
+		            </LinearLayout>
+		            
+		        </LinearLayout>
+	            	
+	            <LinearLayout
+	                android:id="@+id/notes_block"
+	                style="@style/object_detail_outer_block"
+	                android:orientation="vertical"
+	                android:layout_below="@id/see_trans_layout"
+	                >
+	                
+	                <TextView 
+			            style="@style/object_detail_data_label_night"
+			            android:id="@+id/notes_label"
+			            android:layout_marginLeft="@dimen/eight_pix"
+			            android:gravity="left"
+			            android:layout_gravity="left"
+			            android:text="@string/view_notes_label"
+			            />
+	            
+	            	<TextView 
+			            style="@style/object_detail_data_night"
+			            android:id="@+id/notes_data"
+			            android:layout_marginLeft="@dimen/ten_pix"
+			            android:layout_marginRight="@dimen/ten_pix"
+		            	android:text="@string/n_a"
+			            android:visibility="gone"
+			            />
+       
+			        <EditText 
+			            style="@style/formScreenTextFieldNight"
+			            android:id="@+id/notes_input"
+			            android:layout_width="fill_parent"
+			            android:minWidth="@dimen/seventy_five_pix"
+			            android:gravity="left"
+			            />
+	                
+	            </LinearLayout>
+		    
+		    </RelativeLayout>
+	    
+	    </ScrollView>
+	    
+	    <ListView  
+	        android:id="@android:id/list"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content" 
+	        android:layout_above="@id/bottom_buttons_container"
+	        />
+		    
+	</RelativeLayout>
+    
+    <include android:id="@+id/settings_fog"
+        layout="@layout/background_dim_out"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+    
+    <include android:id="@+id/alert_modal"
+        layout="@layout/object_detail_selector_modal_night"
+        android:layout_gravity="center|center"
+        />
+    
+    <include android:id="@+id/keyboard_root" 
+        layout="@layout/keyboard_layout_night"
+        android:layout_gravity="bottom"
+        />
+    
+    <include android:id="@+id/custom_menu"
+        layout="@layout/custom_menu_night"
+        android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:visibility="invisible"
+    	/>
+	
+</FrameLayout>

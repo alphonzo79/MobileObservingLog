@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:id="@+id/settings_backlight_setter"
+   	style="@style/modalContainerNormal"
+   	>
+   
+    <TextView  
+	    android:id="@+id/number_picker_header"
+	    android:text="@string/set_backlight_intensity"
+	    style="@style/modalHeaderDay"
+	    />
+	    
+    <Button 
+    	android:id="@+id/number_picker_up_button"
+    	style="@style/modalUpButtonNormal"
+    	android:text="@string/num_picker_up_button"
+    	android:layout_below="@id/number_picker_header"
+    	/>
+   
+    <TextView  
+	    android:id="@+id/number_picker_input_field"
+    	style="@style/modalTextFieldNormal"
+    	android:layout_below="@id/number_picker_up_button"
+	    />
+	    
+    <Button 
+    	android:id="@+id/number_picker_down_button"
+    	style="@style/modalDownButtonNormal"
+    	android:text="@string/num_picker_down_button"
+    	android:layout_below="@id/number_picker_input_field"
+    	/>
+    	
+   	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   		android:id="@+id/save_cancel_container"
+   		android:orientation="horizontal"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+   		android:layout_marginLeft="@dimen/fifteen_pix"
+   		android:layout_marginRight="@dimen/fifteen_pix"
+   		android:layout_below="@id/number_picker_down_button"
+   		android:gravity="center_horizontal"
+   		>
+	    
+	    <Button 
+	    	android:id="@+id/number_picker_save_button"
+	    	style="@style/modalSaveCancelButtonNormal"
+	    	android:text="@string/num_picker_set_button"
+	    	android:layout_weight="40"
+	    	/>
+		    
+	    <Button 
+	    	android:id="@+id/number_picker_cancel_button"
+	    	style="@style/modalSaveCancelButtonNormal"
+	    	android:text="@string/num_picker_cancel_button"
+	    	android:layout_weight="40"
+	    	/>
+   		
+	</LinearLayout>
+    
+</RelativeLayout>

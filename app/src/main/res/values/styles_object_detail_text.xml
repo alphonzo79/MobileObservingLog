@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Copyright (c) 2012 Joe Rowley
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="object_detail_data_label_normal">
+        <item name="android:textColor">@color/black</item>
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textSize">@dimen/twelve_pix</item>
+    	<item name="android:gravity">right|center_vertical</item>
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:layout_marginRight">@dimen/three_pix</item>
+    </style>
+    
+    <style name="object_detail_data_label_night" parent="object_detail_data_label_normal">
+    	<item name="android:textColor">@color/red</item>
+    </style>
+    
+    <style name="object_detail_data_normal">
+        <item name="android:textColor">@color/black</item>
+    	<item name="android:textStyle">normal</item>
+    	<item name="android:textSize">@dimen/twelve_pix</item>
+    	<item name="android:layout_gravity">left|center_vertical</item>
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <style name="object_detail_data_night" parent="object_detail_data_normal">
+        <item name="android:textColor">@color/red</item>
+    </style>
+    
+    <style name="object_detail_outer_block">
+        <item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:layout_marginTop">@dimen/three_pix</item>
+    	<item name="android:orientation">horizontal</item>
+		<item name="android:layout_centerHorizontal">true</item>
+		<item name="android:gravity">center_horizontal</item>
+    </style>
+    
+    <style name="object_detail_inner_block">
+        <item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:layout_weight">50</item>
+    	<item name="android:orientation">horizontal</item>
+		<item name="android:layout_marginLeft">@dimen/ten_pix</item>
+		<item name="android:layout_marginRight">@dimen/ten_pix</item>
+    </style>
+</resources>
