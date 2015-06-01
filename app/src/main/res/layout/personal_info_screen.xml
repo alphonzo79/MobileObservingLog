@@ -110,7 +110,6 @@
 		        />
 	  
 		    <View
-		        android:id="@+id/desc_line"
 		        android:layout_width="fill_parent"
 		        android:layout_height=".5dip"
 		        android:layout_marginLeft="15dip"
@@ -151,7 +150,6 @@
 		        />
 	  
 		    <View
-		        android:id="@+id/desc_line"
 		        android:layout_width="fill_parent"
 		        android:layout_height=".5dip"
 		        android:layout_marginLeft="15dip"

@@ -114,7 +114,6 @@
 			        android:layout_gravity="center"
 			        android:layout_marginTop="@dimen/ten_pix"
 			        android:gravity="center_horizontal"
-			        android:layout_below="@id/view_header"
 			        >
 			    
 				    <TextView
@@ -201,11 +200,15 @@
     
     <include android:id="@+id/alert_modal"
         layout="@layout/alert_modal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
         android:layout_gravity="center|center"
         />
     
     <include android:id="@+id/keyboard_root" 
         layout="@layout/keyboard_layout_normal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         />
     

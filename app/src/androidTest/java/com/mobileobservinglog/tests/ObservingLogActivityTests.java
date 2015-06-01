@@ -20,21 +20,21 @@ import android.test.SingleLaunchActivityTestCase;
 import android.util.Log;
 import android.widget.Button;
 
-import com.mobileobservinglog.ObservingLogActivity;
+import com.mobileobservinglog.ObservingLogActivityParent;
 import com.mobileobservinglog.R;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 
-public class ObservingLogActivityTests extends SingleLaunchActivityTestCase<ObservingLogActivity>
+public class ObservingLogActivityTests extends SingleLaunchActivityTestCase<ObservingLogActivityParent>
 {
 
-	ObservingLogActivity mAut = null;
+	ObservingLogActivityParent mAut = null;
 	Instrumentation mInstrumentation = null;
 	SettingsContainer mSettings = null;
 	
 	public ObservingLogActivityTests()
 	{
-		super("com.mobileobservinglog", ObservingLogActivity.class);
+		super("com.mobileobservinglog", ObservingLogActivityParent.class);
 	}
 	
 	@Override

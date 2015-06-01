@@ -18,9 +18,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
-import com.mobileobservinglog.R;
 
-public class ObservingLogActivity extends ActivityBase{
+public class ObservingLogActivityParent extends ActivityBase{
 	
 	Button btnNight;
 	Button btnNormal;
@@ -30,7 +29,7 @@ public class ObservingLogActivity extends ActivityBase{
     	public void onClick(View view){
     		Log.d("JoeDebug", "Initial Screen Night Mode Button Clicked");
     		settingsRef.setNightMode();
-        	Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
+        	Intent intent = new Intent(ObservingLogActivityParent.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
     };
@@ -39,7 +38,7 @@ public class ObservingLogActivity extends ActivityBase{
     	public void onClick(View view){
     		Log.d("JoeDebug", "Initial Screen Normal Mode Button Clicked");
     		settingsRef.setNormalMode();
-    		Intent intent = new Intent(ObservingLogActivity.this.getApplication(), HomeScreen.class);
+    		Intent intent = new Intent(ObservingLogActivityParent.this.getApplication(), HomeScreen.class);
             startActivity(intent);
         }
     };

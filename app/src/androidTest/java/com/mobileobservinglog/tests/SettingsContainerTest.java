@@ -10,7 +10,7 @@
 
 package com.mobileobservinglog.tests;
 
-import com.mobileobservinglog.ObservingLogActivity;
+import com.mobileobservinglog.ObservingLogActivityParent;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.support.SettingsContainer.SessionMode;
 import com.mobileobservinglog.R;
@@ -22,15 +22,15 @@ import android.test.SingleLaunchActivityTestCase;
  * @author Joe Rowley
  */
 
-public class SettingsContainerTest extends SingleLaunchActivityTestCase<com.mobileobservinglog.ObservingLogActivity>{
+public class SettingsContainerTest extends SingleLaunchActivityTestCase<ObservingLogActivityParent>{
 	
 	//Class Under Test
 	SettingsContainer mCut = null;
-	ObservingLogActivity mAut = null;
+	ObservingLogActivityParent mAut = null;
 	Instrumentation mInstrumentation = null;
 	
 	public SettingsContainerTest(){
-		super("com.mobileobservinglog", ObservingLogActivity.class);
+		super("com.mobileobservinglog", ObservingLogActivityParent.class);
 	}
 
 	/**

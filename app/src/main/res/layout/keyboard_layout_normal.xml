@@ -1018,7 +1018,7 @@
 		</LinearLayout>
     
 		<LinearLayout
-		    android:id="@+id/num_fourth"
+		    android:id="@+id/num_two_fourth"
 		    android:layout_below="@id/num_two_third"
 			android:layout_width="fill_parent"
     		android:layout_height="wrap_content"

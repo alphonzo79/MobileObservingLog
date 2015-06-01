@@ -19,22 +19,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
-import com.mobileobservinglog.ObservingLogActivity;
+import com.mobileobservinglog.ObservingLogActivityParent;
 import com.mobileobservinglog.support.CustomizeBrightness;
 
 /**
  * @author Joe Rowley
  *
  */
-public class CustomizeBrightnessTest extends SingleLaunchActivityTestCase<ObservingLogActivity>{
+public class CustomizeBrightnessTest extends SingleLaunchActivityTestCase<ObservingLogActivityParent>{
 	
 	//Class Under Test
 	CustomizeBrightness mCut = null;
-	ObservingLogActivity mAut = null;
+	ObservingLogActivityParent mAut = null;
 	Instrumentation mInstrumentation = null;
 	
 	public CustomizeBrightnessTest(){
-		super("com.mobileobservinglog", ObservingLogActivity.class);
+		super("com.mobileobservinglog", ObservingLogActivityParent.class);
 	}
 
 	/**

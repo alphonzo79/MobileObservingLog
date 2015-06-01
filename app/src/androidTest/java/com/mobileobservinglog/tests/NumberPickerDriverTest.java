@@ -15,23 +15,23 @@ import java.util.ArrayList;
 import android.app.Instrumentation;
 import android.test.SingleLaunchActivityTestCase;
 
-import com.mobileobservinglog.ObservingLogActivity;
+import com.mobileobservinglog.ObservingLogActivityParent;
 import com.mobileobservinglog.strategies.NumberPickerDriver;
 
 /**
  * @author Joe Rowley
  *
  */
-public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<ObservingLogActivity>{
+public class NumberPickerDriverTest extends SingleLaunchActivityTestCase<ObservingLogActivityParent>{
 	
 	//Class Under Test
 	com.mobileobservinglog.strategies.NumberPickerDriver mCut = null;
-	ObservingLogActivity mAut = null;
+	ObservingLogActivityParent mAut = null;
 	Instrumentation mInstrumentation = null;
 	ArrayList<String> possibleValues;
 	
 	public NumberPickerDriverTest(){
-		super("com.mobileobservinglog", ObservingLogActivity.class);
+		super("com.mobileobservinglog", ObservingLogActivityParent.class);
 		setupArrayList();
 	}
 
