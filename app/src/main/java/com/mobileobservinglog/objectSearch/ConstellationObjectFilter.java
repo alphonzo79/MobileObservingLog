@@ -57,7 +57,7 @@ public class ConstellationObjectFilter extends AbstractObjectFilter {
 		CORONA_BOR("Corona Borealis"), CORVUS("Corvus"), CRATER("Crater"), CRUX("Crux"), CYGNUS("Cygnus"), DELPHINUS("Delphinus"), DORADO("Dorado"), DRACO("Draco"), 
 		EQUULEUS("Equuleus"), ERIDANUS("Eridanus"), FORNAX("Fornax"), GEMINI("Gemini"), GRUS("Grus"), HERCULES("Hercules"), HOROLOGIUM("Horologium"), HYDRA("Hydra"), 
 		HYDRUS("Hydrus"), INDUS("Indus"), LACERTA("Lacerta"), LEO("Leo"), LEO_MINOR("Leo Minor"), LEPUS("Lepus"), LIBRA("Libra"), LUPUS("Lupus"), LYNX("Lynx"), 
-		LYRA("Lyra"), MENSA("Mensa"), MICROSCOPIUM("Microscopium"), MONOCEROS("Monoceros"), MUSCA("Musca"), NORMA("Norma"), OCTANS("Octans"), OPHIUCUS("Ophiucus"), 
+		LYRA("Lyra"), MENSA("Mensa"), MICROSCOPIUM("Microscopium"), MONOCEROS("Monoceros"), MUSCA("Musca"), NORMA("Norma"), OCTANS("Octans"), OPHIUCHUS("Ophiuchus"),
 		ORION("Orion"), PAVO("Pavo"), PEGASUS("Pegasus"), PERSEUS("Perseus"), PHOENIX("Phoenix"), PICTOR("Pictor"), PISCES("Pisces"), PISCES_AUS("Pisces Austrinus"), 
 		PUPPIS("Puppis"), PYXIS("Pyxis"), RETICULUM("Reticulum"), SAGITTA("Sagitta"), SAGITTARIUS("Sagittarius"), SCORPIUS("Scorpius"), SCULPTOR("Sculptor"), 
 		SCUTUM("Scutum"), SERPENS("Serpens"), SERPENS_CAPUT("Serpens Caput"), SERPENS_CAUDA("Serpens Cauda"), SEXTANS("Sextans"), TAURUS("Taurus"), TELESCOPIUM("Telescopium"), TRIANGULUM("Triangulum"), 

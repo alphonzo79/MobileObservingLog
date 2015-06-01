@@ -441,7 +441,7 @@ public class SoftKeyboard{
 		int cursorEnd = targetTextView.getSelectionEnd();
 		Editable text = targetTextView.getText();
 		char[] input = new char[]{character};
-		vibrator.vibrate(100);
+		vibrator.vibrate(50);
 		
 		if(cursorStart > cursorEnd){//if the selection was made from right to left
 			int temp = cursorStart;
