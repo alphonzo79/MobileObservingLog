@@ -83,7 +83,7 @@ public class GpsUtility {
     
     public String formatCoordinate(String rawString){
     	//The coordinate may be given in the format DD:DD:DD.DDDD
-    	//We want to convert it into DD°DD'DD.DD"
+    	//We want to convert it into DD\u00B0DD'DD.DD"
     	String retVal;
     	String[] parsed = rawString.split(":");
     	if(parsed.length == 3){
@@ -97,7 +97,7 @@ public class GpsUtility {
     			parsed[0] = parsed[0].substring(1);
     		}
     		
-    		retVal = String.format("%s° %s' %s\"", parsed[0], parsed[1], parsed[2]);
+    		retVal = String.format("%s\u00B0 %s' %s\"", parsed[0], parsed[1], parsed[2]);
     	}
     	else{
     		retVal = rawString;

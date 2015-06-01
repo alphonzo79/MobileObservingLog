@@ -3,3 +3,5 @@
 .gradle/
 .git/
 build/
+local.properties
+billing_key.xml

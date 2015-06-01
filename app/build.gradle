@@ -13,10 +13,33 @@ android {
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("../../Keystores/joe_rowley_personal.keystore")
+            storePassword System.getenv("KSTOREPWD")
+            keyAlias "joe.rowley"
+            keyPassword System.getenv("KEYPWD")
+        }
+
+        debug {
+            storeFile file("../../Keystores/joe_rowley_personal.keystore")
+            storePassword System.getenv("KSTOREPWD")
+            keyAlias "joe_debug"
+            keyPassword System.getenv("KEYPWD")
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            zipAlignEnabled true
         }
     }
 }

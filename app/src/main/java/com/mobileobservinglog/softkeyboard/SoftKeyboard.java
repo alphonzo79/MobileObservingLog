@@ -944,7 +944,7 @@ public class SoftKeyboard{
 	
 	protected final Button.OnClickListener inputDegree = new Button.OnClickListener(){
     	public void onClick(View view){
-    		insertText('°');
+    		insertText('\u00B0');
     	}
     };
 	
