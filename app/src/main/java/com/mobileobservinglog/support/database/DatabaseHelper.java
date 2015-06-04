@@ -36,7 +36,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper
 {
 	private static final String DATABASE_NAME = "mobileObservingLogDB";
-	private static final int VERSION = 1;
+	private static final int VERSION = 2;
 	Context mContext;
 	private final int objectTableColumnCount = 26;
 	private final int settingsTableColumnCount = 3;
@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			createTables(db);
 			db.setTransactionSuccessful();
 		} catch (SQLException e) {
-            Log.e("Error creating tables and debug data", e.toString());
+            Log.e("MobileObservingLog", "Error creating tables and debug data", e);
         } finally {
         	db.endTransaction();
         }
@@ -92,7 +92,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 	{
-		// TODO Auto-generated method stub
+		db.beginTransaction();
+
+		try {
+			if (oldVersion < 2) {
+				db.execSQL(mContext.getString(R.string.create_scheduled_downloads_table));
+			}
+
+			db.setTransactionSuccessful();
+		} catch (SQLiteException e) {
+			e.printStackTrace();
+		}
+
+		db.endTransaction();
 	}
 
 	/**

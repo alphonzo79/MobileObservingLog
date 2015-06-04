@@ -55,6 +55,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
 	ArrayList<Integer> progressImages = new ArrayList<Integer>();
 	ListIterator<Integer> imageIterator;
 	String failureMessage;
+	String successMessage;
 	boolean keepRunningProgressUpdate = false;
 	boolean asyncTaskRunning = false;
 
@@ -338,7 +339,7 @@ public class ManageCatalogsTabParent extends ActivityBase {
     public void showSuccessMessage(){
     	progressLayout.setVisibility(View.GONE);
 		alertModal.setVisibility(View.VISIBLE);
-		alertText.setText("Success");
+		alertText.setText(successMessage);
 		alertOk.setOnClickListener(dismissSuccess);
 		alertText.setVisibility(View.VISIBLE);
 		alertOk.setVisibility(View.VISIBLE);

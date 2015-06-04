@@ -59,7 +59,7 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 			submitButton.setVisibility(View.GONE);
 			TextView nothingLeft = (TextView)findViewById(R.id.nothing_left);
 			nothingLeft.setText(R.string.no_installed_catalogs);
-			nothingLeft.setVisibility(0);
+			nothingLeft.setVisibility(View.VISIBLE);
 		}
 		else{
 			setListAdapter(new CatalogAdapter(this, settingsRef.getAddCatalogsListLayout(), installedCatalogList));
@@ -214,7 +214,8 @@ public class InstalledCatalogsTab extends ManageCatalogsTabParent {
 
 			//stop the image update thread
 			keepRunningProgressUpdate = false;
-			
+
+			successMessage = getString(R.string.remove_catalogs_success);
 			successMessageHandler.sendMessage(new Message());
 						
 			imagePaths.close();

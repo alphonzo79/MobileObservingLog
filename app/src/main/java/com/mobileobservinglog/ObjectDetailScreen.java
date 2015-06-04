@@ -13,6 +13,7 @@ package com.mobileobservinglog;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeMap;
@@ -62,6 +63,7 @@ import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.EquipmentDAO;
 import com.mobileobservinglog.support.database.LocationsDAO;
 import com.mobileobservinglog.support.database.ObservableObjectDAO;
+import com.mobileobservinglog.support.database.ScheduledDownloadsDao;
 import com.mobileobservinglog.support.database.TargetListsDAO;
 
 public class ObjectDetailScreen extends ActivityBase{
@@ -600,6 +602,8 @@ public class ObjectDetailScreen extends ActivityBase{
 			chart.setImageBitmap(image);
 		} else {
 			chart.setImageResource(settingsRef.getDefaultChartImage());
+			ScheduledDownloadsDao scheduledDownloadsDao = new ScheduledDownloadsDao(this);
+			scheduledDownloadsDao.scheduleChartsToDownload(new ArrayList<String>(Arrays.asList(new String[]{imagePath, nightImagePath})));
 		}
 	}
 	

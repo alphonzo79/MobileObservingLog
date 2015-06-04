@@ -129,4 +129,7 @@
     <string name="export_pdf">Export Selected To Print</string>
     <string name="donation_text">I hope you like this app. Remember, please send any feedback, bug reports or improvement suggestions to me at jrowley2@msn.com.\n\nIf you think this app is worth a dollar or two I would love to have it. Just use the buttons below. Thank you and enjoy.</string>
     <string name="night_mode_warning">NIGHT MODE WARNING: This will take you to the Google Play store, which does not have a night mode!</string>
+
+    <string name="remove_catalogs_success">Catalogs successfully removed</string>
+    <string name="install_catalogs_success">Catalogs successfully installed. Star charts have been scheduled to download in the background. This can take some time before all charts become available to view and can only be done when you have a data connection.</string>
 </resources>

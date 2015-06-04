@@ -11,6 +11,7 @@
 package com.mobileobservinglog;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
+
+import com.mobileobservinglog.service.ChartDownloadService;
+import com.mobileobservinglog.support.database.ScheduledDownloadsDao;
 
 public class ObservingLogActivityParent extends ActivityBase{
 	
@@ -48,6 +52,8 @@ public class ObservingLogActivityParent extends ActivityBase{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		Log.d("JoeDebug", "Initial Screen onCreate");
+
+		checkForScheduledDownloads();
         
         //Set the session mode to night until it get changed
 		settingsRef.setNightMode();
@@ -102,4 +108,23 @@ public class ObservingLogActivityParent extends ActivityBase{
     	Log.d("JoeDebug", "Initial Screen menu button eaten (onPrepare)");
 	    return true;
     }
+
+	private void checkForScheduledDownloads() {
+		new AsyncTask<Void, Void, Boolean>() {
+
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				ScheduledDownloadsDao dao = new ScheduledDownloadsDao(ObservingLogActivityParent.this);
+				int count = dao.getScheduledDownloadCount();
+				return count > 0;
+			}
+
+			@Override
+			protected void onPostExecute(Boolean downloadsScheduled) {
+				if(downloadsScheduled) {
+					startService(new Intent(ObservingLogActivityParent.this, ChartDownloadService.class));
+				}
+			}
+		}.execute();
+	}
 }

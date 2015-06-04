@@ -17,15 +17,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.util.ByteArrayBuffer;
 
 import com.mobileobservinglog.R;
+import com.mobileobservinglog.service.ChartDownloadService;
 import com.mobileobservinglog.support.SettingsContainer;
 import com.mobileobservinglog.support.database.CatalogsDAO;
 import com.mobileobservinglog.support.database.DatabaseHelper;
+import com.mobileobservinglog.support.database.ScheduledDownloadsDao;
 import com.mobileobservinglog.support.database.SettingsDAO;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
@@ -68,7 +73,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			submitButton.setVisibility(View.GONE);
 			TextView nothingLeft = (TextView)findViewById(R.id.nothing_left);
 			nothingLeft.setText(R.string.no_available_catalogs);
-			nothingLeft.setVisibility(0);
+			nothingLeft.setVisibility(View.VISIBLE);
 		}
 		else{
 			setListAdapter(new CatalogAdapter(this, settingsRef.getAddCatalogsListLayout(), availableCatalogList));
@@ -121,6 +126,41 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
     private class InstallCatalogsRunnable implements Runnable{
 
 		public void run() {
+			CatalogsDAO catalogsDb = new CatalogsDAO(AvailableCatalogsTab.this);
+			Cursor imagePaths = catalogsDb.getImagePaths(selectedItems);
+			imagePaths.moveToFirst();
+
+			List<String> pathsList = new ArrayList<>(imagePaths.getCount() * 2);
+			while(!imagePaths.isAfterLast()) {
+				pathsList.add(imagePaths.getString(0)); //normal
+				pathsList.add(imagePaths.getString(1)); //night
+				imagePaths.moveToNext();
+			}
+
+			ScheduledDownloadsDao downloadsDao = new ScheduledDownloadsDao(AvailableCatalogsTab.this);
+			downloadsDao.scheduleChartsToDownload(pathsList);
+
+			Log.d("JoeTest", "Install Was successfull. Going to update the DB");
+			boolean dbSuccess = false;
+			for (String catalog : selectedItems){
+				Log.d("JoeTest", "Updating catalog " + catalog + " in the database");
+				dbSuccess = catalogsDb.updateAvailableCatalogsInstalled(catalog, "Yes");
+			}
+
+			if (dbSuccess){
+				Log.d("JoeTest", "DB Updated successful. Displaying success message");
+				successMessage = getString(R.string.install_catalogs_success);
+				successMessageHandler.sendMessage(new Message());
+			}
+			else{
+				failureMessage = "There was a problem scheduling the star chart downloads. Please try again";
+				Log.d("JoeTest", "Db Update unsuccessfull. Displaying failure message");
+				failureMessageHandler.sendMessage(new Message());
+			}
+
+			startService(new Intent(AvailableCatalogsTab.this, ChartDownloadService.class));
+
+			/*
 			Log.d("JoeTest", "InstallCatalogsRunnable.run called");
 			boolean success = true;
 			int filesToDownload = numFiles * 2; //double because we have night mode and normal mode
@@ -140,7 +180,6 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			String fileLocationString = settingsRef.getPersistentSetting(settingsRef.STAR_CHART_DIRECTORY, AvailableCatalogsTab.this);
 			Log.d("JoeTest", "FileLocationString is " + fileLocationString);
 			File starChartRoot = null;
-			CatalogsDAO catalogsDb = new CatalogsDAO(AvailableCatalogsTab.this);
 			SettingsDAO settingsDb = new SettingsDAO(AvailableCatalogsTab.this);
 			
 			//if it's not set yet, then first look for an external storage card and establish the file location
@@ -174,8 +213,8 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			addNoMediaFile(starChartRoot);
 			
 			//Get a list of the file paths we need to fetch/save
-			Cursor imagePaths = catalogsDb.getImagePaths(selectedItems);
-			imagePaths.moveToFirst();
+//			Cursor imagePaths = catalogsDb.getImagePaths(selectedItems);
+//			imagePaths.moveToFirst();
 			int rowCount = imagePaths.getCount();
 			Log.d("JoeTest", "imagePaths cursor had " + rowCount + " rows");
 			
@@ -323,6 +362,7 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 			
 			imagePaths.close();
 			catalogsDb.close();
+			*/
 		}
     }
     
