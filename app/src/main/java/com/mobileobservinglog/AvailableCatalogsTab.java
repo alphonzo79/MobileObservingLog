@@ -35,6 +35,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -132,8 +133,14 @@ public class AvailableCatalogsTab extends ManageCatalogsTabParent {
 
 			List<String> pathsList = new ArrayList<>(imagePaths.getCount() * 2);
 			while(!imagePaths.isAfterLast()) {
-				pathsList.add(imagePaths.getString(0)); //normal
-				pathsList.add(imagePaths.getString(1)); //night
+				String path = imagePaths.getString(0);
+				if(!TextUtils.isEmpty(path)) {
+					pathsList.add(path); //normal
+				}
+				path = imagePaths.getString(1);
+				if(!TextUtils.isEmpty(path)) {
+					pathsList.add(path); //night
+				}
 				imagePaths.moveToNext();
 			}
 

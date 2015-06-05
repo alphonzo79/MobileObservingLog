@@ -58,7 +58,7 @@ public class ScheduledDownloadsDao extends DatabaseHelper {
         List<String> result = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{PATH_COLUMN_NAME}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[]{PATH_COLUMN_NAME}, PATH_COLUMN_NAME + " IS NOT NULL", null, null, null, null);
         if(cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
@@ -78,7 +78,7 @@ public class ScheduledDownloadsDao extends DatabaseHelper {
         int result = 0;
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[] {"count(*)"}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[] {"count(*)"}, PATH_COLUMN_NAME + " IS NOT NULL", null, null, null, null);
         if(cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             result = cursor.getInt(0);
