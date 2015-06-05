@@ -27,5 +27,5 @@
 	CREATE TABLE IF NOT EXISTS targetListItems (_id INTEGER PRIMARY KEY AUTOINCREMENT, list TEXT, isObject TEXT, objectDesignation TEXT, itemDescription TEXT);</string>
 	<string name="create_available_catalogs_table">
 	CREATE TABLE IF NOT EXISTS availableCatalogs (catalogName TEXT PRIMARY KEY, installed TEXT, numberOfObjects INTEGER, description TEXT, size TEXT);</string>
-	<string name="create_scheduled_downloads_table">CREATE TABLE IF NOT EXISTS scheduledDownloads (_id INTEGER PRIMARY KEY AUTOINCREMENT, downlaodPath TEXT UNIQUE);</string>
+	<string name="create_scheduled_downloads_table">CREATE TABLE IF NOT EXISTS scheduledDownloads (_id INTEGER PRIMARY KEY AUTOINCREMENT, downloadPath TEXT UNIQUE);</string>
 </resources>

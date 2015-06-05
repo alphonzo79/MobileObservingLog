@@ -121,6 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		db.execSQL(mContext.getString(R.string.create_target_lists_table));
 		db.execSQL(mContext.getString(R.string.create_target_list_items_table));
 		db.execSQL(mContext.getString(R.string.create_available_catalogs_table));
+		db.execSQL(mContext.getString(R.string.create_scheduled_downloads_table));
 	}
 
 	/**
