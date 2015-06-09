@@ -24,8 +24,8 @@ android {
         applicationId "com.mobileobservinglog"
         minSdkVersion 8
         targetSdkVersion 8
-        versionCode 5
-        versionName "1.0.4.1"
+        versionCode 6
+        versionName "1.1.0"
 
         testApplicationId "com.mobileobservinglog.tests"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
