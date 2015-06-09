@@ -907,14 +907,19 @@ public class ObjectDetailScreen extends ActivityBase{
 				modalCancel.setOnClickListener(dismissModal);
 				modalCancel.setVisibility(View.VISIBLE);
 				modalClear.setVisibility(View.GONE);
-				
-				Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-				int windowHeight = display.getHeight(); 
-				RelativeLayout.LayoutParams listOneParams = (RelativeLayout.LayoutParams)modalListOneContainer.getLayoutParams();
-				if(listOneParams.height > (int) windowHeight * 0.7f) {
-					listOneParams.height = (int) (windowHeight * 0.7f);
-					modalListOneContainer.setLayoutParams(listOneParams);
-				}
+
+				modalListOne.post(new Runnable() {
+					@Override
+					public void run() {
+						Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+						int windowHeight = display.getHeight();
+						RelativeLayout.LayoutParams listOneParams = (RelativeLayout.LayoutParams)modalListOneContainer.getLayoutParams();
+						if(modalListOne.getMeasuredHeight() > (int) windowHeight * 0.75f) {
+							listOneParams.height = (int) (windowHeight * 0.75f);
+							modalListOneContainer.setLayoutParams(listOneParams);
+						}
+					}
+				});
 			} else {
 				modalHeader.setText("There are no target lists created yet. Target lists may be managed through the home screen");
 				modalListOneContainer.setVisibility(View.GONE);
