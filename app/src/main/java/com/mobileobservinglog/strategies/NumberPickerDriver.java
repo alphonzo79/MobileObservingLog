@@ -26,6 +26,9 @@ public abstract class NumberPickerDriver {
 		potentialValues = values;
 		setCurrentValue(currentValue);
 		int iteratorIndex = potentialValues.indexOf(currentValue);
+		if(iteratorIndex < 0 || iteratorIndex >= potentialValues.size()) {
+			iteratorIndex = 0;
+		}
 		iterator = potentialValues.listIterator(iteratorIndex);
 		this.context = context;
 	}

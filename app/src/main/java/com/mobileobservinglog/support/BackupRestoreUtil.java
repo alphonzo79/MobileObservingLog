@@ -263,7 +263,9 @@ public class BackupRestoreUtil {
     Handler ProgressMessageHandler = new Handler(){
     	@Override
     	public void handleMessage (Message msg){
-    		updateProgressMessage(msg.getData().getString("messageString"));
+			if(msg.getData().containsKey("messageString")) {
+				updateProgressMessage(msg.getData().getString("messageString"));
+			}
     	}
     };
     

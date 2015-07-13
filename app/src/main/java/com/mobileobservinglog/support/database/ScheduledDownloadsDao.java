@@ -37,6 +37,8 @@ public class ScheduledDownloadsDao extends DatabaseHelper {
         }
 
         db.endTransaction();
+
+        db.close();
     }
 
     public void cancelChartToDownload(String downloadPath) {
@@ -52,6 +54,8 @@ public class ScheduledDownloadsDao extends DatabaseHelper {
         }
 
         db.endTransaction();
+
+        db.close();
     }
 
     public List<String> getScheduledDownloads() {
@@ -71,6 +75,8 @@ public class ScheduledDownloadsDao extends DatabaseHelper {
             cursor.close();
         }
 
+        db.close();
+
         return result;
     }
 
@@ -87,6 +93,9 @@ public class ScheduledDownloadsDao extends DatabaseHelper {
         if(cursor != null) {
             cursor.close();
         }
+
+        db.close();
+
         return result;
     }
 }

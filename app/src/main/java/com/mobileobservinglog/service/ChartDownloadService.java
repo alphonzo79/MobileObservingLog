@@ -116,9 +116,7 @@ public class ChartDownloadService extends IntentService {
                     dao.cancelChartToDownload(path);
                 } catch(IOException e){
                     //delete the file if it exists in case it is corrupt. Set success to false so we can display an error later
-                    Log.w("JoeDebug", e.getMessage());
                     if (file.exists()){
-                        Log.w("JoeTest", "Deleting the file " + path);
                         file.delete();
                     }
                 }
@@ -128,11 +126,9 @@ public class ChartDownloadService extends IntentService {
 
     private String createDirectoryStructure(String root, String filepath) {
         //Cut the filename off the end of the path
-        Log.d("JoeDebug", "Creating directory structure. Filepath passed in: " + filepath);
         String directoryPath = extractDirectoryPath(filepath);
         File directoryBuilder = new File(root + directoryPath);
         directoryBuilder.mkdirs();
-        Log.d("JoeDebug", "Created directory structure for " + directoryPath);
         return directoryPath;
     }
 
